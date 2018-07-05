@@ -1,0 +1,64 @@
+@file:Suppress("unused")
+
+object Versions {
+    val versionName = "0.0.1"
+
+    // Android
+    const val minSdkVersion = 23
+    const val targetSdkVersion = 28
+    const val compileSdkVersion = 28
+
+    const val gradlePlugin = "3.2.0-beta02"
+    const val kotlinLanguage = "1.2.51"
+
+    // Libraries
+    const val supportLibrary = "28.0.0-alpha3"
+    const val constraintLayout = "1.1.2"
+    const val ktx = "1.0.0-alpha1"
+
+    const val rxJava = "2.1.16"
+    const val rxAndroid = "2.0.2"
+    const val rxKotlin = "2.2.0"
+
+    const val acLifecycle = "1.1.1"
+    const val acRoom = "1.1.1"
+    const val acNavigation = "1.0.0-alpha02"
+
+    const val timber = "4.6.0"
+    const val androidProguards = "2.0.1"
+}
+
+object Libs {
+    // Google
+    const val supportLib = "com.android.support:support-v4:${Versions.supportLibrary}"
+    const val recyclerView = "com.android.support:recyclerview-v7:${Versions.supportLibrary}"
+    const val cardView = "com.android.support:cardview-v7:${Versions.supportLibrary}"
+    const val supportDesign = "com.android.support:design:${Versions.supportLibrary}"
+    const val constraintLayout = "com.android.support.constraint:constraint-layout:${Versions.constraintLayout}"
+    const val ktx = "androidx.core:core-ktx:${Versions.ktx}"
+
+    // Kotlin
+    const val kotlin = "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${Versions.kotlinLanguage}"
+
+    // RxJava
+    const val rxJava = "io.reactivex.rxjava2:rxjava:${Versions.rxJava}"
+    const val rxAndroid = "io.reactivex.rxjava2:rxandroid:${Versions.rxAndroid}"
+    const val rxKotlin = "io.reactivex.rxjava2:rxkotlin:${Versions.rxKotlin}"
+
+    // Room
+    const val roomRuntime = "android.arch.persistence.room:runtime:${Versions.acRoom}"
+    const val roomRxJava = "android.arch.persistence.room:rxjava2:${Versions.acRoom}"
+    const val roomCompiler = "android.arch.persistence.room:compiler:${Versions.acRoom}"
+
+    // Navigation
+    const val navigationFragment = "android.arch.navigation:navigation-fragment-ktx:${Versions.acNavigation}"
+    const val navigationUi = "android.arch.navigation:navigation-ui:${Versions.acNavigation}"
+
+    // Lyfecycle
+    const val lifecycle = "android.arch.lifecycle:extensions:${Versions.acLifecycle}"
+
+    const val timber = "com.jakewharton.timber:timber:${Versions.timber}"
+
+    // Development
+    const val androidProguards = "com.github.yongjhih.android-proguards:android-proguards:${Versions.androidProguards}"
+}

@@ -1,0 +1,23 @@
+buildscript {
+    repositories {
+        google()
+        jcenter()
+    }
+    dependencies {
+        classpath "com.android.tools.build:gradle:$Versions.gradlePlugin"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$Versions.kotlinLanguage"
+        classpath "android.arch.navigation:navigation-safe-args-gradle-plugin:$Versions.acNavigation"
+    }
+}
+
+allprojects {
+    repositories {
+        google()
+        jcenter()
+        maven { url "https://jitpack.io" }
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}

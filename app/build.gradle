@@ -1,0 +1,82 @@
+apply plugin: "com.android.application"
+apply plugin: "androidx.navigation.safeargs"
+apply plugin: "kotlin-android"
+apply plugin: "kotlin-android-extensions"
+apply from: 'version.gradle'
+
+android {
+    compileSdkVersion Versions.compileSdkVersion
+    defaultConfig {
+        applicationId "com.popalay.cardmex"
+        minSdkVersion Versions.minSdkVersion
+        targetSdkVersion Versions.targetSdkVersion
+        versionName Versions.versionName
+        versionCode VERSION_CODE.toInteger()
+    }
+
+    signingConfigs {
+        debug {
+            storeFile file(SignIn.debugStoreFile)
+        }
+
+        release {
+            storeFile file(SignIn.releaseStoreFile)
+            keyAlias SignIn.releaseKeyAlias
+            keyPassword SignIn.releaseKeyPassword
+            storePassword SignIn.storePassword
+        }
+    }
+
+    buildTypes {
+        debug {
+            signingConfig signingConfigs.debug
+        }
+
+        release {
+            signingConfig signingConfigs.release
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"
+        }
+    }
+
+    flavorDimensions "type", "env"
+    productFlavors {
+
+        dev {
+            dimension "type"
+            dimension "env"
+            versionNameSuffix "-dev"
+        }
+
+        x {
+            dimension "type"
+            applicationIdSuffix ".X"
+            resValue "string", "app_name", "CardmeX"
+        }
+
+        full {
+            dimension "type"
+            resValue "string", "app_name", "Cardme"
+        }
+    }
+
+    androidExtensions.experimental true
+}
+
+dependencies {
+    implementation Libs.kotlin
+
+    implementation Libs.supportDesign
+    implementation Libs.supportLib
+    implementation Libs.cardView
+    implementation Libs.recyclerView
+    implementation Libs.constraintLayout
+
+    implementation Libs.lifecycle
+
+    implementation Libs.navigationFragment
+    implementation Libs.navigationUi
+
+    implementation Libs.androidProguards
+}
