@@ -1,4 +1,4 @@
-package com.popalay.cardmex.ui.main
+package com.popalay.cardme.ui.main
 
 import android.arch.lifecycle.ViewModel
 

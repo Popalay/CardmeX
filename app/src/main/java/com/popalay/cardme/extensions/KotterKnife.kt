@@ -1,6 +1,6 @@
 @file:Suppress("unused")
 
-package com.popalay.cardmex.extensions
+package com.popalay.cardme.extensions
 
 import android.app.Activity
 import android.app.Dialog

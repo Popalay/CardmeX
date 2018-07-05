@@ -1,4 +1,4 @@
-package com.popalay.cardmex
+package com.popalay.cardme
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
@@ -6,7 +6,7 @@ import android.view.View
 import androidx.navigation.NavController
 import androidx.navigation.NavHost
 import androidx.navigation.findNavController
-import com.popalay.cardmex.extensions.bindView
+import com.popalay.cardme.extensions.bindView
 
 class MainActivity : AppCompatActivity(), NavHost {
 

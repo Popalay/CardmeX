@@ -7,7 +7,7 @@ apply from: 'version.gradle'
 android {
     compileSdkVersion Versions.compileSdkVersion
     defaultConfig {
-        applicationId "com.popalay.cardmex"
+        applicationId "com.popalay.cardme"
         minSdkVersion Versions.minSdkVersion
         targetSdkVersion Versions.targetSdkVersion
         versionName Versions.versionName
