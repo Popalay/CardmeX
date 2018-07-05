@@ -44,9 +44,12 @@ android {
     productFlavors {
 
         dev {
-            dimension "type"
             dimension "env"
             versionNameSuffix "-dev"
+        }
+
+        prod {
+            dimension "env"
         }
 
         x {
