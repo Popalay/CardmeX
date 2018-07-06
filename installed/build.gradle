@@ -1,0 +1,79 @@
+apply plugin: "com.android.application"
+apply plugin: "kotlin-android"
+apply plugin: "kotlin-android-extensions"
+apply plugin: "androidx.navigation.safeargs"
+
+android {
+    compileSdkVersion Versions.compileSdkVersion
+    defaultConfig {
+        applicationId "com.popalay.cardme"
+        minSdkVersion Versions.minSdkVersion
+        targetSdkVersion Versions.targetSdkVersion
+        versionName Versions.versionName
+        versionCode VERSION_CODE.toInteger()
+    }
+
+    signingConfigs {
+        debug {
+            storeFile file(SignIn.debugStoreFile)
+        }
+
+        release {
+            storeFile file(SignIn.releaseStoreFile)
+            keyAlias SignIn.releaseKeyAlias
+            keyPassword SignIn.releaseKeyPassword
+            storePassword SignIn.storePassword
+        }
+    }
+
+    buildTypes {
+        debug {
+            signingConfig signingConfigs.debug
+        }
+
+        release {
+            signingConfig signingConfigs.release
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"
+        }
+    }
+
+    flavorDimensions "type", "env"
+    productFlavors {
+
+        dev {
+            dimension "env"
+            versionNameSuffix "-dev"
+        }
+
+        prod {
+            dimension "env"
+        }
+
+        x {
+            dimension "type"
+            applicationIdSuffix ".X"
+            resValue "string", "app_name", "CardmeX"
+        }
+
+        full {
+            dimension "type"
+            resValue "string", "app_name", "Cardme"
+        }
+    }
+}
+
+dependencies {
+    implementation project(":features:login")
+    implementation project(":features:base")
+
+    implementation Libs.kotlin
+
+    implementation Libs.supportDesign
+    implementation Libs.supportLib
+    implementation Libs.constraintLayout
+
+    implementation Libs.navigationFragment
+    implementation Libs.navigationUi
+}

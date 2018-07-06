@@ -1,0 +1,26 @@
+apply plugin: 'com.android.library'
+apply plugin: "kotlin-android"
+apply plugin: "kotlin-android-extensions"
+
+android {
+    compileSdkVersion Versions.compileSdkVersion
+    defaultConfig {
+        minSdkVersion Versions.minSdkVersion
+        targetSdkVersion Versions.targetSdkVersion
+        versionName Versions.versionName
+        versionCode VERSION_CODE.toInteger()
+    }
+}
+
+dependencies {
+    implementation project(':features:base')
+
+    implementation Libs.kotlin
+
+    api Libs.supportDesign
+    api Libs.supportLib
+    api Libs.constraintLayout
+
+    api Libs.navigationFragment
+    api Libs.navigationUi
+}

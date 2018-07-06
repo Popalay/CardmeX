@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:startDestination="@id/mainFragment">
+
+    <include app:graph="@navigation/log_in_graph" />
+
+    <fragment
+        android:id="@+id/mainFragment"
+        android:name="com.popalay.cardme.main.MainFragment"
+        android:label="main_fragment"
+        tools:layout="@layout/main_fragment">
+
+        <action
+            android:id="@+id/navigateToLogInFragment"
+            app:destination="@id/log_in_graph"
+            app:popUpTo="@id/log_in_graph"/>
+
+    </fragment>
+
+
+    <!--
+        <include app:graph="@navigation/main_graph" />
+    -->
+
+</navigation>
