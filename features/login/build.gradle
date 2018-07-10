@@ -10,6 +10,26 @@ android {
         versionName Versions.versionName
         versionCode VERSION_CODE.toInteger()
     }
+
+    flavorDimensions "type", "env"
+    productFlavors {
+
+        dev {
+            dimension "env"
+        }
+
+        prod {
+            dimension "env"
+        }
+
+        x {
+            dimension "type"
+        }
+
+        full {
+            dimension "type"
+        }
+    }
 }
 
 dependencies {
