@@ -1,4 +1,4 @@
-apply plugin: 'com.android.library'
+apply plugin: "com.android.feature"
 apply plugin: "kotlin-android"
 apply plugin: "kotlin-android-extensions"
 
@@ -13,7 +13,7 @@ android {
 }
 
 dependencies {
-    implementation project(':features:base')
+    implementation project(":features:base")
 
     implementation Libs.kotlin
 

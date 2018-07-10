@@ -1,9 +1,10 @@
-apply plugin: "com.android.library"
+apply plugin: "com.android.feature"
 apply plugin: "kotlin-android"
 apply plugin: "kotlin-android-extensions"
 apply from: "version.gradle"
 
 android {
+    baseFeature true
     compileSdkVersion Versions.compileSdkVersion
     defaultConfig {
         minSdkVersion Versions.minSdkVersion
@@ -11,11 +12,12 @@ android {
         versionName Versions.versionName
         versionCode VERSION_CODE.toInteger()
     }
-
-    androidExtensions.experimental true
 }
 
 dependencies {
+    application project(":installed")
+    feature project(":features:login")
+
     implementation Libs.kotlin
 
     implementation Libs.supportDesign
