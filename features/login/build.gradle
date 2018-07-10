@@ -41,6 +41,9 @@ dependencies {
     api Libs.supportLib
     api Libs.constraintLayout
 
-    api Libs.navigationFragment
-    api Libs.navigationUi
+    implementation Libs.rxJava
+    implementation Libs.rxAndroid
+    implementation Libs.rxKotlin
+
+    implementation Libs.firebaseAuth
 }

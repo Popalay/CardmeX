@@ -1,13 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
     android:orientation="vertical">
 
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center"
-        android:text="Log In" />
+        android:orientation="vertical"
+        android:padding="32dp">
 
-</LinearLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Enter Your Phone Number"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+            android:textColor="@color/white"
+            android:typeface="monospace" />
+
+        <android.support.design.widget.TextInputLayout
+            style="@style/Cardme.LogIn.TextInputLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:hint="Phone Number">
+
+            <android.support.design.widget.TextInputEditText
+                style="@style/Cardme.LogIn.EditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="phone"
+                android:theme="@style/Cardme.LogIn.EditText" />
+
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.button.MaterialButton
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:text="Get Started"
+            android:theme="@style/Widget.MaterialComponents.Button"
+            app:rippleColor="#A37CF5" />
+
+    </LinearLayout>
+
+</android.support.design.widget.CoordinatorLayout>

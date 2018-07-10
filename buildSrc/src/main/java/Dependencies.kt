@@ -15,6 +15,7 @@ object Versions {
     const val supportLibrary = "28.0.0-alpha3"
     const val constraintLayout = "1.1.2"
     const val ktx = "1.0.0-alpha1"
+    const val materialComponents = "1.0.0-beta01"
 
     const val rxJava = "2.1.16"
     const val rxAndroid = "2.0.2"
@@ -23,6 +24,9 @@ object Versions {
     const val acLifecycle = "1.1.1"
     const val acRoom = "1.1.1"
     const val acNavigation = "1.0.0-alpha02"
+
+    const val firebaseCore = "16.0.0"
+    const val firebaseAuth = "16.0.2"
 
     const val timber = "4.6.0"
     const val androidProguards = "2.0.1"
@@ -36,6 +40,11 @@ object Libs {
     const val supportDesign = "com.android.support:design:${Versions.supportLibrary}"
     const val constraintLayout = "com.android.support.constraint:constraint-layout:${Versions.constraintLayout}"
     const val ktx = "androidx.core:core-ktx:${Versions.ktx}"
+    const val materialComponents = "com.google.android.material:material:${Versions.materialComponents}"
+
+    // Firebase
+    const val firebaseAuth = "com.google.firebase:firebase-auth:${Versions.firebaseAuth}"
+    const val firebaseCore = "com.google.firebase:firebase-core:${Versions.firebaseCore}"
 
     // Kotlin
     const val kotlin = "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${Versions.kotlinLanguage}"

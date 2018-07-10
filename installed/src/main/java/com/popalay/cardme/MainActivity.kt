@@ -2,21 +2,22 @@ package com.popalay.cardme
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.view.View
 import androidx.navigation.NavController
 import androidx.navigation.NavHost
-import androidx.navigation.fragment.findNavController
-import androidx.navigation.ui.NavigationUI
-import kotlinx.android.synthetic.main.main_activity.*
+import androidx.navigation.findNavController
+import com.popalay.cardme.base.extensions.bindView
 
 class MainActivity : AppCompatActivity(), NavHost {
+
+    private val navHostFragment: View by bindView(R.id.nav_host_fragment)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_activity)
-        NavigationUI.setupActionBarWithNavController(this@MainActivity, navController)
     }
 
-    override fun onSupportNavigateUp() = nav_host_fragment.findNavController().navigateUp()
+    override fun onSupportNavigateUp() = navHostFragment.findNavController().navigateUp()
 
-    override fun getNavController(): NavController = nav_host_fragment.findNavController()
+    override fun getNavController(): NavController = navHostFragment.findNavController()
 }

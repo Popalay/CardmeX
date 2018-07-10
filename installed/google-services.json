@@ -1,0 +1,123 @@
+{
+  "project_info": {
+    "project_number": "220567239098",
+    "firebase_url": "https://yocard-9afd4.firebaseio.com",
+    "project_id": "yocard-9afd4",
+    "storage_bucket": "yocard-9afd4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:220567239098:android:1544e22b0f81b9ac",
+        "android_client_info": {
+          "package_name": "com.popalay.cardme"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "220567239098-2hivilrse73vnvcbq72u6htt5l35h83f.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.popalay.cardme",
+            "certificate_hash": "eb49d6bc532d3293b8501017208b45503934d3e7"
+          }
+        },
+        {
+          "client_id": "220567239098-jbem8qcp5hkd6j64p1slmka4vj8b0noq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.popalay.cardme",
+            "certificate_hash": "eb71c2c806bedaf28367025922cebbb21517da64"
+          }
+        },
+        {
+          "client_id": "220567239098-o46gm5q14ca652o7kiukcpavu2g8cn2l.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.popalay.cardme",
+            "certificate_hash": "6d0e1c1773c9a662aa7f181e54aad1a2f3d2bb67"
+          }
+        },
+        {
+          "client_id": "220567239098-t71u44um3vr81ruqj49bsock9ga6tr95.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCH7LEuL-hPmO01FJGFA1CUsKhXCKMVMYM"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "220567239098-t71u44um3vr81ruqj49bsock9ga6tr95.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:220567239098:android:b307c512b27683d0",
+        "android_client_info": {
+          "package_name": "com.popalay.cardme.x"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "220567239098-s5lp3vhl75vvckjdo8iljknq6a538gta.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.popalay.cardme.x",
+            "certificate_hash": "eb49d6bc532d3293b8501017208b45503934d3e7"
+          }
+        },
+        {
+          "client_id": "220567239098-bm2mapilmvg6pdtkp4vdil3pagrs8t8t.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.popalay.cardme.x",
+            "certificate_hash": "6d0e1c1773c9a662aa7f181e54aad1a2f3d2bb67"
+          }
+        },
+        {
+          "client_id": "220567239098-t71u44um3vr81ruqj49bsock9ga6tr95.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCH7LEuL-hPmO01FJGFA1CUsKhXCKMVMYM"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "220567239098-t71u44um3vr81ruqj49bsock9ga6tr95.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

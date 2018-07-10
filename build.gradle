@@ -7,6 +7,7 @@ buildscript {
         classpath "com.android.tools.build:gradle:$Versions.gradlePlugin"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$Versions.kotlinLanguage"
         classpath "android.arch.navigation:navigation-safe-args-gradle-plugin:$Versions.acNavigation"
+        classpath "com.google.gms:google-services:4.0.0"
     }
 }
 
