@@ -5,9 +5,11 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.TextView
 import androidx.navigation.fragment.findNavController
 import com.popalay.cardme.R
-import kotlinx.android.synthetic.main.main_fragment.view.*
+import com.popalay.cardme.base.extensions.bindView
 
 class MainFragment : Fragment() {
 
@@ -16,7 +18,8 @@ class MainFragment : Fragment() {
         fun newInstance() = MainFragment()
     }
 
-    //private val buttonLogIn: Button by bindView(R.id.button_log_in)
+    private val message: TextView by bindView(R.id.message)
+    private val buttonLogIn: Button by bindView(R.id.button_log_in)
 
     private lateinit var viewModel: MainViewModel
 
@@ -32,7 +35,7 @@ class MainFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        view.button_log_in.setOnClickListener {
+        buttonLogIn.setOnClickListener {
             findNavController().navigate(MainFragmentDirections.navigateToLogInFragment())
         }
     }
