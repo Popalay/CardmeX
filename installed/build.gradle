@@ -67,6 +67,7 @@ android {
 dependencies {
     implementation project(":features:login")
     implementation project(":features:base")
+    api project(":injector")
 
     implementation Libs.kotlin
 
@@ -78,6 +79,8 @@ dependencies {
     implementation Libs.navigationUi
 
     implementation Libs.firebaseCore
+
+    implementation Libs.koinDi
 }
 
 apply plugin: 'com.google.gms.google-services'

@@ -19,4 +19,8 @@
         <item name="android:textColor">@color/white</item>
     </style>
 
+    <style name="Cardme.LogIn.Button" parent="Widget.MaterialComponents.Button">
+        <item name="rippleColor">#A37CF5</item>
+    </style>
+
 </resources>

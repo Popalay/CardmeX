@@ -45,5 +45,11 @@ dependencies {
     implementation Libs.rxAndroid
     implementation Libs.rxKotlin
 
+    implementation Libs.rxBinding
+    implementation Libs.rxBindingDesign
+
     implementation Libs.firebaseAuth
+    implementation Libs.playAuth
+
+    implementation Libs.koinDi
 }

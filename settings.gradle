@@ -1,1 +1,1 @@
-include ':installed', ':features:login', ':features:base', ':instant'
+include ':installed', ':features:login', ':features:base', ':instant', ':injector'

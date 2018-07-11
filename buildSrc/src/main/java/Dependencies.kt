@@ -3,7 +3,6 @@
 object Versions {
     val versionName = "0.0.1"
 
-    // Android
     const val minSdkVersion = 23
     const val targetSdkVersion = 28
     const val compileSdkVersion = 28
@@ -11,7 +10,6 @@ object Versions {
     const val gradlePlugin = "3.2.0-beta02"
     const val kotlinLanguage = "1.2.51"
 
-    // Libraries
     const val supportLibrary = "28.0.0-alpha3"
     const val constraintLayout = "1.1.2"
     const val ktx = "1.0.0-alpha1"
@@ -21,6 +19,8 @@ object Versions {
     const val rxAndroid = "2.0.2"
     const val rxKotlin = "2.2.0"
 
+    const val rxBinding = "2.1.1"
+
     const val acLifecycle = "1.1.1"
     const val acRoom = "1.1.1"
     const val acNavigation = "1.0.0-alpha02"
@@ -28,11 +28,16 @@ object Versions {
     const val firebaseCore = "16.0.0"
     const val firebaseAuth = "16.0.2"
 
+    const val playAuth = "15.0.1"
+
+    const val koinDi = "0.9.3"
+
     const val timber = "4.6.0"
     const val androidProguards = "2.0.1"
 }
 
 object Libs {
+
     // Google
     const val supportLib = "com.android.support:support-v4:${Versions.supportLibrary}"
     const val recyclerView = "com.android.support:recyclerview-v7:${Versions.supportLibrary}"
@@ -45,6 +50,7 @@ object Libs {
     // Firebase
     const val firebaseAuth = "com.google.firebase:firebase-auth:${Versions.firebaseAuth}"
     const val firebaseCore = "com.google.firebase:firebase-core:${Versions.firebaseCore}"
+    const val playAuth = "com.google.android.gms:play-services-auth:${Versions.playAuth}"
 
     // Kotlin
     const val kotlin = "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${Versions.kotlinLanguage}"
@@ -53,6 +59,8 @@ object Libs {
     const val rxJava = "io.reactivex.rxjava2:rxjava:${Versions.rxJava}"
     const val rxAndroid = "io.reactivex.rxjava2:rxandroid:${Versions.rxAndroid}"
     const val rxKotlin = "io.reactivex.rxjava2:rxkotlin:${Versions.rxKotlin}"
+    const val rxBinding = "com.jakewharton.rxbinding2:rxbinding-kotlin:${Versions.rxBinding}"
+    const val rxBindingDesign = "com.jakewharton.rxbinding2:rxbinding-design-kotlin:${Versions.rxBinding}"
 
     // Room
     const val roomRuntime = "android.arch.persistence.room:runtime:${Versions.acRoom}"
@@ -62,6 +70,9 @@ object Libs {
     // Navigation
     const val navigationFragment = "android.arch.navigation:navigation-fragment-ktx:${Versions.acNavigation}"
     const val navigationUi = "android.arch.navigation:navigation-ui:${Versions.acNavigation}"
+
+    // DI
+    const val koinDi = "org.koin:koin-android-architecture:${Versions.koinDi}"
 
     // Lyfecycle
     const val lifecycle = "android.arch.lifecycle:extensions:${Versions.acLifecycle}"
