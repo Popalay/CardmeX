@@ -37,9 +37,9 @@ dependencies {
 
     implementation Libs.kotlin
 
-    api Libs.supportDesign
-    api Libs.supportLib
-    api Libs.constraintLayout
+    implementation Libs.supportDesign
+    implementation Libs.supportLib
+    implementation Libs.constraintLayout
 
     implementation Libs.rxJava
     implementation Libs.rxAndroid
@@ -51,5 +51,7 @@ dependencies {
     implementation Libs.firebaseAuth
     implementation Libs.playAuth
 
-    implementation Libs.koinDi
+    implementation Libs.koinAndroid
+    implementation Libs.koinViewModel
+    implementation Libs.koinAndroidScope
 }

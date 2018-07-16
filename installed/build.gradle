@@ -79,8 +79,6 @@ dependencies {
     implementation Libs.navigationUi
 
     implementation Libs.firebaseCore
-
-    implementation Libs.koinDi
 }
 
 apply plugin: 'com.google.gms.google-services'

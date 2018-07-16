@@ -1,10 +1,11 @@
 package com.popalay.cardme.base
 
-import org.koin.dsl.module.applicationContext
+import org.koin.dsl.module.module
+import org.koin.dsl.path.moduleName
 
 object MainModule {
 
-    fun get() = applicationContext {
-        bean { DefaultErrorHandler() as ErrorHandler }
+    fun get() = module(MainModule::class.moduleName) {
+        single { DefaultErrorHandler() as ErrorHandler }
     }
 }

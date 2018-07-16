@@ -30,7 +30,7 @@ object Versions {
 
     const val playAuth = "15.0.1"
 
-    const val koinDi = "0.9.3"
+    const val koinDi = "1.0.0-beta-3"
 
     const val timber = "4.6.0"
     const val androidProguards = "2.0.1"
@@ -72,7 +72,9 @@ object Libs {
     const val navigationUi = "android.arch.navigation:navigation-ui:${Versions.acNavigation}"
 
     // DI
-    const val koinDi = "org.koin:koin-android-architecture:${Versions.koinDi}"
+    const val koinAndroid = "org.koin:koin-android:${Versions.koinDi}"
+    const val koinViewModel = "org.koin:koin-android-viewmodel:${Versions.koinDi}"
+    const val koinAndroidScope = "org.koin:koin-android-scope:${Versions.koinDi}"
 
     // Lyfecycle
     const val lifecycle = "android.arch.lifecycle:extensions:${Versions.acLifecycle}"

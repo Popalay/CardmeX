@@ -8,6 +8,6 @@ import org.koin.android.ext.android.startKoin
 object Injector {
 
     fun inject(app: Application) {
-        app.startKoin(listOf(MainModule.get(), LogInModule.get()))
+        app.startKoin(app, listOf(MainModule.get(), LogInModule.get()))
     }
 }

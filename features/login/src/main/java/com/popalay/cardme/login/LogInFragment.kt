@@ -17,8 +17,8 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.plusAssign
 import io.reactivex.schedulers.Schedulers
-import org.koin.android.architecture.ext.getViewModel
 import org.koin.android.ext.android.inject
+import org.koin.android.viewmodel.ext.android.getViewModel
 import java.util.concurrent.TimeUnit
 
 class LogInFragment : Fragment(), MviView<LogInViewState, LogInIntent> {
