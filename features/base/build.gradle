@@ -46,13 +46,15 @@ dependencies {
     implementation Libs.recyclerView
     implementation Libs.constraintLayout
 
-    api Libs.rxJava
+    implementation Libs.rxJava
     implementation Libs.rxAndroid
 
     implementation Libs.lifecycle
 
     implementation Libs.navigationFragment
     implementation Libs.navigationUi
+
+    implementation Libs.koinDi
 
     implementation Libs.androidProguards
 }

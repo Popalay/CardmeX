@@ -7,7 +7,7 @@ object Versions {
     const val targetSdkVersion = 28
     const val compileSdkVersion = 28
 
-    const val gradlePlugin = "3.2.0-beta02"
+    const val gradlePlugin = "3.2.0-beta03"
     const val kotlinLanguage = "1.2.51"
 
     const val supportLibrary = "28.0.0-alpha3"
