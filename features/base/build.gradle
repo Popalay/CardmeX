@@ -56,5 +56,8 @@ dependencies {
 
     implementation Libs.koinAndroid
 
+    api Libs.kOptional
+    api Libs.ktx
+
     implementation Libs.androidProguards
 }

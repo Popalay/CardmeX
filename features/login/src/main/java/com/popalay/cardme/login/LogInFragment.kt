@@ -1,40 +1,48 @@
 package com.popalay.cardme.login
 
+import android.content.Intent
 import android.os.Bundle
-import android.support.design.button.MaterialButton
-import android.support.design.widget.TextInputEditText
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
+import androidx.core.view.isVisible
+import com.gojuno.koptional.None
 import com.jakewharton.rxbinding2.view.RxView
-import com.jakewharton.rxbinding2.widget.RxTextView
 import com.popalay.cardme.base.ErrorHandler
 import com.popalay.cardme.base.extensions.bindView
 import com.popalay.cardme.base.state.MviView
+import com.popalay.cardme.base.widget.ProgressMaterialButton
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.plusAssign
 import io.reactivex.schedulers.Schedulers
+import io.reactivex.subjects.PublishSubject
 import org.koin.android.ext.android.inject
+import org.koin.android.scope.ext.android.scopedWith
 import org.koin.android.viewmodel.ext.android.getViewModel
+import org.koin.core.parameter.parametersOf
+import org.koin.dsl.path.moduleName
 import java.util.concurrent.TimeUnit
 
 class LogInFragment : Fragment(), MviView<LogInViewState, LogInIntent> {
 
-    private val textPhoneNumber: TextInputEditText by bindView(R.id.text_phone_number)
-    private val buttonGetStarted: MaterialButton by bindView(R.id.button_get_started)
+    private val textUserDisplayName: TextView by bindView(R.id.text_user_display_name)
+    private val buttonGoogle: ProgressMaterialButton by bindView(R.id.button_google)
 
     private val disposables = CompositeDisposable()
     private val errorHandler: ErrorHandler by inject()
+
+    private val activityResultSubject = PublishSubject.create<LogInIntent.OnActivityResult>().toSerialized()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View =
         inflater.inflate(R.layout.log_in_fragment, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val viewModel = getViewModel<LogInViewModel>()
+        val viewModel = getViewModel<LogInViewModel> { parametersOf(this) }
 
         disposables += viewModel.states
             .observeOn(AndroidSchedulers.mainThread())
@@ -43,6 +51,13 @@ class LogInFragment : Fragment(), MviView<LogInViewState, LogInIntent> {
         disposables += intents
             .delaySubscription(viewModel.states.observeOn(AndroidSchedulers.mainThread()))
             .subscribe(viewModel, errorHandler)
+
+        scopedWith(LogInModule::class.moduleName)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
+        super.onActivityResult(requestCode, resultCode, data)
+        activityResultSubject.onNext(LogInIntent.OnActivityResult(requestCode, data))
     }
 
     override fun onDestroyView() {
@@ -52,23 +67,24 @@ class LogInFragment : Fragment(), MviView<LogInViewState, LogInIntent> {
 
     override val intents: Observable<LogInIntent> = Observable.defer {
         Observable.merge(
-            phoneNumberChangedIntent,
-            getStatedClickedIntent
+            onActivityResultIntent,
+            googleSignInClickedIntent
         )
     }
 
     override fun accept(viewState: LogInViewState) {
-        buttonGetStarted.isEnabled = viewState.canStart
-        Runtime.getRuntime().availableProcessors()
-        errorHandler.accept(viewState.error)
+        with(viewState) {
+            buttonGoogle.isVisible = user === None
+            buttonGoogle.isProgress = isProgress
+            textUserDisplayName.text = "Hi ${user.toNullable()?.displayName}!"
+            errorHandler.accept(error)
+        }
     }
 
-    private val phoneNumberChangedIntent
-        get() = RxTextView.textChanges(textPhoneNumber)
-            .map { LogInIntent.PhoneNumberChanged(it.toString()) }
-
-    private val getStatedClickedIntent
-        get() = RxView.clicks(buttonGetStarted)
+    private val googleSignInClickedIntent
+        get() = RxView.clicks(buttonGoogle)
             .throttleLast(500L, TimeUnit.MILLISECONDS, Schedulers.computation())
-            .map { LogInIntent.GetStartedClicked(textPhoneNumber.text.toString()) }
+            .map { LogInIntent.GoogleLogInClicked }
+
+    private val onActivityResultIntent: Observable<LogInIntent.OnActivityResult> get() = activityResultSubject
 }

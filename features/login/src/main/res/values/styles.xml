@@ -20,7 +20,8 @@
     </style>
 
     <style name="Cardme.LogIn.Button" parent="Widget.MaterialComponents.Button">
-        <item name="rippleColor">#A37CF5</item>
+        <item name="backgroundTint">#4C8BF5</item>
+        <item name="rippleColor">#DD5144</item>
     </style>
 
 </resources>

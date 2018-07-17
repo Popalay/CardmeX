@@ -1,31 +1,29 @@
 package com.popalay.cardme.login.usecase
 
+import com.google.firebase.auth.FirebaseAuth
 import com.popalay.cardme.base.usecase.UseCase
 import io.reactivex.Observable
 import io.reactivex.ObservableSource
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
-import java.util.regex.Pattern
 
-class ValidatePhoneNumberUseCase : UseCase<ValidatePhoneNumberUseCase.Action, ValidatePhoneNumberUseCase.Result> {
-
-    private val phoneRegex = Pattern.compile("\\+?[0-9]{12}")
+class CheckAuthStateUseCase : UseCase<CheckAuthStateUseCase.Action, CheckAuthStateUseCase.Result> {
 
     override fun apply(upstream: Observable<Action>): ObservableSource<Result> = upstream.switchMap {
-        Single.just(phoneRegex.matcher(it.phoneNumber).matches())
+        Single.just(FirebaseAuth.getInstance().currentUser != null)
             .map { Result.Success(it) }
             .cast(Result::class.java)
             .onErrorReturn(Result::Failure)
             .toObservable()
-            .startWith(Result.Idle(it.phoneNumber))
+            .startWith(Result.Idle)
             .subscribeOn(Schedulers.io())
     }
 
-    data class Action(val phoneNumber: String) : UseCase.Action
+    object Action : UseCase.Action
 
     sealed class Result : UseCase.Result {
-        data class Success(val valid: Boolean) : Result()
-        data class Idle(val phoneNumber: String) : Result()
+        data class Success(val state: Boolean) : Result()
+        object Idle : Result()
         data class Failure(val throwable: Throwable) : Result()
     }
 }

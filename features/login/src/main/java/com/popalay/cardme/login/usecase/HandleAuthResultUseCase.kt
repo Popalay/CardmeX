@@ -1,31 +1,33 @@
 package com.popalay.cardme.login.usecase
 
+import com.gojuno.koptional.Optional
+import com.popalay.cardme.api.model.User
 import com.popalay.cardme.base.usecase.UseCase
+import com.popalay.cardme.login.AuthResult
+import com.popalay.cardme.login.Authenticator
 import io.reactivex.Observable
 import io.reactivex.ObservableSource
-import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
-import java.util.regex.Pattern
 
-class ValidatePhoneNumberUseCase : UseCase<ValidatePhoneNumberUseCase.Action, ValidatePhoneNumberUseCase.Result> {
-
-    private val phoneRegex = Pattern.compile("\\+?[0-9]{12}")
+class HandleAuthResultUseCase(
+    private val authenticator: Authenticator
+) : UseCase<HandleAuthResultUseCase.Action, HandleAuthResultUseCase.Result> {
 
     override fun apply(upstream: Observable<Action>): ObservableSource<Result> = upstream.switchMap {
-        Single.just(phoneRegex.matcher(it.phoneNumber).matches())
+        authenticator.handleResult(it.authResult)
             .map { Result.Success(it) }
             .cast(Result::class.java)
             .onErrorReturn(Result::Failure)
             .toObservable()
-            .startWith(Result.Idle(it.phoneNumber))
+            .startWith(Result.Idle)
             .subscribeOn(Schedulers.io())
     }
 
-    data class Action(val phoneNumber: String) : UseCase.Action
+    data class Action(val authResult: AuthResult) : UseCase.Action
 
     sealed class Result : UseCase.Result {
-        data class Success(val valid: Boolean) : Result()
-        data class Idle(val phoneNumber: String) : Result()
+        data class Success(val user: Optional<User>) : Result()
+        object Idle : Result()
         data class Failure(val throwable: Throwable) : Result()
     }
 }

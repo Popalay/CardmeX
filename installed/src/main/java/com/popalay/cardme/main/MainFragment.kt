@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
-import androidx.navigation.fragment.findNavController
+import androidx.navigation.Navigation
 import com.popalay.cardme.R
 import com.popalay.cardme.base.extensions.bindView
 
@@ -35,8 +35,6 @@ class MainFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        buttonLogIn.setOnClickListener {
-            findNavController().navigate(MainFragmentDirections.navigateToLogInFragment())
-        }
+        buttonLogIn.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.navigateToLogInFragment))
     }
 }

@@ -1,18 +1,18 @@
 @file:Suppress("unused")
 
 object Versions {
-    val versionName = "0.0.1"
+    const val versionName = "0.0.1"
 
     const val minSdkVersion = 23
     const val targetSdkVersion = 28
     const val compileSdkVersion = 28
 
-    const val gradlePlugin = "3.2.0-beta03"
+    const val gradlePlugin = "3.2.0-beta04"
     const val kotlinLanguage = "1.2.51"
 
     const val supportLibrary = "28.0.0-alpha3"
     const val constraintLayout = "1.1.2"
-    const val ktx = "1.0.0-alpha1"
+    const val ktx = "0.3"
     const val materialComponents = "1.0.0-beta01"
 
     const val rxJava = "2.1.16"
@@ -27,11 +27,11 @@ object Versions {
 
     const val firebaseCore = "16.0.0"
     const val firebaseAuth = "16.0.2"
-
-    const val playAuth = "15.0.1"
+    const val playServicesAuth = "15.0.1"
 
     const val koinDi = "1.0.0-beta-3"
 
+    const val kOptional = "1.5.0"
     const val timber = "4.6.0"
     const val androidProguards = "2.0.1"
 }
@@ -50,7 +50,7 @@ object Libs {
     // Firebase
     const val firebaseAuth = "com.google.firebase:firebase-auth:${Versions.firebaseAuth}"
     const val firebaseCore = "com.google.firebase:firebase-core:${Versions.firebaseCore}"
-    const val playAuth = "com.google.android.gms:play-services-auth:${Versions.playAuth}"
+    const val playServicesAuth = "com.google.android.gms:play-services-auth:${Versions.playServicesAuth}"
 
     // Kotlin
     const val kotlin = "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${Versions.kotlinLanguage}"
@@ -79,6 +79,7 @@ object Libs {
     // Lyfecycle
     const val lifecycle = "android.arch.lifecycle:extensions:${Versions.acLifecycle}"
 
+    const val kOptional = "com.gojuno.koptional:koptional:${Versions.kOptional}"
     const val timber = "com.jakewharton.timber:timber:${Versions.timber}"
 
     // Development

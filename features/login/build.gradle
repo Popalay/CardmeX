@@ -34,6 +34,7 @@ android {
 
 dependencies {
     implementation project(":features:base")
+    implementation project(":api")
 
     implementation Libs.kotlin
 
@@ -49,7 +50,7 @@ dependencies {
     implementation Libs.rxBindingDesign
 
     implementation Libs.firebaseAuth
-    implementation Libs.playAuth
+    implementation Libs.playServicesAuth
 
     implementation Libs.koinAndroid
     implementation Libs.koinViewModel
