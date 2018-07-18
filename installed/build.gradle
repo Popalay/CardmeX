@@ -55,6 +55,16 @@ android {
             dimension "type"
             applicationIdSuffix ".x"
             resValue "string", "app_name", "CardmeX"
+
+            signingConfigs {
+
+                release {
+                    storeFile file(SignIn.releaseStoreFile)
+                    keyAlias SignIn.releaseXKeyAlias
+                    keyPassword SignIn.releaseXKeyPassword
+                    storePassword SignIn.storePassword
+                }
+            }
         }
 
         full {
