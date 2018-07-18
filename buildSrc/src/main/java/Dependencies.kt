@@ -33,6 +33,7 @@ object Versions {
 
     const val kOptional = "1.5.0"
     const val timber = "4.6.0"
+    const val picasso = "2.71828"
     const val androidProguards = "2.0.1"
 }
 
@@ -81,6 +82,7 @@ object Libs {
 
     const val kOptional = "com.gojuno.koptional:koptional:${Versions.kOptional}"
     const val timber = "com.jakewharton.timber:timber:${Versions.timber}"
+    const val picasso = "com.squareup.picasso:picasso:${Versions.picasso}"
 
     // Development
     const val androidProguards = "com.github.yongjhih.android-proguards:android-proguards:${Versions.androidProguards}"

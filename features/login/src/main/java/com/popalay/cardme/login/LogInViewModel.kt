@@ -1,5 +1,6 @@
 package com.popalay.cardme.login
 
+import com.gojuno.koptional.Some
 import com.popalay.cardme.base.state.*
 import com.popalay.cardme.login.usecase.AuthUseCase
 import com.popalay.cardme.login.usecase.HandleAuthResultUseCase
@@ -26,14 +27,14 @@ class LogInViewModel(
     override val reducer: Reducer<LogInViewState> = LambdaReducer {
         when (this) {
             is AuthUseCase.Result -> when (this) {
-                is AuthUseCase.Result.Success -> it.copy(user = user)
+                is AuthUseCase.Result.Success -> it.copy(user = user, canStart = user is Some)
                 AuthUseCase.Result.Idle -> it.copy(isProgress = true)
-                is AuthUseCase.Result.Failure -> it.copy(error = throwable)
+                is AuthUseCase.Result.Failure -> it.copy(error = throwable, canStart = false)
             }
             is HandleAuthResultUseCase.Result -> when (this) {
-                is HandleAuthResultUseCase.Result.Success -> it.copy(user = user)
+                is HandleAuthResultUseCase.Result.Success -> it.copy(user = user, canStart = user is Some)
                 HandleAuthResultUseCase.Result.Idle -> it.copy(isProgress = true)
-                is HandleAuthResultUseCase.Result.Failure -> it.copy(error = throwable)
+                is HandleAuthResultUseCase.Result.Failure -> it.copy(error = throwable, canStart = false)
             }
             else -> throw IllegalStateException("Can not reduce state for result ${javaClass.name}")
         }

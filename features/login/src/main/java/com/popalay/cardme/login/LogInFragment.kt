@@ -2,18 +2,22 @@ package com.popalay.cardme.login
 
 import android.content.Intent
 import android.os.Bundle
+import android.support.transition.TransitionManager
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.view.isVisible
 import com.gojuno.koptional.None
+import com.gojuno.koptional.Some
 import com.jakewharton.rxbinding2.view.RxView
 import com.popalay.cardme.base.ErrorHandler
 import com.popalay.cardme.base.extensions.bindView
 import com.popalay.cardme.base.state.MviView
 import com.popalay.cardme.base.widget.ProgressMaterialButton
+import com.squareup.picasso.Picasso
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -29,6 +33,8 @@ import java.util.concurrent.TimeUnit
 
 class LogInFragment : Fragment(), MviView<LogInViewState, LogInIntent> {
 
+    private val buttonStart: ProgressMaterialButton by bindView(R.id.button_start)
+    private val imageUserPhoto: ImageView by bindView(R.id.image_user_photo)
     private val textUserDisplayName: TextView by bindView(R.id.text_user_display_name)
     private val buttonGoogle: ProgressMaterialButton by bindView(R.id.button_google)
 
@@ -74,9 +80,16 @@ class LogInFragment : Fragment(), MviView<LogInViewState, LogInIntent> {
 
     override fun accept(viewState: LogInViewState) {
         with(viewState) {
+            TransitionManager.beginDelayedTransition(view as ViewGroup)
             buttonGoogle.isVisible = user === None
             buttonGoogle.isProgress = isProgress
-            textUserDisplayName.text = "Hi ${user.toNullable()?.displayName}!"
+            textUserDisplayName.isVisible = user is Some
+            imageUserPhoto.isVisible = user is Some
+            buttonStart.isVisible = user is Some
+            user.toNullable()?.run {
+                textUserDisplayName.text = "Hi $displayName!"
+                Picasso.get().load(photoUrl).into(imageUserPhoto)
+            }
             errorHandler.accept(error)
         }
     }

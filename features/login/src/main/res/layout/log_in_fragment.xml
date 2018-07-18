@@ -19,7 +19,7 @@
 
     <com.popalay.cardme.base.widget.ProgressMaterialButton
         android:id="@+id/button_google"
-        style="@style/Cardme.LogIn.Button"
+        style="@style/Cardme.LogIn.Button.Google"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Log in with Google"
@@ -28,6 +28,15 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/image_user_photo"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginBottom="4dp"
+        app:layout_constraintBottom_toTopOf="@+id/text_user_display_name"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/text_user_display_name"
@@ -40,5 +49,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="Hi Dude!" />
+
+    <com.popalay.cardme.base.widget.ProgressMaterialButton
+        android:id="@+id/button_start"
+        style="@style/Cardme.LogIn.Button.Colored"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Get started"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/text_user_display_name"
+        tools:visibility="visible" />
 
 </android.support.constraint.ConstraintLayout>
