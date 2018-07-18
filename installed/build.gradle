@@ -53,7 +53,7 @@ android {
 
         x {
             dimension "type"
-            applicationIdSuffix ".X"
+            applicationIdSuffix ".x"
             resValue "string", "app_name", "CardmeX"
         }
 
