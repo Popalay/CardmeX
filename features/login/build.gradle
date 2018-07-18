@@ -1,6 +1,5 @@
 apply plugin: "com.android.feature"
 apply plugin: "kotlin-android"
-apply plugin: "kotlin-android-extensions"
 
 android {
     compileSdkVersion Versions.compileSdkVersion
@@ -9,10 +8,16 @@ android {
         targetSdkVersion Versions.targetSdkVersion
         versionName Versions.versionName
         versionCode VERSION_CODE.toInteger()
+
+        consumerProguardFiles "proguard-rules.pro"
     }
 
     flavorDimensions "type", "env"
     productFlavors {
+
+        all {
+            buildConfigField "String", "GOOGLE_CLIENT_ID", ApiKeys.googleClientId
+        }
 
         dev {
             dimension "env"

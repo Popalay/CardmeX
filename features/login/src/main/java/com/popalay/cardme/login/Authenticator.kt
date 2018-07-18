@@ -26,7 +26,7 @@ class GoogleAuthenticator(val fragment: Fragment) : Authenticator {
     }
 
     private val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-        .requestIdToken("220567239098-t71u44um3vr81ruqj49bsock9ga6tr95.apps.googleusercontent.com")
+        .requestIdToken(BuildConfig.GOOGLE_CLIENT_ID)
         .requestEmail()
         .requestProfile()
         .build()
