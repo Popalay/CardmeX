@@ -1,6 +1,6 @@
 apply plugin: "com.android.feature"
 apply plugin: "kotlin-android"
-apply from: "version.gradle"
+apply from: "../../scripts/version.gradle"
 
 android {
     baseFeature true
@@ -16,6 +16,10 @@ android {
 
     flavorDimensions "type", "env"
     productFlavors {
+
+        all {
+            buildConfigField "String", "GOOGLE_CLIENT_ID", ApiKeys.googleClientId
+        }
 
         dev {
             dimension "env"

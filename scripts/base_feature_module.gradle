@@ -1,0 +1,34 @@
+apply plugin: "com.android.feature"
+apply plugin: "kotlin-android"
+
+android {
+    compileSdkVersion Versions.compileSdkVersion
+    defaultConfig {
+        minSdkVersion Versions.minSdkVersion
+        targetSdkVersion Versions.targetSdkVersion
+        versionName Versions.versionName
+        versionCode VERSION_CODE.toInteger()
+
+        consumerProguardFiles "proguard-rules.pro"
+    }
+
+    flavorDimensions "type", "env"
+    productFlavors {
+
+        dev {
+            dimension "env"
+        }
+
+        prod {
+            dimension "env"
+        }
+
+        x {
+            dimension "type"
+        }
+
+        full {
+            dimension "type"
+        }
+    }
+}
