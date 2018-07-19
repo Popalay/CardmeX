@@ -15,7 +15,9 @@
             android:name="firebase_crashlytics_collection_enabled"
             android:value="false" />
 
-        <activity android:name=".MainActivity">
+        <activity
+            android:name=".MainActivity"
+            android:theme="@style/Cardme.Launcher">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

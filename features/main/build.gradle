@@ -2,8 +2,6 @@ apply from: "../../scripts/base_feature_module.gradle"
 
 dependencies {
     implementation project(":features:base")
-    implementation project(":features:login")
-    implementation project(":features:main")
     implementation project(":api")
 
     implementation Libs.kotlin

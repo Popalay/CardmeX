@@ -43,6 +43,7 @@ dependencies {
     application project(":installed")
     feature project(":features:splash")
     feature project(":features:login")
+    feature project(":features:main")
 
     implementation Libs.kotlin
 

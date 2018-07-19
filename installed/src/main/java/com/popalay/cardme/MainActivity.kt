@@ -13,6 +13,7 @@ class MainActivity : AppCompatActivity(), NavHost {
     private var navHostFragment: View by Delegates.notNull()
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        setTheme(R.style.Cardme)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_activity)
         navHostFragment = findViewById<View>(R.id.nav_host_fragment)
