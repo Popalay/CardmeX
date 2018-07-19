@@ -2,6 +2,7 @@ apply plugin: "com.android.application"
 apply plugin: "kotlin-android"
 apply plugin: "kotlin-android-extensions"
 apply plugin: "androidx.navigation.safeargs"
+apply plugin: "io.fabric"
 
 android {
     compileSdkVersion Versions.compileSdkVersion
@@ -16,6 +17,7 @@ android {
     signingConfigs {
         debug {
             storeFile file(SignIn.debugStoreFile)
+            ext.enableCrashlytics = false
         }
 
         release {
@@ -89,6 +91,8 @@ dependencies {
     implementation Libs.navigationUi
 
     implementation Libs.firebaseCore
+    implementation Libs.androidProguards
+    implementation Libs.crashlytics
 }
 
 apply plugin: 'com.google.gms.google-services'

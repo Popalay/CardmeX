@@ -35,6 +35,7 @@ object Versions {
     const val timber = "4.6.0"
     const val picasso = "2.71828"
     const val androidProguards = "2.0.1"
+    const val crashlytics = "2.9.3"
 }
 
 object Libs {
@@ -86,4 +87,5 @@ object Libs {
 
     // Development
     const val androidProguards = "com.github.yongjhih.android-proguards:android-proguards:${Versions.androidProguards}"
+    const val crashlytics = "com.crashlytics.sdk.android:crashlytics:${Versions.crashlytics}"
 }

@@ -12,7 +12,6 @@ import com.google.firebase.FirebaseException
 import com.google.firebase.auth.*
 import com.popalay.cardme.api.model.User
 import com.popalay.cardme.base.BuildConfig
-import io.reactivex.Completable
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
 import java.util.concurrent.Executors
@@ -58,10 +57,6 @@ class GoogleAuthenticator(val fragment: Fragment) : Authenticator {
                     }
                 }
             }
-
-    override fun signOut(): Completable =
-        Completable.fromAction { FirebaseAuth.getInstance().signOut() }
-            .subscribeOn(Schedulers.io())
 
     override fun handleResult(result: AuthResult): Single<Optional<User>> = Single.create<Optional<User>> { emitter ->
         if (result !is AuthResult.Google) {
@@ -128,10 +123,6 @@ class FirebasePhoneAuthenticator : Authenticator {
         )
     }.subscribeOn(Schedulers.io())
 
-    override fun signOut(): Completable =
-        Completable.fromAction { FirebaseAuth.getInstance().signOut() }
-            .subscribeOn(Schedulers.io())
-
     override fun handleResult(result: AuthResult): Single<Optional<User>> = Single.create<Optional<User>> { emitter ->
         if (result !is AuthResult.Phone) {
             emitter.onError(IllegalArgumentException("Can handle only Phone"))
@@ -154,8 +145,6 @@ interface Authenticator {
 
     fun auth(credentials: AuthCredentials): Single<Optional<User>>
 
-    fun signOut(): Completable
-
     fun handleResult(result: AuthResult): Single<Optional<User>>
 }
 
@@ -177,8 +166,6 @@ class AuthenticatorFacade(
         is AuthCredentials.Phone -> requireNotNull(authenticators[FirebasePhoneAuthenticator::class]).auth(credentials)
         AuthCredentials.Google -> requireNotNull(authenticators[GoogleAuthenticator::class]).auth(credentials)
     }
-
-    override fun signOut(): Completable = Completable.merge(authenticators.map { it.value.signOut() })
 
     override fun handleResult(result: AuthResult): Single<Optional<User>> = when (result) {
         is AuthResult.Phone -> checkNotNull(authenticators[FirebasePhoneAuthenticator::class]).handleResult(result)

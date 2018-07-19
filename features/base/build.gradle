@@ -64,6 +64,4 @@ dependencies {
     api Libs.kOptional
     api Libs.ktx
     api Libs.picasso
-
-    implementation Libs.androidProguards
 }
