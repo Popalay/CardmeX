@@ -6,15 +6,16 @@ import android.view.View
 import androidx.navigation.NavController
 import androidx.navigation.NavHost
 import androidx.navigation.findNavController
-import com.popalay.cardme.base.extensions.bindView
+import kotlin.properties.Delegates
 
 class MainActivity : AppCompatActivity(), NavHost {
 
-    private val navHostFragment: View by bindView(R.id.nav_host_fragment)
+    private var navHostFragment: View by Delegates.notNull()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_activity)
+        navHostFragment = findViewById<View>(R.id.nav_host_fragment)
     }
 
     override fun onSupportNavigateUp() = navHostFragment.findNavController().navigateUp()

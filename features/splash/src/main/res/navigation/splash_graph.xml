@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation android:id="@+id/splash_graph"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:startDestination="@id/splashFragment">
+
+    <include app:graph="@navigation/log_in_graph" />
+
+    <fragment
+        android:id="@+id/splashFragment"
+        android:name="com.popalay.cardme.splash.SplashFragment"
+        android:label="splash_fragment"
+        tools:layout="@layout/splash_fragment">
+
+        <action
+            android:id="@+id/navigateToLogInFragment"
+            app:destination="@id/log_in_graph"
+            app:popUpTo="@id/log_in_graph" />
+
+    </fragment>
+
+</navigation>

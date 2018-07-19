@@ -23,7 +23,7 @@ object Versions {
 
     const val acLifecycle = "1.1.1"
     const val acRoom = "1.1.1"
-    const val acNavigation = "1.0.0-alpha02"
+    const val acNavigation = "1.0.0-alpha03"
 
     const val firebaseCore = "16.0.0"
     const val firebaseAuth = "16.0.2"

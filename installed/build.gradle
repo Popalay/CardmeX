@@ -81,15 +81,11 @@ android {
 }
 
 dependencies {
-    implementation project(":features:login")
-    implementation project(":features:base")
+    implementation project(":features:splash")
     implementation project(":injector")
-
-    implementation Libs.kotlin
 
     implementation Libs.supportDesign
     implementation Libs.supportLib
-    implementation Libs.constraintLayout
 
     implementation Libs.navigationFragment
     implementation Libs.navigationUi
