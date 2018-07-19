@@ -17,7 +17,6 @@ android {
     signingConfigs {
         debug {
             storeFile file(SignIn.debugStoreFile)
-            ext.enableCrashlytics = false
         }
 
         release {
@@ -31,6 +30,7 @@ android {
     buildTypes {
         debug {
             signingConfig signingConfigs.debug
+            ext.enableCrashlytics = false
         }
 
         release {
@@ -60,6 +60,10 @@ android {
 
             signingConfigs {
 
+                debug {
+                    storeFile file(SignIn.debugStoreFile)
+                }
+
                 release {
                     storeFile file(SignIn.releaseStoreFile)
                     keyAlias SignIn.releaseXKeyAlias
@@ -79,7 +83,7 @@ android {
 dependencies {
     implementation project(":features:login")
     implementation project(":features:base")
-    api project(":injector")
+    implementation project(":injector")
 
     implementation Libs.kotlin
 
@@ -92,7 +96,9 @@ dependencies {
 
     implementation Libs.firebaseCore
     implementation Libs.androidProguards
-    implementation Libs.crashlytics
+    implementation(Libs.crashlytics) {
+        transitive = true
+    }
 }
 
 apply plugin: 'com.google.gms.google-services'

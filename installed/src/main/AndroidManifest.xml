@@ -11,6 +11,10 @@
         android:theme="@style/Cardme"
         tools:ignore="GoogleAppIndexingWarning">
 
+        <meta-data
+            android:name="firebase_crashlytics_collection_enabled"
+            android:value="false" />
+
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
