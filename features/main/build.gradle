@@ -1,4 +1,4 @@
-apply from: "../../scripts/base_feature_module.gradle"
+apply from: "$project.rootDir/scripts/base_feature_module.gradle"
 
 dependencies {
     implementation project(":features:base")

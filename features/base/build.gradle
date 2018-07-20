@@ -1,6 +1,5 @@
 apply plugin: "com.android.feature"
 apply plugin: "kotlin-android"
-apply from: "../../scripts/version.gradle"
 
 android {
     baseFeature true

@@ -3,6 +3,7 @@ apply plugin: "kotlin-android"
 apply plugin: "kotlin-android-extensions"
 apply plugin: "androidx.navigation.safeargs"
 apply plugin: "io.fabric"
+apply from: "$project.rootDir/scripts/version.gradle"
 
 android {
     compileSdkVersion Versions.compileSdkVersion
