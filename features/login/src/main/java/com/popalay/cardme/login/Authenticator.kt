@@ -1,5 +1,6 @@
 package com.popalay.cardme.login
 
+import android.content.Context
 import android.content.Intent
 import android.support.v4.app.Fragment
 import com.gojuno.koptional.None
@@ -9,7 +10,11 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.firebase.FirebaseException
-import com.google.firebase.auth.*
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.auth.GoogleAuthProvider
+import com.google.firebase.auth.PhoneAuthCredential
+import com.google.firebase.auth.PhoneAuthProvider
 import com.popalay.cardme.api.model.User
 import com.popalay.cardme.base.BuildConfig
 import io.reactivex.Single
@@ -18,7 +23,10 @@ import java.util.concurrent.Executors
 import java.util.concurrent.TimeUnit
 import kotlin.reflect.KClass
 
-class GoogleAuthenticator(val fragment: Fragment) : Authenticator {
+class GoogleAuthenticator(
+    private val context: Context,
+    private val fragment: Fragment
+) : Authenticator {
 
     companion object {
 
@@ -31,32 +39,26 @@ class GoogleAuthenticator(val fragment: Fragment) : Authenticator {
         .requestProfile()
         .build()
 
-    override fun auth(credentials: AuthCredentials): Single<Optional<User>> =
-        Single.just(GoogleSignIn.getLastSignedInAccount(fragment.context) != null)
-            .flatMap {
-                if (it) {
-                    Single.create<Optional<User>> { emitter ->
-                        val account = requireNotNull(GoogleSignIn.getLastSignedInAccount(fragment.context))
-                        val credential = GoogleAuthProvider.getCredential(account.idToken, null)
-                        FirebaseAuth.getInstance().signInWithCredential(credential)
-                            .addOnCompleteListener {
-                                if (it.isSuccessful) {
-                                    emitter.onSuccess(it.result.user.toUser().toOptional())
-                                } else {
-                                    emitter.onError(it.exception!!)
-                                }
-                            }
-                            .addOnFailureListener { emitter.onError(it) }
-                    }
-                } else {
-                    Single.fromCallable {
-                        val client = GoogleSignIn.getClient(fragment.requireContext(), gso)
-                        val intent = client.signInIntent
-                        fragment.startActivityForResult(intent, REQUEST_CODE_SIGN_IN)
-                        None
+    override fun auth(credentials: AuthCredentials): Single<Optional<User>> = Single.create<Optional<User>> { emitter ->
+        val account = GoogleSignIn.getLastSignedInAccount(context)
+        if (account != null) {
+            val credential = GoogleAuthProvider.getCredential(account.idToken, null)
+            FirebaseAuth.getInstance().signInWithCredential(credential)
+                .addOnCompleteListener {
+                    if (it.isSuccessful) {
+                        emitter.onSuccess(it.result.user.toUser().toOptional())
+                    } else {
+                        emitter.onError(it.exception!!)
                     }
                 }
-            }
+                .addOnFailureListener { emitter.onError(it) }
+        } else {
+            val client = GoogleSignIn.getClient(context, gso)
+            val intent = client.signInIntent
+            fragment.startActivityForResult(intent, REQUEST_CODE_SIGN_IN)
+            emitter.onSuccess(None)
+        }
+    }
 
     override fun handleResult(result: AuthResult): Single<Optional<User>> = Single.create<Optional<User>> { emitter ->
         if (result !is AuthResult.Google) {
