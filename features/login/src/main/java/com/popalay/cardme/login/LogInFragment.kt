@@ -14,6 +14,7 @@ import androidx.navigation.fragment.findNavController
 import com.gojuno.koptional.None
 import com.gojuno.koptional.Some
 import com.jakewharton.rxbinding2.view.RxView
+import com.popalay.cardme.base.CircleImageTransformation
 import com.popalay.cardme.base.ErrorHandler
 import com.popalay.cardme.base.extensions.bindView
 import com.popalay.cardme.base.state.MviView
@@ -91,7 +92,10 @@ internal class LogInFragment : Fragment(), MviView<LogInViewState, LogInIntent> 
             buttonSync.isVisible = user is Some
             user.toNullable()?.run {
                 textUserDisplayName.text = "Hi $displayName!"
-                Picasso.get().load(photoUrl).into(imageUserPhoto)
+                Picasso.get()
+                    .load(photoUrl)
+                    .transform(CircleImageTransformation())
+                    .into(imageUserPhoto)
             }
             errorHandler.accept(error)
         }

@@ -13,6 +13,7 @@ import androidx.navigation.fragment.findNavController
 import com.gojuno.koptional.None
 import com.gojuno.koptional.Some
 import com.jakewharton.rxbinding2.view.RxView
+import com.popalay.cardme.base.CircleImageTransformation
 import com.popalay.cardme.base.ErrorHandler
 import com.popalay.cardme.base.extensions.bindView
 import com.popalay.cardme.base.state.MviView
@@ -76,11 +77,16 @@ internal class MainFragment : Fragment(), MviView<MainViewState, MainIntent> {
     override fun accept(viewState: MainViewState) {
         with(viewState) {
             user.toNullable()?.run {
-                Picasso.get().load(photoUrl).into(imageUserPhoto)
+                Picasso.get()
+                    .load(photoUrl)
+                    .transform(CircleImageTransformation())
+                    .into(imageUserPhoto)
                 textUserDisplayName.text = displayName
             }
-            buttonUnsync.isVisible = user is Some
             buttonSync.isVisible = user === None
+            buttonUnsync.isVisible = user is Some
+            textUserDisplayName.isVisible = user is Some
+            imageUserPhoto.isVisible = user is Some
 
             errorHandler.accept(error)
         }
