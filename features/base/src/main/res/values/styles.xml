@@ -4,6 +4,15 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowBackground">@color/colorPrimary</item>
     </style>
+
+    <style name="Cardme.Button" parent="Widget.MaterialComponents.Button"/>
+
+    <style name="Cardme.Button.Colored" parent="Widget.MaterialComponents.Button">
+        <item name="rippleColor">#A86ED7</item>
+    </style>
+
+    <style name="Cardme.Button.Outlined" parent="Widget.MaterialComponents.Button.OutlinedButton"/>
 
 </resources>

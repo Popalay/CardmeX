@@ -1,5 +1,4 @@
 include ':installed', ':instant', ':injector', ':api',
         ':features:base',
-        ':features:splash',
         ':features:main',
         ':features:login'

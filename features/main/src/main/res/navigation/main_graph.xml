@@ -5,10 +5,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     app:startDestination="@id/mainFragment">
 
+    <include app:graph="@navigation/log_in_graph" />
+
     <fragment
         android:id="@+id/mainFragment"
         android:name="com.popalay.cardme.main.MainFragment"
         android:label="main_fragment"
-        tools:layout="@layout/main_fragment" />
+        tools:layout="@layout/main_fragment">
+
+        <action
+            android:id="@+id/action_from_main_to_log_in"
+            app:popUpTo="@id/mainFragment"
+            app:destination="@id/log_in_graph" />
+
+    </fragment>
 
 </navigation>

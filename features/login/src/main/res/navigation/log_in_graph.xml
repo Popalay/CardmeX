@@ -8,8 +8,6 @@
     <fragment
         android:id="@+id/logInFragment"
         android:name="com.popalay.cardme.login.LogInFragment"
-        android:label="log_in_fragment"
-
         tools:layout="@layout/log_in_fragment" />
 
 </navigation>

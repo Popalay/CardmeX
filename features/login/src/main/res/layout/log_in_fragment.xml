@@ -4,13 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary"
     android:padding="32dp">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Log In"
+        android:text="Log In to sync your data"
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
         android:textColor="@color/white"
         android:typeface="monospace"
@@ -19,7 +18,7 @@
 
     <com.popalay.cardme.base.widget.ProgressMaterialButton
         android:id="@+id/button_google"
-        style="@style/Cardme.LogIn.Button.Google"
+        style="@style/Cardme.Button.Google"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Log in with Google"
@@ -51,12 +50,12 @@
         tools:text="Hi Dude!" />
 
     <com.popalay.cardme.base.widget.ProgressMaterialButton
-        android:id="@+id/button_start"
-        style="@style/Cardme.LogIn.Button.Colored"
+        android:id="@+id/button_sync"
+        style="@style/Cardme.Button.Colored"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="Get started"
+        android:text="Sync"
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.view.isVisible
+import androidx.navigation.fragment.findNavController
 import com.gojuno.koptional.None
 import com.gojuno.koptional.Some
 import com.jakewharton.rxbinding2.view.RxView
@@ -33,7 +34,7 @@ import java.util.concurrent.TimeUnit
 
 class LogInFragment : Fragment(), MviView<LogInViewState, LogInIntent> {
 
-    private val buttonStart: ProgressMaterialButton by bindView(R.id.button_start)
+    private val buttonSync: ProgressMaterialButton by bindView(R.id.button_sync)
     private val imageUserPhoto: ImageView by bindView(R.id.image_user_photo)
     private val textUserDisplayName: TextView by bindView(R.id.text_user_display_name)
     private val buttonGoogle: ProgressMaterialButton by bindView(R.id.button_google)
@@ -57,6 +58,8 @@ class LogInFragment : Fragment(), MviView<LogInViewState, LogInIntent> {
         disposables += intents
             .delaySubscription(viewModel.states.observeOn(AndroidSchedulers.mainThread()))
             .subscribe(viewModel, errorHandler)
+
+        buttonSync.setOnClickListener { findNavController().popBackStack() }
 
         scopedWith(LogInModule::class.moduleName)
     }
@@ -85,7 +88,7 @@ class LogInFragment : Fragment(), MviView<LogInViewState, LogInIntent> {
             buttonGoogle.isProgress = isProgress
             textUserDisplayName.isVisible = user is Some
             imageUserPhoto.isVisible = user is Some
-            buttonStart.isVisible = user is Some
+            buttonSync.isVisible = user is Some
             user.toNullable()?.run {
                 textUserDisplayName.text = "Hi $displayName!"
                 Picasso.get().load(photoUrl).into(imageUserPhoto)

@@ -20,6 +20,9 @@ dependencies {
     implementation Libs.firebaseAuth
     implementation Libs.playServicesAuth
 
+    implementation Libs.navigationFragment
+    implementation Libs.navigationUi
+
     implementation Libs.koinAndroid
     implementation Libs.koinViewModel
     implementation Libs.koinAndroidScope
