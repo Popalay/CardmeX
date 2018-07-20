@@ -7,6 +7,8 @@ typealias ErrorHandler = Consumer<Throwable?>
 class DefaultErrorHandler : ErrorHandler {
 
     override fun accept(t: Throwable?) {
-        t?.run { throw this }
+        if (BuildConfig.DEBUG) {
+            t?.run { throw this }
+        }
     }
 }

@@ -1,7 +1,11 @@
 package com.popalay.cardme.login
 
 import com.gojuno.koptional.Some
-import com.popalay.cardme.base.state.*
+import com.popalay.cardme.base.state.BaseMviViewModel
+import com.popalay.cardme.base.state.IntentProcessor
+import com.popalay.cardme.base.state.LambdaReducer
+import com.popalay.cardme.base.state.Processor
+import com.popalay.cardme.base.state.Reducer
 import com.popalay.cardme.login.usecase.AuthUseCase
 import com.popalay.cardme.login.usecase.HandleAuthResultUseCase
 import io.reactivex.rxkotlin.ofType
@@ -19,7 +23,7 @@ internal class LogInViewModel(
                 .map { AuthUseCase.Action(AuthCredentials.Google) }
                 .compose(authUseCase),
             it.ofType<LogInIntent.OnActivityResult>()
-                .map { HandleAuthResultUseCase.Action(AuthResult.Google(it.requestCode, it.data)) }
+                .map { HandleAuthResultUseCase.Action(AuthResult.Google(it.success, it.requestCode, it.data)) }
                 .compose(handleAuthResultUseCase)
         )
     }

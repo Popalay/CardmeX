@@ -3,8 +3,10 @@ package com.popalay.cardme
 import android.app.Application
 import com.crashlytics.android.Crashlytics
 import com.crashlytics.android.core.CrashlyticsCore
+import com.popalay.cardme.base.DefaultRxErrorHandler
 import com.popalay.cardme.injector.Injector
 import io.fabric.sdk.android.Fabric
+import io.reactivex.plugins.RxJavaPlugins
 
 class App : Application() {
 
@@ -12,6 +14,7 @@ class App : Application() {
         super.onCreate()
         Injector.inject(this)
         initCrashlytics()
+        RxJavaPlugins.setErrorHandler(DefaultRxErrorHandler())
     }
 
     private fun initCrashlytics() {

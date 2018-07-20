@@ -8,12 +8,11 @@ import android.graphics.drawable.Drawable
 import android.support.design.button.MaterialButton
 import android.util.AttributeSet
 import android.view.View
-import kotlin.properties.Delegates
 
 class ProgressMaterialButton : MaterialButton {
 
     private var savedText: String = ""
-    private var progressBar: CircularProgressDrawable by Delegates.notNull()
+    private var progressBar: CircularProgressDrawable? = null
 
     constructor(context: Context) : this(context, null)
 
@@ -25,21 +24,23 @@ class ProgressMaterialButton : MaterialButton {
         set(value) {
             field = value
             isClickable = !value
-            progressBar.setVisible(!value, true)
-            if (value) {
-                progressBar.start()
-                savedText = text.toString()
-                text = ""
-            } else {
-                text = if (text.isNotBlank()) text else savedText
-                savedText = ""
-                progressBar.stop()
+            progressBar?.run {
+                setVisible(!value, true)
+                if (value) {
+                    start()
+                    savedText = text.toString()
+                    text = ""
+                } else {
+                    text = if (text.isNotBlank()) text else savedText
+                    savedText = ""
+                    stop()
+                }
             }
         }
 
     override fun onVisibilityChanged(changedView: View, visibility: Int) {
         super.onVisibilityChanged(changedView, visibility)
-        if (visibility == View.VISIBLE && isProgress) progressBar.start() else progressBar.stop()
+        if (visibility == View.VISIBLE && isProgress) progressBar?.start() else progressBar?.stop()
     }
 
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
@@ -49,16 +50,17 @@ class ProgressMaterialButton : MaterialButton {
 
     override fun draw(canvas: Canvas) {
         super.draw(canvas)
-        if (isProgress) progressBar.draw(canvas)
+        if (isProgress) progressBar?.draw(canvas)
     }
 
     override fun verifyDrawable(who: Drawable): Boolean = who === progressBar || super.verifyDrawable(who)
 
     private fun init() {
-        progressBar = CircularProgressDrawable(Color.WHITE, 2.px.toFloat())
-        progressBar.callback = this
-        progressBar.stop()
-        progressBar.setVisible(false, true)
+        progressBar = CircularProgressDrawable(Color.WHITE, 2.px.toFloat()).apply {
+            callback = this@ProgressMaterialButton
+            stop()
+            setVisible(false, true)
+        }
     }
 
     private fun updateBounds() {
@@ -67,7 +69,7 @@ class ProgressMaterialButton : MaterialButton {
         val progressHeight = bottom - top
         val left = width / 2 - progressHeight / 2
         val right = left + progressHeight
-        progressBar.setBounds(left, top, right, bottom)
+        progressBar?.setBounds(left, top, right, bottom)
     }
 }
 

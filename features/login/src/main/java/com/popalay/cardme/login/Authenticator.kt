@@ -65,7 +65,7 @@ class GoogleAuthenticator(
             emitter.onError(IllegalArgumentException("Can handle only Google"))
             return@create
         }
-        if (result.requestCode == REQUEST_CODE_SIGN_IN) {
+        if (result.success && result.requestCode == REQUEST_CODE_SIGN_IN) {
             val task = GoogleSignIn.getSignedInAccountFromIntent(result.data)
             try {
                 val account = task.getResult(ApiException::class.java)
@@ -82,6 +82,8 @@ class GoogleAuthenticator(
             } catch (exception: ApiException) {
                 emitter.onError(exception)
             }
+        } else {
+            emitter.onSuccess(None)
         }
     }
 }
@@ -157,7 +159,7 @@ sealed class AuthCredentials {
 
 sealed class AuthResult {
     data class Phone(val code: String) : AuthResult()
-    data class Google(val requestCode: Int, val data: Intent) : AuthResult()
+    data class Google(val success: Boolean, val requestCode: Int, val data: Intent) : AuthResult()
 }
 
 class AuthenticatorFacade(
