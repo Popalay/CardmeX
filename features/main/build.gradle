@@ -7,6 +7,13 @@ dependencies {
 
     implementation Libs.kotlin
 
+    implementation Libs.rxJava
+    implementation Libs.rxAndroid
+    implementation Libs.rxKotlin
+
+    implementation Libs.rxBinding
+    implementation Libs.rxBindingDesign
+
     implementation Libs.supportDesign
     implementation Libs.supportLib
     implementation Libs.constraintLayout
@@ -14,5 +21,7 @@ dependencies {
     implementation Libs.navigationFragment
     implementation Libs.navigationUi
 
-    implementation Libs.firebaseAuth
+    implementation Libs.koinAndroid
+    implementation Libs.koinViewModel
+    implementation Libs.koinAndroidScope
 }

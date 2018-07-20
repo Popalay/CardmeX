@@ -32,8 +32,9 @@ android {
 }
 
 dependencies {
-    implementation project(":features:login")
     implementation project(":features:base")
+    implementation project(":features:login")
+    implementation project(":features:main")
 
     implementation Libs.kotlin
     implementation Libs.koinAndroid

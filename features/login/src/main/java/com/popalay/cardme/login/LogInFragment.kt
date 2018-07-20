@@ -32,7 +32,7 @@ import org.koin.core.parameter.parametersOf
 import org.koin.dsl.path.moduleName
 import java.util.concurrent.TimeUnit
 
-class LogInFragment : Fragment(), MviView<LogInViewState, LogInIntent> {
+internal class LogInFragment : Fragment(), MviView<LogInViewState, LogInIntent> {
 
     private val buttonSync: ProgressMaterialButton by bindView(R.id.button_sync)
     private val imageUserPhoto: ImageView by bindView(R.id.image_user_photo)

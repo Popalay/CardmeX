@@ -6,7 +6,7 @@ import com.popalay.cardme.login.usecase.AuthUseCase
 import com.popalay.cardme.login.usecase.HandleAuthResultUseCase
 import io.reactivex.rxkotlin.ofType
 
-class LogInViewModel(
+internal class LogInViewModel(
     private val authUseCase: AuthUseCase,
     private val handleAuthResultUseCase: HandleAuthResultUseCase
 ) : BaseMviViewModel<LogInViewState, LogInIntent>() {
@@ -36,7 +36,7 @@ class LogInViewModel(
                 HandleAuthResultUseCase.Result.Idle -> it.copy(isProgress = true)
                 is HandleAuthResultUseCase.Result.Failure -> it.copy(error = throwable, canStart = false)
             }
-            else -> throw IllegalStateException("Can not reduce state for result ${javaClass.name}")
+            else -> throw IllegalStateException("Can not reduce user for result ${javaClass.name}")
         }
     }
 }

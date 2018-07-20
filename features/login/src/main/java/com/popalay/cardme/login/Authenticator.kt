@@ -173,7 +173,7 @@ class AuthenticatorFacade(
     }
 }
 
-private fun FirebaseUser.toUser() = User(
+fun FirebaseUser.toUser() = User(
     uuid = uid,
     email = email ?: "",
     phoneNumber = phoneNumber ?: "",

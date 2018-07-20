@@ -3,9 +3,9 @@ package com.popalay.cardme.base
 import org.koin.dsl.module.module
 import org.koin.dsl.path.moduleName
 
-object MainModule {
+object BaseModule {
 
-    fun get() = module(MainModule::class.moduleName) {
+    fun get() = module(BaseModule::class.moduleName) {
         single { DefaultErrorHandler() as ErrorHandler }
     }
 }

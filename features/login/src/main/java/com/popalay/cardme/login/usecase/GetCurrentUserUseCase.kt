@@ -1,16 +1,20 @@
 package com.popalay.cardme.login.usecase
 
+import com.gojuno.koptional.Optional
+import com.gojuno.koptional.toOptional
 import com.google.firebase.auth.FirebaseAuth
+import com.popalay.cardme.api.model.User
 import com.popalay.cardme.base.usecase.UseCase
+import com.popalay.cardme.login.toUser
 import io.reactivex.Observable
 import io.reactivex.ObservableSource
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
 
-class CheckAuthStateUseCase : UseCase<CheckAuthStateUseCase.Action, CheckAuthStateUseCase.Result> {
+class GetCurrentUserUseCase : UseCase<GetCurrentUserUseCase.Action, GetCurrentUserUseCase.Result> {
 
     override fun apply(upstream: Observable<Action>): ObservableSource<Result> = upstream.switchMap {
-        Single.just(FirebaseAuth.getInstance().currentUser != null)
+        Single.just<Optional<User>>(FirebaseAuth.getInstance().currentUser?.toUser().toOptional())
             .map { Result.Success(it) }
             .cast(Result::class.java)
             .onErrorReturn(Result::Failure)
@@ -22,7 +26,7 @@ class CheckAuthStateUseCase : UseCase<CheckAuthStateUseCase.Action, CheckAuthSta
     object Action : UseCase.Action
 
     sealed class Result : UseCase.Result {
-        data class Success(val state: Boolean) : Result()
+        data class Success(val user: Optional<User>) : Result()
         object Idle : Result()
         data class Failure(val throwable: Throwable) : Result()
     }
