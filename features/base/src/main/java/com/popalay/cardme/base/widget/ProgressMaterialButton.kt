@@ -62,10 +62,10 @@ class ProgressMaterialButton : MaterialButton {
     }
 
     private fun updateBounds() {
-        val top = 0 + paddingTop
+        val top = paddingTop
         val bottom = height - paddingBottom
         val progressHeight = bottom - top
-        val left = width / 2 - paddingStart - progressHeight / 2
+        val left = width / 2 - progressHeight / 2
         val right = left + progressHeight
         progressBar.setBounds(left, top, right, bottom)
     }
