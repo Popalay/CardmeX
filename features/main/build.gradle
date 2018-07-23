@@ -1,7 +1,7 @@
 apply from: "$project.rootDir/scripts/base_feature_module.gradle"
 
 dependencies {
-    implementation project(":features:base")
+    implementation project(':core')
     implementation project(":features:login")
 
     implementation Libs.rxBinding

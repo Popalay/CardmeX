@@ -1,4 +1,3 @@
-include ':installed', ':instant', ':injector', ':api',
-        ':features:base',
+include ':installed', ':instant', ':injector', ':api', ':core',
         ':features:main',
         ':features:login'
