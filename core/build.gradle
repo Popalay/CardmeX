@@ -55,6 +55,7 @@ dependencies {
 
     implementation Libs.navigationFragment
     implementation Libs.navigationUi
+    implementation Libs.firebaseAuth
 
     api Libs.koinAndroid
     api Libs.kOptional

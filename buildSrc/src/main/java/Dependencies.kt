@@ -15,7 +15,7 @@ object Versions {
     const val ktx = "0.3"
     const val materialComponents = "1.0.0-beta01"
 
-    const val rxJava = "2.1.16"
+    const val rxJava = "2.1.17"
     const val rxAndroid = "2.0.2"
     const val rxKotlin = "2.2.0"
 

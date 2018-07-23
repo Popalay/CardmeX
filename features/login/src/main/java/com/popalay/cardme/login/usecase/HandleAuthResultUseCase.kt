@@ -4,12 +4,12 @@ import com.gojuno.koptional.Optional
 import com.popalay.cardme.api.auth.Authenticator
 import com.popalay.cardme.api.model.User
 import com.popalay.cardme.api.usecase.UseCase
-import com.popalay.cardme.login.CardmeAuthResult
+import com.popalay.cardme.login.auth.CardmeAuthResult
 import io.reactivex.Observable
 import io.reactivex.ObservableSource
 import io.reactivex.schedulers.Schedulers
 
-class HandleAuthResultUseCase(
+internal class HandleAuthResultUseCase(
     private val authenticator: Authenticator
 ) : UseCase<HandleAuthResultUseCase.Action, HandleAuthResultUseCase.Result> {
 

@@ -6,6 +6,8 @@ import com.popalay.cardme.api.state.LambdaReducer
 import com.popalay.cardme.api.state.Processor
 import com.popalay.cardme.api.state.Reducer
 import com.popalay.cardme.base.state.BaseMviViewModel
+import com.popalay.cardme.login.auth.CardmeAuthCredentials
+import com.popalay.cardme.login.auth.CardmeAuthResult
 import com.popalay.cardme.login.usecase.AuthUseCase
 import com.popalay.cardme.login.usecase.HandleAuthResultUseCase
 import io.reactivex.rxkotlin.ofType

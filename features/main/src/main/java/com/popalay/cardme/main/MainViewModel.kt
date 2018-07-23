@@ -6,8 +6,8 @@ import com.popalay.cardme.api.state.LambdaReducer
 import com.popalay.cardme.api.state.Processor
 import com.popalay.cardme.api.state.Reducer
 import com.popalay.cardme.base.state.BaseMviViewModel
-import com.popalay.cardme.login.usecase.GetCurrentUserUseCase
-import com.popalay.cardme.login.usecase.LogOutUseCase
+import com.popalay.cardme.base.usecase.GetCurrentUserUseCase
+import com.popalay.cardme.base.usecase.LogOutUseCase
 import io.reactivex.rxkotlin.ofType
 
 internal class MainViewModel(

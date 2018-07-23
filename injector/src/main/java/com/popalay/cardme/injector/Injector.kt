@@ -1,7 +1,7 @@
 package com.popalay.cardme.injector
 
 import android.app.Application
-import com.popalay.cardme.base.di.BaseModule
+import com.popalay.cardme.base.di.CoreModule
 import com.popalay.cardme.login.LogInModule
 import com.popalay.cardme.main.MainModule
 import org.koin.android.ext.android.startKoin
@@ -12,7 +12,7 @@ object Injector {
         app.startKoin(
             app,
             listOf(
-                BaseModule.get(),
+                CoreModule.get(),
                 LogInModule.get(),
                 MainModule.get()
             )
