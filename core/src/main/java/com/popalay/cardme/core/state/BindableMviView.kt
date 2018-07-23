@@ -1,4 +1,4 @@
-package com.popalay.cardme.base.state
+package com.popalay.cardme.core.state
 
 import android.arch.lifecycle.Lifecycle
 import android.arch.lifecycle.LifecycleObserver

@@ -1,17 +1,23 @@
-package com.popalay.cardme.base.usecase
+package com.popalay.cardme.core.usecase
 
+import com.gojuno.koptional.Optional
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
+import com.popalay.cardme.api.mapper.Mapper
+import com.popalay.cardme.api.model.User
 import com.popalay.cardme.api.usecase.UseCase
-import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.ObservableSource
+import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
 
-class LogOutUseCase : UseCase<LogOutUseCase.Action, LogOutUseCase.Result> {
+class GetCurrentUserUseCase(
+    private val userMapper: Mapper<FirebaseUser?, Optional<User>>
+) : UseCase<GetCurrentUserUseCase.Action, GetCurrentUserUseCase.Result> {
 
     override fun apply(upstream: Observable<Action>): ObservableSource<Result> = upstream.switchMap {
-        Completable.fromAction { FirebaseAuth.getInstance().signOut() }
-            .toSingleDefault(Result.Success)
+        Single.just(userMapper(FirebaseAuth.getInstance().currentUser))
+            .map { Result.Success(it) }
             .cast(Result::class.java)
             .onErrorReturn(Result::Failure)
             .toObservable()
@@ -22,7 +28,7 @@ class LogOutUseCase : UseCase<LogOutUseCase.Action, LogOutUseCase.Result> {
     object Action : UseCase.Action
 
     sealed class Result : UseCase.Result {
-        object Success : Result()
+        data class Success(val user: Optional<User>) : Result()
         object Idle : Result()
         data class Failure(val throwable: Throwable) : Result()
     }

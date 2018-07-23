@@ -15,7 +15,7 @@ import com.popalay.cardme.api.auth.AuthResult
 import com.popalay.cardme.api.auth.Authenticator
 import com.popalay.cardme.api.mapper.Mapper
 import com.popalay.cardme.api.model.User
-import com.popalay.cardme.base.BuildConfig
+import com.popalay.cardme.core.BuildConfig
 import io.reactivex.Single
 
 internal class GoogleAuthenticator(

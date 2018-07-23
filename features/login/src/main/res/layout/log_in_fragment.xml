@@ -16,7 +16,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <com.popalay.cardme.base.widget.ProgressMaterialButton
+    <com.popalay.cardme.core.widget.ProgressMaterialButton
         android:id="@+id/button_google"
         style="@style/Cardme.Button.Google"
         android:layout_width="match_parent"
@@ -49,7 +49,7 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:text="Hi Dude!" />
 
-    <com.popalay.cardme.base.widget.ProgressMaterialButton
+    <com.popalay.cardme.core.widget.ProgressMaterialButton
         android:id="@+id/button_sync"
         style="@style/Cardme.Button.Colored"
         android:layout_width="match_parent"

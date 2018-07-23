@@ -1,4 +1,4 @@
-package com.popalay.cardme.base.widget;
+package com.popalay.cardme.core.widget;
 
 import android.animation.Animator;
 import android.animation.ObjectAnimator;

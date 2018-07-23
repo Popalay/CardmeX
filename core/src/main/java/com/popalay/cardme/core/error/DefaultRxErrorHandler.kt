@@ -1,4 +1,4 @@
-package com.popalay.cardme.base.error
+package com.popalay.cardme.core.error
 
 import android.util.Log
 import io.reactivex.exceptions.UndeliverableException

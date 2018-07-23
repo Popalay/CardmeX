@@ -1,4 +1,4 @@
-package com.popalay.cardme.base.state
+package com.popalay.cardme.core.state
 
 import com.popalay.cardme.api.state.Intent
 import com.popalay.cardme.api.state.MviViewModel

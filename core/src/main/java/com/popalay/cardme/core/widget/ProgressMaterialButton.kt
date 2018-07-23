@@ -1,4 +1,4 @@
-package com.popalay.cardme.base.widget
+package com.popalay.cardme.core.widget
 
 import android.content.Context
 import android.content.res.Resources

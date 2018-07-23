@@ -28,7 +28,7 @@
         app:layout_constraintTop_toTopOf="@id/image_user_photo"
         tools:text="@tools:sample/full_names" />
 
-    <com.popalay.cardme.base.widget.ProgressMaterialButton
+    <com.popalay.cardme.core.widget.ProgressMaterialButton
         android:id="@+id/button_unsync"
         style="@style/Cardme.Button.Colored"
         android:layout_width="wrap_content"
@@ -41,7 +41,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <com.popalay.cardme.base.widget.ProgressMaterialButton
+    <com.popalay.cardme.core.widget.ProgressMaterialButton
         android:id="@+id/button_sync"
         style="@style/Cardme.Button.Colored"
         android:layout_width="wrap_content"
@@ -54,7 +54,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <com.popalay.cardme.base.widget.ProgressMaterialButton
+    <com.popalay.cardme.core.widget.ProgressMaterialButton
         android:id="@+id/button_add_card"
         style="@style/Cardme.Button.Outlined.Inverse"
         android:layout_width="wrap_content"

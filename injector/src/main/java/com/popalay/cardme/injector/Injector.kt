@@ -1,7 +1,7 @@
 package com.popalay.cardme.injector
 
 import android.app.Application
-import com.popalay.cardme.base.di.CoreModule
+import com.popalay.cardme.core.di.CoreModule
 import com.popalay.cardme.login.LogInModule
 import com.popalay.cardme.main.MainModule
 import org.koin.android.ext.android.startKoin

@@ -16,11 +16,11 @@ import com.gojuno.koptional.None
 import com.gojuno.koptional.Some
 import com.jakewharton.rxbinding2.view.RxView
 import com.popalay.cardme.api.error.ErrorHandler
-import com.popalay.cardme.base.extensions.bindView
-import com.popalay.cardme.base.picasso.CircleImageTransformation
-import com.popalay.cardme.base.state.BindableMviView
-import com.popalay.cardme.base.widget.ProgressMaterialButton
-import com.squareup.picasso.Picasso
+import com.popalay.cardme.core.extensions.bindView
+import com.popalay.cardme.core.extensions.loadImage
+import com.popalay.cardme.core.picasso.CircleImageTransformation
+import com.popalay.cardme.core.state.BindableMviView
+import com.popalay.cardme.core.widget.ProgressMaterialButton
 import io.reactivex.Observable
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.PublishSubject
@@ -49,7 +49,6 @@ internal class LogInFragment : Fragment(), BindableMviView<LogInViewState, LogIn
         super.onViewCreated(view, savedInstanceState)
         bind(getViewModel<LogInViewModel> { parametersOf(this) })
         buttonSync.setOnClickListener { findNavController().popBackStack() }
-
         scopedWith(LogInModule::class.moduleName)
     }
 
@@ -75,10 +74,7 @@ internal class LogInFragment : Fragment(), BindableMviView<LogInViewState, LogIn
             buttonSync.isVisible = user is Some
             user.toNullable()?.run {
                 textUserDisplayName.text = "Hi $displayName!"
-                Picasso.get()
-                    .load(photoUrl)
-                    .transform(CircleImageTransformation())
-                    .into(imageUserPhoto)
+                imageUserPhoto.loadImage(photoUrl, CircleImageTransformation())
             }
             errorHandler.accept(error)
         }

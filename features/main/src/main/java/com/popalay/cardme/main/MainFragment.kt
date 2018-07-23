@@ -13,11 +13,11 @@ import com.gojuno.koptional.None
 import com.gojuno.koptional.Some
 import com.jakewharton.rxbinding2.view.RxView
 import com.popalay.cardme.api.error.ErrorHandler
-import com.popalay.cardme.base.extensions.bindView
-import com.popalay.cardme.base.picasso.CircleImageTransformation
-import com.popalay.cardme.base.state.BindableMviView
-import com.popalay.cardme.base.widget.ProgressMaterialButton
-import com.squareup.picasso.Picasso
+import com.popalay.cardme.core.extensions.bindView
+import com.popalay.cardme.core.extensions.loadImage
+import com.popalay.cardme.core.picasso.CircleImageTransformation
+import com.popalay.cardme.core.state.BindableMviView
+import com.popalay.cardme.core.widget.ProgressMaterialButton
 import io.reactivex.Observable
 import io.reactivex.schedulers.Schedulers
 import org.koin.android.ext.android.inject
@@ -56,10 +56,7 @@ internal class MainFragment : Fragment(), BindableMviView<MainViewState, MainInt
     override fun accept(viewState: MainViewState) {
         with(viewState) {
             user.toNullable()?.run {
-                Picasso.get()
-                    .load(photoUrl)
-                    .transform(CircleImageTransformation())
-                    .into(imageUserPhoto)
+                imageUserPhoto.loadImage(photoUrl, CircleImageTransformation())
                 textUserDisplayName.text = displayName
             }
             buttonSync.isVisible = user === None
