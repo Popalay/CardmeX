@@ -16,6 +16,5 @@ dependencies {
     implementation Libs.navigationFragment
     implementation Libs.navigationUi
 
-    implementation Libs.koinViewModel
     implementation Libs.koinAndroidScope
 }

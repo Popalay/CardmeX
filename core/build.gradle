@@ -58,6 +58,7 @@ dependencies {
     implementation Libs.firebaseAuth
 
     api Libs.koinAndroid
+    api Libs.koinViewModel
     api Libs.kOptional
     api Libs.ktx
     api Libs.picasso
