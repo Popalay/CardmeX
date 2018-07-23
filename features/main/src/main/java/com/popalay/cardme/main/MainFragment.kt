@@ -9,7 +9,6 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.view.isVisible
 import androidx.navigation.Navigation
-import androidx.navigation.fragment.findNavController
 import com.gojuno.koptional.None
 import com.gojuno.koptional.Some
 import com.jakewharton.rxbinding2.view.RxView
@@ -87,6 +86,8 @@ internal class MainFragment : Fragment(), MviView<MainViewState, MainIntent> {
             buttonUnsync.isVisible = user is Some
             textUserDisplayName.isVisible = user is Some
             imageUserPhoto.isVisible = user is Some
+            buttonSync.isProgress = isUnsyncProgress
+            buttonUnsync.isProgress = isUnsyncProgress
 
             errorHandler.accept(error)
         }
@@ -95,6 +96,5 @@ internal class MainFragment : Fragment(), MviView<MainViewState, MainIntent> {
     private val unsyncClickedIntent
         get() = RxView.clicks(buttonUnsync)
             .throttleLast(500L, TimeUnit.MILLISECONDS, Schedulers.computation())
-            .doOnNext { findNavController().navigate(R.id.action_from_main_to_log_in) }
             .map { MainIntent.OnUnsyncClicked }
 }

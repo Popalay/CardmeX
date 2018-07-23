@@ -31,14 +31,14 @@ internal class MainViewModel(
     override val reducer: Reducer<MainViewState> = LambdaReducer {
         when (this) {
             is GetCurrentUserUseCase.Result -> when (this) {
-                is GetCurrentUserUseCase.Result.Success -> it.copy(user = user)
-                GetCurrentUserUseCase.Result.Idle -> it.copy(isProgress = true)
-                is GetCurrentUserUseCase.Result.Failure -> it.copy(error = throwable)
+                is GetCurrentUserUseCase.Result.Success -> it.copy(user = user, isUnsyncProgress = false)
+                GetCurrentUserUseCase.Result.Idle -> it.copy(isUnsyncProgress = true)
+                is GetCurrentUserUseCase.Result.Failure -> it.copy(error = throwable, isUnsyncProgress = false)
             }
             is LogOutUseCase.Result -> when (this) {
-                LogOutUseCase.Result.Success -> it.copy(user = None)
-                LogOutUseCase.Result.Idle -> it.copy(isProgress = true)
-                is LogOutUseCase.Result.Failure -> it.copy(error = throwable)
+                LogOutUseCase.Result.Success -> it.copy(user = None, isUnsyncProgress = false)
+                LogOutUseCase.Result.Idle -> it.copy(isUnsyncProgress = true)
+                is LogOutUseCase.Result.Failure -> it.copy(error = throwable, isUnsyncProgress = false)
             }
             else -> throw IllegalStateException("Can not reduce user for result ${javaClass.name}")
         }
