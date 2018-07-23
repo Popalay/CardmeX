@@ -1,7 +1,7 @@
 apply from: "$project.rootDir/scripts/base_feature_module.gradle"
 
 dependencies {
-    implementation project(':core')
+    implementation project(":core")
 
     implementation Libs.supportDesign
     implementation Libs.supportLib
