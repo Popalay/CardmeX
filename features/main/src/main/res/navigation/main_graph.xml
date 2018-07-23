@@ -15,8 +15,8 @@
 
         <action
             android:id="@+id/action_from_main_to_log_in"
-            app:popUpTo="@id/mainFragment"
-            app:destination="@id/log_in_graph" />
+            app:destination="@id/log_in_graph"
+            app:popUpTo="@id/mainFragment" />
 
     </fragment>
 

@@ -1,14 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout android:id="@+id/root_layout"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="32dp">
+    android:layout_height="match_parent">
 
     <TextView
+        android:id="@+id/label_log_in"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="32dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="32dp"
         android:text="Log In to sync your data"
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
         android:textColor="@color/white"
@@ -21,6 +25,8 @@
         style="@style/Cardme.Button.Google"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="32dp"
+        android:layout_marginStart="32dp"
         android:text="Log in with Google"
         app:icon="@drawable/googleg_standard_color_18"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -41,6 +47,8 @@
         android:id="@+id/text_user_display_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="32dp"
+        android:layout_marginStart="32dp"
         android:gravity="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Title.Inverse"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -48,18 +56,5 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="Hi Dude!" />
-
-    <com.popalay.cardme.core.widget.ProgressMaterialButton
-        android:id="@+id/button_sync"
-        style="@style/Cardme.Button.Colored"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="Sync"
-        android:visibility="gone"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/text_user_display_name"
-        tools:visibility="visible" />
 
 </android.support.constraint.ConstraintLayout>

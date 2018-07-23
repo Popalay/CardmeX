@@ -33,7 +33,6 @@ import java.util.concurrent.TimeUnit
 
 internal class LogInFragment : Fragment(), BindableMviView<LogInViewState, LogInIntent> {
 
-    private val buttonSync: ProgressMaterialButton by bindView(R.id.button_sync)
     private val imageUserPhoto: ImageView by bindView(R.id.image_user_photo)
     private val textUserDisplayName: TextView by bindView(R.id.text_user_display_name)
     private val buttonGoogle: ProgressMaterialButton by bindView(R.id.button_google)
@@ -48,7 +47,6 @@ internal class LogInFragment : Fragment(), BindableMviView<LogInViewState, LogIn
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         bind(getViewModel<LogInViewModel> { parametersOf(this) })
-        buttonSync.setOnClickListener { findNavController().popBackStack() }
         scopedWith(LogInModule::class.moduleName)
     }
 
@@ -59,7 +57,7 @@ internal class LogInFragment : Fragment(), BindableMviView<LogInViewState, LogIn
 
     override val intents: Observable<LogInIntent> = Observable.defer {
         Observable.merge(
-            onActivityResultIntent,
+            activityResultSubject,
             googleSignInClickedIntent
         )
     }
@@ -71,10 +69,10 @@ internal class LogInFragment : Fragment(), BindableMviView<LogInViewState, LogIn
             buttonGoogle.isProgress = isProgress
             textUserDisplayName.isVisible = user is Some
             imageUserPhoto.isVisible = user is Some
-            buttonSync.isVisible = user is Some
-            user.toNullable()?.run {
+            if (showUserInfo) user.toNullable()?.run {
                 textUserDisplayName.text = "Hi $displayName!"
                 imageUserPhoto.loadImage(photoUrl, CircleImageTransformation())
+                if (canStart) findNavController().popBackStack()
             }
             errorHandler.accept(error)
         }
@@ -84,6 +82,4 @@ internal class LogInFragment : Fragment(), BindableMviView<LogInViewState, LogIn
         get() = RxView.clicks(buttonGoogle)
             .throttleLast(500L, TimeUnit.MILLISECONDS, Schedulers.computation())
             .map { LogInIntent.GoogleLogInClicked }
-
-    private val onActivityResultIntent: Observable<LogInIntent.OnActivityResult> get() = activityResultSubject
 }

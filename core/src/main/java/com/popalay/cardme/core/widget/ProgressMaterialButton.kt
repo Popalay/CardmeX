@@ -1,13 +1,13 @@
 package com.popalay.cardme.core.widget
 
 import android.content.Context
-import android.content.res.Resources
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.support.design.button.MaterialButton
 import android.util.AttributeSet
 import android.view.View
+import com.popalay.cardme.core.extensions.px
 
 class ProgressMaterialButton : MaterialButton {
 
@@ -72,6 +72,3 @@ class ProgressMaterialButton : MaterialButton {
         progressBar?.setBounds(left, top, right, bottom)
     }
 }
-
-val Int.dp: Int get() = (this / Resources.getSystem().displayMetrics.density).toInt()
-val Int.px: Int get() = (this * Resources.getSystem().displayMetrics.density).toInt()
