@@ -86,8 +86,6 @@ dependencies {
     implementation project(":features:main")
     implementation project(":injector")
 
-    implementation Libs.rxJava
-
     implementation Libs.supportDesign
     implementation Libs.supportLib
 

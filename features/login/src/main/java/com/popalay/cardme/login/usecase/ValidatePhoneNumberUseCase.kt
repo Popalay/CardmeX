@@ -1,6 +1,6 @@
 package com.popalay.cardme.login.usecase
 
-import com.popalay.cardme.base.usecase.UseCase
+import com.popalay.cardme.api.usecase.UseCase
 import io.reactivex.Observable
 import io.reactivex.ObservableSource
 import io.reactivex.Single

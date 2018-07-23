@@ -1,4 +1,4 @@
-package com.popalay.cardme.base.usecase
+package com.popalay.cardme.api.usecase
 
 import io.reactivex.ObservableTransformer
 

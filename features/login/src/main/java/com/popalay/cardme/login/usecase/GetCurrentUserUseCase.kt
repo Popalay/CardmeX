@@ -4,7 +4,7 @@ import com.gojuno.koptional.Optional
 import com.gojuno.koptional.toOptional
 import com.google.firebase.auth.FirebaseAuth
 import com.popalay.cardme.api.model.User
-import com.popalay.cardme.base.usecase.UseCase
+import com.popalay.cardme.api.usecase.UseCase
 import com.popalay.cardme.login.toUser
 import io.reactivex.Observable
 import io.reactivex.ObservableSource

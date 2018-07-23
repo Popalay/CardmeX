@@ -15,6 +15,9 @@ import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.PhoneAuthCredential
 import com.google.firebase.auth.PhoneAuthProvider
+import com.popalay.cardme.api.auth.AuthCredentials
+import com.popalay.cardme.api.auth.AuthResult
+import com.popalay.cardme.api.auth.Authenticator
 import com.popalay.cardme.api.model.User
 import com.popalay.cardme.base.BuildConfig
 import io.reactivex.Single
@@ -40,6 +43,10 @@ class GoogleAuthenticator(
         .build()
 
     override fun auth(credentials: AuthCredentials): Single<Optional<User>> = Single.create<Optional<User>> { emitter ->
+        if (credentials !== CardmeAuthCredentials.Google) {
+            emitter.onError(IllegalArgumentException("Can handle only Google"))
+            return@create
+        }
         val account = GoogleSignIn.getLastSignedInAccount(context)
         if (account != null) {
             val credential = GoogleAuthProvider.getCredential(account.idToken, null)
@@ -61,7 +68,7 @@ class GoogleAuthenticator(
     }
 
     override fun handleResult(result: AuthResult): Single<Optional<User>> = Single.create<Optional<User>> { emitter ->
-        if (result !is AuthResult.Google) {
+        if (result !is CardmeAuthResult.Google) {
             emitter.onError(IllegalArgumentException("Can handle only Google"))
             return@create
         }
@@ -93,7 +100,7 @@ class FirebasePhoneAuthenticator : Authenticator {
     @Volatile var verificationId: String = ""
 
     override fun auth(credentials: AuthCredentials): Single<Optional<User>> = Single.create<Optional<User>> { emitter ->
-        if (credentials !is AuthCredentials.Phone) {
+        if (credentials !is CardmeAuthCredentials.Phone) {
             emitter.onError(IllegalArgumentException("Can handle only Phone"))
             return@create
         }
@@ -128,7 +135,7 @@ class FirebasePhoneAuthenticator : Authenticator {
     }.subscribeOn(Schedulers.io())
 
     override fun handleResult(result: AuthResult): Single<Optional<User>> = Single.create<Optional<User>> { emitter ->
-        if (result !is AuthResult.Phone) {
+        if (result !is CardmeAuthResult.Phone) {
             emitter.onError(IllegalArgumentException("Can handle only Phone"))
             return@create
         }
@@ -145,35 +152,18 @@ class FirebasePhoneAuthenticator : Authenticator {
     }.subscribeOn(Schedulers.io())
 }
 
-interface Authenticator {
-
-    fun auth(credentials: AuthCredentials): Single<Optional<User>>
-
-    fun handleResult(result: AuthResult): Single<Optional<User>>
-}
-
-sealed class AuthCredentials {
-    data class Phone(val phoneNumber: String) : AuthCredentials()
-    object Google : AuthCredentials()
-}
-
-sealed class AuthResult {
-    data class Phone(val code: String) : AuthResult()
-    data class Google(val success: Boolean, val requestCode: Int, val data: Intent) : AuthResult()
-}
-
 class AuthenticatorFacade(
     private val authenticators: Map<KClass<out Authenticator>, Authenticator>
 ) : Authenticator {
 
-    override fun auth(credentials: AuthCredentials): Single<Optional<User>> = when (credentials) {
-        is AuthCredentials.Phone -> requireNotNull(authenticators[FirebasePhoneAuthenticator::class]).auth(credentials)
-        AuthCredentials.Google -> requireNotNull(authenticators[GoogleAuthenticator::class]).auth(credentials)
+    override fun auth(credentials: AuthCredentials): Single<Optional<User>> = when (credentials as CardmeAuthCredentials) {
+        is CardmeAuthCredentials.Phone -> requireNotNull(authenticators[FirebasePhoneAuthenticator::class]).auth(credentials)
+        CardmeAuthCredentials.Google -> requireNotNull(authenticators[GoogleAuthenticator::class]).auth(credentials)
     }
 
-    override fun handleResult(result: AuthResult): Single<Optional<User>> = when (result) {
-        is AuthResult.Phone -> checkNotNull(authenticators[FirebasePhoneAuthenticator::class]).handleResult(result)
-        is AuthResult.Google -> requireNotNull(authenticators[GoogleAuthenticator::class]).handleResult(result)
+    override fun handleResult(result: AuthResult): Single<Optional<User>> = when (result as CardmeAuthResult) {
+        is CardmeAuthResult.Phone -> checkNotNull(authenticators[FirebasePhoneAuthenticator::class]).handleResult(result)
+        is CardmeAuthResult.Google -> requireNotNull(authenticators[GoogleAuthenticator::class]).handleResult(result)
     }
 }
 
@@ -184,3 +174,13 @@ fun FirebaseUser.toUser() = User(
     photoUrl = photoUrl?.toString() ?: "",
     displayName = displayName ?: "Undefined"
 )
+
+sealed class CardmeAuthCredentials : AuthCredentials {
+    data class Phone(val phoneNumber: String) : CardmeAuthCredentials()
+    object Google : CardmeAuthCredentials()
+}
+
+sealed class CardmeAuthResult : AuthResult {
+    data class Phone(val code: String) : CardmeAuthResult()
+    data class Google(val success: Boolean, val requestCode: Int, val data: Intent) : CardmeAuthResult()
+}

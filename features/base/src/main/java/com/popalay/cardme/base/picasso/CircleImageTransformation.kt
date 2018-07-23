@@ -1,4 +1,4 @@
-package com.popalay.cardme.base
+package com.popalay.cardme.base.picasso
 
 import android.graphics.Bitmap
 import android.graphics.BitmapShader

@@ -1,4 +1,4 @@
-package com.popalay.cardme.base.state
+package com.popalay.cardme.api.state
 
 import io.reactivex.Observable
 

@@ -3,7 +3,7 @@ package com.popalay.cardme.login
 import com.gojuno.koptional.None
 import com.gojuno.koptional.Optional
 import com.popalay.cardme.api.model.User
-import com.popalay.cardme.base.state.ViewState
+import com.popalay.cardme.api.state.ViewState
 
 internal data class LogInViewState(
     val user: Optional<User>,

@@ -1,8 +1,7 @@
-apply plugin: "com.android.feature"
+apply plugin: "com.android.library"
 apply plugin: "kotlin-android"
 
 android {
-    baseFeature true
     compileSdkVersion Versions.compileSdkVersion
     defaultConfig {
         minSdkVersion Versions.minSdkVersion
@@ -39,11 +38,8 @@ android {
 }
 
 dependencies {
-    application project(":installed")
-    feature project(":features:login")
-    feature project(":features:main")
-
-    implementation Libs.kotlin
+    api project(":api")
+    api Libs.kotlin
 
     implementation Libs.supportDesign
     implementation Libs.supportLib
@@ -51,16 +47,16 @@ dependencies {
     implementation Libs.recyclerView
     implementation Libs.constraintLayout
 
-    implementation Libs.rxJava
-    implementation Libs.rxAndroid
+    api Libs.rxJava
+    api Libs.rxAndroid
+    api Libs.rxKotlin
 
     implementation Libs.lifecycle
 
     implementation Libs.navigationFragment
     implementation Libs.navigationUi
 
-    implementation Libs.koinAndroid
-
+    api Libs.koinAndroid
     api Libs.kOptional
     api Libs.ktx
     api Libs.picasso

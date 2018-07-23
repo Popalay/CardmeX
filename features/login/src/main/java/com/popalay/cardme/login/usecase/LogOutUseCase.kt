@@ -1,7 +1,7 @@
 package com.popalay.cardme.login.usecase
 
 import com.google.firebase.auth.FirebaseAuth
-import com.popalay.cardme.base.usecase.UseCase
+import com.popalay.cardme.api.usecase.UseCase
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.ObservableSource

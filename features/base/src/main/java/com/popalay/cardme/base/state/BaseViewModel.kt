@@ -1,4 +1,4 @@
-package com.popalay.cardme.base
+package com.popalay.cardme.base.state
 
 import android.arch.lifecycle.ViewModel
 import io.reactivex.disposables.CompositeDisposable

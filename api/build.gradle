@@ -3,4 +3,6 @@ apply plugin: "kotlin"
 dependencies {
 
     implementation Libs.kotlin
+    implementation Libs.rxJava
+    implementation Libs.kOptional
 }

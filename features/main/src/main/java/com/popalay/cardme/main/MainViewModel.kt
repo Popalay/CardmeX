@@ -1,11 +1,11 @@
 package com.popalay.cardme.main
 
 import com.gojuno.koptional.None
+import com.popalay.cardme.api.state.IntentProcessor
+import com.popalay.cardme.api.state.LambdaReducer
+import com.popalay.cardme.api.state.Processor
+import com.popalay.cardme.api.state.Reducer
 import com.popalay.cardme.base.state.BaseMviViewModel
-import com.popalay.cardme.base.state.IntentProcessor
-import com.popalay.cardme.base.state.LambdaReducer
-import com.popalay.cardme.base.state.Processor
-import com.popalay.cardme.base.state.Reducer
 import com.popalay.cardme.login.usecase.GetCurrentUserUseCase
 import com.popalay.cardme.login.usecase.LogOutUseCase
 import io.reactivex.rxkotlin.ofType

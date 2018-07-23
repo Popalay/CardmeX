@@ -2,17 +2,10 @@ apply from: "$project.rootDir/scripts/base_feature_module.gradle"
 
 dependencies {
     implementation project(":features:base")
-    implementation project(":api")
-
-    implementation Libs.kotlin
 
     implementation Libs.supportDesign
     implementation Libs.supportLib
     implementation Libs.constraintLayout
-
-    implementation Libs.rxJava
-    implementation Libs.rxAndroid
-    implementation Libs.rxKotlin
 
     implementation Libs.rxBinding
     implementation Libs.rxBindingDesign
@@ -23,7 +16,6 @@ dependencies {
     implementation Libs.navigationFragment
     implementation Libs.navigationUi
 
-    implementation Libs.koinAndroid
     implementation Libs.koinViewModel
     implementation Libs.koinAndroidScope
 }
