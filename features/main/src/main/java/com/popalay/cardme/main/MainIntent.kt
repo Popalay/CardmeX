@@ -6,4 +6,5 @@ internal sealed class MainIntent : Intent {
 
     object OnStarted : MainIntent()
     object OnUnsyncClicked : MainIntent()
+    object OnSyncClicked : MainIntent()
 }

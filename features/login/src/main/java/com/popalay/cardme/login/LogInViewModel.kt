@@ -1,6 +1,7 @@
 package com.popalay.cardme.login
 
 import com.gojuno.koptional.Some
+import com.popalay.cardme.api.navigation.Router
 import com.popalay.cardme.api.state.IntentProcessor
 import com.popalay.cardme.api.state.LambdaReducer
 import com.popalay.cardme.api.state.Processor
@@ -17,6 +18,7 @@ import io.reactivex.schedulers.Schedulers
 import java.util.concurrent.TimeUnit
 
 internal class LogInViewModel(
+    private val router: Router,
     private val authUseCase: AuthUseCase,
     private val handleAuthResultUseCase: HandleAuthResultUseCase
 ) : BaseMviViewModel<LogInViewState, LogInIntent>() {
@@ -50,7 +52,10 @@ internal class LogInViewModel(
             }
             is ShowUserAnimationResult -> when (this) {
                 ShowUserAnimationResult.Started -> it.copy(showUserInfo = true)
-                ShowUserAnimationResult.Completed -> it.copy(canStart = true)
+                ShowUserAnimationResult.Completed -> {
+                    router.navigateUp()
+                    it
+                }
             }
             else -> throw IllegalStateException("Can not reduce user for result ${javaClass.name}")
         }

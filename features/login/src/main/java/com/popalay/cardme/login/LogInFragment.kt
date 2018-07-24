@@ -11,11 +11,11 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.view.isVisible
-import androidx.navigation.fragment.findNavController
 import com.gojuno.koptional.None
 import com.gojuno.koptional.Some
 import com.jakewharton.rxbinding2.view.RxView
 import com.popalay.cardme.api.error.ErrorHandler
+import com.popalay.cardme.api.navigation.NavigatorHolder
 import com.popalay.cardme.core.extensions.bindView
 import com.popalay.cardme.core.extensions.loadImage
 import com.popalay.cardme.core.picasso.CircleImageTransformation
@@ -38,6 +38,7 @@ internal class LogInFragment : Fragment(), BindableMviView<LogInViewState, LogIn
     private val buttonGoogle: ProgressMaterialButton by bindView(R.id.button_google)
 
     private val errorHandler: ErrorHandler by inject()
+    private val navigatorHolder: NavigatorHolder by inject()
 
     private val activityResultSubject = PublishSubject.create<LogInIntent.OnActivityResult>().toSerialized()
 
@@ -46,8 +47,14 @@ internal class LogInFragment : Fragment(), BindableMviView<LogInViewState, LogIn
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        navigatorHolder.navigator = LogInNavigator(this)
         bind(getViewModel<LogInViewModel> { parametersOf(this) })
         scopedWith(LogInModule::class.moduleName)
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        navigatorHolder.navigator = null
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
@@ -72,7 +79,6 @@ internal class LogInFragment : Fragment(), BindableMviView<LogInViewState, LogIn
             if (showUserInfo) user.toNullable()?.run {
                 textUserDisplayName.text = "Hi $displayName!"
                 imageUserPhoto.loadImage(photoUrl, CircleImageTransformation())
-                if (canStart) findNavController().popBackStack()
             }
             errorHandler.accept(error)
         }

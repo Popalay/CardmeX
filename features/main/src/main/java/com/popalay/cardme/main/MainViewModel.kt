@@ -1,6 +1,7 @@
 package com.popalay.cardme.main
 
 import com.gojuno.koptional.None
+import com.popalay.cardme.api.navigation.Router
 import com.popalay.cardme.api.state.IntentProcessor
 import com.popalay.cardme.api.state.LambdaReducer
 import com.popalay.cardme.api.state.Processor
@@ -8,11 +9,14 @@ import com.popalay.cardme.api.state.Reducer
 import com.popalay.cardme.core.state.BaseMviViewModel
 import com.popalay.cardme.core.usecase.GetCurrentUserUseCase
 import com.popalay.cardme.core.usecase.LogOutUseCase
+import com.popalay.cardme.core.usecase.NavigationUseCase
 import io.reactivex.rxkotlin.ofType
 
 internal class MainViewModel(
+    private val router: Router,
     private val getCurrentUserUseCase: GetCurrentUserUseCase,
-    private val logOutUseCase: LogOutUseCase
+    private val logOutUseCase: LogOutUseCase,
+    private val navigationUseCase: NavigationUseCase
 ) : BaseMviViewModel<MainViewState, MainIntent>() {
 
     override val initialState: MainViewState = MainViewState.idle()
@@ -24,7 +28,11 @@ internal class MainViewModel(
                 .compose(getCurrentUserUseCase),
             it.ofType<MainIntent.OnUnsyncClicked>()
                 .map { LogOutUseCase.Action }
-                .compose(logOutUseCase)
+                .compose(logOutUseCase),
+            it.ofType<MainIntent.OnSyncClicked>()
+                .doOnNext { router.navigate(MainDestination.LogIn) }
+                .map { NavigationUseCase.Action }
+                .compose(navigationUseCase)
         )
     }
 
@@ -40,6 +48,7 @@ internal class MainViewModel(
                 LogOutUseCase.Result.Idle -> it.copy(isUnsyncProgress = true)
                 is LogOutUseCase.Result.Failure -> it.copy(error = throwable, isUnsyncProgress = false)
             }
+            is NavigationUseCase.Result -> it
             else -> throw IllegalStateException("Can not reduce user for result ${javaClass.name}")
         }
     }

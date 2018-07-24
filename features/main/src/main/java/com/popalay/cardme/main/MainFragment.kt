@@ -8,11 +8,11 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.view.isVisible
-import androidx.navigation.Navigation
 import com.gojuno.koptional.None
 import com.gojuno.koptional.Some
 import com.jakewharton.rxbinding2.view.RxView
 import com.popalay.cardme.api.error.ErrorHandler
+import com.popalay.cardme.api.navigation.NavigatorHolder
 import com.popalay.cardme.core.extensions.bindView
 import com.popalay.cardme.core.extensions.loadImage
 import com.popalay.cardme.core.picasso.CircleImageTransformation
@@ -35,21 +35,28 @@ internal class MainFragment : Fragment(), BindableMviView<MainViewState, MainInt
     private val buttonSync: ProgressMaterialButton by bindView(R.id.button_sync)
 
     private val errorHandler: ErrorHandler by inject()
+    private val navigatorHolder: NavigatorHolder by inject()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View =
         inflater.inflate(R.layout.main_fragment, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        navigatorHolder.navigator = MainNavigator(this)
         bind(getViewModel<MainViewModel>())
         scopedWith(MainModule::class.moduleName)
-        buttonSync.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_from_main_to_log_in))
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        navigatorHolder.navigator = null
     }
 
     override val intents: Observable<MainIntent> = Observable.defer {
         Observable.merge(
             Observable.just(MainIntent.OnStarted),
-            unsyncClickedIntent
+            unsyncClickedIntent,
+            syncClickedIntent
         )
     }
 
@@ -74,4 +81,9 @@ internal class MainFragment : Fragment(), BindableMviView<MainViewState, MainInt
         get() = RxView.clicks(buttonUnsync)
             .throttleLast(500L, TimeUnit.MILLISECONDS, Schedulers.computation())
             .map { MainIntent.OnUnsyncClicked }
+
+    private val syncClickedIntent
+        get() = RxView.clicks(buttonSync)
+            .throttleLast(500L, TimeUnit.MILLISECONDS, Schedulers.computation())
+            .map { MainIntent.OnSyncClicked }
 }

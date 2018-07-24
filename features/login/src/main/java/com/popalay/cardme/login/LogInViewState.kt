@@ -8,7 +8,6 @@ import com.popalay.cardme.api.state.ViewState
 internal data class LogInViewState(
     val user: Optional<User>,
     val isProgress: Boolean,
-    val canStart: Boolean,
     val showUserInfo: Boolean,
     val error: Throwable?
 ) : ViewState {
@@ -18,7 +17,6 @@ internal data class LogInViewState(
         fun idle() = LogInViewState(
             user = None,
             isProgress = false,
-            canStart = false,
             showUserInfo = false,
             error = null
         )
