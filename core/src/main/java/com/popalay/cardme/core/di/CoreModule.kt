@@ -11,6 +11,7 @@ import com.popalay.cardme.core.error.DefaultErrorHandler
 import com.popalay.cardme.core.mapper.FirebaseUserToUserMapper
 import com.popalay.cardme.core.navigation.BaseNavigationHolder
 import com.popalay.cardme.core.navigation.BaseRouter
+import com.popalay.cardme.core.usecase.SpecificIntentUseCase
 import org.koin.dsl.module.module
 
 object CoreModule {
@@ -20,5 +21,6 @@ object CoreModule {
         single<Mapper<FirebaseUser?, Optional<User>>> { FirebaseUserToUserMapper() }
         single<NavigatorHolder> { BaseNavigationHolder() }
         single<Router> { BaseRouter(get()) }
+        single { SpecificIntentUseCase() }
     }
 }

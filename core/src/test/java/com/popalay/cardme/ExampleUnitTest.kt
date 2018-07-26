@@ -1,4 +1,4 @@
-package com.popalay.cardmex
+package com.popalay.cardme
 
 import org.junit.Test
 
