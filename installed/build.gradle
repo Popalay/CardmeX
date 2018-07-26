@@ -22,9 +22,9 @@ android {
 
         release {
             storeFile file(System.getenv("BITRISEIO_ANDROID_KEYSTORE_URL"))
-            storePassword SignIn.System.getenv("BITRISEIO_ANDROID_KEYSTORE_PASSWORD")
-            keyAlias SignIn.System.getenv("BITRISEIO_ANDROID_KEYSTORE_ALIAS")
-            keyPassword SignIn.System.getenv("BITRISEIO_ANDROID_KEYSTORE_PRIVATE_KEY_PASSWORD")
+            storePassword System.getenv("BITRISEIO_ANDROID_KEYSTORE_PASSWORD")
+            keyAlias System.getenv("BITRISEIO_ANDROID_KEYSTORE_ALIAS")
+            keyPassword System.getenv("BITRISEIO_ANDROID_KEYSTORE_PRIVATE_KEY_PASSWORD")
         }
     }
 
