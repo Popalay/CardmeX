@@ -40,6 +40,5 @@ projectFilesBackup/.idea/
 projectFilesBackup2/.idea/
 /app/src/main/assets/airshipconfig.properties
 
-/buildSrc/src/main/java/SignIn.kt
-/buildSrc/src/main/java/ApiKeys.kt
+/buildSrc/src/main/java/Secret.kt
 libs/

@@ -16,7 +16,7 @@ android {
     productFlavors {
 
         all {
-            buildConfigField "String", "GOOGLE_CLIENT_ID", Config.googleClientId
+            buildConfigField "String", "GOOGLE_CLIENT_ID", ApiKeys.googleClientId
         }
 
         dev {

@@ -17,14 +17,14 @@ android {
 
     signingConfigs {
         debug {
-            storeFile file(Config.debugStoreFile)
+            storeFile file(SignIn.debugStoreFile)
         }
 
         release {
-            storeFile file(Config.releaseStoreFile)
-            keyAlias Config.releaseKeyAlias
-            keyPassword Config.releaseKeyPassword
-            storePassword Config.storePassword
+            storeFile file(SignIn.releaseStoreFile)
+            keyAlias SignIn.releaseKeyAlias
+            keyPassword SignIn.releaseKeyPassword
+            storePassword SignIn.storePassword
         }
     }
 
@@ -62,14 +62,14 @@ android {
             signingConfigs {
 
                 debug {
-                    storeFile file(Config.debugStoreFile)
+                    storeFile file(SignIn.debugStoreFile)
                 }
 
                 release {
-                    storeFile file(Config.releaseStoreFile)
-                    keyAlias Config.releaseXKeyAlias
-                    keyPassword Config.releaseXKeyPassword
-                    storePassword Config.storePassword
+                    storeFile file(SignIn.releaseStoreFile)
+                    keyAlias SignIn.releaseXKeyAlias
+                    keyPassword SignIn.releaseXKeyPassword
+                    storePassword SignIn.storePassword
                 }
             }
         }

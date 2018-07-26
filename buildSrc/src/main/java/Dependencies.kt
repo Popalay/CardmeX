@@ -1,18 +1,5 @@
 @file:Suppress("unused")
 
-object Config {
-
-    val debugStoreFile = SignIn.debugStoreFile
-    val releaseStoreFile  = System.getenv("BITRISEIO_ANDROID_KEYSTORE_URL") ?: SignIn.releaseStoreFile
-    val storePassword  = System.getenv("BITRISEIO_ANDROID_KEYSTORE_PASSWORD") ?: SignIn.storePassword
-    val releaseXKeyAlias = System.getenv("BITRISEIO_ANDROID_KEYSTORE_ALIAS") ?: SignIn.releaseXKeyAlias
-    val releaseXKeyPassword = System.getenv("BITRISEIO_ANDROID_KEYSTORE_PRIVATE_KEY_PASSWORD") ?: SignIn.releaseXKeyPassword
-    val releaseKeyAlias = SignIn.releaseKeyAlias
-    val releaseKeyPassword = SignIn.releaseKeyPassword
-
-    val googleClientId = System.getenv("BITRISEIO_GOOGLE_CLIENT_ID") ?: ApiKeys.googleClientId
-}
-
 object Versions {
     const val versionName = "0.0.1"
 
@@ -101,4 +88,21 @@ object Libs {
     // Development
     const val androidProguards = "com.github.yongjhih.android-proguards:android-proguards:${Versions.androidProguards}"
     const val crashlytics = "com.crashlytics.sdk.android:crashlytics:${Versions.crashlytics}"
+}
+
+object ApiKeys {
+
+    val googleClientId = System.getenv("BITRISEIO_GOOGLE_CLIENT_ID") ?: Secret.googleClientId
+}
+
+object SignIn {
+    const val debugStoreFile = Secret.debugStoreFile
+    val releaseStoreFile  = System.getenv("BITRISEIO_ANDROID_KEYSTORE_URL") ?: Secret.releaseStoreFile
+    val storePassword  = System.getenv("BITRISEIO_ANDROID_KEYSTORE_PASSWORD") ?: Secret.storePassword
+
+    val releaseXKeyAlias = System.getenv("BITRISEIO_ANDROID_KEYSTORE_ALIAS") ?: Secret.releaseXKeyAlias
+    val releaseXKeyPassword = System.getenv("BITRISEIO_ANDROID_KEYSTORE_PRIVATE_KEY_PASSWORD") ?: Secret.releaseXKeyPassword
+
+    const val releaseKeyAlias = Secret.releaseKeyAlias
+    const val releaseKeyPassword = Secret.releaseKeyPassword
 }
