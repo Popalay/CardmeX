@@ -96,8 +96,8 @@ object ApiKeys {
 }
 
 object SignIn {
-    const val debugStoreFile = Secret.debugStoreFile
-    val releaseStoreFile  = System.getenv("BITRISEIO_ANDROID_KEYSTORE_URL") ?: Secret.releaseStoreFile
+    const val debugStoreFile = "../keys/debug.keystore"
+    const val releaseStoreFile = "../keys/release.keystore"
     val storePassword  = System.getenv("BITRISEIO_ANDROID_KEYSTORE_PASSWORD") ?: Secret.storePassword
 
     val releaseXKeyAlias = System.getenv("BITRISEIO_ANDROID_KEYSTORE_ALIAS") ?: Secret.releaseXKeyAlias
