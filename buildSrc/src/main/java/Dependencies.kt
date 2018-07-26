@@ -2,6 +2,7 @@
 
 object Versions {
     const val versionName = "0.0.1"
+    val versionCode = (System.getenv("ANDROID_VERSION_CODE") ?: "9").toInt()
 
     const val minSdkVersion = 23
     const val targetSdkVersion = 28
@@ -98,7 +99,7 @@ object ApiKeys {
 object SignIn {
     const val debugStoreFile = "../keys/debug.keystore"
     const val releaseStoreFile = "../keys/release.keystore"
-    val storePassword  = System.getenv("BITRISEIO_ANDROID_KEYSTORE_PASSWORD") ?: Secret.storePassword
+    val storePassword = System.getenv("BITRISEIO_ANDROID_KEYSTORE_PASSWORD") ?: Secret.storePassword
 
     val releaseXKeyAlias = System.getenv("BITRISEIO_ANDROID_KEYSTORE_ALIAS") ?: Secret.releaseXKeyAlias
     val releaseXKeyPassword = System.getenv("BITRISEIO_ANDROID_KEYSTORE_PRIVATE_KEY_PASSWORD") ?: Secret.releaseXKeyPassword

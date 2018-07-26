@@ -7,7 +7,7 @@ android {
         minSdkVersion Versions.minSdkVersion
         targetSdkVersion Versions.targetSdkVersion
         versionName Versions.versionName
-        versionCode VERSION_CODE.toInteger()
+        versionCode Versions.versionCode
 
         consumerProguardFiles "proguard-rules.pro"
     }

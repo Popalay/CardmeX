@@ -3,7 +3,6 @@ apply plugin: "kotlin-android"
 apply plugin: "kotlin-android-extensions"
 apply plugin: "androidx.navigation.safeargs"
 apply plugin: "io.fabric"
-apply from: "$project.rootDir/scripts/version.gradle"
 
 android {
     compileSdkVersion Versions.compileSdkVersion
@@ -12,7 +11,7 @@ android {
         minSdkVersion Versions.minSdkVersion
         targetSdkVersion Versions.targetSdkVersion
         versionName Versions.versionName
-        versionCode VERSION_CODE.toInteger()
+        versionCode Versions.versionCode
     }
 
     signingConfigs {
