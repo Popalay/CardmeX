@@ -1,13 +1,13 @@
 echo 'object Secret {
-    const val googleClientId = null;
+    const val googleClientId:String? = null;
 
-    const val debugStoreFile = null;
-    const val releaseStoreFile = null;
-    const val storePassword = null;
+    const val debugStoreFile:String? = null;
+    const val releaseStoreFile:String? = null;
+    const val storePassword:String? = null;
 
-    const val releaseKeyAlias = null;
-    const val releaseKeyPassword = null;
+    const val releaseKeyAlias:String? = null;
+    const val releaseKeyPassword:String? = null;
 
-    const val releaseXKeyAlias = null;
-    const val releaseXKeyPassword = null;
+    const val releaseXKeyAlias:String? = null;
+    const val releaseXKeyPassword:String? = null;
 }' >./buildSrc/src/main/java/Secret.kt
