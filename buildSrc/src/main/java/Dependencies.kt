@@ -1,5 +1,18 @@
 @file:Suppress("unused")
 
+object Config {
+
+    val debugStoreFile = SignIn.debugStoreFile
+    val releaseStoreFile  = System.getenv("BITRISEIO_ANDROID_KEYSTORE_URL") ?: SignIn.releaseStoreFile
+    val storePassword  = System.getenv("BITRISEIO_ANDROID_KEYSTORE_PASSWORD") ?: SignIn.storePassword
+    val releaseXKeyAlias = System.getenv("BITRISEIO_ANDROID_KEYSTORE_ALIAS") ?: SignIn.releaseXKeyAlias
+    val releaseXKeyPassword = System.getenv("BITRISEIO_ANDROID_KEYSTORE_PRIVATE_KEY_PASSWORD") ?: SignIn.releaseXKeyPassword
+    val releaseKeyAlias = SignIn.releaseKeyAlias
+    val releaseKeyPassword = SignIn.releaseKeyPassword
+
+    val googleClientId = System.getenv("BITRISEIO_GOOGLE_CLIENT_ID") ?: ApiKeys.googleClientId
+}
+
 object Versions {
     const val versionName = "0.0.1"
 

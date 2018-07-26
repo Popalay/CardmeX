@@ -17,14 +17,14 @@ android {
 
     signingConfigs {
         debug {
-            storeFile file(SignIn.debugStoreFile)
+            storeFile file(Config.debugStoreFile)
         }
 
         release {
-            storeFile file(System.getenv("BITRISEIO_ANDROID_KEYSTORE_URL"))
-            storePassword System.getenv("BITRISEIO_ANDROID_KEYSTORE_PASSWORD")
-            keyAlias System.getenv("BITRISEIO_ANDROID_KEYSTORE_ALIAS")
-            keyPassword System.getenv("BITRISEIO_ANDROID_KEYSTORE_PRIVATE_KEY_PASSWORD")
+            storeFile file(Config.releaseStoreFile)
+            keyAlias Config.releaseKeyAlias
+            keyPassword Config.releaseKeyPassword
+            storePassword Config.storePassword
         }
     }
 
@@ -62,14 +62,14 @@ android {
             signingConfigs {
 
                 debug {
-                    storeFile file(SignIn.debugStoreFile)
+                    storeFile file(Config.debugStoreFile)
                 }
 
                 release {
-                    storeFile file(SignIn.releaseStoreFile)
-                    keyAlias SignIn.releaseXKeyAlias
-                    keyPassword SignIn.releaseXKeyPassword
-                    storePassword SignIn.storePassword
+                    storeFile file(Config.releaseStoreFile)
+                    keyAlias Config.releaseXKeyAlias
+                    keyPassword Config.releaseXKeyPassword
+                    storePassword Config.storePassword
                 }
             }
         }
