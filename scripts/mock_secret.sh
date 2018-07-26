@@ -1,1 +1,1 @@
-echo 'object Secret {}' >$PROJECT_LOCATION/buildSrc/src/main/java/Secret.kt
+echo 'object Secret {}' >buildSrc/src/main/java/Secret.kt
