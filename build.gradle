@@ -1,3 +1,5 @@
+apply plugin: "com.github.ben-manes.versions"
+
 buildscript {
     repositories {
         google()
@@ -8,8 +10,10 @@ buildscript {
         classpath "com.android.tools.build:gradle:$Versions.gradlePlugin"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$Versions.kotlinLanguage"
         classpath "android.arch.navigation:navigation-safe-args-gradle-plugin:$Versions.acNavigation"
-        classpath "com.google.gms:google-services:4.0.1"
+        classpath "com.google.gms:google-services:4.0.2"
         classpath "io.fabric.tools:gradle:1.25.4"
+        classpath "com.github.ben-manes:gradle-versions-plugin:0.20.0"
+        classpath "org.jacoco:org.jacoco.core:0.8.0"
     }
 }
 
@@ -18,6 +22,7 @@ allprojects {
         google()
         jcenter()
         maven { url "https://jitpack.io" }
+        maven { url  "https://dl.bintray.com/spekframework/spek-dev" }
     }
 }
 

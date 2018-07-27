@@ -1,4 +1,4 @@
-package com.popalay.cardme.splash;
+package com.popalay.cardme.main;
 
 import android.content.Context;
 

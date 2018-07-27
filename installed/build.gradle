@@ -3,6 +3,7 @@ apply plugin: "kotlin-android"
 apply plugin: "kotlin-android-extensions"
 apply plugin: "androidx.navigation.safeargs"
 apply plugin: "io.fabric"
+apply from: "$rootDir/scripts/test_config.gradle"
 
 android {
     compileSdkVersion Versions.compileSdkVersion
@@ -31,6 +32,7 @@ android {
         debug {
             signingConfig signingConfigs.debug
             ext.enableCrashlytics = false
+            testCoverageEnabled true
         }
 
         release {
@@ -38,6 +40,7 @@ android {
             minifyEnabled true
             shrinkResources true
             proguardFiles getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"
+            testCoverageEnabled true
         }
     }
 
@@ -98,4 +101,4 @@ dependencies {
     }
 }
 
-apply plugin: 'com.google.gms.google-services'
+apply plugin: "com.google.gms.google-services"

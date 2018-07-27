@@ -11,8 +11,8 @@ object Versions {
     const val gradlePlugin = "3.2.0-beta04"
     const val kotlinLanguage = "1.2.51"
 
-    const val supportLibrary = "28.0.0-alpha3"
-    const val constraintLayout = "1.1.2"
+    const val supportLibrary = "28.0.0-beta01"
+    const val constraintLayout = "2.0.0-alpha1"
     const val ktx = "0.3"
     const val materialComponents = "1.0.0-beta01"
 
@@ -26,7 +26,7 @@ object Versions {
     const val acRoom = "1.1.1"
     const val acNavigation = "1.0.0-alpha04"
 
-    const val firebaseCore = "16.0.0"
+    const val firebaseCore = "16.0.1"
     const val firebaseAuth = "16.0.2"
     const val playServicesAuth = "15.0.1"
 
@@ -37,6 +37,8 @@ object Versions {
     const val picasso = "2.71828"
     const val androidProguards = "2.0.1"
     const val crashlytics = "2.9.3"
+
+    const val kotlinTest = "3.1.8"
 }
 
 object Libs {
@@ -89,6 +91,11 @@ object Libs {
     // Development
     const val androidProguards = "com.github.yongjhih.android-proguards:android-proguards:${Versions.androidProguards}"
     const val crashlytics = "com.crashlytics.sdk.android:crashlytics:${Versions.crashlytics}"
+
+    // Test
+    const val kotlinTestCore = "io.kotlintest:kotlintest-core:${Versions.kotlinTest}"
+    const val kotlinTestAssertions = "io.kotlintest:kotlintest-assertions:${Versions.kotlinTest}"
+    const val kotlinTestRunner = "io.kotlintest:kotlintest-runner-junit5:${Versions.kotlinTest}"
 }
 
 object ApiKeys {

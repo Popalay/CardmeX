@@ -1,0 +1,26 @@
+apply from: "$rootDir/scripts/jococo.gradle"
+
+android {
+
+    testOptions {
+        unitTests.all {
+            // Enable JUnit 5 (Gradle 4.6+).
+            useJUnitPlatform()
+
+            // Always run tests, even when nothing changed.
+            dependsOn 'cleanTest'
+
+            // Show test results.
+            testLogging {
+                events "passed", "skipped", "failed"
+            }
+        }
+    }
+}
+
+dependencies {
+
+    testImplementation Libs.kotlinTestCore
+    testImplementation Libs.kotlinTestAssertions
+    testImplementation Libs.kotlinTestRunner
+}
