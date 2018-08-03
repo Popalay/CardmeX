@@ -8,6 +8,9 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.view.isVisible
+import androidx.navigation.NavController
+import androidx.navigation.NavHost
+import androidx.navigation.findNavController
 import com.gojuno.koptional.None
 import com.gojuno.koptional.Some
 import com.jakewharton.rxbinding2.view.RxView
@@ -26,11 +29,11 @@ import org.koin.android.viewmodel.ext.android.getViewModel
 import org.koin.dsl.path.moduleName
 import java.util.concurrent.TimeUnit
 
-internal class MainFragment : Fragment(), BindableMviView<MainViewState, MainIntent> {
+internal class MainFragment : Fragment(), NavHost, BindableMviView<MainViewState, MainIntent> {
 
+    private val navHostFragment: View by bindView(R.id.nav_host_fragment)
     private val textUserDisplayName: TextView by bindView(R.id.text_user_display_name)
     private val imageUserPhoto: ImageView by bindView(R.id.image_user_photo)
-    private val buttonAddCard: ProgressMaterialButton by bindView(R.id.button_add_card)
     private val buttonUnsync: ProgressMaterialButton by bindView(R.id.button_unsync)
     private val buttonSync: ProgressMaterialButton by bindView(R.id.button_sync)
 
@@ -47,10 +50,7 @@ internal class MainFragment : Fragment(), BindableMviView<MainViewState, MainInt
         scopedWith(MainModule::class.moduleName)
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        navigatorHolder.navigator = null
-    }
+    override fun getNavController(): NavController = navHostFragment.findNavController()
 
     override val intents: Observable<MainIntent> = Observable.defer {
         Observable.merge(

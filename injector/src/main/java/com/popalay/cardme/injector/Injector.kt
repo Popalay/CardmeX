@@ -1,6 +1,7 @@
 package com.popalay.cardme.injector
 
 import android.app.Application
+import com.popalay.cardme.cardlist.CardListModule
 import com.popalay.cardme.core.di.CoreModule
 import com.popalay.cardme.login.LogInModule
 import com.popalay.cardme.main.MainModule
@@ -14,7 +15,8 @@ object Injector {
             listOf(
                 CoreModule.get(),
                 LogInModule.get(),
-                MainModule.get()
+                MainModule.get(),
+                CardListModule.get()
             )
         )
     }

@@ -52,11 +52,6 @@ internal class LogInFragment : Fragment(), BindableMviView<LogInViewState, LogIn
         scopedWith(LogInModule::class.moduleName)
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        navigatorHolder.navigator = null
-    }
-
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
         super.onActivityResult(requestCode, resultCode, data)
         activityResultSubject.onNext(LogInIntent.OnActivityResult(resultCode == Activity.RESULT_OK, requestCode, data))

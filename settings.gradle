@@ -1,3 +1,4 @@
 include ':installed', ':instant', ':injector', ':api', ':core',
+        'features:cardlist',
         ':features:main',
         ':features:login'

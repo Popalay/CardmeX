@@ -2,8 +2,6 @@ apply from: "$rootDir/scripts/base_feature_module.gradle"
 
 dependencies {
     implementation project(":core")
-    implementation project(":features:login")
-    implementation project(":features:cardlist")
 
     implementation Libs.rxBinding
     implementation Libs.rxBindingDesign

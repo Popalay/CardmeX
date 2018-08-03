@@ -1,41 +1,10 @@
-apply plugin: "com.android.library"
-apply plugin: "kotlin-android"
-
-android {
-    compileSdkVersion Versions.compileSdkVersion
-    defaultConfig {
-        minSdkVersion Versions.minSdkVersion
-        targetSdkVersion Versions.targetSdkVersion
-        versionName Versions.versionName
-        versionCode Versions.versionCode
-    }
-
-    flavorDimensions "type", "env"
-    productFlavors {
-
-        dev {
-            dimension "env"
-        }
-
-        prod {
-            dimension "env"
-        }
-
-        x {
-            dimension "type"
-        }
-
-        full {
-            dimension "type"
-        }
-    }
-}
+apply from: "$rootDir/scripts/base_feature_module.gradle"
 
 dependencies {
     implementation project(":core")
     implementation project(":features:login")
     implementation project(":features:main")
+    implementation project(":features:cardlist")
 
-    implementation Libs.kotlin
     implementation Libs.koinAndroid
 }
