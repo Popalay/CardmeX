@@ -5,7 +5,7 @@ import android.arch.persistence.room.PrimaryKey
 import java.util.Date
 
 @Entity
-internal data class Card(
+internal data class CacheCard(
     @PrimaryKey(autoGenerate = true) val id: String,
     val number: String,
     val holderId: String,

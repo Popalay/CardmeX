@@ -3,13 +3,13 @@ package com.popalay.cardme.cache.database
 import android.arch.persistence.room.Database
 import android.arch.persistence.room.RoomDatabase
 import com.popalay.cardme.cache.dao.CardDao
-import com.popalay.cardme.cache.model.Card
-import com.popalay.cardme.cache.model.Holder
+import com.popalay.cardme.cache.model.CacheCard
+import com.popalay.cardme.cache.model.CacheHolder
 
 @Database(
     entities = [
-        Card::class,
-        Holder::class
+        CacheCard::class,
+        CacheHolder::class
     ],
     version = 1
 )

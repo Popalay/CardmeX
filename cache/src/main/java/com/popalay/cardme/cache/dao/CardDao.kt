@@ -2,16 +2,16 @@ package com.popalay.cardme.cache.dao
 
 import android.arch.persistence.room.Dao
 import android.arch.persistence.room.Query
-import com.popalay.cardme.cache.model.Card
-import com.popalay.cardme.cache.model.CardWithHolder
+import com.popalay.cardme.cache.model.CacheCard
+import com.popalay.cardme.cache.model.CacheCardWithHolder
 import io.reactivex.Flowable
 
 @Dao
-internal abstract class CardDao : BaseDao<Card> {
+internal abstract class CardDao : BaseDao<CacheCard> {
 
-    @Query("""SELECT * FROM Card ORDER BY updatedDate""")
-    abstract fun findAll(): Flowable<List<Card>>
+    @Query("""SELECT * FROM CacheCard ORDER BY updatedDate""")
+    abstract fun findAll(): Flowable<List<CacheCard>>
 
-    @Query("""SELECT * FROM Card ORDER BY updatedDate""")
-    abstract fun findAllWithHolder(): Flowable<List<CardWithHolder>>
+    @Query("""SELECT * FROM CacheCard ORDER BY updatedDate""")
+    abstract fun findAllWithHolder(): Flowable<List<CacheCardWithHolder>>
 }

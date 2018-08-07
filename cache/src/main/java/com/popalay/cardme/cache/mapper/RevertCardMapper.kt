@@ -2,16 +2,14 @@ package com.popalay.cardme.cache.mapper
 
 import com.popalay.cardme.api.mapper.Mapper
 import com.popalay.cardme.api.model.Card
-import com.popalay.cardme.cache.model.CacheCardWithHolder
+import com.popalay.cardme.cache.model.CacheCard
 
-internal class CardMapper(
-    private val holderMapper: HolderMapper
-) : Mapper<CacheCardWithHolder, Card> {
+internal class RevertCardMapper: Mapper<Card, CacheCard> {
 
-    override fun apply(value: CacheCardWithHolder): Card = Card(
+    override fun apply(value: Card): CacheCard = CacheCard(
         id = value.id,
         number = value.number,
-        holder = holderMapper(value.holder),
+        holderId = value.holder.id,
         isPublic = value.isPublic,
         createdDate = value.createdDate,
         updatedDate = value.updatedDate
