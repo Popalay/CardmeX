@@ -17,6 +17,7 @@ import com.popalay.cardme.cache.model.CacheCard
 import com.popalay.cardme.cache.model.CacheCardWithHolder
 import com.popalay.cardme.cache.model.CacheHolder
 import com.popalay.cardme.cache.persister.CardCachePersister
+import com.popalay.cardme.cache.persister.HolderCachePersister
 import org.koin.dsl.module.module
 import org.koin.dsl.path.moduleName
 
@@ -34,6 +35,7 @@ object CacheModule {
         single { CardMapper(get()) as Mapper<CacheCardWithHolder, Card> }
         single { RevertCardMapper() as Mapper<Card, CacheCard> }
         single { CardCacheDataSource(get(), get()) as DataSource<List<Card>, Source.Cache> }
-        single { CardCachePersister(get(), get(), get(), get()) as Persister<Card, Source.Cache> }
+        single { CardCachePersister(get(), get()) as Persister<Card, Source.Cache> }
+        single { HolderCachePersister(get(), get()) as Persister<Holder, Source.Cache> }
     }
 }
