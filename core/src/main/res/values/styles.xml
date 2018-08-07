@@ -19,6 +19,10 @@
         <item name="rippleColor">#A86ED7</item>
     </style>
 
+    <style name="Cardme.Button.Floating.Long" parent="Cardme.Button.Colored">
+        <item name="cornerRadius">24dp</item>
+    </style>
+
     <style name="Cardme.Button.Outlined" parent="Widget.MaterialComponents.Button.OutlinedButton" />
 
     <style name="Cardme.Button.Dialog" parent="Widget.MaterialComponents.Button.TextButton.Dialog" />
