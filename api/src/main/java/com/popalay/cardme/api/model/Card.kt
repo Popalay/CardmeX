@@ -1,10 +1,12 @@
 package com.popalay.cardme.api.model
 
+import java.util.Date
+
 data class Card(
-    val uuid: String,
+    val id: String,
     val number: String,
     val holder: Holder,
     val isPublic: Boolean,
-    val createdDate: Long,
-    val updatedDate: Long
+    val createdDate: Date,
+    val updatedDate: Date
 )

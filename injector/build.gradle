@@ -2,6 +2,7 @@ apply from: "$rootDir/scripts/base_module.gradle"
 
 dependencies {
     implementation project(":core")
+    implementation project(":cache")
     implementation project(":features:login")
     implementation project(":features:main")
     implementation project(":features:cardlist")
