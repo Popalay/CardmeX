@@ -1,4 +1,4 @@
-package com.popalay.cardme.cardlist
+package com.popalay.cardme.cardlist.list
 
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
@@ -6,9 +6,14 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import com.popalay.cardme.addcard.R
+import com.popalay.cardme.cardlist.add.AddCardFragment
+import com.popalay.cardme.core.extensions.bindView
 
 class CardListFragment : Fragment() {
+
+    private val buttonAddCard: Button by bindView(R.id.button_add_card)
 
     private lateinit var viewModel: CardListViewModel
 
@@ -21,5 +26,12 @@ class CardListFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(CardListViewModel::class.java)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        buttonAddCard.setOnClickListener {
+            AddCardFragment().show(fragmentManager, null)
+        }
     }
 }

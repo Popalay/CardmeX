@@ -22,7 +22,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:textAppearance="@style/TextAppearance.AppCompat.Subhead.Inverse"
+        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
         app:layout_constraintBottom_toBottomOf="@id/image_user_photo"
         app:layout_constraintStart_toEndOf="@+id/image_user_photo"
         app:layout_constraintTop_toTopOf="@id/image_user_photo"
