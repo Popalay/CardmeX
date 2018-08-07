@@ -1,4 +1,2 @@
-include ':installed', ':instant', ':injector', ':api', ':core',
-        'features:cardlist',
-        ':features:main',
-        ':features:login'
+include ':installed', ':instant', ':injector', ':api', ':core', ':cache'
+include 'features:cardlist', ':features:main', ':features:login'

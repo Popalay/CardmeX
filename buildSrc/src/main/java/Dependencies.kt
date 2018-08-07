@@ -77,6 +77,7 @@ object Libs {
     const val navigationUi = "android.arch.navigation:navigation-ui:${Versions.acNavigation}"
 
     // DI
+    const val koinCore = "org.koin:koin-core:${Versions.koinDi}"
     const val koinAndroid = "org.koin:koin-android:${Versions.koinDi}"
     const val koinViewModel = "org.koin:koin-android-viewmodel:${Versions.koinDi}"
     const val koinAndroidScope = "org.koin:koin-android-scope:${Versions.koinDi}"
