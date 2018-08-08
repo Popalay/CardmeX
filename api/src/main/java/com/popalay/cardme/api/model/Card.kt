@@ -3,7 +3,7 @@ package com.popalay.cardme.api.model
 import java.util.Date
 
 data class Card(
-    val id: String,
+    val id: Long,
     val number: String,
     val holder: Holder,
     val isPublic: Boolean,

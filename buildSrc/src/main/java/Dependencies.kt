@@ -8,7 +8,7 @@ object Versions {
     const val targetSdkVersion = 28
     const val compileSdkVersion = 28
 
-    const val gradlePlugin = "3.3.0-alpha04"
+    const val gradlePlugin = "3.3.0-alpha05"
     const val kotlinLanguage = "1.2.60"
 
     const val supportLibrary = "28.0.0-beta01"
@@ -37,6 +37,7 @@ object Versions {
     const val picasso = "2.71828"
     const val androidProguards = "2.0.1"
     const val crashlytics = "2.9.3"
+    const val stetho = "1.5.0"
 
     const val kotlinTest = "3.1.8"
 }
@@ -92,6 +93,7 @@ object Libs {
     // Development
     const val androidProguards = "com.github.yongjhih.android-proguards:android-proguards:${Versions.androidProguards}"
     const val crashlytics = "com.crashlytics.sdk.android:crashlytics:${Versions.crashlytics}"
+    const val stetho = "com.facebook.stetho:stetho:${Versions.stetho}"
 
     // Test
     const val kotlinTestCore = "io.kotlintest:kotlintest-core:${Versions.kotlinTest}"

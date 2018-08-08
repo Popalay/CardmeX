@@ -8,20 +8,19 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
 import com.popalay.cardme.api.auth.AuthCredentials
 import com.popalay.cardme.api.auth.AuthResult
 import com.popalay.cardme.api.auth.Authenticator
-import com.popalay.cardme.api.mapper.Mapper
 import com.popalay.cardme.api.model.User
 import com.popalay.cardme.core.BuildConfig
+import com.popalay.cardme.core.mapper.FirebaseUserToUserMapper
 import io.reactivex.Single
 
 internal class GoogleAuthenticator(
     private val context: Context,
     private val fragment: Fragment,
-    private val userMapper: Mapper<FirebaseUser?, Optional<User>>
+    private val userMapper: FirebaseUserToUserMapper
 ) : Authenticator {
 
     companion object {

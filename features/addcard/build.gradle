@@ -1,0 +1,17 @@
+apply from: "$rootDir/scripts/base_module.gradle"
+
+dependencies {
+    implementation project(":core")
+
+    implementation Libs.rxBinding
+    implementation Libs.rxBindingDesign
+
+    implementation Libs.supportDesign
+    implementation Libs.supportLib
+    implementation Libs.constraintLayout
+
+    implementation Libs.navigationFragment
+    implementation Libs.navigationUi
+
+    implementation Libs.koinAndroidScope
+}

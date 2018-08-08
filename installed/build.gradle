@@ -99,6 +99,9 @@ dependencies {
     implementation(Libs.crashlytics) {
         transitive = true
     }
+
+    debugImplementation Libs.stetho
+    compileOnly Libs.stetho
 }
 
 apply plugin: "com.google.gms.google-services"

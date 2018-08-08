@@ -6,4 +6,6 @@ import io.reactivex.functions.Consumer
 interface MviView<S : ViewState, I : Intent> : Consumer<S> {
 
     val intents: Observable<I>
+
+    override fun accept(viewState: S)
 }

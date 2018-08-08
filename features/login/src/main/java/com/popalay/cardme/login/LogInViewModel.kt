@@ -25,13 +25,13 @@ internal class LogInViewModel(
 
     override val initialState: LogInViewState = LogInViewState.idle()
 
-    override val processor: Processor<LogInIntent> = IntentProcessor {
+    override val processor: Processor<LogInIntent> = IntentProcessor { observable ->
         listOf(
-            it.ofType<LogInIntent.GoogleLogInClicked>()
+            observable.ofType<LogInIntent.GoogleLogInClicked>()
                 .map { AuthUseCase.Action(CardmeAuthCredentials.Google) }
                 .compose(authUseCase)
                 .switchMap { createShowUserAnimationObservable(it) },
-            it.ofType<LogInIntent.OnActivityResult>()
+            observable.ofType<LogInIntent.OnActivityResult>()
                 .map { HandleAuthResultUseCase.Action(CardmeAuthResult.Google(it.success, it.requestCode, it.data)) }
                 .compose(handleAuthResultUseCase)
                 .switchMap { createShowUserAnimationObservable(it) }

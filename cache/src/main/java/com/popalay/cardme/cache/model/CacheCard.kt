@@ -6,9 +6,9 @@ import java.util.Date
 
 @Entity
 internal data class CacheCard(
-    @PrimaryKey(autoGenerate = true) val id: String,
+    @PrimaryKey(autoGenerate = true) val id: Long,
     val number: String,
-    val holderId: String,
+    val holderId: Long,
     val isPublic: Boolean,
     val createdDate: Date,
     val updatedDate: Date

@@ -1,4 +1,4 @@
-package com.popalay.cardme.cardlist.list
+package com.popalay.cardme.cardlist
 
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
@@ -7,8 +7,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import com.popalay.cardme.addcard.AddCardFragment
 import com.popalay.cardme.addcard.R
-import com.popalay.cardme.cardlist.add.AddCardFragment
 import com.popalay.cardme.core.extensions.bindView
 
 class CardListFragment : Fragment() {

@@ -13,8 +13,8 @@ internal class HandleAuthResultUseCase(
     private val authenticator: Authenticator
 ) : UseCase<HandleAuthResultUseCase.Action, HandleAuthResultUseCase.Result> {
 
-    override fun apply(upstream: Observable<Action>): ObservableSource<Result> = upstream.switchMap {
-        authenticator.handleResult(it.authResult)
+    override fun apply(upstream: Observable<Action>): ObservableSource<Result> = upstream.switchMap { action ->
+        authenticator.handleResult(action.authResult)
             .map { Result.Success(it) }
             .cast(Result::class.java)
             .onErrorReturn(Result::Failure)

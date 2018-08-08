@@ -2,7 +2,6 @@ package com.popalay.cardme.api.data.datasource
 
 import com.popalay.cardme.api.data.DataSource
 import com.popalay.cardme.api.data.Source
+import com.popalay.cardme.api.model.Card
 
-abstract class NetworkDataSource<T>(
-    override val source: Source.Network = Source.Network
-) : DataSource<T, Source.Network>
+interface CardCacheDataSource : DataSource<List<Card>, Source.Cache>

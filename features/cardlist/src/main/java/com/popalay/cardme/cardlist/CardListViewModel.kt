@@ -1,4 +1,4 @@
-package com.popalay.cardme.cardlist.list
+package com.popalay.cardme.cardlist
 
 import android.arch.lifecycle.ViewModel
 

@@ -36,7 +36,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/input_number" />
 
-    <Button
+    <com.popalay.cardme.core.widget.ProgressMaterialButton
         android:id="@+id/button_save"
         style="@style/Cardme.Button.Dialog"
         android:layout_width="wrap_content"

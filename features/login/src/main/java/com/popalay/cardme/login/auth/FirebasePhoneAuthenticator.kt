@@ -4,21 +4,20 @@ import com.gojuno.koptional.None
 import com.gojuno.koptional.Optional
 import com.google.firebase.FirebaseException
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.PhoneAuthCredential
 import com.google.firebase.auth.PhoneAuthProvider
 import com.popalay.cardme.api.auth.AuthCredentials
 import com.popalay.cardme.api.auth.AuthResult
 import com.popalay.cardme.api.auth.Authenticator
-import com.popalay.cardme.api.mapper.Mapper
 import com.popalay.cardme.api.model.User
+import com.popalay.cardme.core.mapper.FirebaseUserToUserMapper
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
 import java.util.concurrent.Executors
 import java.util.concurrent.TimeUnit
 
 internal class FirebasePhoneAuthenticator(
-    private val userMapper: Mapper<FirebaseUser?, Optional<User>>
+    private val userMapper: FirebaseUserToUserMapper
 ) : Authenticator {
 
     @Volatile var verificationId: String = ""
