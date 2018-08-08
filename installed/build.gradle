@@ -101,7 +101,7 @@ dependencies {
     }
 
     debugImplementation Libs.stetho
-    compileOnly Libs.stetho
+    releaseCompileOnly Libs.stetho
 }
 
 apply plugin: "com.google.gms.google-services"
