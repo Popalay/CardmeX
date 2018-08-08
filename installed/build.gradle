@@ -100,8 +100,7 @@ dependencies {
         transitive = true
     }
 
-    debugImplementation Libs.stetho
-    releaseCompileOnly Libs.stetho
+    implementation Libs.stetho
 }
 
 apply plugin: "com.google.gms.google-services"
