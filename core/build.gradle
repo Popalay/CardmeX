@@ -10,30 +10,7 @@ android {
         versionCode Versions.versionCode
 
         consumerProguardFiles "proguard-rules.pro"
-    }
-
-    flavorDimensions "type", "env"
-    productFlavors {
-
-        all {
-            buildConfigField "String", "GOOGLE_CLIENT_ID", ApiKeys.googleClientId
-        }
-
-        dev {
-            dimension "env"
-        }
-
-        prod {
-            dimension "env"
-        }
-
-        x {
-            dimension "type"
-        }
-
-        full {
-            dimension "type"
-        }
+        buildConfigField "String", "GOOGLE_CLIENT_ID", ApiKeys.googleClientId
     }
 }
 
