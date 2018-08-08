@@ -9,14 +9,14 @@ object Versions {
     const val compileSdkVersion = 28
 
     const val gradlePlugin = "3.3.0-alpha05"
-    const val kotlinLanguage = "1.2.60"
+    const val kotlinLanguage = "1.3-M1"
 
-    const val supportLibrary = "28.0.0-beta01"
+    const val supportLibrary = "28.0.0-rc01"
     const val constraintLayout = "2.0.0-alpha1"
     const val ktx = "0.3"
     const val materialComponents = "1.0.0-beta01"
 
-    const val rxJava = "2.1.17"
+    const val rxJava = "2.2.0"
     const val rxAndroid = "2.0.2"
     const val rxKotlin = "2.2.0"
 
@@ -32,14 +32,14 @@ object Versions {
 
     const val koinDi = "1.0.0-beta-3"
 
-    const val kOptional = "1.5.0"
+    const val kOptional = "1.6.0"
     const val timber = "4.6.0"
     const val picasso = "2.71828"
     const val androidProguards = "2.0.1"
-    const val crashlytics = "2.9.3"
+    const val crashlytics = "2.9.4"
     const val stetho = "1.5.0"
 
-    const val kotlinTest = "3.1.8"
+    const val kotlinTest = "3.1.9"
 }
 
 object Libs {
