@@ -1,5 +1,6 @@
 package com.popalay.cardme.addcard
 
+import android.content.DialogInterface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,6 +12,7 @@ import com.jakewharton.rxbinding2.view.RxView
 import com.popalay.cardme.core.extensions.applyThrottling
 import com.popalay.cardme.core.extensions.bindView
 import com.popalay.cardme.core.state.BindableMviView
+import com.popalay.cardme.core.widget.OnDialogDismissed
 import com.popalay.cardme.core.widget.ProgressMaterialButton
 import com.popalay.cardme.core.widget.RoundedBottomSheetDialogFragment
 import io.reactivex.Observable
@@ -32,6 +34,7 @@ class AddCardFragment : RoundedBottomSheetDialogFragment(), BindableMviView<AddC
         savedInstanceState: Bundle?
     ): View = inflater.inflate(R.layout.add_card_fragment, container, false)
 
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         bind(getViewModel<AddCardViewModel>())
@@ -47,6 +50,11 @@ class AddCardFragment : RoundedBottomSheetDialogFragment(), BindableMviView<AddC
             buttonSave.isProgress = progress
             if (saved) dismissAllowingStateLoss()
         }
+    }
+
+    override fun onDismiss(dialog: DialogInterface?) {
+        super.onDismiss(dialog)
+        (parentFragment as? OnDialogDismissed)?.onDialogDismissed()
     }
 
     private val saveClickedIntent

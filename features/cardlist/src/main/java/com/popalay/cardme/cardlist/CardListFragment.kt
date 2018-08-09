@@ -14,11 +14,12 @@ import com.popalay.cardme.addcard.R
 import com.popalay.cardme.core.extensions.applyThrottling
 import com.popalay.cardme.core.extensions.bindView
 import com.popalay.cardme.core.state.BindableMviView
+import com.popalay.cardme.core.widget.OnDialogDismissed
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
 import org.koin.android.viewmodel.ext.android.getViewModel
 
-internal class CardListFragment : Fragment(), BindableMviView<CardListViewState, CardListIntent> {
+internal class CardListFragment : Fragment(), BindableMviView<CardListViewState, CardListIntent>, OnDialogDismissed {
 
     private val listCards: ListView by bindView(R.id.list_cards)
     private val buttonAddCard: Button by bindView(R.id.button_add_card)
@@ -30,7 +31,6 @@ internal class CardListFragment : Fragment(), BindableMviView<CardListViewState,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View = inflater.inflate(R.layout.card_list_fragment, container, false)
-
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -57,14 +57,18 @@ internal class CardListFragment : Fragment(), BindableMviView<CardListViewState,
         }
     }
 
+    override fun onDialogDismissed() {
+        addCardDialogDismissedSubject.onNext(CardListIntent.OnAddCardDialogDismissed)
+    }
+
     private val addCardClickedIntent
         get() = RxView.clicks(buttonAddCard)
             .applyThrottling()
             .map { CardListIntent.OnAddCardClicked }
 
     private fun showAddCardDialog() {
-        AddCardFragment().apply {
-            show(this@CardListFragment.fragmentManager, null)
+        if (childFragmentManager.findFragmentByTag(AddCardFragment::class.java.simpleName) == null) {
+            AddCardFragment().show(childFragmentManager, AddCardFragment::class.java.simpleName)
         }
     }
 }
