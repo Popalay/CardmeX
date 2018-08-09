@@ -9,7 +9,8 @@
     <ListView
         android:id="@+id/list_cards"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:nestedScrollingEnabled="true" />
 
     <Button
         android:id="@+id/button_add_card"
@@ -19,6 +20,7 @@
         android:layout_gravity="bottom|center_horizontal"
         android:layout_marginBottom="16dp"
         android:text="Add card"
-        app:icon="@drawable/ic_add" />
+        app:icon="@drawable/ic_add"
+        app:layout_behavior="com.popalay.cardme.core.behavior.ScrollAwareBehavior" />
 
 </android.support.design.widget.CoordinatorLayout>

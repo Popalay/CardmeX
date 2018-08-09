@@ -19,6 +19,7 @@ import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
 import org.koin.android.viewmodel.ext.android.getViewModel
 
+
 internal class CardListFragment : Fragment(), BindableMviView<CardListViewState, CardListIntent>, OnDialogDismissed {
 
     private val listCards: ListView by bindView(R.id.list_cards)
