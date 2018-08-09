@@ -16,20 +16,19 @@ import com.gojuno.koptional.Some
 import com.jakewharton.rxbinding2.view.RxView
 import com.popalay.cardme.api.error.ErrorHandler
 import com.popalay.cardme.api.navigation.NavigatorHolder
+import com.popalay.cardme.core.extensions.applyThrottling
 import com.popalay.cardme.core.extensions.bindView
 import com.popalay.cardme.core.extensions.loadImage
 import com.popalay.cardme.core.picasso.CircleImageTransformation
 import com.popalay.cardme.core.state.BindableMviView
 import com.popalay.cardme.core.widget.ProgressMaterialButton
 import io.reactivex.Observable
-import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.PublishSubject
 import org.koin.android.ext.android.inject
 import org.koin.android.scope.ext.android.scopedWith
 import org.koin.android.viewmodel.ext.android.getViewModel
 import org.koin.core.parameter.parametersOf
 import org.koin.dsl.path.moduleName
-import java.util.concurrent.TimeUnit
 
 internal class LogInFragment : Fragment(), BindableMviView<LogInViewState, LogInIntent> {
 
@@ -81,6 +80,6 @@ internal class LogInFragment : Fragment(), BindableMviView<LogInViewState, LogIn
 
     private val googleSignInClickedIntent
         get() = RxView.clicks(buttonGoogle)
-            .throttleLast(500L, TimeUnit.MILLISECONDS, Schedulers.computation())
+            .applyThrottling()
             .map { LogInIntent.GoogleLogInClicked }
 }

@@ -16,18 +16,17 @@ import com.gojuno.koptional.Some
 import com.jakewharton.rxbinding2.view.RxView
 import com.popalay.cardme.api.error.ErrorHandler
 import com.popalay.cardme.api.navigation.NavigatorHolder
+import com.popalay.cardme.core.extensions.applyThrottling
 import com.popalay.cardme.core.extensions.bindView
 import com.popalay.cardme.core.extensions.loadImage
 import com.popalay.cardme.core.picasso.CircleImageTransformation
 import com.popalay.cardme.core.state.BindableMviView
 import com.popalay.cardme.core.widget.ProgressMaterialButton
 import io.reactivex.Observable
-import io.reactivex.schedulers.Schedulers
 import org.koin.android.ext.android.inject
 import org.koin.android.scope.ext.android.scopedWith
 import org.koin.android.viewmodel.ext.android.getViewModel
 import org.koin.dsl.path.moduleName
-import java.util.concurrent.TimeUnit
 
 internal class MainFragment : Fragment(), NavHost, BindableMviView<MainViewState, MainIntent> {
 
@@ -79,11 +78,11 @@ internal class MainFragment : Fragment(), NavHost, BindableMviView<MainViewState
 
     private val unsyncClickedIntent
         get() = RxView.clicks(buttonUnsync)
-            .throttleLast(500L, TimeUnit.MILLISECONDS, Schedulers.computation())
+            .applyThrottling()
             .map { MainIntent.OnUnsyncClicked }
 
     private val syncClickedIntent
         get() = RxView.clicks(buttonSync)
-            .throttleLast(500L, TimeUnit.MILLISECONDS, Schedulers.computation())
+            .applyThrottling()
             .map { MainIntent.OnSyncClicked }
 }

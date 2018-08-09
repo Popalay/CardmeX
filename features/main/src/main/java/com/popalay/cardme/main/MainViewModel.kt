@@ -21,16 +21,16 @@ internal class MainViewModel(
 
     override val initialState: MainViewState = MainViewState.idle()
 
-    override val processor: Processor<MainIntent> = IntentProcessor {
+    override val processor: Processor<MainIntent> = IntentProcessor { observable ->
         listOf(
-            it.ofType<MainIntent.OnStarted>()
+            observable.ofType<MainIntent.OnStarted>()
                 .map { GetCurrentUserUseCase.Action }
                 .compose(getCurrentUserUseCase),
-            it.ofType<MainIntent.OnUnsyncClicked>()
+            observable.ofType<MainIntent.OnUnsyncClicked>()
                 .map { LogOutUseCase.Action }
                 .compose(logOutUseCase),
-            it.ofType<MainIntent.OnSyncClicked>()
-                .map { SpecificIntentUseCase.Action(MainIntent.OnSyncClicked) }
+            observable.ofType<MainIntent.OnSyncClicked>()
+                .map { SpecificIntentUseCase.Action(it) }
                 .compose(navigationUseCase)
         )
     }

@@ -4,7 +4,7 @@ import android.arch.persistence.room.Entity
 import android.arch.persistence.room.PrimaryKey
 import java.util.Date
 
-@Entity
+@Entity(tableName = "cards")
 internal data class CacheCard(
     @PrimaryKey(autoGenerate = true) val id: Long,
     val number: String,

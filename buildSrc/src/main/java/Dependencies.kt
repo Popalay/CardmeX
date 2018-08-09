@@ -82,6 +82,7 @@ object Libs {
     const val koinAndroid = "org.koin:koin-android:${Versions.koinDi}"
     const val koinViewModel = "org.koin:koin-android-viewmodel:${Versions.koinDi}"
     const val koinAndroidScope = "org.koin:koin-android-scope:${Versions.koinDi}"
+    const val koinTest = "org.koin:koin-test:${Versions.koinDi}"
 
     // Lyfecycle
     const val lifecycle = "android.arch.lifecycle:extensions:${Versions.acLifecycle}"

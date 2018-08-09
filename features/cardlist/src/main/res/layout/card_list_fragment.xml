@@ -6,6 +6,11 @@
     android:layout_height="match_parent"
     tools:context="com.popalay.cardme.cardlist.CardListFragment">
 
+    <ListView
+        android:id="@+id/list_cards"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
     <Button
         android:id="@+id/button_add_card"
         style="@style/Cardme.Button.Floating.Long"

@@ -8,16 +8,16 @@ import com.popalay.cardme.api.model.Card
 import com.popalay.cardme.cache.dao.CardDao
 import com.popalay.cardme.cache.mapper.CacheCardWithHolderToCardMapper
 import io.reactivex.Flowable
+import io.reactivex.schedulers.Schedulers
 
 class CardCacheDataSource internal constructor(
     private val cardDao: CardDao,
     private val mapper: CacheCardWithHolderToCardMapper
 ) : CardCacheDataSource {
 
-    override fun flow(key: Key): Flowable<Data<List<Card>>> = Flowable.just(listOf<Card>())
-        .map { Data(it, Source.Cache) }
-/*        cardDao.findAllWithHolder()
+    override fun flow(key: Key): Flowable<Data<List<Card>>> =
+        cardDao.findAllWithHolder()
             .map { it.map(mapper::invoke) }
-
-            .subscribeOn(Schedulers.io())*/
+            .map { Data(it, Source.Cache) }
+            .subscribeOn(Schedulers.io())
 }

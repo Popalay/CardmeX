@@ -8,16 +8,15 @@ import android.widget.CheckBox
 import android.widget.EditText
 import android.widget.ImageButton
 import com.jakewharton.rxbinding2.view.RxView
+import com.popalay.cardme.core.extensions.applyThrottling
 import com.popalay.cardme.core.extensions.bindView
 import com.popalay.cardme.core.state.BindableMviView
 import com.popalay.cardme.core.widget.ProgressMaterialButton
 import com.popalay.cardme.core.widget.RoundedBottomSheetDialogFragment
 import io.reactivex.Observable
-import io.reactivex.schedulers.Schedulers
 import org.koin.android.scope.ext.android.scopedWith
 import org.koin.android.viewmodel.ext.android.getViewModel
 import org.koin.dsl.path.moduleName
-import java.util.concurrent.TimeUnit
 
 class AddCardFragment : RoundedBottomSheetDialogFragment(), BindableMviView<AddCardViewState, AddCardIntent> {
 
@@ -46,13 +45,13 @@ class AddCardFragment : RoundedBottomSheetDialogFragment(), BindableMviView<AddC
     override fun accept(viewState: AddCardViewState) {
         with(viewState) {
             buttonSave.isProgress = progress
-            if (saved) dismiss()
+            if (saved) dismissAllowingStateLoss()
         }
     }
 
     private val saveClickedIntent
         get() = RxView.clicks(buttonSave)
-            .throttleLast(500L, TimeUnit.MILLISECONDS, Schedulers.computation())
+            .applyThrottling()
             .map {
                 AddCardIntent.SaveClicked(
                     inputNumber.text.toString(),
