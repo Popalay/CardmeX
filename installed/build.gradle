@@ -33,7 +33,6 @@ android {
         debug {
             signingConfig signingConfigs.debug
             ext.enableCrashlytics = false
-            testCoverageEnabled true
         }
 
         release {
@@ -41,7 +40,6 @@ android {
             minifyEnabled true
             shrinkResources true
             proguardFiles getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"
-            testCoverageEnabled true
         }
     }
 
@@ -51,6 +49,7 @@ android {
         dev {
             dimension "env"
             versionNameSuffix "-dev"
+            ext.enableCrashlytics = false
         }
 
         prod {
