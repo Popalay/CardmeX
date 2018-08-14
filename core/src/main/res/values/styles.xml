@@ -23,7 +23,7 @@
         <item name="cornerRadius">24dp</item>
     </style>
 
-    <style name="Cardme.Button.Outlined" parent="Widget.MaterialComponents.Button.OutlinedButton" />
+    <style name="Cardme.Button.Outlined" parent="Widget.MaterialComponents.Button" />
 
     <style name="Cardme.Button.Dialog" parent="Widget.MaterialComponents.Button.TextButton.Dialog" />
 

@@ -18,11 +18,9 @@ dependencies {
     api project(":api")
     api Libs.kotlin
 
-    implementation Libs.supportDesign
-    implementation Libs.supportLib
     implementation Libs.cardView
     implementation Libs.recyclerView
-    implementation Libs.constraintLayout
+    implementation Libs.materialComponents
 
     api Libs.rxJava
     api Libs.rxAndroid

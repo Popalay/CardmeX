@@ -4,9 +4,9 @@ import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.drawable.Drawable
-import android.support.design.button.MaterialButton
 import android.util.AttributeSet
 import android.view.View
+import com.google.android.material.button.MaterialButton
 import com.popalay.cardme.core.extensions.px
 
 class ProgressMaterialButton : MaterialButton {
