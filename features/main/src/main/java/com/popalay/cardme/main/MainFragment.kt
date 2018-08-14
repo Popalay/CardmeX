@@ -1,13 +1,13 @@
 package com.popalay.cardme.main
 
 import android.os.Bundle
-import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.view.isVisible
+import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.NavHost
 import androidx.navigation.findNavController
@@ -24,8 +24,8 @@ import com.popalay.cardme.core.state.BindableMviView
 import com.popalay.cardme.core.widget.ProgressMaterialButton
 import io.reactivex.Observable
 import org.koin.android.ext.android.inject
-import org.koin.android.scope.ext.android.scopedWith
-import org.koin.android.viewmodel.ext.android.getViewModel
+import org.koin.androidx.scope.ext.android.scopedWith
+import org.koin.androidx.viewmodel.ext.android.getViewModel
 import org.koin.dsl.path.moduleName
 
 internal class MainFragment : Fragment(), NavHost, BindableMviView<MainViewState, MainIntent> {

@@ -16,8 +16,8 @@ import com.popalay.cardme.core.widget.OnDialogDismissed
 import com.popalay.cardme.core.widget.ProgressMaterialButton
 import com.popalay.cardme.core.widget.RoundedBottomSheetDialogFragment
 import io.reactivex.Observable
-import org.koin.android.scope.ext.android.scopedWith
-import org.koin.android.viewmodel.ext.android.getViewModel
+import org.koin.androidx.scope.ext.android.scopedWith
+import org.koin.androidx.viewmodel.ext.android.getViewModel
 import org.koin.dsl.path.moduleName
 
 class AddCardFragment : RoundedBottomSheetDialogFragment(), BindableMviView<AddCardViewState, AddCardIntent> {

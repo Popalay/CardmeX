@@ -1,6 +1,6 @@
 package com.popalay.cardme.cache.model
 
-import android.arch.persistence.room.Embedded
+import androidx.room.Embedded
 import java.util.Date
 
 internal data class CacheCardWithHolder(

@@ -1,6 +1,6 @@
 package com.popalay.cardme.cache.di
 
-import android.arch.persistence.room.Room
+import androidx.room.Room
 import com.popalay.cardme.cache.database.Database
 import com.popalay.cardme.cache.datasource.CardCacheDataSource
 import com.popalay.cardme.cache.mapper.CacheCardWithHolderToCardMapper

@@ -3,14 +3,14 @@ package com.popalay.cardme.login
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.support.transition.TransitionManager
-import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.view.isVisible
+import androidx.fragment.app.Fragment
+import androidx.transition.TransitionManager
 import com.gojuno.koptional.None
 import com.gojuno.koptional.Some
 import com.jakewharton.rxbinding2.view.RxView
@@ -25,8 +25,8 @@ import com.popalay.cardme.core.widget.ProgressMaterialButton
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
 import org.koin.android.ext.android.inject
-import org.koin.android.scope.ext.android.scopedWith
-import org.koin.android.viewmodel.ext.android.getViewModel
+import org.koin.androidx.scope.ext.android.scopedWith
+import org.koin.androidx.viewmodel.ext.android.getViewModel
 import org.koin.core.parameter.parametersOf
 import org.koin.dsl.path.moduleName
 

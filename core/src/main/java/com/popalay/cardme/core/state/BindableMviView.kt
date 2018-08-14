@@ -1,9 +1,9 @@
 package com.popalay.cardme.core.state
 
-import android.arch.lifecycle.Lifecycle
-import android.arch.lifecycle.LifecycleObserver
-import android.arch.lifecycle.LifecycleOwner
-import android.arch.lifecycle.OnLifecycleEvent
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleObserver
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.OnLifecycleEvent
 import com.popalay.cardme.api.state.Intent
 import com.popalay.cardme.api.state.MviView
 import com.popalay.cardme.api.state.MviViewModel

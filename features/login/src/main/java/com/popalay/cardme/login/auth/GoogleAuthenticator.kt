@@ -1,7 +1,7 @@
 package com.popalay.cardme.login.auth
 
 import android.content.Context
-import android.support.v4.app.Fragment
+import androidx.fragment.app.Fragment
 import com.gojuno.koptional.None
 import com.gojuno.koptional.Optional
 import com.google.android.gms.auth.api.signin.GoogleSignIn

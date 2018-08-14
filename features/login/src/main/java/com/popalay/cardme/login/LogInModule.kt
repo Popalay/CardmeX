@@ -1,6 +1,6 @@
 package com.popalay.cardme.login
 
-import android.support.v4.app.Fragment
+import androidx.fragment.app.Fragment
 import com.popalay.cardme.api.auth.Authenticator
 import com.popalay.cardme.login.auth.AuthenticatorFacade
 import com.popalay.cardme.login.auth.FirebasePhoneAuthenticator
@@ -8,7 +8,7 @@ import com.popalay.cardme.login.auth.GoogleAuthenticator
 import com.popalay.cardme.login.usecase.AuthUseCase
 import com.popalay.cardme.login.usecase.HandleAuthResultUseCase
 import org.koin.android.ext.koin.androidContext
-import org.koin.android.viewmodel.ext.koin.viewModel
+import org.koin.androidx.viewmodel.ext.koin.viewModel
 import org.koin.dsl.module.module
 import org.koin.dsl.path.moduleName
 
