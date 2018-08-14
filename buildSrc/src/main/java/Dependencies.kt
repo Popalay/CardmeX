@@ -12,25 +12,25 @@ object Versions {
     const val kotlinLanguage = "1.3-M1"
 
     const val supportLibrary = "28.0.0-rc01"
-    const val constraintLayout = "2.0.0-alpha1"
+    const val constraintLayout = "2.0.0-alpha2"
     const val ktx = "0.3"
     const val materialComponents = "1.0.0-beta01"
 
     const val rxJava = "2.2.0"
     const val rxAndroid = "2.0.2"
-    const val rxKotlin = "2.2.0"
+    const val rxKotlin = "2.3.0"
 
     const val rxBinding = "2.1.1"
 
     const val acLifecycle = "1.1.1"
     const val acRoom = "1.1.1"
-    const val acNavigation = "1.0.0-alpha04"
+    const val acNavigation = "1.0.0-alpha05"
 
     const val firebaseCore = "16.0.1"
     const val firebaseAuth = "16.0.2"
     const val playServicesAuth = "15.0.1"
 
-    const val koinDi = "1.0.0-beta-3"
+    const val koinDi = "1.0.0-beta-6"
 
     const val kOptional = "1.6.0"
     const val timber = "4.6.0"
@@ -45,11 +45,11 @@ object Versions {
 object Libs {
 
     // Google
-    const val supportLib = "com.android.support:support-v4:${Versions.supportLibrary}"
-    const val recyclerView = "com.android.support:recyclerview-v7:${Versions.supportLibrary}"
-    const val cardView = "com.android.support:cardview-v7:${Versions.supportLibrary}"
-    const val supportDesign = "com.android.support:design:${Versions.supportLibrary}"
-    const val constraintLayout = "com.android.support.constraint:constraint-layout:${Versions.constraintLayout}"
+    const val supportLib = "androidx.legacy:legacy-support-v4:1.0.0-beta01"
+    const val recyclerView = "androidx.recyclerview:recyclerview:1.0.0-beta01"
+    const val cardView = "androidx.cardview:cardview:1.0.0-beta01"
+    const val supportDesign = "com.google.android.material:material:1.0.0-beta01"
+    const val constraintLayout = "androidx.constraintlayout:constraintlayout:1.1.0"
     const val ktx = "androidx.core:core-ktx:${Versions.ktx}"
     const val materialComponents = "com.google.android.material:material:${Versions.materialComponents}"
 
@@ -69,9 +69,9 @@ object Libs {
     const val rxBindingDesign = "com.jakewharton.rxbinding2:rxbinding-design-kotlin:${Versions.rxBinding}"
 
     // Room
-    const val roomRuntime = "android.arch.persistence.room:runtime:${Versions.acRoom}"
-    const val roomRxJava = "android.arch.persistence.room:rxjava2:${Versions.acRoom}"
-    const val roomCompiler = "android.arch.persistence.room:compiler:${Versions.acRoom}"
+    const val roomRuntime = "androidx.room:room-runtime:2.0.0-beta01"
+    const val roomRxJava = "androidx.room:room-rxjava2:2.0.0-beta01"
+    const val roomCompiler = "androidx.room:room-compiler:2.0.0-beta01"
 
     // Navigation
     const val navigationFragment = "android.arch.navigation:navigation-fragment-ktx:${Versions.acNavigation}"
@@ -80,12 +80,12 @@ object Libs {
     // DI
     const val koinCore = "org.koin:koin-core:${Versions.koinDi}"
     const val koinAndroid = "org.koin:koin-android:${Versions.koinDi}"
-    const val koinViewModel = "org.koin:koin-android-viewmodel:${Versions.koinDi}"
-    const val koinAndroidScope = "org.koin:koin-android-scope:${Versions.koinDi}"
+    const val koinViewModel = "org.koin:koin-androidx-viewmodel:${Versions.koinDi}"
+    const val koinAndroidScope = "org.koin:koin-androidx-scope:${Versions.koinDi}"
     const val koinTest = "org.koin:koin-test:${Versions.koinDi}"
 
     // Lyfecycle
-    const val lifecycle = "android.arch.lifecycle:extensions:${Versions.acLifecycle}"
+    const val lifecycle = "androidx.lifecycle:lifecycle-extensions:2.0.0-alpha1"
 
     const val kOptional = "com.gojuno.koptional:koptional:${Versions.kOptional}"
     const val timber = "com.jakewharton.timber:timber:${Versions.timber}"
