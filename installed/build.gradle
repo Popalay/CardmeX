@@ -88,9 +88,6 @@ dependencies {
     implementation project(":features:main")
     implementation project(":injector")
 
-    implementation Libs.supportDesign
-    implementation Libs.supportLib
-
     implementation Libs.navigationFragment
     implementation Libs.navigationUi
 

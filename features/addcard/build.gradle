@@ -4,11 +4,6 @@ dependencies {
     implementation project(":core")
 
     implementation Libs.rxBinding
-    implementation Libs.rxBindingDesign
-
-    implementation Libs.supportDesign
-    implementation Libs.supportLib
-    implementation Libs.constraintLayout
 
     implementation Libs.navigationFragment
     implementation Libs.navigationUi

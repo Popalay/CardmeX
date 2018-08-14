@@ -1,7 +1,7 @@
 package com.popalay.cardme.core.navigation
 
-import android.support.v4.app.Fragment
-import androidx.navigation.fragment.findNavController
+import androidx.fragment.app.Fragment
+import androidx.navigation.Navigation
 import com.popalay.cardme.api.navigation.Destination
 import com.popalay.cardme.api.navigation.Navigator
 import com.popalay.cardme.api.navigation.NavigatorHolder
@@ -33,7 +33,7 @@ class BaseNavigationHolder : NavigatorHolder {
 
 abstract class BaseNavigator(fragment: Fragment) : Navigator {
 
-    protected val navController = fragment.findNavController()
+    protected val navController = Navigation.findNavController(requireNotNull(fragment.view))
 
     override fun popBackStack() {
         navController.popBackStack()

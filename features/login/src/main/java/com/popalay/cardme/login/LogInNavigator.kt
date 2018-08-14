@@ -1,6 +1,6 @@
 package com.popalay.cardme.login
 
-import android.support.v4.app.Fragment
+import androidx.fragment.app.Fragment
 import com.popalay.cardme.api.navigation.Destination
 import com.popalay.cardme.core.navigation.BaseNavigator
 

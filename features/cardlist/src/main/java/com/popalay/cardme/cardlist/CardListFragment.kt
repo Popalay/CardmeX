@@ -1,13 +1,13 @@
 package com.popalay.cardme.cardlist
 
 import android.os.Bundle
-import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.ListView
+import androidx.fragment.app.Fragment
 import com.jakewharton.rxbinding2.view.RxView
 import com.popalay.cardme.addcard.AddCardFragment
 import com.popalay.cardme.addcard.R
@@ -17,8 +17,7 @@ import com.popalay.cardme.core.state.BindableMviView
 import com.popalay.cardme.core.widget.OnDialogDismissed
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
-import org.koin.android.viewmodel.ext.android.getViewModel
-
+import org.koin.androidx.viewmodel.ext.android.getViewModel
 
 internal class CardListFragment : Fragment(), BindableMviView<CardListViewState, CardListIntent>, OnDialogDismissed {
 

@@ -11,10 +11,9 @@ object Versions {
     const val gradlePlugin = "3.3.0-alpha05"
     const val kotlinLanguage = "1.3-M1"
 
-    const val supportLibrary = "28.0.0-rc01"
     const val constraintLayout = "2.0.0-alpha2"
-    const val ktx = "0.3"
-    const val materialComponents = "1.0.0-beta01"
+    const val ktx = "1.0.0-rc01"
+    const val materialComponents = "1.0.0-rc01"
 
     const val rxJava = "2.2.0"
     const val rxAndroid = "2.0.2"
@@ -22,8 +21,8 @@ object Versions {
 
     const val rxBinding = "2.1.1"
 
-    const val acLifecycle = "1.1.1"
-    const val acRoom = "1.1.1"
+    const val acLifecycle = "2.0.0-rc01"
+    const val acRoom = "2.0.0-rc01"
     const val acNavigation = "1.0.0-alpha05"
 
     const val firebaseCore = "16.0.1"
@@ -45,11 +44,7 @@ object Versions {
 object Libs {
 
     // Google
-    const val supportLib = "androidx.legacy:legacy-support-v4:1.0.0-beta01"
-    const val recyclerView = "androidx.recyclerview:recyclerview:1.0.0-beta01"
-    const val cardView = "androidx.cardview:cardview:1.0.0-beta01"
-    const val supportDesign = "com.google.android.material:material:1.0.0-beta01"
-    const val constraintLayout = "androidx.constraintlayout:constraintlayout:1.1.0"
+    const val constraintLayout = "androidx.constraintlayout:constraintlayout:${Versions.constraintLayout}"
     const val ktx = "androidx.core:core-ktx:${Versions.ktx}"
     const val materialComponents = "com.google.android.material:material:${Versions.materialComponents}"
 
@@ -66,12 +61,11 @@ object Libs {
     const val rxAndroid = "io.reactivex.rxjava2:rxandroid:${Versions.rxAndroid}"
     const val rxKotlin = "io.reactivex.rxjava2:rxkotlin:${Versions.rxKotlin}"
     const val rxBinding = "com.jakewharton.rxbinding2:rxbinding-kotlin:${Versions.rxBinding}"
-    const val rxBindingDesign = "com.jakewharton.rxbinding2:rxbinding-design-kotlin:${Versions.rxBinding}"
 
     // Room
-    const val roomRuntime = "androidx.room:room-runtime:2.0.0-beta01"
-    const val roomRxJava = "androidx.room:room-rxjava2:2.0.0-beta01"
-    const val roomCompiler = "androidx.room:room-compiler:2.0.0-beta01"
+    const val roomRuntime = "androidx.room:room-runtime:${Versions.acRoom}"
+    const val roomRxJava = "androidx.room:room-rxjava2:${Versions.acRoom}"
+    const val roomCompiler = "androidx.room:room-compiler:${Versions.acRoom}"
 
     // Navigation
     const val navigationFragment = "android.arch.navigation:navigation-fragment-ktx:${Versions.acNavigation}"
@@ -85,7 +79,7 @@ object Libs {
     const val koinTest = "org.koin:koin-test:${Versions.koinDi}"
 
     // Lyfecycle
-    const val lifecycle = "androidx.lifecycle:lifecycle-extensions:2.0.0-alpha1"
+    const val lifecycle = "androidx.lifecycle:lifecycle-extensions:${Versions.acLifecycle}"
 
     const val kOptional = "com.gojuno.koptional:koptional:${Versions.kOptional}"
     const val timber = "com.jakewharton.timber:timber:${Versions.timber}"

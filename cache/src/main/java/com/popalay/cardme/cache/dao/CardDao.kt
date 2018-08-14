@@ -1,7 +1,7 @@
 package com.popalay.cardme.cache.dao
 
-import android.arch.persistence.room.Dao
-import android.arch.persistence.room.Query
+import androidx.room.Dao
+import androidx.room.Query
 import com.popalay.cardme.cache.model.CacheCard
 import com.popalay.cardme.cache.model.CacheCardWithHolder
 import io.reactivex.Flowable
