@@ -90,12 +90,11 @@ dependencies {
 
     implementation Libs.navigationFragment
     implementation Libs.navigationUi
+    implementation Libs.lifecycle
 
     implementation Libs.firebaseCore
     implementation Libs.androidProguards
-    implementation(Libs.crashlytics) {
-        transitive = true
-    }
+    implementation Libs.crashlytics
 
     implementation Libs.stetho
 }
