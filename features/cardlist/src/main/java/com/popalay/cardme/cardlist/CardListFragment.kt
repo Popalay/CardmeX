@@ -4,15 +4,18 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
 import android.widget.Button
-import android.widget.ListView
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.RecyclerView
 import com.jakewharton.rxbinding2.view.RxView
 import com.popalay.cardme.addcard.AddCardFragment
 import com.popalay.cardme.addcard.R
+import com.popalay.cardme.cardlist.adapter.CardListAdapter
+import com.popalay.cardme.cardlist.model.CardListItem
+import com.popalay.cardme.core.adapter.SpacingItemDecoration
 import com.popalay.cardme.core.extensions.applyThrottling
 import com.popalay.cardme.core.extensions.bindView
+import com.popalay.cardme.core.extensions.px
 import com.popalay.cardme.core.state.BindableMviView
 import com.popalay.cardme.core.widget.OnDialogDismissed
 import io.reactivex.Observable
@@ -21,10 +24,11 @@ import org.koin.androidx.viewmodel.ext.android.getViewModel
 
 internal class CardListFragment : Fragment(), BindableMviView<CardListViewState, CardListIntent>, OnDialogDismissed {
 
-    private val listCards: ListView by bindView(R.id.list_cards)
+    private val listCards: RecyclerView by bindView(R.id.list_cards)
     private val buttonAddCard: Button by bindView(R.id.button_add_card)
 
-    private val addCardDialogDismissedSubject = PublishSubject.create<CardListIntent.OnAddCardDialogDismissed>().toSerialized()
+    private val addCardDialogDismissedSubject = PublishSubject.create<CardListIntent.OnAddCardDialogDismissed>()
+    private val cardsAdapter = CardListAdapter()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -35,6 +39,7 @@ internal class CardListFragment : Fragment(), BindableMviView<CardListViewState,
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         bind(getViewModel<CardListViewModel>())
+        initView()
     }
 
     override val intents: Observable<CardListIntent> = Observable.defer {
@@ -48,12 +53,7 @@ internal class CardListFragment : Fragment(), BindableMviView<CardListViewState,
     override fun accept(viewState: CardListViewState) {
         with(viewState) {
             if (showAddCardDialog) showAddCardDialog()
-            val adapter = ArrayAdapter<String>(
-                requireContext(),
-                android.R.layout.simple_list_item_1,
-                cards.map { "${it.number} ${it.holder.name}" }
-            )
-            listCards.adapter = adapter
+            cardsAdapter.submitList(cards.map(::CardListItem))
         }
     }
 
@@ -69,6 +69,15 @@ internal class CardListFragment : Fragment(), BindableMviView<CardListViewState,
     private fun showAddCardDialog() {
         if (childFragmentManager.findFragmentByTag(AddCardFragment::class.java.simpleName) == null) {
             AddCardFragment().show(childFragmentManager, AddCardFragment::class.java.simpleName)
+        }
+    }
+
+    private fun initView() {
+        listCards.apply {
+            setHasFixedSize(true)
+            adapter = cardsAdapter
+            addItemDecoration(SpacingItemDecoration(16.px))
+            addItemDecoration(SpacingItemDecoration(onSides = false, betweenItems = true, dividerSize = 8.px))
         }
     }
 }
