@@ -6,11 +6,12 @@
     android:layout_height="match_parent"
     tools:context="com.popalay.cardme.cardlist.CardListFragment">
 
-    <ListView
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/list_cards"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:nestedScrollingEnabled="true" />
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:listitem="@layout/item_card" />
 
     <Button
         android:id="@+id/button_add_card"
