@@ -54,6 +54,7 @@ internal class CardListFragment : Fragment(), BindableMviView<CardListViewState,
         with(viewState) {
             if (showAddCardDialog) showAddCardDialog()
             cardsAdapter.submitList(cards.map(::CardListItem))
+            listCards.smoothScrollToPosition(0)
         }
     }
 

@@ -5,10 +5,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import android.widget.CheckBox
 import android.widget.EditText
 import android.widget.ImageButton
 import com.jakewharton.rxbinding2.view.RxView
+import com.jakewharton.rxbinding2.widget.RxTextView
 import com.popalay.cardme.core.extensions.applyThrottling
 import com.popalay.cardme.core.extensions.bindView
 import com.popalay.cardme.core.state.BindableMviView
@@ -32,8 +34,11 @@ class AddCardFragment : RoundedBottomSheetDialogFragment(), BindableMviView<AddC
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View = inflater.inflate(R.layout.add_card_fragment, container, false)
-
+    ): View {
+        val view = inflater.inflate(R.layout.add_card_fragment, container, false)
+        dialog?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
+        return view
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -42,11 +47,16 @@ class AddCardFragment : RoundedBottomSheetDialogFragment(), BindableMviView<AddC
     }
 
     override val intents: Observable<AddCardIntent> = Observable.defer {
-        saveClickedIntent
+        Observable.merge(
+            saveClickedIntent,
+            nameChangedIntent,
+            numberChangedIntent
+        )
     }
 
     override fun accept(viewState: AddCardViewState) {
         with(viewState) {
+            buttonSave.isEnabled = isValid
             buttonSave.isProgress = progress
             if (saved) dismissAllowingStateLoss()
         }
@@ -62,6 +72,30 @@ class AddCardFragment : RoundedBottomSheetDialogFragment(), BindableMviView<AddC
             .applyThrottling()
             .map {
                 AddCardIntent.SaveClicked(
+                    inputNumber.text.toString(),
+                    inputName.text.toString(),
+                    checkPublic.isChecked
+                )
+            }
+
+    private val nameChangedIntent
+        get() = RxTextView.afterTextChangeEvents(inputName)
+            .skipInitialValue()
+            .applyThrottling()
+            .map {
+                AddCardIntent.NameChanged(
+                    inputNumber.text.toString(),
+                    inputName.text.toString(),
+                    checkPublic.isChecked
+                )
+            }
+
+    private val numberChangedIntent
+        get() = RxTextView.afterTextChangeEvents(inputNumber)
+            .skipInitialValue()
+            .applyThrottling()
+            .map {
+                AddCardIntent.NumberChanged(
                     inputNumber.text.toString(),
                     inputName.text.toString(),
                     checkPublic.isChecked
