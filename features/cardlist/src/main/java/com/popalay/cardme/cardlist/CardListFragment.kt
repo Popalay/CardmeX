@@ -74,7 +74,7 @@ internal class CardListFragment : Fragment(), BindableMviView<CardListViewState,
 
     private fun showAddCardDialog() {
         if (childFragmentManager.findFragmentByTag(AddCardFragment::class.java.simpleName) == null) {
-            AddCardFragment().show(childFragmentManager, AddCardFragment::class.java.simpleName)
+            AddCardFragment().showNow(childFragmentManager, AddCardFragment::class.java.simpleName)
         }
     }
 
