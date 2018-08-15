@@ -8,6 +8,7 @@ data class AddCardViewState(
     val isPublic: Boolean,
     val progress: Boolean,
     val saved: Boolean,
+    val isValid: Boolean,
     val numberError: Throwable?
 ) : ViewState {
 
@@ -19,6 +20,7 @@ data class AddCardViewState(
             isPublic = true,
             progress = false,
             saved = false,
+            isValid = false,
             numberError = null
         )
     }
