@@ -1,11 +1,14 @@
 package com.popalay.cardme.cardlist.usecase
 
 import com.popalay.cardme.api.model.Card
+import com.popalay.cardme.api.model.CardType
+import com.popalay.cardme.api.model.Holder
 import com.popalay.cardme.api.repository.CardRepository
 import com.popalay.cardme.api.usecase.UseCase
 import io.reactivex.Observable
 import io.reactivex.ObservableSource
 import io.reactivex.schedulers.Schedulers
+import java.util.Date
 
 internal class CardListUseCase(
     private val cardRepository: CardRepository
@@ -13,13 +16,24 @@ internal class CardListUseCase(
 
     override fun apply(upstream: Observable<Action>): ObservableSource<Result> = upstream.switchMap { _ ->
         cardRepository.getAll()
-            .map { Result.Success(it) }
+            .map { if (it.isEmpty()) Result.Success(listOf(defaultCard)) else Result.Success(it) }
             .cast(Result::class.java)
             .onErrorReturn(Result::Failure)
             .toObservable()
             .startWith(Result.Idle)
             .subscribeOn(Schedulers.io())
     }
+
+    private val defaultCard: Card
+        get() = Card(
+            0L,
+            "5555555555554444",
+            Holder(0L, "Glindev 4ever"),
+            true,
+            CardType.MASTER_CARD,
+            Date(),
+            Date()
+        )
 
     object Action : UseCase.Action
 

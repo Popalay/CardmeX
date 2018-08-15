@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.jakewharton.rxbinding2.view.RxView
 import com.popalay.cardme.addcard.AddCardFragment
 import com.popalay.cardme.addcard.R
+import com.popalay.cardme.api.error.ErrorHandler
 import com.popalay.cardme.cardlist.adapter.CardListAdapter
 import com.popalay.cardme.cardlist.model.CardListItem
 import com.popalay.cardme.core.adapter.SpacingItemDecoration
@@ -20,12 +21,15 @@ import com.popalay.cardme.core.state.BindableMviView
 import com.popalay.cardme.core.widget.OnDialogDismissed
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
+import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.getViewModel
 
 internal class CardListFragment : Fragment(), BindableMviView<CardListViewState, CardListIntent>, OnDialogDismissed {
 
     private val listCards: RecyclerView by bindView(R.id.list_cards)
     private val buttonAddCard: Button by bindView(R.id.button_add_card)
+
+    private val errorHandler: ErrorHandler by inject()
 
     private val addCardDialogDismissedSubject = PublishSubject.create<CardListIntent.OnAddCardDialogDismissed>()
     private val cardsAdapter = CardListAdapter()
@@ -55,6 +59,7 @@ internal class CardListFragment : Fragment(), BindableMviView<CardListViewState,
             if (showAddCardDialog) showAddCardDialog()
             cardsAdapter.submitList(cards.map(::CardListItem))
             listCards.smoothScrollToPosition(0)
+            errorHandler.accept(error)
         }
     }
 
