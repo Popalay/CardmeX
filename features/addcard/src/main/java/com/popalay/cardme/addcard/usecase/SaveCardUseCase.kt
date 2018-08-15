@@ -1,6 +1,7 @@
 package com.popalay.cardme.addcard.usecase
 
 import com.popalay.cardme.api.model.Card
+import com.popalay.cardme.api.model.CardType
 import com.popalay.cardme.api.model.Holder
 import com.popalay.cardme.api.repository.CardRepository
 import com.popalay.cardme.api.usecase.UseCase
@@ -14,7 +15,7 @@ internal class SaveCardUseCase(
 ) : UseCase<SaveCardUseCase.Action, SaveCardUseCase.Result> {
 
     override fun apply(upstream: Observable<Action>): ObservableSource<Result> = upstream.switchMap {
-        cardRepository.save(Card(0L, it.number, Holder(0L, it.name), it.isPublic, Date(), Date()))
+        cardRepository.save(Card(0L, it.number, Holder(0L, it.name), it.isPublic, it.cardType, Date(), Date()))
             .toSingleDefault(Result.Success)
             .cast(Result::class.java)
             .onErrorReturn(Result::Failure)
@@ -23,7 +24,7 @@ internal class SaveCardUseCase(
             .subscribeOn(Schedulers.io())
     }
 
-    data class Action(val number: String, val name: String, val isPublic: Boolean) : UseCase.Action
+    data class Action(val number: String, val name: String, val isPublic: Boolean, val cardType: CardType) : UseCase.Action
 
     sealed class Result : UseCase.Result {
         object Success : Result()

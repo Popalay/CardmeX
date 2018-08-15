@@ -4,6 +4,7 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import com.popalay.cardme.addcard.R
+import com.popalay.cardme.api.model.CardType
 import com.popalay.cardme.cardlist.model.CardListItem
 import com.popalay.cardme.core.adapter.BindableViewHolder
 import com.popalay.cardme.core.adapter.IdentifiableListAdapter
@@ -21,7 +22,12 @@ class CardListAdapter : IdentifiableListAdapter<CardListItem>(
         private val textCardNumber: TextView by bindView(R.id.text_card_number)
 
         override fun bind(item: CardListItem) {
-            imageCardType.setImageResource(R.drawable.ic_mastercard)
+            val cardTypeRes = when (item.card.cardType) {
+                CardType.MASTER_CARD -> R.drawable.ic_mastercard
+                CardType.VISA -> R.drawable.ic_visa
+                CardType.UNKNOWN -> 0
+            }
+            imageCardType.setImageResource(cardTypeRes)
             textDisplayName.text = item.card.holder.name
             textCardNumber.text = "•••• ${item.card.number.takeLast(4)}"
         }

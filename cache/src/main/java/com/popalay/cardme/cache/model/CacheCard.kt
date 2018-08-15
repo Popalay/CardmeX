@@ -10,6 +10,7 @@ internal data class CacheCard(
     val number: String,
     val holderId: Long,
     val isPublic: Boolean,
+    val cardType: String,
     val createdDate: Date,
     val updatedDate: Date
 )

@@ -8,6 +8,7 @@ internal data class CacheCardWithHolder(
     val number: String,
     @Embedded(prefix = "holder_") val holder: CacheHolder,
     val isPublic: Boolean,
+    val cardType: String,
     val createdDate: Date,
     val updatedDate: Date
 )

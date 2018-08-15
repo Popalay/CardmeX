@@ -1,5 +1,6 @@
 package com.popalay.cardme.addcard
 
+import com.popalay.cardme.api.model.CardType
 import com.popalay.cardme.api.state.ViewState
 
 data class AddCardViewState(
@@ -9,6 +10,7 @@ data class AddCardViewState(
     val progress: Boolean,
     val saved: Boolean,
     val isValid: Boolean,
+    val cardType: CardType,
     val numberError: Throwable?
 ) : ViewState {
 
@@ -21,6 +23,7 @@ data class AddCardViewState(
             progress = false,
             saved = false,
             isValid = false,
+            cardType = CardType.UNKNOWN,
             numberError = null
         )
     }

@@ -2,6 +2,7 @@ package com.popalay.cardme.cache.mapper
 
 import com.popalay.cardme.api.mapper.Mapper
 import com.popalay.cardme.api.model.Card
+import com.popalay.cardme.api.model.CardType
 import com.popalay.cardme.cache.model.CacheCardWithHolder
 
 internal class CacheCardWithHolderToCardMapper(
@@ -13,6 +14,7 @@ internal class CacheCardWithHolderToCardMapper(
         number = value.number,
         holder = holderMapper(value.holder),
         isPublic = value.isPublic,
+        cardType = CardType.valueOf(value.cardType),
         createdDate = value.createdDate,
         updatedDate = value.updatedDate
     )
