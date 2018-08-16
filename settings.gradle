@@ -1,2 +1,2 @@
-include ':installed', ':instant', ':injector', ':api', ':core', ':cache', ':data'
+include ':installed', ':instant', ':injector', ':api', ':core', ':cache', ':data', ':remote'
 include 'features:cardlist', ':features:main', ':features:login', ':features:addcard'

@@ -2,7 +2,7 @@
 
 object Versions {
     const val versionName = "0.0.1"
-    val versionCode = (System.getenv("BITRISE_BUILD_NUMBER") ?: "11").toInt()
+    val versionCode = (System.getenv("BITRISE_BUILD_NUMBER") ?: "12").toInt()
 
     const val minSdkVersion = 23
     const val targetSdkVersion = 28
@@ -27,6 +27,7 @@ object Versions {
 
     const val firebaseCore = "16.0.1"
     const val firebaseAuth = "16.0.2"
+    const val firebaseFireStore = "17.0.4"
     const val playServicesAuth = "15.0.1"
 
     const val koinDi = "1.0.0-beta-6"
@@ -51,6 +52,7 @@ object Libs {
     // Firebase
     const val firebaseAuth = "com.google.firebase:firebase-auth:${Versions.firebaseAuth}"
     const val firebaseCore = "com.google.firebase:firebase-core:${Versions.firebaseCore}"
+    const val firebaseFireStore = "com.google.firebase:firebase-firestore:${Versions.firebaseFireStore}"
     const val playServicesAuth = "com.google.android.gms:play-services-auth:${Versions.playServicesAuth}"
 
     // Kotlin
