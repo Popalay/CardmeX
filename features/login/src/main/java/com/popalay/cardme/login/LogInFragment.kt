@@ -28,6 +28,7 @@ import org.koin.android.ext.android.inject
 import org.koin.androidx.scope.ext.android.scopedWith
 import org.koin.androidx.viewmodel.ext.android.getViewModel
 import org.koin.core.parameter.parametersOf
+import org.koin.dsl.path.Path
 import org.koin.dsl.path.moduleName
 
 internal class LogInFragment : Fragment(), BindableMviView<LogInViewState, LogInIntent> {
@@ -48,7 +49,7 @@ internal class LogInFragment : Fragment(), BindableMviView<LogInViewState, LogIn
         super.onViewCreated(view, savedInstanceState)
         navigatorHolder.navigator = LogInNavigator(this)
         bind(getViewModel<LogInViewModel> { parametersOf(this) })
-        scopedWith(LogInModule::class.moduleName)
+        scopedWith(listOf(Path.ROOT, LogInModule::class.moduleName))
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
