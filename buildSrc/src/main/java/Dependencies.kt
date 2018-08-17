@@ -8,7 +8,7 @@ object Versions {
     const val targetSdkVersion = 28
     const val compileSdkVersion = 28
 
-    const val gradlePlugin = "3.3.0-alpha05"
+    const val gradlePlugin = "3.3.0-alpha06"
     const val kotlinLanguage = "1.3-M1"
 
     const val constraintLayout = "2.0.0-alpha2"
@@ -16,7 +16,7 @@ object Versions {
     const val materialComponents = "1.0.0-rc01"
 
     const val rxJava = "2.2.0"
-    const val rxAndroid = "2.0.2"
+    const val rxAndroid = "2.1.0"
     const val rxKotlin = "2.3.0"
 
     const val rxBinding = "2.1.1"
@@ -26,9 +26,9 @@ object Versions {
     const val acNavigation = "1.0.0-alpha05"
 
     const val firebaseCore = "16.0.1"
-    const val firebaseAuth = "16.0.2"
-    const val firebaseFireStore = "17.0.4"
-    const val playServicesAuth = "15.0.1"
+    const val firebaseAuth = "16.0.3"
+    const val firebaseFireStore = "17.1.0"
+    const val playServicesAuth = "16.0.0"
 
     const val koinDi = "1.0.0-beta-6"
 
