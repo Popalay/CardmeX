@@ -11,7 +11,7 @@ object AddCardModule {
 
     fun get() = module(AddCardModule::class.moduleName) {
         viewModel { AddCardViewModel(get(), get(), get()) }
-        single { SaveCardUseCase(get()) }
+        single { SaveCardUseCase(get(), get()) }
         single { ValidateCardUseCase() }
         single { IdentifyCardNumberUseCase() }
     }

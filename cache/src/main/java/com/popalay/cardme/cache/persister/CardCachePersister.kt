@@ -18,7 +18,7 @@ class CardCachePersister internal constructor(
 ) : CardCachePersister {
 
     override fun persist(key: Key, data: Card): Completable = Completable.fromAction {
-        val holderId = holderDao.insertOrUpdate(holderMapper(data.holder))
-        cardDao.insertOrUpdate(cardMapper(data).copy(holderId = holderId))
+        holderDao.insertOrUpdate(holderMapper(data.holder))
+        cardDao.insertOrUpdate(cardMapper(data))
     }.subscribeOn(Schedulers.io())
 }

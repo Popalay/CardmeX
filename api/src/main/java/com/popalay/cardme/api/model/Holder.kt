@@ -1,6 +1,6 @@
 package com.popalay.cardme.api.model
 
 data class Holder(
-    val id: Long,
+    val id: String,
     val name: String
 )

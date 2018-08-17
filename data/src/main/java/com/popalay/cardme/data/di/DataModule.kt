@@ -6,6 +6,6 @@ import org.koin.dsl.module.module
 object DataModule {
 
     fun get() = module {
-        single { CardRepository(get(), get()) as com.popalay.cardme.api.repository.CardRepository }
+        single { CardRepository(get(), get(), get()) as com.popalay.cardme.api.repository.CardRepository }
     }
 }

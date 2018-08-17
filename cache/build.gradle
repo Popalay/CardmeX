@@ -1,5 +1,25 @@
-apply from: "$rootDir/scripts/base_module.gradle"
+apply plugin: "com.android.library"
+apply plugin: "kotlin-android"
 apply plugin: "kotlin-kapt"
+apply from: "$rootDir/scripts/test_config.gradle"
+
+android {
+    compileSdkVersion Versions.compileSdkVersion
+    defaultConfig {
+        minSdkVersion Versions.minSdkVersion
+        targetSdkVersion Versions.targetSdkVersion
+        versionName Versions.versionName
+        versionCode Versions.versionCode
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = ["room.schemaLocation": "$projectDir/schemas".toString()]
+            }
+        }
+
+        consumerProguardFiles "proguard-rules.pro"
+    }
+}
 
 dependencies {
 

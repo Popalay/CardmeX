@@ -6,11 +6,12 @@ import java.util.Date
 
 @Entity(tableName = "cards")
 internal data class CacheCard(
-    @PrimaryKey(autoGenerate = true) val id: Long,
+    @PrimaryKey val id: String,
     val number: String,
-    val holderId: Long,
+    val holderId: String,
     val isPublic: Boolean,
     val cardType: String,
+    val userId: String,
     val createdDate: Date,
     val updatedDate: Date
 )

@@ -1,25 +1,20 @@
 package com.popalay.cardme
 
 import android.os.Bundle
-import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.NavHost
-import androidx.navigation.findNavController
-import kotlin.properties.Delegates
+import androidx.navigation.Navigation
 
 class MainActivity : AppCompatActivity(), NavHost {
-
-    private var navHostFragment: View by Delegates.notNull()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         setTheme(R.style.Cardme)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_activity)
-        navHostFragment = findViewById<View>(R.id.nav_host_fragment)
     }
 
-    override fun onSupportNavigateUp() = navHostFragment.findNavController().navigateUp()
+    override fun onSupportNavigateUp() = Navigation.findNavController(this, R.id.nav_host_fragment).navigateUp()
 
-    override fun getNavController(): NavController = navHostFragment.findNavController()
+    override fun getNavController(): NavController = Navigation.findNavController(this, R.id.nav_host_fragment)
 }

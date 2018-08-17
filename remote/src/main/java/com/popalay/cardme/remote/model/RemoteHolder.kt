@@ -1,6 +1,6 @@
 package com.popalay.cardme.remote.model
 
 internal data class RemoteHolder(
-    val id: Long = -1L,
+    val id: String = "",
     val name: String = ""
 )

@@ -15,6 +15,7 @@ internal class CacheCardWithHolderToCardMapper(
         holder = holderMapper(value.holder),
         isPublic = value.isPublic,
         cardType = CardType.valueOf(value.cardType),
+        userId = value.userId,
         createdDate = value.createdDate,
         updatedDate = value.updatedDate
     )

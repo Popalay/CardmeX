@@ -17,7 +17,7 @@ class CardRepository(
 
     override fun save(card: Card): Completable = Completable.mergeArray(
         cardCachePersister.persist(EmptyKey, card),
-        cardRemotePersister.persist(EmptyKey, card)
+        cardRemotePersister.persist(EmptyKey, card).onErrorComplete()
     )
 
     override fun getAll(): Flowable<List<Card>> = cardCacheDataSource.flow(EmptyKey)

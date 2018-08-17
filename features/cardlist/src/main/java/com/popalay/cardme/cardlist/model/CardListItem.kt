@@ -6,5 +6,5 @@ import com.popalay.cardme.core.adapter.Identifiable
 class CardListItem(
     val card: Card
 ) : Identifiable {
-    override val id get() = card.id
+    override val id get() = card.id.hashCode().toLong()
 }

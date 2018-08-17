@@ -51,6 +51,7 @@ object Libs {
 
     // Firebase
     const val firebaseAuth = "com.google.firebase:firebase-auth:${Versions.firebaseAuth}"
+    const val firebaseCommon = "com.google.firebase:firebase-common:${Versions.firebaseCore}"
     const val firebaseCore = "com.google.firebase:firebase-core:${Versions.firebaseCore}"
     const val firebaseFireStore = "com.google.firebase:firebase-firestore:${Versions.firebaseFireStore}"
     const val playServicesAuth = "com.google.android.gms:play-services-auth:${Versions.playServicesAuth}"

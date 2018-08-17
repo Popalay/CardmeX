@@ -26,11 +26,12 @@ internal class CardListUseCase(
 
     private val defaultCard: Card
         get() = Card(
-            0L,
+            "0",
             "5555555555554444",
-            Holder(0L, "Glindev 4ever"),
+            Holder("0", "Glindev 4ever"),
             true,
             CardType.MASTER_CARD,
+            "user_id",
             Date(),
             Date()
         )

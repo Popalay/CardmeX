@@ -10,7 +10,7 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.NavHost
-import androidx.navigation.findNavController
+import androidx.navigation.Navigation
 import com.gojuno.koptional.None
 import com.gojuno.koptional.Some
 import com.jakewharton.rxbinding2.view.RxView
@@ -49,7 +49,8 @@ internal class MainFragment : Fragment(), NavHost, BindableMviView<MainViewState
         scopedWith(MainModule::class.moduleName)
     }
 
-    override fun getNavController(): NavController = navHostFragment.findNavController()
+    override fun getNavController(): NavController =
+        Navigation.findNavController(requireFragmentManager().findFragmentById(R.id.nav_host_fragment)?.view!!)
 
     override val intents: Observable<MainIntent> = Observable.defer {
         Observable.merge(

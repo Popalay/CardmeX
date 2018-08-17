@@ -15,6 +15,7 @@ internal class CardToRemoteCardMapper(
         holder = holderToRemoteHolderMapper(value.holder),
         isPublic = value.isPublic,
         cardType = value.cardType.name,
+        userId = value.userId,
         createdDate = Timestamp(value.createdDate),
         updatedDate = Timestamp(value.updatedDate)
     )

@@ -3,6 +3,7 @@ apply from: "$rootDir/scripts/base_module.gradle"
 dependencies {
     implementation project(":core")
     implementation project(":cache")
+    implementation project(":remote")
     implementation project(":data")
     implementation project(":features:login")
     implementation project(":features:main")

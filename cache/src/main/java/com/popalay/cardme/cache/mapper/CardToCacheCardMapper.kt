@@ -12,6 +12,7 @@ internal class CardToCacheCardMapper : Mapper<Card, CacheCard> {
         holderId = value.holder.id,
         isPublic = value.isPublic,
         cardType = value.cardType.name,
+        userId = value.userId,
         createdDate = value.createdDate,
         updatedDate = value.updatedDate
     )
