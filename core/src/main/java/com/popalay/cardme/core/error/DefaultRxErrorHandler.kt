@@ -31,6 +31,6 @@ class DefaultRxErrorHandler : Consumer<Throwable> {
             }
             else -> e
         }
-        Log.w(this::class.java.simpleName, "Undeliverable exception received, not sure what to do", exception)
+        Log.w(this::class.java.simpleName, "Undeliverable throwable received, not sure what to do", exception)
     }
 }
