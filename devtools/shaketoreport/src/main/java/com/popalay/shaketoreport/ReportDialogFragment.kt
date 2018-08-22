@@ -1,20 +1,20 @@
 package com.popalay.shaketoreport
 
-import android.Manifest
-import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
 import com.google.android.material.textfield.TextInputEditText
 import com.jraska.falcon.Falcon
+import java.util.Date
 import kotlin.properties.Delegates
 
 internal class ReportDialogFragment : DialogFragment() {
@@ -28,7 +28,6 @@ internal class ReportDialogFragment : DialogFragment() {
     companion object {
 
         private const val ARG_SCREENSHOT_PATH = "ARG_SCREENSHOT_PATH"
-        private const val REQUEST_PERMISSIONS = 123
 
         fun newInstance(screenshotPath: String) = ReportDialogFragment().apply {
             arguments = Bundle().apply {
@@ -42,19 +41,14 @@ internal class ReportDialogFragment : DialogFragment() {
         setStyle(DialogFragment.STYLE_NO_FRAME, android.R.style.Theme_Material_Light)
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View =
-        inflater.inflate(R.layout.report_fragment, container, false)
-
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
-        when (requestCode) {
-            REQUEST_PERMISSIONS -> if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
-                initView()
-            } else {
-                Toast.makeText(requireContext(), "Can not proceed operation!", Toast.LENGTH_SHORT).show()
-                dismiss()
-            }
-            else -> super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        }
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        val view = inflater.inflate(R.layout.report_fragment, container, false)
+        dialog?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
+        return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -71,22 +65,36 @@ internal class ReportDialogFragment : DialogFragment() {
         val screenshot = Falcon.takeScreenshotBitmap(activity)
         imageScreenshot.setImageBitmap(screenshot)
         val dm = resources.displayMetrics
-        val deviceInfo =
-            """Device: ${Build.BRAND.capitalize()} ${Build.MODEL} ${dm.heightPixels}x${dm.widthPixels}
-                |Android: ${Build.VERSION.RELEASE}
-                |SDK: ${Build.VERSION.SDK_INT}""".trimMargin()
-        textDeviceInfo.text = deviceInfo
+        val deviceInfo = DeviceInfo(
+            device = "${Build.BRAND.capitalize()} ${Build.MODEL}",
+            display = "${dm.heightPixels}x${dm.widthPixels}",
+            androidVersion = Build.VERSION.RELEASE,
+            sdkVersion = "${Build.VERSION.SDK_INT}"
+        )
+        textDeviceInfo.text = deviceInfo.toString()
+        inputDescription.addTextChangedListener(object : TextWatcher {
 
+            override fun afterTextChanged(s: Editable?) {}
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                buttonSend.isEnabled = !s.isNullOrBlank()
+            }
+        })
+        buttonCancel.setOnClickListener { dismiss() }
+        buttonSend.isEnabled = !inputDescription.text.isNullOrBlank()
+        buttonSend.setOnClickListener { saveBugReport(deviceInfo) }
     }
 
-    private fun checkPermissions() {
-        if (ContextCompat.checkSelfPermission(requireActivity(), Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED
-            || ContextCompat.checkSelfPermission(requireActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED
-        ) {
-            requestPermissions(
-                arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE),
-                REQUEST_PERMISSIONS
-            )
-        } else initView()
+    private fun saveBugReport(deviceInfo: DeviceInfo) {
+        //TODO upload screenshot
+        val bugReport = BugReport(
+            description = inputDescription.text?.trim().toString(),
+            deviceInfo = deviceInfo,
+            //screenshot = screenShot,
+            createdAt = Date()
+        )
+        //TODO save bug report
     }
 }

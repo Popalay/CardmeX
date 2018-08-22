@@ -60,6 +60,7 @@ android {
             dimension "type"
             applicationIdSuffix ".x"
             resValue "string", "app_name", "CardmeX"
+            buildConfigField "boolean", "ENABLE_BUG_REPOTRING", "true"
 
             signingConfigs {
 

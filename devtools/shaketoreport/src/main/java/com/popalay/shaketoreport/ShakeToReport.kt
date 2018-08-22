@@ -11,7 +11,10 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.OnLifecycleEvent
 
-class ShakeToReport(private val activity: AppCompatActivity) : LifecycleObserver {
+class ShakeToReport(
+    private val activity: AppCompatActivity,
+    private val config: Config
+) : LifecycleObserver {
 
     private val sensorManager: SensorManager = activity.getSystemService(Context.SENSOR_SERVICE) as SensorManager
     private val vibrationManager: Vibrator = activity.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
@@ -25,12 +28,12 @@ class ShakeToReport(private val activity: AppCompatActivity) : LifecycleObserver
 
     @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
     fun onResumeDetection() {
-        sensorManager.registerListener(shakeDetector, accelerometer, SensorManager.SENSOR_DELAY_UI)
+        if (config.isEnabled) sensorManager.registerListener(shakeDetector, accelerometer, SensorManager.SENSOR_DELAY_UI)
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_PAUSE)
     fun onPauseDetection() {
-        sensorManager.unregisterListener(shakeDetector)
+        if (config.isEnabled) sensorManager.unregisterListener(shakeDetector)
     }
 
     private fun runVibration() {
