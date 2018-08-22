@@ -6,10 +6,12 @@ import android.hardware.SensorManager
 import android.os.Build
 import android.os.VibrationEffect
 import android.os.Vibrator
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.OnLifecycleEvent
+import java.util.Date
 
 class ShakeToReport(
     private val activity: AppCompatActivity,
@@ -23,7 +25,14 @@ class ShakeToReport(
 
     private val shakeDetector: ShakeDetector = ShakeDetector {
         runVibration()
-        showReportDialog()
+        val lastReportTimeMillis = LastReportTimePersister.get(activity).time
+        val reportTimeoutMillis = config.reportTimeout.timeUnit.toMillis(config.reportTimeout.time)
+        val newReportDateMillis = lastReportTimeMillis + reportTimeoutMillis - Date().time
+        if (newReportDateMillis <= 0) {
+            showReportDialog()
+        } else {
+            Toast.makeText(activity, "You can create a new report in ${newReportDateMillis / 1000} seconds", Toast.LENGTH_LONG).show()
+        }
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)

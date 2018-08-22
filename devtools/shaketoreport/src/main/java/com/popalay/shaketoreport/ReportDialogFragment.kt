@@ -89,6 +89,7 @@ internal class ReportDialogFragment : DialogFragment() {
         BugReportPersister.save(bugReport, screenshot) {
             buttonSend.isProgress = false
             buttonCancel.isEnabled = true
+            LastReportTimePersister.save(requireContext(), Date())
             dismiss()
         }
     }
