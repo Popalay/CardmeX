@@ -1,4 +1,4 @@
-apply plugin: 'com.android.library'
+apply plugin: "com.android.library"
 apply plugin: "kotlin-android"
 
 android {
@@ -15,10 +15,9 @@ android {
 
 dependencies {
 
-    implementation Libs.materialComponents
-    implementation Libs.constraintLayout
-    implementation Libs.kotlin
-    implementation Libs.picasso
-    implementation "androidx.lifecycle:lifecycle-runtime:2.0.0-rc01"
+    implementation project(":core")
+
+    implementation Libs.firebaseFireStore
+    implementation Libs.firebaseStorage
     implementation "com.jraska:falcon:2.0.1"
 }

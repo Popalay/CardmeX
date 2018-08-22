@@ -46,7 +46,7 @@ class ShakeToReport(
 
     private fun showReportDialog() {
         if (activity.supportFragmentManager.findFragmentByTag(ReportDialogFragment::class.java.simpleName) == null) {
-            ReportDialogFragment.newInstance("").showNow(activity.supportFragmentManager, ReportDialogFragment::class.java.simpleName)
+            ReportDialogFragment().showNow(activity.supportFragmentManager, ReportDialogFragment::class.java.simpleName)
         }
     }
 }

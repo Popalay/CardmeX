@@ -1,10 +1,10 @@
 package com.popalay.shaketoreport
 
-import java.util.Date
+import com.google.firebase.Timestamp
 
 data class BugReport(
     val description: String = "",
     val screenshot: String = "",
     val deviceInfo: DeviceInfo? = null,
-    val createdAt: Date? = null
+    val createdAt: Timestamp? = null
 )

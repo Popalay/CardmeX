@@ -79,7 +79,7 @@
             android:layout_marginEnd="8dp"
             android:text="Cancel" />
 
-        <Button
+        <com.popalay.cardme.core.widget.ProgressMaterialButton
             android:id="@+id/button_send"
             style="@style/Widget.MaterialComponents.Button"
             android:layout_width="wrap_content"
