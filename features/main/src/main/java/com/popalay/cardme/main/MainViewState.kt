@@ -7,7 +7,7 @@ import com.popalay.cardme.api.state.ViewState
 
 internal data class MainViewState(
     val user: Optional<User>,
-    val isUnsyncProgress: Boolean,
+    val isSyncProgress: Boolean,
     val error: Throwable?
 ) : ViewState {
 
@@ -15,7 +15,7 @@ internal data class MainViewState(
 
         fun idle() = MainViewState(
             user = None,
-            isUnsyncProgress = false,
+            isSyncProgress = false,
             error = null
         )
     }

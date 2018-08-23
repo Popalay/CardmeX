@@ -43,24 +43,24 @@ internal class MainViewModel(
     override val reducer: Reducer<MainViewState> = LambdaReducer {
         when (this) {
             is GetCurrentUserUseCase.Result -> when (this) {
-                is GetCurrentUserUseCase.Result.Success -> it.copy(user = user, isUnsyncProgress = false)
-                GetCurrentUserUseCase.Result.Idle -> it.copy(isUnsyncProgress = true)
-                is GetCurrentUserUseCase.Result.Failure -> it.copy(error = throwable, isUnsyncProgress = false)
+                is GetCurrentUserUseCase.Result.Success -> it.copy(user = user, isSyncProgress = false)
+                GetCurrentUserUseCase.Result.Idle -> it.copy(isSyncProgress = true)
+                is GetCurrentUserUseCase.Result.Failure -> it.copy(error = throwable, isSyncProgress = false)
             }
             is LogOutUseCase.Result -> when (this) {
-                LogOutUseCase.Result.Success -> it.copy(user = None, isUnsyncProgress = false)
-                LogOutUseCase.Result.Idle -> it.copy(isUnsyncProgress = true)
-                is LogOutUseCase.Result.Failure -> it.copy(error = throwable, isUnsyncProgress = false)
+                LogOutUseCase.Result.Success -> it.copy(user = None, isSyncProgress = false)
+                LogOutUseCase.Result.Idle -> it.copy(isSyncProgress = true)
+                is LogOutUseCase.Result.Failure -> it.copy(error = throwable, isSyncProgress = false)
             }
             is AuthUseCase.Result -> when (this) {
-                is AuthUseCase.Result.Success -> it.copy(user = user, isUnsyncProgress = false)
-                AuthUseCase.Result.Idle -> it.copy(isUnsyncProgress = true)
-                is AuthUseCase.Result.Failure -> it.copy(error = throwable, isUnsyncProgress = false)
+                is AuthUseCase.Result.Success -> it.copy(user = user, isSyncProgress = false)
+                AuthUseCase.Result.Idle -> it.copy(isSyncProgress = true)
+                is AuthUseCase.Result.Failure -> it.copy(error = throwable, isSyncProgress = false)
             }
             is HandleAuthResultUseCase.Result -> when (this) {
-                is HandleAuthResultUseCase.Result.Success -> it.copy(user = user, isUnsyncProgress = false)
-                HandleAuthResultUseCase.Result.Idle -> it.copy(isUnsyncProgress = true)
-                is HandleAuthResultUseCase.Result.Failure -> it.copy(error = throwable, isUnsyncProgress = false)
+                is HandleAuthResultUseCase.Result.Success -> it.copy(user = user, isSyncProgress = false)
+                HandleAuthResultUseCase.Result.Idle -> it.copy(isSyncProgress = true)
+                is HandleAuthResultUseCase.Result.Failure -> it.copy(error = throwable, isSyncProgress = false)
             }
             else -> throw IllegalStateException("Can not reduce user for result ${javaClass.name}")
         }
