@@ -46,12 +46,12 @@ internal class ReportDialogFragment : DialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        isCancelable = false
         initView()
     }
 
     private fun initView() {
         tryOrNull { Falcon.takeScreenshotBitmap(activity) }?.also { screenshot ->
+            isCancelable = false
             imageScreenshot.setImageBitmap(screenshot)
             val dm = resources.displayMetrics
             val deviceInfo = DeviceInfo(
@@ -71,9 +71,9 @@ internal class ReportDialogFragment : DialogFragment() {
                     buttonSend.isEnabled = !s.isNullOrBlank()
                 }
             })
-            buttonCancel.setOnClickListener { dismiss() }
             buttonSend.isEnabled = !inputDescription.text.isNullOrBlank()
             buttonSend.setOnClickListener { saveBugReport(deviceInfo, screenshot) }
+            buttonCancel.setOnClickListener { dismiss() }
         }
     }
 
@@ -86,11 +86,19 @@ internal class ReportDialogFragment : DialogFragment() {
         )
         buttonSend.isProgress = true
         buttonCancel.isEnabled = false
-        BugReportPersister.save(bugReport, screenshot) {
-            buttonSend.isProgress = false
-            buttonCancel.isEnabled = true
-            LastReportTimePersister.save(requireContext(), Date())
-            dismiss()
-        }
+        BugReportPersister.save(
+            bugReport, screenshot,
+            onSuccess = {
+                buttonSend.isProgress = false
+                buttonCancel.isEnabled = true
+                LastReportTimePersister.save(requireContext(), Date())
+                dismiss()
+            },
+            onError = {
+                buttonSend.isProgress = false
+                buttonCancel.isEnabled = true
+                it.printStackTrace()
+            }
+        )
     }
 }

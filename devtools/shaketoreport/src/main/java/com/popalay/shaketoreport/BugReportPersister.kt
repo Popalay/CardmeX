@@ -7,7 +7,7 @@ import java.io.ByteArrayOutputStream
 
 object BugReportPersister {
 
-    fun save(bugReport: BugReport, screenshot: Bitmap, onSuccess: () -> Unit) {
+    fun save(bugReport: BugReport, screenshot: Bitmap, onSuccess: () -> Unit, onError: (Throwable) -> Unit) {
         val screenshotRef = FirebaseStorage.getInstance().reference.child(bugReport.screenshot)
         val baos = ByteArrayOutputStream()
         screenshot.compress(Bitmap.CompressFormat.JPEG, 100, baos)
@@ -19,7 +19,7 @@ object BugReportPersister {
             .addOnSuccessListener { _ ->
                 FirebaseFirestore.getInstance().collection("bugs").add(bugReport)
                     .addOnSuccessListener { onSuccess() }
-                    .addOnFailureListener { it.printStackTrace() }
+                    .addOnFailureListener { onError(it) }
             }
     }
 }
