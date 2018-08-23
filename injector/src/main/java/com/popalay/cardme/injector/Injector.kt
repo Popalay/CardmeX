@@ -6,7 +6,6 @@ import com.popalay.cardme.cache.di.CacheModule
 import com.popalay.cardme.cardlist.CardListModule
 import com.popalay.cardme.core.di.CoreModule
 import com.popalay.cardme.data.di.DataModule
-import com.popalay.cardme.login.LogInModule
 import com.popalay.cardme.main.MainModule
 import com.popalay.cardme.remote.di.RemoteModule
 import org.koin.android.ext.android.startKoin
@@ -21,7 +20,6 @@ object Injector {
                 CacheModule.get(),
                 RemoteModule.get(),
                 DataModule.get(),
-                LogInModule.get(),
                 MainModule.get(),
                 CardListModule.get(),
                 AddCardModule.get()

@@ -1,4 +1,4 @@
-package com.popalay.cardme.login.auth
+package com.popalay.cardme.main.auth
 
 import com.gojuno.koptional.None
 import com.gojuno.koptional.Optional
@@ -11,6 +11,8 @@ import com.popalay.cardme.api.auth.AuthResult
 import com.popalay.cardme.api.auth.Authenticator
 import com.popalay.cardme.api.model.User
 import com.popalay.cardme.core.mapper.FirebaseUserToUserMapper
+import com.popalay.cardme.main.auth.CardmeAuthCredentials
+import com.popalay.cardme.main.auth.CardmeAuthResult
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
 import java.util.concurrent.Executors

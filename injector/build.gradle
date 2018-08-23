@@ -5,7 +5,6 @@ dependencies {
     implementation project(":cache")
     implementation project(":remote")
     implementation project(":data")
-    implementation project(":features:login")
     implementation project(":features:main")
     implementation project(":features:cardlist")
     implementation project(":features:addcard")

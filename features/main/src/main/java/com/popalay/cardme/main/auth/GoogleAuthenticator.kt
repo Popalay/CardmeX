@@ -1,4 +1,4 @@
-package com.popalay.cardme.login.auth
+package com.popalay.cardme.main.auth
 
 import android.content.Context
 import androidx.fragment.app.Fragment

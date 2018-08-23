@@ -2,10 +2,12 @@ apply from: "$rootDir/scripts/base_module.gradle"
 
 dependencies {
     implementation project(":core")
-    implementation project(":features:login")
     implementation project(":features:cardlist")
 
     implementation Libs.rxBinding
+
+    implementation Libs.firebaseAuth
+    implementation Libs.playServicesAuth
 
     implementation Libs.navigationFragment
     implementation Libs.navigationUi

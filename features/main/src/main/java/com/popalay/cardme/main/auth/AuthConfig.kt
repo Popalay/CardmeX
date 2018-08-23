@@ -1,10 +1,8 @@
-package com.popalay.cardme.login.auth
+package com.popalay.cardme.main.auth
 
 import android.content.Intent
-import com.google.firebase.auth.FirebaseUser
 import com.popalay.cardme.api.auth.AuthCredentials
 import com.popalay.cardme.api.auth.AuthResult
-import com.popalay.cardme.api.model.User
 
 internal sealed class CardmeAuthCredentials : AuthCredentials {
     data class Phone(val phoneNumber: String) : CardmeAuthCredentials()

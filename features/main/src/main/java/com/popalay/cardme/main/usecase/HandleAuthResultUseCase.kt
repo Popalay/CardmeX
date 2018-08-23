@@ -1,20 +1,20 @@
-package com.popalay.cardme.login.usecase
+package com.popalay.cardme.main.usecase
 
 import com.gojuno.koptional.Optional
 import com.popalay.cardme.api.auth.Authenticator
 import com.popalay.cardme.api.model.User
 import com.popalay.cardme.api.usecase.UseCase
-import com.popalay.cardme.login.auth.CardmeAuthCredentials
+import com.popalay.cardme.main.auth.CardmeAuthResult
 import io.reactivex.Observable
 import io.reactivex.ObservableSource
 import io.reactivex.schedulers.Schedulers
 
-internal class AuthUseCase(
+internal class HandleAuthResultUseCase(
     private val authenticator: Authenticator
-) : UseCase<AuthUseCase.Action, AuthUseCase.Result> {
+) : UseCase<HandleAuthResultUseCase.Action, HandleAuthResultUseCase.Result> {
 
     override fun apply(upstream: Observable<Action>): ObservableSource<Result> = upstream.switchMap { action ->
-        authenticator.auth(action.authCredentials)
+        authenticator.handleResult(action.authResult)
             .map { Result.Success(it) }
             .cast(Result::class.java)
             .onErrorReturn(Result::Failure)
@@ -23,7 +23,7 @@ internal class AuthUseCase(
             .subscribeOn(Schedulers.io())
     }
 
-    data class Action(val authCredentials: CardmeAuthCredentials) : UseCase.Action
+    data class Action(val authResult: CardmeAuthResult) : UseCase.Action
 
     sealed class Result : UseCase.Result {
         data class Success(val user: Optional<User>) : Result()
