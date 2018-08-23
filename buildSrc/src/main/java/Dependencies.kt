@@ -15,7 +15,7 @@ object Versions {
     const val ktx = "1.0.0-rc01"
     const val materialComponents = "1.0.0-rc01"
 
-    const val rxJava = "2.2.0"
+    const val rxJava = "2.2.1"
     const val rxAndroid = "2.1.0"
     const val rxKotlin = "2.3.0"
 
@@ -31,7 +31,7 @@ object Versions {
     const val firebaseStorage = "16.0.1"
     const val playServicesAuth = "16.0.0"
 
-    const val koinDi = "1.0.0-beta-6"
+    const val koinDi = "1.0.0-beta-8"
 
     const val kOptional = "1.6.0"
     const val timber = "4.6.0"
