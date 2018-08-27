@@ -16,7 +16,6 @@ import androidx.navigation.NavHost
 import androidx.navigation.Navigation
 import androidx.transition.AutoTransition
 import androidx.transition.TransitionManager
-import com.gojuno.koptional.None
 import com.gojuno.koptional.Some
 import com.jakewharton.rxbinding2.view.RxView
 import com.popalay.cardme.api.error.ErrorHandler
@@ -64,8 +63,7 @@ internal class MainFragment : Fragment(), NavHost, BindableMviView<MainViewState
         activityResultSubject.onNext(MainIntent.OnActivityResult(resultCode == Activity.RESULT_OK, requestCode, data))
     }
 
-    override fun getNavController(): NavController =
-        Navigation.findNavController(requireFragmentManager().findFragmentById(R.id.nav_host_fragment)?.view!!)
+    override fun getNavController(): NavController = Navigation.findNavController(view!!)
 
     override val intents: Observable<MainIntent> = Observable.defer {
         Observable.merge(
@@ -88,7 +86,6 @@ internal class MainFragment : Fragment(), NavHost, BindableMviView<MainViewState
                 textUserDisplayName.text = displayName
             }
             buttonSync.text = if (state.user is Some) "Unsync" else "Sync"
-            buttonSync.isVisible = user === None
             textUserDisplayName.isVisible = user is Some
             imageUserPhoto.isVisible = user is Some
             buttonSync.isProgress = isSyncProgress

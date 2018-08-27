@@ -8,7 +8,7 @@ object Versions {
     const val targetSdkVersion = 28
     const val compileSdkVersion = 28
 
-    const val gradlePlugin = "3.3.0-alpha06"
+    const val gradlePlugin = "3.3.0-alpha07"
     const val kotlinLanguage = "1.3-M1"
 
     const val constraintLayout = "2.0.0-alpha2"
@@ -37,7 +37,7 @@ object Versions {
     const val timber = "4.6.0"
     const val picasso = "2.71828"
     const val androidProguards = "2.0.1"
-    const val crashlytics = "2.9.4"
+    const val crashlytics = "2.9.5"
     const val stetho = "1.5.0"
 
     const val kotlinTest = "3.1.9"
