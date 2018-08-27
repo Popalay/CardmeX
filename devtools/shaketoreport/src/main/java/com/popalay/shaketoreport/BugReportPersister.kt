@@ -3,6 +3,7 @@ package com.popalay.shaketoreport
 import android.graphics.Bitmap
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
+import com.popalay.shaketoreport.model.BugReport
 import java.io.ByteArrayOutputStream
 
 object BugReportPersister {

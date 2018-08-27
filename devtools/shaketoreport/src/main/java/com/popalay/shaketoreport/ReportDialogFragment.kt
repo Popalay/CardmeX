@@ -19,6 +19,8 @@ import com.jraska.falcon.Falcon
 import com.popalay.cardme.core.extensions.bindView
 import com.popalay.cardme.core.extensions.tryOrNull
 import com.popalay.cardme.core.widget.ProgressMaterialButton
+import com.popalay.shaketoreport.model.BugReport
+import com.popalay.shaketoreport.model.DeviceInfo
 import java.util.Date
 
 internal class ReportDialogFragment : DialogFragment() {

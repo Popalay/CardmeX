@@ -1,4 +1,4 @@
-package com.popalay.shaketoreport
+package com.popalay.shaketoreport.model
 
 data class DeviceInfo(
     val device: String,

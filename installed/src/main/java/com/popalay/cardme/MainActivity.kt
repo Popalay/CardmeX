@@ -5,8 +5,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.NavHost
 import androidx.navigation.Navigation
-import com.popalay.shaketoreport.Config
-import com.popalay.shaketoreport.ReportTimeout
+import com.popalay.shaketoreport.model.Config
+import com.popalay.shaketoreport.model.ReportTimeout
 import com.popalay.shaketoreport.ShakeToReport
 import java.util.concurrent.TimeUnit
 import kotlin.properties.Delegates
@@ -19,7 +19,10 @@ class MainActivity : AppCompatActivity(), NavHost {
         setTheme(R.style.Cardme)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_activity)
-        val config = Config(BuildConfig.ENABLE_BUG_REPOTRING, ReportTimeout(5, TimeUnit.MINUTES))
+        val config = Config(
+            BuildConfig.ENABLE_BUG_REPOTRING,
+            ReportTimeout(5, TimeUnit.MINUTES)
+        )
         shakeToReport = ShakeToReport(this, config)
         lifecycle.addObserver(shakeToReport)
     }
