@@ -6,25 +6,40 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <View
+        android:id="@+id/layout_user"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:foreground="@drawable/bg_user_layout"
+        app:layout_constraintBottom_toBottomOf="@id/image_user_photo"
+        app:layout_constraintEnd_toEndOf="@id/text_user_display_name"
+        app:layout_constraintStart_toStartOf="@id/image_user_photo"
+        app:layout_constraintTop_toTopOf="@id/image_user_photo" />
+
     <ImageView
         android:id="@+id/image_user_photo"
         android:layout_width="36dp"
         android:layout_height="36dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
         android:contentDescription="@null"
-        app:layout_constraintBottom_toBottomOf="@id/barrier_top_buttons_bottom"
+        app:layout_constraintBottom_toBottomOf="@id/button_sync"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/barrier_top_buttons_top"
+        app:layout_constraintTop_toTopOf="@id/button_sync"
         tools:src="@tools:sample/avatars" />
 
     <TextView
         android:id="@+id/text_user_display_name"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
+        android:ellipsize="end"
+        android:lines="1"
         android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
         app:layout_constraintBottom_toBottomOf="@id/image_user_photo"
+        app:layout_constraintEnd_toStartOf="@id/button_sync"
         app:layout_constraintStart_toEndOf="@+id/image_user_photo"
         app:layout_constraintTop_toTopOf="@id/image_user_photo"
         tools:text="@tools:sample/full_names" />
@@ -47,15 +62,6 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:barrierDirection="bottom"
-        app:constraint_referenced_ids="button_sync"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <androidx.constraintlayout.widget.Barrier
-        android:id="@+id/barrier_top_buttons_top"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:barrierDirection="top"
         app:constraint_referenced_ids="button_sync"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

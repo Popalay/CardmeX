@@ -37,8 +37,8 @@ import kotlin.properties.Delegates
 
 internal class MainFragment : Fragment(), NavHost, BindableMviView<MainViewState, MainIntent> {
 
+    private val layoutUser: View by bindView(R.id.layout_user)
     private val constraintLayout: ConstraintLayout by bindView(R.id.constraint_layout)
-    private val navHostFragment: View by bindView(R.id.nav_host_fragment)
     private val textUserDisplayName: TextView by bindView(R.id.text_user_display_name)
     private val imageUserPhoto: ImageView by bindView(R.id.image_user_photo)
     private val buttonSync: ProgressMaterialButton by bindView(R.id.button_sync)
@@ -68,7 +68,8 @@ internal class MainFragment : Fragment(), NavHost, BindableMviView<MainViewState
     override val intents: Observable<MainIntent> = Observable.defer {
         Observable.merge(
             Observable.just(MainIntent.OnStarted),
-            syncClickedIntent
+            syncClickedIntent,
+            userClickedIntent
         )
     }
 
@@ -98,4 +99,9 @@ internal class MainFragment : Fragment(), NavHost, BindableMviView<MainViewState
         get() = RxView.clicks(buttonSync)
             .applyThrottling()
             .map { if (state.user is Some) MainIntent.OnUnsyncClicked else MainIntent.OnSyncClicked }
+
+    private val userClickedIntent
+        get() = RxView.clicks(layoutUser)
+            .applyThrottling()
+            .map { MainIntent.OnUserClicked }
 }

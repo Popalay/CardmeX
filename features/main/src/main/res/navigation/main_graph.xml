@@ -6,11 +6,19 @@
     app:startDestination="@id/mainFragment">
 
     <include app:graph="@navigation/card_list_graph" />
+    <include app:graph="@navigation/user_card_graph" />
 
     <fragment
         android:id="@+id/mainFragment"
         android:name="com.popalay.cardme.main.MainFragment"
         android:label="main_fragment"
-        tools:layout="@layout/main_fragment" />
+        tools:layout="@layout/main_fragment">
+
+        <action
+            android:id="@+id/action_from_main_to_user_card"
+            app:destination="@id/user_card_graph"
+            app:popUpTo="@id/mainFragment" />
+
+    </fragment>
 
 </navigation>

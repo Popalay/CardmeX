@@ -17,7 +17,7 @@ import org.koin.dsl.path.moduleName
 object MainModule {
 
     fun get() = module(MainModule::class.moduleName) {
-        viewModel { MainViewModel(get(), get(), get { it }, get { it }) }
+        viewModel { MainViewModel(get(), get(), get { it }, get { it }, get(), get()) }
         single { GetCurrentUserUseCase(get()) }
         single { LogOutUseCase() }
         single { AuthUseCase(get { it }, get()) }

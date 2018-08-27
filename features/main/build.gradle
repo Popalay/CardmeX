@@ -3,6 +3,7 @@ apply from: "$rootDir/scripts/base_module.gradle"
 dependencies {
     implementation project(":core")
     implementation project(":features:cardlist")
+    implementation project(":features:usercard")
 
     implementation Libs.rxBinding
 
