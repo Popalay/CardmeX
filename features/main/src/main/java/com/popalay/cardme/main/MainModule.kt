@@ -20,7 +20,7 @@ object MainModule {
         viewModel { MainViewModel(get(), get(), get { it }, get { it }) }
         single { GetCurrentUserUseCase(get()) }
         single { LogOutUseCase() }
-        single { AuthUseCase(get { it }) }
+        single { AuthUseCase(get { it }, get()) }
         single { HandleAuthResultUseCase(get { it }) }
         single<Authenticator> { AuthenticatorFacade(get { it }) }
         single { (fragment: Fragment) ->
