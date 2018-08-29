@@ -47,7 +47,7 @@
     <com.popalay.cardme.core.widget.ProgressMaterialButton
         android:id="@+id/button_sync"
         style="@style/Cardme.Button.Colored"
-        android:layout_width="wrap_content"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:layout_marginTop="8dp"

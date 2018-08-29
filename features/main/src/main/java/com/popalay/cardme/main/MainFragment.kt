@@ -68,6 +68,7 @@ internal class MainFragment : Fragment(), NavHost, BindableMviView<MainViewState
     override val intents: Observable<MainIntent> = Observable.defer {
         Observable.merge(
             Observable.just(MainIntent.OnStarted),
+            activityResultSubject,
             syncClickedIntent,
             userClickedIntent
         )

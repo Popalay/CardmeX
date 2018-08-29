@@ -8,6 +8,7 @@ import com.popalay.cardme.api.usecase.UseCase
 import com.popalay.cardme.main.auth.CardmeAuthCredentials
 import io.reactivex.Observable
 import io.reactivex.ObservableSource
+import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
 
 internal class AuthUseCase(
@@ -17,7 +18,7 @@ internal class AuthUseCase(
 
     override fun apply(upstream: Observable<Action>): ObservableSource<Result> = upstream.switchMap { action ->
         authenticator.auth(action.authCredentials)
-            .flatMap { user -> userRepository.save(requireNotNull(user.toNullable())).toSingleDefault(user) }
+            .flatMap { user -> user.toNullable()?.let { userRepository.save(it).toSingleDefault(user) } ?: Single.just(user) }
             .map { Result.Success(it) }
             .cast(Result::class.java)
             .onErrorReturn(Result::Failure)
