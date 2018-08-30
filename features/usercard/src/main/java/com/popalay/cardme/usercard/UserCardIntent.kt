@@ -5,4 +5,7 @@ import com.popalay.cardme.api.state.Intent
 sealed class UserCardIntent : Intent {
 
     object OnEditClicked : UserCardIntent()
+    object OnAddClicked : UserCardIntent()
+    object OnSkipClicked : UserCardIntent()
+    object OnStart : UserCardIntent()
 }

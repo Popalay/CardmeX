@@ -37,9 +37,11 @@
                 android:background="@null"
                 android:gravity="top|start"
                 android:hint="Description"
+                android:importantForAutofill="no"
                 android:lines="5"
                 android:maxLines="10"
-                android:padding="16dp" />
+                android:padding="16dp"
+                tools:targetApi="o" />
 
             <ImageView
                 android:id="@+id/image_screenshot"

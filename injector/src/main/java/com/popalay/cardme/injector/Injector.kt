@@ -8,6 +8,7 @@ import com.popalay.cardme.core.di.CoreModule
 import com.popalay.cardme.data.di.DataModule
 import com.popalay.cardme.main.MainModule
 import com.popalay.cardme.remote.di.RemoteModule
+import com.popalay.cardme.usercard.UserCardModule
 import org.koin.android.ext.android.startKoin
 
 object Injector {
@@ -22,7 +23,8 @@ object Injector {
                 DataModule.get(),
                 MainModule.get(),
                 CardListModule.get(),
-                AddCardModule.get()
+                AddCardModule.get(),
+                UserCardModule.get()
             )
         )
     }
