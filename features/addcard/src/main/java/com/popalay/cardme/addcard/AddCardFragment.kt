@@ -10,6 +10,7 @@ import android.widget.CheckBox
 import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.ImageView
+import androidx.core.os.bundleOf
 import androidx.transition.TransitionManager
 import com.jakewharton.rxbinding2.view.RxView
 import com.jakewharton.rxbinding2.widget.RxTextView
@@ -25,10 +26,20 @@ import io.reactivex.Observable
 import org.koin.android.ext.android.inject
 import org.koin.androidx.scope.ext.android.scopedWith
 import org.koin.androidx.viewmodel.ext.android.getViewModel
+import org.koin.core.parameter.parametersOf
 import org.koin.dsl.path.moduleName
 import kotlin.properties.Delegates
 
 class AddCardFragment : RoundedBottomSheetDialogFragment(), BindableMviView<AddCardViewState, AddCardIntent> {
+
+    companion object {
+
+        private const val ARG_IS_USER_CARD = "ARG_IS_USER_CARD"
+
+        fun newInstance(isUserCard: Boolean = false) = AddCardFragment().apply {
+            arguments = bundleOf(ARG_IS_USER_CARD to isUserCard)
+        }
+    }
 
     private val imageCardType: ImageView by bindView(R.id.image_card_type)
     private val inputNumber: EditText by bindView(R.id.input_number)
@@ -53,15 +64,18 @@ class AddCardFragment : RoundedBottomSheetDialogFragment(), BindableMviView<AddC
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        bind(getViewModel<AddCardViewModel>())
+        bind(getViewModel<AddCardViewModel> { parametersOf(arguments?.getBoolean(ARG_IS_USER_CARD) ?: false) })
         scopedWith(AddCardModule::class.moduleName)
     }
 
     override val intents: Observable<AddCardIntent> = Observable.defer {
         Observable.merge(
-            saveClickedIntent,
-            nameChangedIntent,
-            numberChangedIntent
+            listOf(
+                Observable.just(AddCardIntent.OnStart),
+                saveClickedIntent,
+                nameChangedIntent,
+                numberChangedIntent
+            )
         )
     }
 
@@ -70,6 +84,10 @@ class AddCardFragment : RoundedBottomSheetDialogFragment(), BindableMviView<AddC
         with(viewState) {
             buttonSave.isEnabled = isValid
             buttonSave.isProgress = progress
+            checkPublic.isChecked = isPublic
+            checkPublic.isEnabled = isPublicEditable
+            inputName.isEnabled = isHolderNameEditable
+            if (holderName.isNotBlank()) inputName.setText(holderName)
             if (saved) dismissAllowingStateLoss()
             val cardTypeRes = when (cardType) {
                 CardType.UNKNOWN -> R.drawable.ic_credit_card
@@ -78,13 +96,13 @@ class AddCardFragment : RoundedBottomSheetDialogFragment(), BindableMviView<AddC
             }
             TransitionManager.beginDelayedTransition(view as ViewGroup)
             imageCardType.setImageResource(cardTypeRes)
-            errorHandler.accept(numberError)
+            errorHandler.accept(error)
         }
     }
 
     override fun onDismiss(dialog: DialogInterface?) {
         super.onDismiss(dialog)
-        (parentFragment as? OnDialogDismissed)?.onDialogDismissed()
+        (parentFragment as? OnDialogDismissed)?.onDialogDismissed(state.saved)
     }
 
     private val saveClickedIntent

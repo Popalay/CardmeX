@@ -125,12 +125,16 @@
         android:id="@+id/group_no_card"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:constraint_referenced_ids="button_add,button_skip,text_no_card_message" />
+        app:constraint_referenced_ids="button_add,button_skip,text_no_card_message"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.constraintlayout.widget.Group
         android:id="@+id/group_card"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:constraint_referenced_ids="button_edit,layout_card" />
+        app:constraint_referenced_ids="button_edit,layout_card"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

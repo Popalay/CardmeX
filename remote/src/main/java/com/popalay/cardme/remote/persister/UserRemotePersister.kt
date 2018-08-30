@@ -15,6 +15,6 @@ class UserRemotePersister internal constructor(
 ) : UserRemotePersister {
 
     override fun persist(key: Key, data: User): Completable = Completable.fromAction {
-        Tasks.await(FirebaseFirestore.getInstance().users.add(userMapper(data)))
+        Tasks.await(FirebaseFirestore.getInstance().users.document(data.uuid).set(userMapper(data)))
     }.subscribeOn(Schedulers.io())
 }

@@ -16,7 +16,7 @@ internal class UserCardViewModel(
     private val router: Router
 ) : BaseMviViewModel<UserCardViewState, UserCardIntent>() {
 
-    override val initialState: UserCardViewState = UserCardViewState.idle()
+    override val initialState: UserCardViewState = UserCardViewState()
 
     override val processor: Processor<UserCardIntent> = IntentProcessor { observable ->
         listOf(
@@ -25,22 +25,13 @@ internal class UserCardViewModel(
                 .compose(getUserCardUseCase),
             observable.ofType<UserCardIntent.OnSkipClicked>()
                 .map { SpecificIntentUseCase.Action(it) }
+                .compose(specificIntentUseCase),
+            observable.ofType<UserCardIntent.OnAddClicked>()
+                .map { SpecificIntentUseCase.Action(it) }
+                .compose(specificIntentUseCase),
+            observable.ofType<UserCardIntent.OnAddCardDialogDismissed>()
+                .map { SpecificIntentUseCase.Action(it) }
                 .compose(specificIntentUseCase)
-/*            observable.ofType<UserCardIntent.OnEditClicked>()
-                .map { SaveCardUseCase.Action(it.number, it.name, it.isPublic, it.cardType) }
-                .compose(saveCardUseCase),
-            observable.ofType<UserCardIntent.NumberChanged>()
-                .map { ValidateCardUseCase.Action(it.number, it.name, it.isPublic) }
-                .compose(validateCardUseCase),
-            observable.ofType<UserCardIntent.NumberChanged>()
-                .map { IdentifyCardNumberUseCase.Action(it.number) }
-                .compose(identifyCardNumberUseCase),
-            observable.ofType<UserCardIntent.NumberChanged>()
-                .map { ValidateCardUseCase.Action(it.number, it.name, it.isPublic) }
-                .compose(validateCardUseCase),
-            observable.ofType<UserCardIntent.NameChanged>()
-                .map { ValidateCardUseCase.Action(it.number, it.name, it.isPublic) }
-                .compose(validateCardUseCase)*/
         )
     }
 
@@ -53,12 +44,16 @@ internal class UserCardViewModel(
             }
             is SpecificIntentUseCase.Result -> when (intent as UserCardIntent) {
                 UserCardIntent.OnEditClicked -> TODO()
-                UserCardIntent.OnAddClicked -> TODO()
+                UserCardIntent.OnAddClicked -> it.copy(showAddCardDialog = true)
                 UserCardIntent.OnSkipClicked -> {
                     router.navigateUp()
                     it
                 }
-                UserCardIntent.OnStart -> throw UnsupportedOperationException()
+                is UserCardIntent.OnAddCardDialogDismissed -> {
+                    if ((intent as UserCardIntent.OnAddCardDialogDismissed).isCardSaved) router.navigateUp()
+                    it.copy(showAddCardDialog = false)
+                }
+                else -> throw UnsupportedOperationException()
             }
             else -> throw IllegalStateException("Can not reduce user for result ${javaClass.name}")
         }

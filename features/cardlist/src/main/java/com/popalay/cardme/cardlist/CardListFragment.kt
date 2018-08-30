@@ -66,7 +66,7 @@ internal class CardListFragment : Fragment(), BindableMviView<CardListViewState,
         }
     }
 
-    override fun onDialogDismissed() {
+    override fun onDialogDismissed(isOk: Boolean) {
         addCardDialogDismissedSubject.onNext(CardListIntent.OnAddCardDialogDismissed)
     }
 
@@ -77,7 +77,7 @@ internal class CardListFragment : Fragment(), BindableMviView<CardListViewState,
 
     private fun showAddCardDialog() {
         if (childFragmentManager.findFragmentByTag(AddCardFragment::class.java.simpleName) == null) {
-            AddCardFragment().showNow(childFragmentManager, AddCardFragment::class.java.simpleName)
+            AddCardFragment.newInstance().showNow(childFragmentManager, AddCardFragment::class.java.simpleName)
         }
     }
 

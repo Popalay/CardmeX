@@ -15,7 +15,6 @@ class CardRemotePersister internal constructor(
 ) : CardRemotePersister {
 
     override fun persist(key: Key, data: Card): Completable = Completable.fromAction {
-        val userId = "user_id_1"
-        Tasks.await(FirebaseFirestore.getInstance().cards.add(cardMapper(data)))
+        Tasks.await(FirebaseFirestore.getInstance().cards.document(data.id).set(cardMapper(data)))
     }.subscribeOn(Schedulers.io())
 }

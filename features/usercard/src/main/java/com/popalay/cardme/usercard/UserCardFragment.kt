@@ -13,19 +13,22 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.jakewharton.rxbinding2.view.RxView
+import com.popalay.cardme.addcard.AddCardFragment
 import com.popalay.cardme.api.error.ErrorHandler
 import com.popalay.cardme.api.model.CardType
 import com.popalay.cardme.core.extensions.applyThrottling
 import com.popalay.cardme.core.extensions.bindView
 import com.popalay.cardme.core.state.BindableMviView
+import com.popalay.cardme.core.widget.OnDialogDismissed
 import com.squareup.picasso.Picasso
 import io.reactivex.Observable
+import io.reactivex.subjects.PublishSubject
 import org.koin.android.ext.android.inject
 import org.koin.androidx.scope.ext.android.scopedWith
 import org.koin.androidx.viewmodel.ext.android.getViewModel
 import org.koin.dsl.path.moduleName
 
-internal class UserCardFragment : Fragment(), BindableMviView<UserCardViewState, UserCardIntent> {
+internal class UserCardFragment : Fragment(), BindableMviView<UserCardViewState, UserCardIntent>, OnDialogDismissed {
 
     private val groupCard: Group by bindView(R.id.group_card)
     private val buttonSkip: Button by bindView(R.id.button_skip)
@@ -40,6 +43,7 @@ internal class UserCardFragment : Fragment(), BindableMviView<UserCardViewState,
     private val textCardNumber: TextView by bindView(R.id.text_card_number)
 
     private val errorHandler: ErrorHandler by inject()
+    private val addCardDialogDismissedSubject = PublishSubject.create<UserCardIntent.OnAddCardDialogDismissed>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -55,15 +59,19 @@ internal class UserCardFragment : Fragment(), BindableMviView<UserCardViewState,
 
     override val intents: Observable<UserCardIntent> = Observable.defer {
         Observable.merge(
-            Observable.just(UserCardIntent.OnStart),
-            editClickedIntent,
-            addClickedIntent,
-            skipClickedIntent
+            listOf(
+                Observable.just(UserCardIntent.OnStart),
+                addCardDialogDismissedSubject,
+                editClickedIntent,
+                addClickedIntent,
+                skipClickedIntent
+            )
         )
     }
 
     override fun accept(viewState: UserCardViewState) {
         with(viewState) {
+            if (showAddCardDialog) showAddCardDialog()
             user?.run {
                 Picasso.get().load(user.photoUrl).into(imageUserAvatar)
                 textDisplayName.text = displayName
@@ -83,6 +91,10 @@ internal class UserCardFragment : Fragment(), BindableMviView<UserCardViewState,
         }
     }
 
+    override fun onDialogDismissed(isOk: Boolean) {
+        addCardDialogDismissedSubject.onNext(UserCardIntent.OnAddCardDialogDismissed(isOk))
+    }
+
     private val editClickedIntent
         get() = RxView.clicks(buttonEdit)
             .applyThrottling()
@@ -97,4 +109,10 @@ internal class UserCardFragment : Fragment(), BindableMviView<UserCardViewState,
         get() = RxView.clicks(buttonSkip)
             .applyThrottling()
             .map { UserCardIntent.OnSkipClicked }
+
+    private fun showAddCardDialog() {
+        if (childFragmentManager.findFragmentByTag(AddCardFragment::class.java.simpleName) == null) {
+            AddCardFragment.newInstance(isUserCard = true).showNow(childFragmentManager, AddCardFragment::class.java.simpleName)
+        }
+    }
 }

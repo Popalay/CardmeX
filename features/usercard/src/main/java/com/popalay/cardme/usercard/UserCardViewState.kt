@@ -7,15 +7,6 @@ import com.popalay.cardme.api.state.ViewState
 internal data class UserCardViewState(
     val user: User? = null,
     val card: Card? = null,
-    val error: Throwable?
-) : ViewState {
-
-    companion object {
-
-        fun idle() = UserCardViewState(
-            null,
-            null,
-            null
-        )
-    }
-}
+    val showAddCardDialog: Boolean = false,
+    val error: Throwable? = null
+) : ViewState

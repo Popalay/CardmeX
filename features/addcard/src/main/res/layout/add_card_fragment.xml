@@ -83,12 +83,12 @@
         android:layout_width="24dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
+        android:src="@drawable/ic_credit_card"
         android:tint="@color/colorPrimary"
         app:layout_constraintBottom_toBottomOf="@id/input_number"
         app:layout_constraintEnd_toStartOf="@id/input_number"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/input_number"
-        tools:src="@drawable/ic_credit_card" />
+        app:layout_constraintTop_toTopOf="@+id/input_number" />
 
     <ImageView
         android:id="@+id/image_face"
