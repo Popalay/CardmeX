@@ -83,7 +83,7 @@ internal class UserCardFragment : Fragment(), BindableMviView<UserCardViewState,
             card?.run {
                 textCardNumber.text = formattedNumber
                 val cardTypeRes = when (cardType) {
-                    CardType.UNKNOWN -> R.drawable.ic_credit_card
+                    CardType.UNKNOWN -> return@run
                     CardType.MASTER_CARD -> R.drawable.ic_mastercard
                     CardType.VISA -> R.drawable.ic_visa
                 }

@@ -84,7 +84,7 @@
                 android:contentDescription="@null"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                tools:srcCompat="@tools:sample/avatars" />
+                tools:src="@tools:sample/avatars" />
 
             <TextView
                 android:id="@+id/text_display_name"
@@ -110,7 +110,7 @@
                 android:tint="@color/colorPrimary"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:srcCompat="@tools:sample/avatars" />
+                tools:src="@tools:sample/avatars" />
 
             <com.popalay.cardme.core.widget.CharacterWrapTextView
                 android:id="@+id/text_card_number"
