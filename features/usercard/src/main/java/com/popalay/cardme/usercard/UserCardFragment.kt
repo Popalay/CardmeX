@@ -19,6 +19,7 @@ import com.popalay.cardme.api.error.ErrorHandler
 import com.popalay.cardme.api.model.CardType
 import com.popalay.cardme.core.extensions.applyThrottling
 import com.popalay.cardme.core.extensions.bindView
+import com.popalay.cardme.core.extensions.formattedNumber
 import com.popalay.cardme.core.extensions.loadImage
 import com.popalay.cardme.core.picasso.CircleImageTransformation
 import com.popalay.cardme.core.state.BindableMviView
@@ -80,7 +81,7 @@ internal class UserCardFragment : Fragment(), BindableMviView<UserCardViewState,
                 textDisplayName.text = displayName
             }
             card?.run {
-                textCardNumber.text = formatCardNumber(number)
+                textCardNumber.text = formattedNumber
                 val cardTypeRes = when (cardType) {
                     CardType.UNKNOWN -> R.drawable.ic_credit_card
                     CardType.MASTER_CARD -> R.drawable.ic_mastercard
@@ -118,16 +119,5 @@ internal class UserCardFragment : Fragment(), BindableMviView<UserCardViewState,
         if (childFragmentManager.findFragmentByTag(AddCardFragment::class.java.simpleName) == null) {
             AddCardFragment.newInstance(isUserCard = true).showNow(childFragmentManager, AddCardFragment::class.java.simpleName)
         }
-    }
-
-    private fun formatCardNumber(number: String): String {
-        val result = StringBuilder()
-        (0 until number.length).forEach {
-            if (it % 4 == 0 && it != 0) {
-                result.append(" ")
-            }
-            result.append(number[it])
-        }
-        return result.toString()
     }
 }

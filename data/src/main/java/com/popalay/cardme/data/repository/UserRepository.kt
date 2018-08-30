@@ -1,6 +1,7 @@
 package com.popalay.cardme.data.repository
 
 import com.gojuno.koptional.Optional
+import com.gojuno.koptional.toOptional
 import com.popalay.cardme.api.data.datasource.UserCardRemoteDataSource
 import com.popalay.cardme.api.data.key.EmptyKey
 import com.popalay.cardme.api.data.persister.UserCardRemotePersister
@@ -22,7 +23,7 @@ class UserRepository(
 
     override fun updateUserCard(card: Card): Completable = userCardRemotePersister.persist(EmptyKey, card)
 
-    override fun getUserCard(): Flowable<Card> =
+    override fun getUserCard(): Flowable<Optional<Card>> =
         userCardRemoteDataSource.flow(UserCardRemoteDataSource.Key(requireNotNull(user.toNullable()).uuid))
-            .map { it.content }
+            .map { it.content.toOptional() }
 }

@@ -19,7 +19,7 @@ object RemoteModule {
         single { HolderToRemoteHolderMapper() }
         single { RemoteCardToCardMapper(get()) }
         single { CardToRemoteCardMapper(get()) }
-        single { UserToRemoteUserMapper(get()) }
+        single { UserToRemoteUserMapper() }
         single { CardRemotePersister(get()) as com.popalay.cardme.api.data.persister.CardRemotePersister }
         single { CardRemoteDataSource(get()) as com.popalay.cardme.api.data.datasource.CardRemoteDataSource }
         single { UserCardRemoteDataSource(get()) as com.popalay.cardme.api.data.datasource.UserCardRemoteDataSource }

@@ -9,6 +9,7 @@ import com.popalay.cardme.cardlist.model.CardListItem
 import com.popalay.cardme.core.adapter.BindableViewHolder
 import com.popalay.cardme.core.adapter.IdentifiableListAdapter
 import com.popalay.cardme.core.extensions.bindView
+import com.popalay.cardme.core.extensions.securedNumber
 
 class CardListAdapter : IdentifiableListAdapter<CardListItem>(
     layoutRes = R.layout.item_card,
@@ -29,7 +30,7 @@ class CardListAdapter : IdentifiableListAdapter<CardListItem>(
             }
             imageCardType.setImageResource(cardTypeRes)
             textDisplayName.text = item.card.holder.name
-            textCardNumber.text = "•••• ${item.card.number.takeLast(4)}"
+            textCardNumber.text = item.card.securedNumber
         }
     }
 }

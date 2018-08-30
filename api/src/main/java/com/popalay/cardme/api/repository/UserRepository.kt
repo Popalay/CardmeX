@@ -1,5 +1,6 @@
 package com.popalay.cardme.api.repository
 
+import com.gojuno.koptional.Optional
 import com.popalay.cardme.api.model.Card
 import com.popalay.cardme.api.model.User
 import io.reactivex.Completable
@@ -11,5 +12,5 @@ interface UserRepository {
 
     fun updateUserCard(card: Card): Completable
 
-    fun getUserCard(): Flowable<Card>
+    fun getUserCard(): Flowable<Optional<Card>>
 }

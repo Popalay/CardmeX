@@ -56,6 +56,7 @@ internal class MainViewModel(
             }
             is LogOutUseCase.Result -> when (this) {
                 LogOutUseCase.Result.Success -> it.copy(user = None, isSyncProgress = false)
+
                 LogOutUseCase.Result.Idle -> it.copy(isSyncProgress = true)
                 is LogOutUseCase.Result.Failure -> it.copy(error = throwable, isSyncProgress = false)
             }

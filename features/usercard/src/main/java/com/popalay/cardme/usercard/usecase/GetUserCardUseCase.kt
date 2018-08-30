@@ -16,7 +16,7 @@ internal class GetUserCardUseCase(
 
     override fun apply(upstream: Observable<Action>): ObservableSource<Result> = upstream.switchMap { _ ->
         userRepository.getUserCard()
-            .map { Result.Success(requireNotNull(user.toNullable()), it) }
+            .map { Result.Success(requireNotNull(user.toNullable()), it.toNullable()) }
             .cast(Result::class.java)
             .onErrorReturn(Result::Failure)
             .toObservable()

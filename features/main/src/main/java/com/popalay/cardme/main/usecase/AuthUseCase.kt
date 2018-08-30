@@ -10,16 +10,19 @@ import io.reactivex.Observable
 import io.reactivex.ObservableSource
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
+import org.koin.standalone.KoinComponent
+import org.koin.standalone.release
 
 internal class AuthUseCase(
     private val authenticator: Authenticator,
     private val userRepository: UserRepository
-) : UseCase<AuthUseCase.Action, AuthUseCase.Result> {
+) : UseCase<AuthUseCase.Action, AuthUseCase.Result>, KoinComponent {
 
     override fun apply(upstream: Observable<Action>): ObservableSource<Result> = upstream.switchMap { action ->
         authenticator.auth(action.authCredentials)
             .flatMap { user -> user.toNullable()?.let { userRepository.save(it).toSingleDefault(user) } ?: Single.just(user) }
             .map { Result.Success(it) }
+            .doOnSuccess { release("") }
             .cast(Result::class.java)
             .onErrorReturn(Result::Failure)
             .toObservable()

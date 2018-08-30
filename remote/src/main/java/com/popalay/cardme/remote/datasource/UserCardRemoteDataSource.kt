@@ -1,7 +1,5 @@
 package com.popalay.cardme.remote.datasource
 
-import com.gojuno.koptional.Optional
-import com.gojuno.koptional.toOptional
 import com.google.firebase.firestore.FirebaseFirestore
 import com.popalay.cardme.api.data.Data
 import com.popalay.cardme.api.data.Source
@@ -18,15 +16,16 @@ class UserCardRemoteDataSource internal constructor(
     private val mapper: RemoteCardToCardMapper
 ) : UserCardRemoteDataSource {
 
-    override fun flow(key: UserCardRemoteDataSource.Key): Flowable<Data<Card?>> = Flowable.create<Optional<Card>>({ emitter ->
+    override fun flow(key: UserCardRemoteDataSource.Key): Flowable<Data<Card?>> = Flowable.create<Data<Card?>>({ emitter ->
         FirebaseFirestore.getInstance().users.document(key.userId)
             .addSnapshotListener { snapshot, exception ->
                 if (exception != null) emitter.onError(exception)
                 if (snapshot != null) {
-                    emitter.onNext(snapshot.toObject(RemoteUser::class.java)?.card?.let { mapper(it) }.toOptional())
+                    val card = snapshot.toObject(RemoteUser::class.java)?.card?.let { mapper(it) }
+                    emitter.onNext(Data(card, Source.Network))
                 }
             }
     }, BackpressureStrategy.LATEST)
-        .map { Data(it.toNullable(), Source.Network) }
+        .onErrorReturnItem(Data(null, Source.Network))
         .subscribeOn(Schedulers.io())
 }

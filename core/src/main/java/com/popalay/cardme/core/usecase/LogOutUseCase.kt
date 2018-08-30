@@ -6,12 +6,15 @@ import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.ObservableSource
 import io.reactivex.schedulers.Schedulers
+import org.koin.standalone.KoinComponent
+import org.koin.standalone.release
 
-class LogOutUseCase : UseCase<LogOutUseCase.Action, LogOutUseCase.Result> {
+class LogOutUseCase : UseCase<LogOutUseCase.Action, LogOutUseCase.Result>, KoinComponent {
 
-    override fun apply(upstream: Observable<Action>): ObservableSource<Result> = upstream.switchMap {
+    override fun apply(upstream: Observable<Action>): ObservableSource<Result> = upstream.switchMap { _ ->
         Completable.fromAction { FirebaseAuth.getInstance().signOut() }
             .toSingleDefault(Result.Success)
+            .doOnSuccess { release("") }
             .cast(Result::class.java)
             .onErrorReturn(Result::Failure)
             .toObservable()

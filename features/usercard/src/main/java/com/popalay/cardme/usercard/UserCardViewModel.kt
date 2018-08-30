@@ -49,10 +49,7 @@ internal class UserCardViewModel(
                     router.navigateUp()
                     it
                 }
-                is UserCardIntent.OnAddCardDialogDismissed -> {
-                    if ((intent as UserCardIntent.OnAddCardDialogDismissed).isCardSaved) router.navigateUp()
-                    it.copy(showAddCardDialog = false)
-                }
+                is UserCardIntent.OnAddCardDialogDismissed -> it.copy(showAddCardDialog = false)
                 else -> throw UnsupportedOperationException()
             }
             else -> throw IllegalStateException("Can not reduce user for result ${javaClass.name}")
