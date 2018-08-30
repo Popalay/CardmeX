@@ -66,6 +66,7 @@ class AddCardFragment : RoundedBottomSheetDialogFragment(), BindableMviView<AddC
         super.onViewCreated(view, savedInstanceState)
         bind(getViewModel<AddCardViewModel> { parametersOf(arguments?.getBoolean(ARG_IS_USER_CARD) ?: false) })
         scopedWith(AddCardModule::class.moduleName)
+        initView()
     }
 
     override val intents: Observable<AddCardIntent> = Observable.defer {
@@ -138,4 +139,7 @@ class AddCardFragment : RoundedBottomSheetDialogFragment(), BindableMviView<AddC
                     checkPublic.isChecked
                 )
             }
+
+    private fun initView() {
+    }
 }

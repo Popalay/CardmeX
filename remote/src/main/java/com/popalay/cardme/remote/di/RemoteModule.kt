@@ -1,6 +1,7 @@
 package com.popalay.cardme.remote.di
 
 import com.popalay.cardme.remote.datasource.CardRemoteDataSource
+import com.popalay.cardme.remote.datasource.UserCardRemoteDataSource
 import com.popalay.cardme.remote.mapper.CardToRemoteCardMapper
 import com.popalay.cardme.remote.mapper.HolderToRemoteHolderMapper
 import com.popalay.cardme.remote.mapper.RemoteCardToCardMapper
@@ -21,6 +22,7 @@ object RemoteModule {
         single { UserToRemoteUserMapper(get()) }
         single { CardRemotePersister(get()) as com.popalay.cardme.api.data.persister.CardRemotePersister }
         single { CardRemoteDataSource(get()) as com.popalay.cardme.api.data.datasource.CardRemoteDataSource }
+        single { UserCardRemoteDataSource(get()) as com.popalay.cardme.api.data.datasource.UserCardRemoteDataSource }
         single { UserRemotePersister(get()) as com.popalay.cardme.api.data.persister.UserRemotePersister }
         single { UserCardRemotePersister(get()) as com.popalay.cardme.api.data.persister.UserCardRemotePersister }
     }

@@ -10,6 +10,7 @@ import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.constraintlayout.widget.Group
 import androidx.core.view.isVisible
+import androidx.core.widget.ContentLoadingProgressBar
 import androidx.fragment.app.Fragment
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.jakewharton.rxbinding2.view.RxView
@@ -18,9 +19,10 @@ import com.popalay.cardme.api.error.ErrorHandler
 import com.popalay.cardme.api.model.CardType
 import com.popalay.cardme.core.extensions.applyThrottling
 import com.popalay.cardme.core.extensions.bindView
+import com.popalay.cardme.core.extensions.loadImage
+import com.popalay.cardme.core.picasso.CircleImageTransformation
 import com.popalay.cardme.core.state.BindableMviView
 import com.popalay.cardme.core.widget.OnDialogDismissed
-import com.squareup.picasso.Picasso
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
 import org.koin.android.ext.android.inject
@@ -30,6 +32,7 @@ import org.koin.dsl.path.moduleName
 
 internal class UserCardFragment : Fragment(), BindableMviView<UserCardViewState, UserCardIntent>, OnDialogDismissed {
 
+    private val progressBar: ContentLoadingProgressBar by bindView(R.id.progress_bar)
     private val groupCard: Group by bindView(R.id.group_card)
     private val buttonSkip: Button by bindView(R.id.button_skip)
     private val groupNoCard: Group by bindView(R.id.group_no_card)
@@ -73,11 +76,11 @@ internal class UserCardFragment : Fragment(), BindableMviView<UserCardViewState,
         with(viewState) {
             if (showAddCardDialog) showAddCardDialog()
             user?.run {
-                Picasso.get().load(user.photoUrl).into(imageUserAvatar)
+                imageUserAvatar.loadImage(photoUrl, CircleImageTransformation())
                 textDisplayName.text = displayName
             }
             card?.run {
-                textCardNumber.text = number
+                textCardNumber.text = formatCardNumber(number)
                 val cardTypeRes = when (cardType) {
                     CardType.UNKNOWN -> R.drawable.ic_credit_card
                     CardType.MASTER_CARD -> R.drawable.ic_mastercard
@@ -85,8 +88,9 @@ internal class UserCardFragment : Fragment(), BindableMviView<UserCardViewState,
                 }
                 imageCardType.setImageResource(cardTypeRes)
             }
-            groupNoCard.isVisible = card == null
-            groupCard.isVisible = card != null
+            groupNoCard.isVisible = card == null && !progress
+            groupCard.isVisible = card != null && !progress
+            if (progress) progressBar.show() else progressBar.hide()
             errorHandler.accept(error)
         }
     }
@@ -114,5 +118,16 @@ internal class UserCardFragment : Fragment(), BindableMviView<UserCardViewState,
         if (childFragmentManager.findFragmentByTag(AddCardFragment::class.java.simpleName) == null) {
             AddCardFragment.newInstance(isUserCard = true).showNow(childFragmentManager, AddCardFragment::class.java.simpleName)
         }
+    }
+
+    private fun formatCardNumber(number: String): String {
+        val result = StringBuilder()
+        (0 until number.length).forEach {
+            if (it % 4 == 0 && it != 0) {
+                result.append(" ")
+            }
+            result.append(number[it])
+        }
+        return result.toString()
     }
 }

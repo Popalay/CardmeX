@@ -9,6 +9,6 @@ object UserCardModule {
 
     fun get() = module(UserCardModule::class.moduleName) {
         viewModel { UserCardViewModel(get(), get(), get()) }
-        single { GetUserCardUseCase(get()) }
+        single { GetUserCardUseCase(get(), get()) }
     }
 }

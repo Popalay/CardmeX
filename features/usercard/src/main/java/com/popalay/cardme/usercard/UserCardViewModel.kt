@@ -38,9 +38,9 @@ internal class UserCardViewModel(
     override val reducer: Reducer<UserCardViewState> = LambdaReducer {
         when (this) {
             is GetUserCardUseCase.Result -> when (this) {
-                is GetUserCardUseCase.Result.Success -> it.copy(card = card, user = user)
-                GetUserCardUseCase.Result.Idle -> it
-                is GetUserCardUseCase.Result.Failure -> it.copy(error = throwable)
+                is GetUserCardUseCase.Result.Success -> it.copy(card = card, user = user, progress = false)
+                GetUserCardUseCase.Result.Idle -> it.copy(progress = true)
+                is GetUserCardUseCase.Result.Failure -> it.copy(error = throwable, progress = false)
             }
             is SpecificIntentUseCase.Result -> when (intent as UserCardIntent) {
                 UserCardIntent.OnEditClicked -> TODO()
