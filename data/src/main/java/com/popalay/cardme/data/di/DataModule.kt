@@ -7,7 +7,7 @@ import org.koin.dsl.module.module
 object DataModule {
 
     fun get() = module {
-        single<com.popalay.cardme.api.repository.CardRepository> { create<CardRepository>() }
-        single<com.popalay.cardme.api.repository.UserRepository> { create<UserRepository>() }
+        single<com.popalay.cardme.api.repository.CardRepository> { CardRepository(get(), get(), get(), get(), get()) }
+        single<com.popalay.cardme.api.repository.UserRepository> { UserRepository(get(), get(), get(), get()) }
     }
 }
