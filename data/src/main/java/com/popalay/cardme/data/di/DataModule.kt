@@ -8,6 +8,6 @@ object DataModule {
 
     fun get() = module {
         single<com.popalay.cardme.api.repository.CardRepository> { CardRepository(get(), get(), get(), get(), get()) }
-        single<com.popalay.cardme.api.repository.UserRepository> { UserRepository(get(), get(), get(), get()) }
+        single<com.popalay.cardme.api.repository.UserRepository> { UserRepository(get(), get(), get(), get(), get()) }
     }
 }

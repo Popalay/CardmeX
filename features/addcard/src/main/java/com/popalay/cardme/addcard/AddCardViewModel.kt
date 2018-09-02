@@ -77,6 +77,7 @@ internal class AddCardViewModel(
             is GetCurrentUserUseCase.Result -> when (this) {
                 is GetCurrentUserUseCase.Result.Success -> it.copy(
                     holderName = requireNotNull(user.toNullable()).displayName,
+                    number = user.toNullable()?.card?.number ?: "",
                     isPublicEditable = false,
                     isHolderNameEditable = false
                 )

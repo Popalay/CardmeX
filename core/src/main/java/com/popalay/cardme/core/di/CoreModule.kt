@@ -8,6 +8,7 @@ import com.popalay.cardme.core.error.DefaultErrorHandler
 import com.popalay.cardme.core.mapper.FirebaseUserToUserMapper
 import com.popalay.cardme.core.navigation.BaseNavigationHolder
 import com.popalay.cardme.core.navigation.BaseRouter
+import com.popalay.cardme.core.usecase.GetCurrentUserUseCase
 import com.popalay.cardme.core.usecase.SpecificIntentUseCase
 import org.koin.dsl.module.module
 
@@ -19,6 +20,7 @@ object CoreModule {
         single<NavigatorHolder> { BaseNavigationHolder() }
         single<Router> { BaseRouter(get()) }
         single { SpecificIntentUseCase() }
+        single { GetCurrentUserUseCase(get()) }
         factory { get<FirebaseUserToUserMapper>()(FirebaseAuth.getInstance().currentUser) }
     }
 }

@@ -5,5 +5,6 @@ data class User(
     val email: String,
     val photoUrl: String,
     val phoneNumber: String,
-    val displayName: String
+    val displayName: String,
+    val card: Card?
 )

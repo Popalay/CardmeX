@@ -7,11 +7,13 @@ import io.reactivex.schedulers.Schedulers
 
 internal class ValidateCardUseCase : UseCase<ValidateCardUseCase.Action, ValidateCardUseCase.Result> {
 
-    private val cardNumberRegex by lazy { Regex("\\b\\d{13,16}\\b") }
+    private val masterCardRegex by lazy { Regex("^(?:5[1-5][0-9]{2}|222[1-9]|22[3-9][0-9]|2[3-6][0-9]{2}|27[01][0-9]|2720)[0-9]{12}$") }
+    private val visaRegex by lazy { Regex("^4[0-9]{12}(?:[0-9]{3})?$") }
 
     override fun apply(upstream: Observable<Action>): ObservableSource<Result> = upstream.switchMap { action ->
         Observable.fromCallable {
-            action.name.isNotBlank() && action.number.isNotBlank() && cardNumberRegex.matches(action.number)
+            action.name.isNotBlank() && action.number.isNotBlank() &&
+                (masterCardRegex.matches(action.number) || visaRegex.matches(action.number))
         }
             .map { Result.Success(it) }
             .cast(Result::class.java)

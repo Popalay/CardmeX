@@ -6,12 +6,12 @@ import com.popalay.cardme.api.state.LambdaReducer
 import com.popalay.cardme.api.state.Processor
 import com.popalay.cardme.api.state.Reducer
 import com.popalay.cardme.core.state.BaseMviViewModel
+import com.popalay.cardme.core.usecase.GetCurrentUserUseCase
 import com.popalay.cardme.core.usecase.SpecificIntentUseCase
-import com.popalay.cardme.usercard.usecase.GetUserCardUseCase
 import io.reactivex.rxkotlin.ofType
 
 internal class UserCardViewModel(
-    private val getUserCardUseCase: GetUserCardUseCase,
+    private val getCurrentUserUseCase: GetCurrentUserUseCase,
     private val specificIntentUseCase: SpecificIntentUseCase,
     private val router: Router
 ) : BaseMviViewModel<UserCardViewState, UserCardIntent>() {
@@ -21,9 +21,12 @@ internal class UserCardViewModel(
     override val processor: Processor<UserCardIntent> = IntentProcessor { observable ->
         listOf(
             observable.ofType<UserCardIntent.OnStart>()
-                .map { GetUserCardUseCase.Action }
-                .compose(getUserCardUseCase),
+                .map { GetCurrentUserUseCase.Action }
+                .compose(getCurrentUserUseCase),
             observable.ofType<UserCardIntent.OnSkipClicked>()
+                .map { SpecificIntentUseCase.Action(it) }
+                .compose(specificIntentUseCase),
+            observable.ofType<UserCardIntent.OnEditClicked>()
                 .map { SpecificIntentUseCase.Action(it) }
                 .compose(specificIntentUseCase),
             observable.ofType<UserCardIntent.OnAddClicked>()
@@ -37,13 +40,13 @@ internal class UserCardViewModel(
 
     override val reducer: Reducer<UserCardViewState> = LambdaReducer {
         when (this) {
-            is GetUserCardUseCase.Result -> when (this) {
-                is GetUserCardUseCase.Result.Success -> it.copy(card = card, user = user, progress = false)
-                GetUserCardUseCase.Result.Idle -> it.copy(progress = true)
-                is GetUserCardUseCase.Result.Failure -> it.copy(error = throwable, progress = false)
+            is GetCurrentUserUseCase.Result -> when (this) {
+                is GetCurrentUserUseCase.Result.Success -> it.copy(card = user.toNullable()?.card, user = user.toNullable(), progress = false)
+                GetCurrentUserUseCase.Result.Idle -> it.copy(progress = true)
+                is GetCurrentUserUseCase.Result.Failure -> it.copy(error = throwable, progress = false)
             }
             is SpecificIntentUseCase.Result -> when (intent as UserCardIntent) {
-                UserCardIntent.OnEditClicked -> TODO()
+                UserCardIntent.OnEditClicked -> it.copy(showAddCardDialog = true)
                 UserCardIntent.OnAddClicked -> it.copy(showAddCardDialog = true)
                 UserCardIntent.OnSkipClicked -> {
                     router.navigateUp()

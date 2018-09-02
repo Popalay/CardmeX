@@ -2,17 +2,20 @@ package com.popalay.cardme.usercard
 
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.widget.Toolbar
 import androidx.cardview.widget.CardView
 import androidx.constraintlayout.widget.Group
 import androidx.core.view.isVisible
 import androidx.core.widget.ContentLoadingProgressBar
 import androidx.fragment.app.Fragment
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.jakewharton.rxbinding2.view.RxView
 import com.popalay.cardme.addcard.AddCardFragment
 import com.popalay.cardme.api.error.ErrorHandler
@@ -33,14 +36,13 @@ import org.koin.dsl.path.moduleName
 
 internal class UserCardFragment : Fragment(), BindableMviView<UserCardViewState, UserCardIntent>, OnDialogDismissed {
 
+    private val toolbar: Toolbar by bindView(R.id.toolbar)
     private val progressBar: ContentLoadingProgressBar by bindView(R.id.progress_bar)
     private val groupCard: Group by bindView(R.id.group_card)
     private val buttonSkip: Button by bindView(R.id.button_skip)
     private val groupNoCard: Group by bindView(R.id.group_no_card)
     private val buttonAdd: Button by bindView(R.id.button_add)
-    private val textNoCardMessage: TextView by bindView(R.id.text_no_card_message)
     private val layoutCard: CardView by bindView(R.id.layout_card)
-    private val buttonEdit: FloatingActionButton by bindView(R.id.button_edit)
     private val imageUserAvatar: ImageView by bindView(R.id.image_user_avatar)
     private val textDisplayName: TextView by bindView(R.id.text_display_name)
     private val imageCardType: ImageView by bindView(R.id.image_card_type)
@@ -48,6 +50,7 @@ internal class UserCardFragment : Fragment(), BindableMviView<UserCardViewState,
 
     private val errorHandler: ErrorHandler by inject()
     private val addCardDialogDismissedSubject = PublishSubject.create<UserCardIntent.OnAddCardDialogDismissed>()
+    private val menuSubject = PublishSubject.create<UserCardIntent>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -59,6 +62,33 @@ internal class UserCardFragment : Fragment(), BindableMviView<UserCardViewState,
         super.onViewCreated(view, savedInstanceState)
         bind(getViewModel<UserCardViewModel>())
         scopedWith(UserCardModule::class.moduleName)
+        initView()
+    }
+
+    private fun initView() {
+        toolbar.inflateMenu(R.menu.user_card_menu)
+        toolbar.setOnMenuItemClickListener {
+            when (it?.itemId) {
+                R.id.action_edit -> {
+                    menuSubject.onNext(UserCardIntent.OnEditClicked)
+                    true
+                }
+                else -> false
+            }
+        }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater?.inflate(R.menu.user_card_menu, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean = when (item?.itemId) {
+        R.id.action_edit -> {
+            menuSubject.onNext(UserCardIntent.OnEditClicked)
+            true
+        }
+        else -> super.onOptionsItemSelected(item)
     }
 
     override val intents: Observable<UserCardIntent> = Observable.defer {
@@ -66,9 +96,9 @@ internal class UserCardFragment : Fragment(), BindableMviView<UserCardViewState,
             listOf(
                 Observable.just(UserCardIntent.OnStart),
                 addCardDialogDismissedSubject,
-                editClickedIntent,
-                addClickedIntent,
-                skipClickedIntent
+                menuSubject.applyThrottling(),
+                addClickedIntent.applyThrottling(),
+                skipClickedIntent.applyThrottling()
             )
         )
     }
@@ -100,19 +130,12 @@ internal class UserCardFragment : Fragment(), BindableMviView<UserCardViewState,
         addCardDialogDismissedSubject.onNext(UserCardIntent.OnAddCardDialogDismissed(isOk))
     }
 
-    private val editClickedIntent
-        get() = RxView.clicks(buttonEdit)
-            .applyThrottling()
-            .map { UserCardIntent.OnEditClicked }
-
     private val addClickedIntent
         get() = RxView.clicks(buttonAdd)
-            .applyThrottling()
             .map { UserCardIntent.OnAddClicked }
 
     private val skipClickedIntent
         get() = RxView.clicks(buttonSkip)
-            .applyThrottling()
             .map { UserCardIntent.OnSkipClicked }
 
     private fun showAddCardDialog() {

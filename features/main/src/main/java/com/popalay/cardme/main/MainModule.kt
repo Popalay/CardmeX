@@ -2,7 +2,6 @@ package com.popalay.cardme.main
 
 import androidx.fragment.app.Fragment
 import com.popalay.cardme.api.auth.Authenticator
-import com.popalay.cardme.core.usecase.GetCurrentUserUseCase
 import com.popalay.cardme.core.usecase.LogOutUseCase
 import com.popalay.cardme.main.auth.AuthenticatorFacade
 import com.popalay.cardme.main.auth.FirebasePhoneAuthenticator
@@ -18,7 +17,6 @@ object MainModule {
 
     fun get() = module(MainModule::class.moduleName) {
         viewModel { MainViewModel(get(), get(), get { it }, get { it }, get(), get()) }
-        single { GetCurrentUserUseCase(get()) }
         single { LogOutUseCase() }
         single { AuthUseCase(get { it }, get()) }
         single { HandleAuthResultUseCase(get { it }, get()) }

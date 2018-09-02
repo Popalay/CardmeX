@@ -1,21 +1,19 @@
 package com.popalay.cardme.core.usecase
 
 import com.gojuno.koptional.Optional
-import com.google.firebase.auth.FirebaseAuth
 import com.popalay.cardme.api.model.User
+import com.popalay.cardme.api.repository.UserRepository
 import com.popalay.cardme.api.usecase.UseCase
-import com.popalay.cardme.core.mapper.FirebaseUserToUserMapper
 import io.reactivex.Observable
 import io.reactivex.ObservableSource
-import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
 
 class GetCurrentUserUseCase(
-    private val userMapper: FirebaseUserToUserMapper
+    private val userRepository: UserRepository
 ) : UseCase<GetCurrentUserUseCase.Action, GetCurrentUserUseCase.Result> {
 
     override fun apply(upstream: Observable<Action>): ObservableSource<Result> = upstream.switchMap { _ ->
-        Single.just(userMapper(FirebaseAuth.getInstance().currentUser))
+        userRepository.getCurrentUser()
             .map { Result.Success(it) }
             .cast(Result::class.java)
             .onErrorReturn(Result::Failure)

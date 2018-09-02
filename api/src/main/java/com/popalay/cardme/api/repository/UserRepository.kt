@@ -13,4 +13,6 @@ interface UserRepository {
     fun updateUserCard(card: Card): Completable
 
     fun getUserCard(): Flowable<Optional<Card>>
+
+    fun getCurrentUser(): Flowable<Optional<User>>
 }

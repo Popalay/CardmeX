@@ -8,11 +8,11 @@ object Versions {
     const val targetSdkVersion = 28
     const val compileSdkVersion = 28
 
-    const val gradlePlugin = "3.3.0-alpha07"
+    const val gradlePlugin = "3.3.0-alpha08"
     const val kotlinLanguage = "1.3-M2"
 
     const val constraintLayout = "2.0.0-alpha2"
-    const val ktx = "1.0.0-rc01"
+    const val ktx = "1.0.0-rc02"
     const val materialComponents = "1.0.0-rc01"
 
     const val rxJava = "2.2.1"
