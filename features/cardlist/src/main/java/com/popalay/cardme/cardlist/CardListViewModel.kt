@@ -5,16 +5,18 @@ import com.popalay.cardme.api.state.LambdaReducer
 import com.popalay.cardme.api.state.Processor
 import com.popalay.cardme.api.state.Reducer
 import com.popalay.cardme.cardlist.usecase.CardListUseCase
+import com.popalay.cardme.cardlist.usecase.CopyCardNumberUseCase
 import com.popalay.cardme.core.state.BaseMviViewModel
 import com.popalay.cardme.core.usecase.SpecificIntentUseCase
 import io.reactivex.rxkotlin.ofType
 
 internal class CardListViewModel(
     private val cardListUseCase: CardListUseCase,
-    private val specificIntentUseCase: SpecificIntentUseCase
+    private val specificIntentUseCase: SpecificIntentUseCase,
+    private val copyCardNumberUseCase: CopyCardNumberUseCase
 ) : BaseMviViewModel<CardListViewState, CardListIntent>() {
 
-    override val initialState: CardListViewState = CardListViewState.idle()
+    override val initialState: CardListViewState = CardListViewState()
 
     override val processor: Processor<CardListIntent> = IntentProcessor { observable ->
         listOf(
@@ -26,7 +28,10 @@ internal class CardListViewModel(
                 .compose(specificIntentUseCase),
             observable.ofType<CardListIntent.OnAddCardDialogDismissed>()
                 .map { SpecificIntentUseCase.Action(it) }
-                .compose(specificIntentUseCase)
+                .compose(specificIntentUseCase),
+            observable.ofType<CardListIntent.OnCardLongClicked>()
+                .map { CopyCardNumberUseCase.Action(it.card) }
+                .compose(copyCardNumberUseCase)
         )
     }
 
@@ -37,10 +42,17 @@ internal class CardListViewModel(
                 CardListUseCase.Result.Idle -> it.copy(progress = true)
                 is CardListUseCase.Result.Failure -> it.copy(error = throwable, progress = false)
             }
+            is CopyCardNumberUseCase.Result -> when (this) {
+                is CopyCardNumberUseCase.Result.Success -> it.copy(toastMessage = "The card in the clipboard", showToast = true)
+                CopyCardNumberUseCase.Result.Idle -> it
+                is CopyCardNumberUseCase.Result.Failure -> it.copy(error = throwable)
+                CopyCardNumberUseCase.Result.HideMessage -> it.copy(toastMessage = null, showToast = false)
+            }
             is SpecificIntentUseCase.Result -> when (intent as CardListIntent) {
-                CardListIntent.OnStart -> it
                 CardListIntent.OnAddCardClicked -> it.copy(showAddCardDialog = true)
                 CardListIntent.OnAddCardDialogDismissed -> it.copy(showAddCardDialog = false)
+                is CardListIntent.OnCardLongClicked -> TODO()
+                else -> throw UnsupportedOperationException()
             }
             else -> throw IllegalStateException("Can not reduce user for result ${javaClass.name}")
         }

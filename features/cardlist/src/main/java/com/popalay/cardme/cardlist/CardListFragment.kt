@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.jakewharton.rxbinding2.view.RxView
@@ -35,6 +36,7 @@ internal class CardListFragment : Fragment(), BindableMviView<CardListViewState,
 
     private val addCardDialogDismissedSubject = PublishSubject.create<CardListIntent.OnAddCardDialogDismissed>()
     private val cardsAdapter = CardListAdapter()
+    private var toast: Toast? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -51,15 +53,20 @@ internal class CardListFragment : Fragment(), BindableMviView<CardListViewState,
 
     override val intents: Observable<CardListIntent> = Observable.defer {
         Observable.merge(
-            Observable.just(CardListIntent.OnStart),
-            addCardClickedIntent,
-            addCardDialogDismissedSubject
+            listOf(
+                Observable.just(CardListIntent.OnStart),
+                addCardClickedIntent,
+                addCardDialogDismissedSubject,
+                cardClickedIntent,
+                cardLongClickedIntent
+            )
         )
     }
 
     override fun accept(viewState: CardListViewState) {
         with(viewState) {
             if (showAddCardDialog) showAddCardDialog()
+            showToast(toastMessage, showToast)
             cardsAdapter.submitList(cards.map(::CardListItem))
             listCards.smoothScrollToPosition(0)
             errorHandler.accept(error)
@@ -75,10 +82,26 @@ internal class CardListFragment : Fragment(), BindableMviView<CardListViewState,
             .applyThrottling()
             .map { CardListIntent.OnAddCardClicked }
 
+    private val cardClickedIntent
+        get() = cardsAdapter.itemClickObservable
+            .applyThrottling()
+            .map { CardListIntent.OnCardClicked(it.card) }
+
+    private val cardLongClickedIntent
+        get() = cardsAdapter.itemLongClickObservable
+            .map { CardListIntent.OnCardLongClicked(it.card) }
+
     private fun showAddCardDialog() {
         if (childFragmentManager.findFragmentByTag(AddCardFragment::class.java.simpleName) == null) {
             AddCardFragment.newInstance().showNow(childFragmentManager, AddCardFragment::class.java.simpleName)
         }
+    }
+
+    private fun showToast(text: String?, show: Boolean) {
+        if (show) {
+            toast = toast ?: Toast.makeText(context, text, Toast.LENGTH_LONG)
+            toast?.show()
+        } else toast?.cancel()
     }
 
     private fun initView() {

@@ -4,19 +4,10 @@ import com.popalay.cardme.api.model.Card
 import com.popalay.cardme.api.state.ViewState
 
 internal data class CardListViewState(
-    val cards: List<Card>,
-    val progress: Boolean,
-    val showAddCardDialog: Boolean,
-    val error: Throwable?
-) : ViewState {
-
-    companion object {
-
-        fun idle() = CardListViewState(
-            listOf(),
-            true,
-            false,
-            null
-        )
-    }
-}
+    val cards: List<Card> = listOf(),
+    val progress: Boolean = false,
+    val showAddCardDialog: Boolean = false,
+    val toastMessage: String? = null,
+    val showToast: Boolean = false,
+    val error: Throwable? = null
+) : ViewState
