@@ -22,7 +22,7 @@ class UserRepository(
 ) : UserRepository {
 
     override fun getCurrentUser(): Flowable<Optional<User>> =
-        userRemoteDataSource.flow(UserRemoteDataSource.Key(requireNotNull(user.toNullable()).uuid))
+        userRemoteDataSource.flow(UserRemoteDataSource.Key(user.toNullable()?.uuid ?: ""))
             .map { it.content.toOptional() }
 
     override fun save(user: User): Completable = userRemotePersister.persist(EmptyKey, user)

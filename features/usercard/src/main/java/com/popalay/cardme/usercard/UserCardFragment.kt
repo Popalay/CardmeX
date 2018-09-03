@@ -126,8 +126,8 @@ internal class UserCardFragment : Fragment(), BindableMviView<UserCardViewState,
         }
     }
 
-    override fun onDialogDismissed(isOk: Boolean) {
-        addCardDialogDismissedSubject.onNext(UserCardIntent.OnAddCardDialogDismissed(isOk))
+    override fun onDialogDismissed() {
+        addCardDialogDismissedSubject.onNext(UserCardIntent.OnAddCardDialogDismissed)
     }
 
     private val addClickedIntent

@@ -8,6 +8,7 @@ sealed class CardListIntent : Intent {
     object OnStart : CardListIntent()
     object OnAddCardClicked : CardListIntent()
     object OnAddCardDialogDismissed : CardListIntent()
+    object OnCardActionsDialogDismissed : CardListIntent()
     data class OnCardClicked(val card: Card) : CardListIntent()
     data class OnCardLongClicked(val card: Card) : CardListIntent()
 }

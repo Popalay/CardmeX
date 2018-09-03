@@ -103,7 +103,7 @@ class AddCardFragment : RoundedBottomSheetDialogFragment(), BindableMviView<AddC
 
     override fun onDismiss(dialog: DialogInterface?) {
         super.onDismiss(dialog)
-        (parentFragment as? OnDialogDismissed)?.onDialogDismissed(state.saved)
+        (parentFragment as? OnDialogDismissed)?.onDialogDismissed()
     }
 
     private val saveClickedIntent

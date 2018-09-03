@@ -12,6 +12,8 @@ import com.jakewharton.rxbinding2.view.RxView
 import com.popalay.cardme.addcard.AddCardFragment
 import com.popalay.cardme.addcard.R
 import com.popalay.cardme.api.error.ErrorHandler
+import com.popalay.cardme.api.model.Card
+import com.popalay.cardme.cardactions.CardActionsFragment
 import com.popalay.cardme.cardlist.adapter.CardListAdapter
 import com.popalay.cardme.cardlist.model.CardListItem
 import com.popalay.cardme.core.adapter.SpacingItemDecoration
@@ -34,7 +36,7 @@ internal class CardListFragment : Fragment(), BindableMviView<CardListViewState,
 
     private val errorHandler: ErrorHandler by inject()
 
-    private val addCardDialogDismissedSubject = PublishSubject.create<CardListIntent.OnAddCardDialogDismissed>()
+    private val intentSubject = PublishSubject.create<CardListIntent>()
     private val cardsAdapter = CardListAdapter()
     private var toast: Toast? = null
 
@@ -56,7 +58,7 @@ internal class CardListFragment : Fragment(), BindableMviView<CardListViewState,
             listOf(
                 Observable.just(CardListIntent.OnStart),
                 addCardClickedIntent,
-                addCardDialogDismissedSubject,
+                intentSubject,
                 cardClickedIntent,
                 cardLongClickedIntent
             )
@@ -66,6 +68,7 @@ internal class CardListFragment : Fragment(), BindableMviView<CardListViewState,
     override fun accept(viewState: CardListViewState) {
         with(viewState) {
             if (showAddCardDialog) showAddCardDialog()
+            selectedCard?.let { showCardActionsDialog(it) }
             showToast(toastMessage, showToast)
             cardsAdapter.submitList(cards.map(::CardListItem))
             listCards.smoothScrollToPosition(0)
@@ -73,8 +76,9 @@ internal class CardListFragment : Fragment(), BindableMviView<CardListViewState,
         }
     }
 
-    override fun onDialogDismissed(isOk: Boolean) {
-        addCardDialogDismissedSubject.onNext(CardListIntent.OnAddCardDialogDismissed)
+    override fun onDialogDismissed() {
+        intentSubject.onNext(CardListIntent.OnAddCardDialogDismissed)
+        intentSubject.onNext(CardListIntent.OnCardActionsDialogDismissed)
     }
 
     private val addCardClickedIntent
@@ -94,6 +98,12 @@ internal class CardListFragment : Fragment(), BindableMviView<CardListViewState,
     private fun showAddCardDialog() {
         if (childFragmentManager.findFragmentByTag(AddCardFragment::class.java.simpleName) == null) {
             AddCardFragment.newInstance().showNow(childFragmentManager, AddCardFragment::class.java.simpleName)
+        }
+    }
+
+    private fun showCardActionsDialog(card: Card) {
+        if (childFragmentManager.findFragmentByTag(CardActionsFragment::class.java.simpleName) == null) {
+            CardActionsFragment.newInstance(card).showNow(childFragmentManager, CardActionsFragment::class.java.simpleName)
         }
     }
 

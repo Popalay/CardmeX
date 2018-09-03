@@ -29,6 +29,12 @@ internal class CardListViewModel(
             observable.ofType<CardListIntent.OnAddCardDialogDismissed>()
                 .map { SpecificIntentUseCase.Action(it) }
                 .compose(specificIntentUseCase),
+            observable.ofType<CardListIntent.OnCardActionsDialogDismissed>()
+                .map { SpecificIntentUseCase.Action(it) }
+                .compose(specificIntentUseCase),
+            observable.ofType<CardListIntent.OnCardClicked>()
+                .map { SpecificIntentUseCase.Action(it) }
+                .compose(specificIntentUseCase),
             observable.ofType<CardListIntent.OnCardLongClicked>()
                 .map { CopyCardNumberUseCase.Action(it.card) }
                 .compose(copyCardNumberUseCase)
@@ -48,11 +54,14 @@ internal class CardListViewModel(
                 is CopyCardNumberUseCase.Result.Failure -> it.copy(error = throwable)
                 CopyCardNumberUseCase.Result.HideMessage -> it.copy(toastMessage = null, showToast = false)
             }
-            is SpecificIntentUseCase.Result -> when (intent as CardListIntent) {
-                CardListIntent.OnAddCardClicked -> it.copy(showAddCardDialog = true)
-                CardListIntent.OnAddCardDialogDismissed -> it.copy(showAddCardDialog = false)
-                is CardListIntent.OnCardLongClicked -> TODO()
-                else -> throw UnsupportedOperationException()
+            is SpecificIntentUseCase.Result -> with(intent as CardListIntent) {
+                when (this) {
+                    CardListIntent.OnAddCardClicked -> it.copy(showAddCardDialog = true)
+                    CardListIntent.OnAddCardDialogDismissed -> it.copy(showAddCardDialog = false)
+                    CardListIntent.OnCardActionsDialogDismissed -> it.copy(selectedCard = null)
+                    is CardListIntent.OnCardClicked -> it.copy(selectedCard = card)
+                    else -> throw UnsupportedOperationException()
+                }
             }
             else -> throw IllegalStateException("Can not reduce user for result ${javaClass.name}")
         }
