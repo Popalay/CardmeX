@@ -14,6 +14,9 @@ internal abstract class CardDao : BaseDao<CacheCard> {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     abstract fun insertAll(cards: List<CacheCard>)
 
+    @Query("DELETE FROM cards WHERE cards.id = :cardId")
+    abstract fun delete(cardId: String)
+
     @Query("""SELECT * FROM cards ORDER BY updatedDate DESC""")
     abstract fun findAll(): Flowable<List<CacheCard>>
 

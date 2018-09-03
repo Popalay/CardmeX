@@ -12,4 +12,6 @@ interface CardRepository {
     fun get(id: String): Flowable<Optional<Card>>
 
     fun getAll(): Flowable<List<Card>>
+
+    fun delete(id: String): Completable
 }

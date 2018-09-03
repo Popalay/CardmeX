@@ -33,11 +33,11 @@ internal class CardListViewModel(
                 .map { SpecificIntentUseCase.Action(it) }
                 .compose(specificIntentUseCase),
             observable.ofType<CardListIntent.OnCardClicked>()
-                .map { SpecificIntentUseCase.Action(it) }
-                .compose(specificIntentUseCase),
-            observable.ofType<CardListIntent.OnCardLongClicked>()
                 .map { CopyCardNumberUseCase.Action(it.card) }
-                .compose(copyCardNumberUseCase)
+                .compose(copyCardNumberUseCase),
+            observable.ofType<CardListIntent.OnCardLongClicked>()
+                .map { SpecificIntentUseCase.Action(it) }
+                .compose(specificIntentUseCase)
         )
     }
 
@@ -59,7 +59,7 @@ internal class CardListViewModel(
                     CardListIntent.OnAddCardClicked -> it.copy(showAddCardDialog = true)
                     CardListIntent.OnAddCardDialogDismissed -> it.copy(showAddCardDialog = false)
                     CardListIntent.OnCardActionsDialogDismissed -> it.copy(selectedCard = null)
-                    is CardListIntent.OnCardClicked -> it.copy(selectedCard = card)
+                    is CardListIntent.OnCardLongClicked -> it.copy(selectedCard = card)
                     else -> throw UnsupportedOperationException()
                 }
             }

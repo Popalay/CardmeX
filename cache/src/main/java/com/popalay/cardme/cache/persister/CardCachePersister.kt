@@ -26,4 +26,8 @@ class CardCachePersister internal constructor(
         holderDao.insertAll(data.map { holderMapper(it.holder) })
         cardDao.insertAll(data.map { cardMapper(it) })
     }.subscribeOn(Schedulers.io())
+
+    override fun delete(key: Key): Completable = if (key is CardCachePersister.Key.ById) {
+        Completable.fromAction { cardDao.delete(key.cardId) }.subscribeOn(Schedulers.io())
+    } else throw IllegalArgumentException("Unsupported key")
 }

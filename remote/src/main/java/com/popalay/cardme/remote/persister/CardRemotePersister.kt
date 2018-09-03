@@ -17,4 +17,12 @@ class CardRemotePersister internal constructor(
     override fun persist(key: Key, data: Card): Completable = Completable.fromAction {
         Tasks.await(FirebaseFirestore.getInstance().cards.document(data.id).set(cardMapper(data)))
     }.subscribeOn(Schedulers.io())
+
+    override fun delete(key: Key): Completable = if (key is CardRemotePersister.Key.ById) {
+        Completable.create { emitter ->
+            FirebaseFirestore.getInstance().cards.document(key.cardId).delete()
+                .addOnCompleteListener { emitter.onComplete() }
+                .addOnFailureListener { emitter.onError(it) }
+        }.subscribeOn(Schedulers.io())
+    } else throw IllegalArgumentException("Unsupported key")
 }

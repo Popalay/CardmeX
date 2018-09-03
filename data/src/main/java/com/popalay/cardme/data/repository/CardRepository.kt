@@ -33,6 +33,11 @@ class CardRepository(
         cardCacheDataSource.flowSingle(CardCacheDataSource.Key.ById(id))
             .map { it.content.toOptional() }
 
+    override fun delete(id: String): Completable = Completable.mergeArray(
+        cardCachePersister.delete(CardCachePersister.Key.ById(id)),
+        cardRemotePersister.delete(CardRemotePersister.Key.ById(id))
+    )
+
     override fun getAll(): Flowable<List<Card>> =
         (if (user is Some) cardRemoteDataSource.flowList(CardRemoteDataSource.Key(requireNotNull(user.toNullable().uuid)))
         else Flowable.just(Data(listOf(), Source.Network)))
