@@ -63,7 +63,8 @@
         android:id="@+id/layout_card"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_margin="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
         app:layout_constraintDimensionRatio="3:1.75"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -174,7 +175,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:visibility="gone"
-        app:constraint_referenced_ids="layout_card,text_who_added,divider_who_added,text_debts"
+        app:constraint_referenced_ids="toolbar,layout_card,text_who_added,divider_who_added,text_debts"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:visibility="visible" />
