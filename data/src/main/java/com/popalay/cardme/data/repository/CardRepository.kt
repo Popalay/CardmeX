@@ -1,7 +1,10 @@
 package com.popalay.cardme.data.repository
 
 import com.gojuno.koptional.Optional
+import com.gojuno.koptional.Some
 import com.gojuno.koptional.toOptional
+import com.popalay.cardme.api.data.Data
+import com.popalay.cardme.api.data.Source
 import com.popalay.cardme.api.data.datasource.CardCacheDataSource
 import com.popalay.cardme.api.data.datasource.CardRemoteDataSource
 import com.popalay.cardme.api.data.key.EmptyKey
@@ -31,9 +34,9 @@ class CardRepository(
             .map { it.content.toOptional() }
 
     override fun getAll(): Flowable<List<Card>> =
-/*        (if (user is Some) cardRemoteDataSource.flowList(CardRemoteDataSource.Key(requireNotNull(user.toNullable().uuid)))
+        (if (user is Some) cardRemoteDataSource.flowList(CardRemoteDataSource.Key(requireNotNull(user.toNullable().uuid)))
         else Flowable.just(Data(listOf(), Source.Network)))
-            .flatMap { cardCachePersister.persist(EmptyKey, it.content).toFlowable<Boolean>() }*/
-            cardCacheDataSource.flowList(CardCacheDataSource.Key.List)
+            .flatMapSingle { cardCachePersister.persist(EmptyKey, it.content).toSingleDefault(true) }
+            .flatMap { cardCacheDataSource.flowList(CardCacheDataSource.Key.List) }
             .map { it.content }
 }
