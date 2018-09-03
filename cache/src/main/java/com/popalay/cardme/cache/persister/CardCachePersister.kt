@@ -21,4 +21,9 @@ class CardCachePersister internal constructor(
         holderDao.insertOrUpdate(holderMapper(data.holder))
         cardDao.insertOrUpdate(cardMapper(data))
     }.subscribeOn(Schedulers.io())
+
+    override fun persist(key: Key, data: List<Card>): Completable = Completable.fromAction {
+        holderDao.insertAll(data.map { holderMapper(it.holder) })
+        cardDao.insertAll(data.map { cardMapper(it) })
+    }.subscribeOn(Schedulers.io())
 }

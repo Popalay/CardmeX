@@ -4,7 +4,7 @@ import com.popalay.cardme.api.data.DataSource
 import com.popalay.cardme.api.data.Source
 import com.popalay.cardme.api.model.Card
 
-interface CardRemoteDataSource : DataSource<List<Card>, Source.Network, CardRemoteDataSource.Key> {
+interface CardRemoteDataSource : DataSource<Card, Source.Network, CardRemoteDataSource.Key> {
 
     data class Key(val userId: String) : com.popalay.cardme.api.data.Key
 }

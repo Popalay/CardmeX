@@ -4,5 +4,7 @@ import io.reactivex.Flowable
 
 interface DataSource<T, S : Source, K : Key> {
 
-    fun flow(key: K): Flowable<Data<T>>
+    fun flowSingle(key: K): Flowable<Data<T>> = throw UnsupportedOperationException()
+
+    fun flowList(key: K): Flowable<Data<List<T>>> = throw UnsupportedOperationException()
 }

@@ -16,7 +16,7 @@ class UserCardRemoteDataSource internal constructor(
     private val mapper: RemoteCardToCardMapper
 ) : UserCardRemoteDataSource {
 
-    override fun flow(key: UserCardRemoteDataSource.Key): Flowable<Data<Card?>> = Flowable.create<Data<Card?>>({ emitter ->
+    override fun flowSingle(key: UserCardRemoteDataSource.Key): Flowable<Data<Card?>> = Flowable.create<Data<Card?>>({ emitter ->
         FirebaseFirestore.getInstance().users.document(key.userId)
             .addSnapshotListener { snapshot, exception ->
                 if (exception != null) emitter.onError(exception)

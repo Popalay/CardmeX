@@ -22,7 +22,7 @@ class UserRepository(
 ) : UserRepository {
 
     override fun getCurrentUser(): Flowable<Optional<User>> =
-        userRemoteDataSource.flow(UserRemoteDataSource.Key(user.toNullable()?.uuid ?: ""))
+        userRemoteDataSource.flowSingle(UserRemoteDataSource.Key(user.toNullable()?.uuid ?: ""))
             .map { it.content.toOptional() }
 
     override fun save(user: User): Completable = userRemotePersister.persist(EmptyKey, user)
@@ -30,6 +30,6 @@ class UserRepository(
     override fun updateUserCard(card: Card): Completable = userCardRemotePersister.persist(EmptyKey, card)
 
     override fun getUserCard(): Flowable<Optional<Card>> =
-        userCardRemoteDataSource.flow(UserCardRemoteDataSource.Key(requireNotNull(user.toNullable()).uuid))
+        userCardRemoteDataSource.flowSingle(UserCardRemoteDataSource.Key(requireNotNull(user.toNullable()).uuid))
             .map { it.content.toOptional() }
 }
