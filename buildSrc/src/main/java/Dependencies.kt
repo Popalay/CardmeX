@@ -25,7 +25,7 @@ object Versions {
     const val acRoom = "2.0.0-rc01"
     const val acNavigation = "1.0.0-alpha05"
 
-    const val firebaseCore = "16.0.1"
+    const val firebaseCore = "16.0.3"
     const val firebaseAuth = "16.0.3"
     const val firebaseFireStore = "17.1.0"
     const val firebaseStorage = "16.0.1"

@@ -17,7 +17,7 @@ class UserCardRemoteDataSource internal constructor(
 ) : UserCardRemoteDataSource {
 
     override fun flowSingle(key: UserCardRemoteDataSource.Key): Flowable<Data<Card?>> = Flowable.create<Data<Card?>>({ emitter ->
-        FirebaseFirestore.getInstance().users.document(key.userId)
+        val listenerRegistration = FirebaseFirestore.getInstance().users.document(key.userId)
             .addSnapshotListener { snapshot, exception ->
                 if (exception != null) emitter.onError(exception)
                 if (snapshot != null) {
@@ -25,6 +25,7 @@ class UserCardRemoteDataSource internal constructor(
                     emitter.onNext(Data(card, Source.Network))
                 }
             }
+        emitter.setCancellable { listenerRegistration.remove() }
     }, BackpressureStrategy.LATEST)
         .onErrorReturnItem(Data(null, Source.Network))
         .subscribeOn(Schedulers.io())

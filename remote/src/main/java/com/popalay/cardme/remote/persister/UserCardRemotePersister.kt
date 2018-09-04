@@ -1,6 +1,5 @@
 package com.popalay.cardme.remote.persister
 
-import com.google.android.gms.tasks.Tasks
 import com.google.firebase.firestore.FirebaseFirestore
 import com.popalay.cardme.api.data.Key
 import com.popalay.cardme.api.data.persister.UserCardRemotePersister
@@ -14,7 +13,7 @@ class UserCardRemotePersister internal constructor(
     private val cardMapper: CardToRemoteCardMapper
 ) : UserCardRemotePersister {
 
-    override fun persist(key: Key, data: Card): Completable = Completable.fromAction {
+    override fun persist(key: Key, data: Card): Completable = Completable.create { emitter ->
         val remoteCard = cardMapper(data)
         val map = mapOf(
             "card.id" to remoteCard.id,
@@ -27,6 +26,8 @@ class UserCardRemotePersister internal constructor(
             "card.createdDate" to remoteCard.createdDate,
             "card.updatedDate" to remoteCard.updatedDate
         )
-        Tasks.await(FirebaseFirestore.getInstance().users.document(data.userId).update(map))
+        FirebaseFirestore.getInstance().users.document(data.userId).update(map)
+            .addOnSuccessListener { emitter.onComplete() }
+            .addOnFailureListener { emitter.onError(it) }
     }.subscribeOn(Schedulers.io())
 }

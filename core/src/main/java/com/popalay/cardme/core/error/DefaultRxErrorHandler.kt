@@ -9,28 +9,25 @@ import java.net.SocketException
 class DefaultRxErrorHandler : Consumer<Throwable> {
 
     override fun accept(e: Throwable?) {
-        val exception = when (e) {
-            is UndeliverableException -> e.cause
-        // fine, irrelevant network problem or API that throws on cancellation
-            is IOException, is SocketException -> return
-        // fine, some blocking code was interrupted by a de ispose call
-            is InterruptedException -> return
-        // that's likely a bug in the application
+        when (
+            val exception = (e as? UndeliverableException)?.cause ?: e) {
+            is IOException, is SocketException -> {
+                // fine, irrelevant network problem or API that throws on cancellation}
+            }
+            is InterruptedException -> {
+                // fine, some blocking code was interrupted by a dispose call
+            }
             is NullPointerException, is IllegalArgumentException -> {
-                Thread.currentThread()
-                    .uncaughtExceptionHandler
-                    .uncaughtException(Thread.currentThread(), e)
-                return
+                // that's likely a bug in the application
+                Thread.currentThread().uncaughtExceptionHandler
+                    .uncaughtException(Thread.currentThread(), exception)
             }
-        // that's a bug in RxJava or in a custom operator
             is IllegalStateException -> {
-                Thread.currentThread()
-                    .uncaughtExceptionHandler
-                    .uncaughtException(Thread.currentThread(), e)
-                return
+                // that's a bug in RxJava or in a custom operator
+                Thread.currentThread().uncaughtExceptionHandler
+                    .uncaughtException(Thread.currentThread(), exception)
             }
-            else -> e
+            else -> Log.w(this::class.java.simpleName, "Undeliverable throwable received, not sure what to do", exception)
         }
-        Log.w(this::class.java.simpleName, "Undeliverable throwable received, not sure what to do", exception)
     }
 }

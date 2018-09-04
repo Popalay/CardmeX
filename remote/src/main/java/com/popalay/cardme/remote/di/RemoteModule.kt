@@ -1,5 +1,7 @@
 package com.popalay.cardme.remote.di
 
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.FirebaseFirestoreSettings
 import com.popalay.cardme.remote.datasource.CardRemoteDataSource
 import com.popalay.cardme.remote.datasource.UserCardRemoteDataSource
 import com.popalay.cardme.remote.datasource.UserRemoteDataSource
@@ -16,7 +18,15 @@ import org.koin.dsl.module.module
 
 object RemoteModule {
 
+    init {
+        FirebaseFirestore.getInstance().firestoreSettings = FirebaseFirestoreSettings.Builder()
+            .setPersistenceEnabled(false)
+            .setTimestampsInSnapshotsEnabled(true)
+            .build()
+    }
+
     fun get() = module {
+
         single { RemoteHolderToHolderMapper() }
         single { HolderToRemoteHolderMapper() }
         single { RemoteCardToCardMapper(get()) }

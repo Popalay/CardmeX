@@ -75,19 +75,43 @@
       },
       "oauth_client": [
         {
-          "client_id": "220567239098-s5lp3vhl75vvckjdo8iljknq6a538gta.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.popalay.cardme.x",
-            "certificate_hash": "eb49d6bc532d3293b8501017208b45503934d3e7"
-          }
-        },
-        {
           "client_id": "220567239098-bm2mapilmvg6pdtkp4vdil3pagrs8t8t.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.popalay.cardme.x",
             "certificate_hash": "6d0e1c1773c9a662aa7f181e54aad1a2f3d2bb67"
+          }
+        },
+        {
+          "client_id": "220567239098-53kqtj2ll28ic7ckc7qaj3098qsttio3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.popalay.cardme.x",
+            "certificate_hash": "eb71c2c806bedaf28367025922cebbb21517da64"
+          }
+        },
+        {
+          "client_id": "220567239098-mecsj9tusv2lshh879g41ue8jkhma2dg.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.popalay.cardme.x",
+            "certificate_hash": "812a0161c484f0c07e966105bfd87b2882ecb037"
+          }
+        },
+        {
+          "client_id": "220567239098-hv7kctcv7lh2qddgscg56i4c9dr4gnui.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.popalay.cardme.x",
+            "certificate_hash": "d7b24abc9fcd9f2275353d8b7bb40cf7d3d95780"
+          }
+        },
+        {
+          "client_id": "220567239098-sj231r6g3gaei5c995l5i9d6l7mus4nl.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.popalay.cardme.x",
+            "certificate_hash": "eb49d6bc532d3293b8501017208b45503934d3e7"
           }
         },
         {

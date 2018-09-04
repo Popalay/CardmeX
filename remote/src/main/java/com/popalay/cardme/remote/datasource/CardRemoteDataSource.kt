@@ -17,12 +17,13 @@ class CardRemoteDataSource internal constructor(
 ) : CardRemoteDataSource {
 
     override fun flowList(key: CardRemoteDataSource.Key): Flowable<Data<List<Card>>> = Flowable.create<List<Card>>({ emitter ->
-        FirebaseFirestore.getInstance().cards
+        val listenerRegistration = FirebaseFirestore.getInstance().cards
             .whereEqualTo("userId", key.userId)
             .addSnapshotListener { snapshot, exception ->
                 if (exception != null) emitter.onError(exception)
                 if (snapshot != null) emitter.onNext(snapshot.toObjects(RemoteCard::class.java).map { mapper(it) })
             }
+        emitter.setCancellable { listenerRegistration.remove() }
     }, BackpressureStrategy.LATEST)
         .onErrorReturnItem(listOf())
         .map { Data(it, Source.Network) }
