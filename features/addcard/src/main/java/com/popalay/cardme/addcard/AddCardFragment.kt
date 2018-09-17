@@ -24,10 +24,8 @@ import com.popalay.cardme.core.widget.ProgressMaterialButton
 import com.popalay.cardme.core.widget.RoundedBottomSheetDialogFragment
 import io.reactivex.Observable
 import org.koin.android.ext.android.inject
-import org.koin.androidx.scope.ext.android.scopedWith
 import org.koin.androidx.viewmodel.ext.android.getViewModel
 import org.koin.core.parameter.parametersOf
-import org.koin.dsl.path.moduleName
 import kotlin.properties.Delegates
 
 class AddCardFragment : RoundedBottomSheetDialogFragment(), BindableMviView<AddCardViewState, AddCardIntent> {
@@ -65,7 +63,6 @@ class AddCardFragment : RoundedBottomSheetDialogFragment(), BindableMviView<AddC
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         bind(getViewModel<AddCardViewModel> { parametersOf(arguments?.getBoolean(ARG_IS_USER_CARD) ?: false) })
-        scopedWith(AddCardModule::class.moduleName)
         initView()
     }
 

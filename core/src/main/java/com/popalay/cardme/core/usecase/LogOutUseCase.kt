@@ -14,7 +14,6 @@ class LogOutUseCase : UseCase<LogOutUseCase.Action, LogOutUseCase.Result>, KoinC
     override fun apply(upstream: Observable<Action>): ObservableSource<Result> = upstream.switchMap { _ ->
         Completable.fromAction { FirebaseAuth.getInstance().signOut() }
             .toSingleDefault(Result.Success)
-            .doOnSuccess { release("") }
             .cast(Result::class.java)
             .onErrorReturn(Result::Failure)
             .toObservable()

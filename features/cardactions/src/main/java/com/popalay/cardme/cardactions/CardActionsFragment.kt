@@ -17,10 +17,8 @@ import com.popalay.cardme.core.widget.OnDialogDismissed
 import com.popalay.cardme.core.widget.RoundedBottomSheetDialogFragment
 import io.reactivex.Observable
 import org.koin.android.ext.android.inject
-import org.koin.androidx.scope.ext.android.scopedWith
 import org.koin.androidx.viewmodel.ext.android.getViewModel
 import org.koin.core.parameter.parametersOf
-import org.koin.dsl.path.moduleName
 
 class CardActionsFragment : RoundedBottomSheetDialogFragment(), BindableMviView<CardActionsViewState, CardActionsIntent> {
 
@@ -44,7 +42,6 @@ class CardActionsFragment : RoundedBottomSheetDialogFragment(), BindableMviView<
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         bind(getViewModel<CardActionsViewModel> { parametersOf(arguments?.getString(ARG_CARD_ID) ?: "") })
-        scopedWith(CardActionsModule::class.moduleName)
     }
 
     override val intents: Observable<CardActionsIntent> = Observable.defer {

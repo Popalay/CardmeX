@@ -11,11 +11,10 @@ import com.popalay.cardme.main.usecase.HandleAuthResultUseCase
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.ext.koin.viewModel
 import org.koin.dsl.module.module
-import org.koin.dsl.path.moduleName
 
 object MainModule {
 
-    fun get() = module(MainModule::class.moduleName) {
+    fun get() = module("MainModule") {
         viewModel { MainViewModel(get(), get(), get { it }, get { it }, get(), get()) }
         single { LogOutUseCase() }
         single { AuthUseCase(get { it }, get()) }

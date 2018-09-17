@@ -25,9 +25,7 @@ import com.popalay.cardme.core.widget.OnDialogDismissed
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
 import org.koin.android.ext.android.inject
-import org.koin.androidx.scope.ext.android.scopedWith
 import org.koin.androidx.viewmodel.ext.android.getViewModel
-import org.koin.dsl.path.moduleName
 
 internal class CardListFragment : Fragment(), BindableMviView<CardListViewState, CardListIntent>, OnDialogDismissed {
 
@@ -49,7 +47,6 @@ internal class CardListFragment : Fragment(), BindableMviView<CardListViewState,
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         bind(getViewModel<CardListViewModel>())
-        scopedWith(CardListModule::class.moduleName)
         initView()
     }
 

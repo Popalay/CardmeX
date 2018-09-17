@@ -6,11 +6,10 @@ import com.popalay.cardme.addcard.usecase.SaveUserCardUseCase
 import com.popalay.cardme.addcard.usecase.ValidateCardUseCase
 import org.koin.androidx.viewmodel.ext.koin.viewModel
 import org.koin.dsl.module.module
-import org.koin.dsl.path.moduleName
 
 object AddCardModule {
 
-    fun get() = module(AddCardModule::class.moduleName) {
+    fun get() = module("AddCardModule") {
         viewModel { (isUserCard: Boolean) -> AddCardViewModel(isUserCard, get(), get(), get(), get(), get()) }
         single { SaveCardUseCase(get(), get()) }
         single { SaveUserCardUseCase(get(), get()) }

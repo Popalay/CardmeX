@@ -22,7 +22,6 @@ internal class AuthUseCase(
         authenticator.auth(action.authCredentials)
             .flatMap { user -> user.toNullable()?.let { userRepository.save(it).toSingleDefault(user) } ?: Single.just(user) }
             .map { Result.Success(it) }
-            .doOnSuccess { release("") }
             .cast(Result::class.java)
             .onErrorReturn(Result::Failure)
             .toObservable()
