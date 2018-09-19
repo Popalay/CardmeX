@@ -1,7 +1,7 @@
 package com.popalay.cardme.cache.mapper
 
-import com.popalay.cardme.api.mapper.Mapper
-import com.popalay.cardme.api.model.Card
+import com.popalay.cardme.api.core.mapper.Mapper
+import com.popalay.cardme.api.core.model.Card
 import com.popalay.cardme.cache.model.CacheCard
 
 internal class CardToCacheCardMapper : Mapper<Card, CacheCard> {

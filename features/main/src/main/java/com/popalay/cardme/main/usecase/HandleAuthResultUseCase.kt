@@ -2,9 +2,9 @@ package com.popalay.cardme.main.usecase
 
 import com.gojuno.koptional.Optional
 import com.popalay.cardme.api.auth.Authenticator
-import com.popalay.cardme.api.model.User
-import com.popalay.cardme.api.repository.UserRepository
-import com.popalay.cardme.api.usecase.UseCase
+import com.popalay.cardme.api.core.model.User
+import com.popalay.cardme.api.data.repository.UserRepository
+import com.popalay.cardme.api.core.usecase.UseCase
 import com.popalay.cardme.main.auth.CardmeAuthResult
 import io.reactivex.Observable
 import io.reactivex.ObservableSource

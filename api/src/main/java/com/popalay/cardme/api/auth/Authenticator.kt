@@ -1,7 +1,7 @@
 package com.popalay.cardme.api.auth
 
 import com.gojuno.koptional.Optional
-import com.popalay.cardme.api.model.User
+import com.popalay.cardme.api.core.model.User
 import io.reactivex.Single
 
 interface Authenticator {

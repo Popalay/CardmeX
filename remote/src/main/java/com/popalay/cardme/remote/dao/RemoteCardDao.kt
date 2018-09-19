@@ -1,8 +1,8 @@
 package com.popalay.cardme.remote.dao
 
 import com.google.firebase.firestore.FirebaseFirestore
-import com.popalay.cardme.api.dao.RemoteCardDao
-import com.popalay.cardme.api.model.Card
+import com.popalay.cardme.api.remote.dao.RemoteCardDao
+import com.popalay.cardme.api.core.model.Card
 import com.popalay.cardme.remote.cards
 import com.popalay.cardme.remote.mapper.CardToRemoteCardMapper
 import com.popalay.cardme.remote.mapper.RemoteCardToCardMapper

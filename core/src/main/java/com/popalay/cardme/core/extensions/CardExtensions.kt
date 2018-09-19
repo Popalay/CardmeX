@@ -1,6 +1,6 @@
 package com.popalay.cardme.core.extensions
 
-import com.popalay.cardme.api.model.Card
+import com.popalay.cardme.api.core.model.Card
 
 val Card.formattedNumber: String
     get() {

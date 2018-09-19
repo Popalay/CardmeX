@@ -3,9 +3,9 @@ package com.popalay.cardme.data.store
 import com.github.popalay.hoard.Hoard
 import com.github.popalay.hoard.fetchpolicy.FetchPolicyFactory
 import com.github.popalay.hoard.fetchpolicy.TimeFetchPolicy
-import com.popalay.cardme.api.dao.CacheCardDao
-import com.popalay.cardme.api.dao.RemoteCardDao
-import com.popalay.cardme.api.model.Card
+import com.popalay.cardme.api.cache.dao.CacheCardDao
+import com.popalay.cardme.api.remote.dao.RemoteCardDao
+import com.popalay.cardme.api.core.model.Card
 import io.reactivex.Completable
 import io.reactivex.Flowable
 import io.reactivex.Single

@@ -1,8 +1,8 @@
 package com.popalay.cardme.remote.mapper
 
-import com.popalay.cardme.api.mapper.Mapper
-import com.popalay.cardme.api.model.Card
-import com.popalay.cardme.api.model.CardType
+import com.popalay.cardme.api.core.mapper.Mapper
+import com.popalay.cardme.api.core.model.Card
+import com.popalay.cardme.api.core.model.CardType
 import com.popalay.cardme.remote.model.RemoteCard
 import java.util.Date
 

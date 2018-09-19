@@ -1,7 +1,7 @@
 package com.popalay.cardme.cardlist
 
-import com.popalay.cardme.api.model.Card
-import com.popalay.cardme.api.state.ViewState
+import com.popalay.cardme.api.core.model.Card
+import com.popalay.cardme.api.ui.state.ViewState
 
 internal data class CardListViewState(
     val cards: List<Card> = listOf(),

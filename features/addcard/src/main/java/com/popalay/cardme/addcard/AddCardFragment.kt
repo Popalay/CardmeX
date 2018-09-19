@@ -14,8 +14,8 @@ import androidx.core.os.bundleOf
 import androidx.transition.TransitionManager
 import com.jakewharton.rxbinding2.view.RxView
 import com.jakewharton.rxbinding2.widget.RxTextView
-import com.popalay.cardme.api.error.ErrorHandler
-import com.popalay.cardme.api.model.CardType
+import com.popalay.cardme.api.core.error.ErrorHandler
+import com.popalay.cardme.api.core.model.CardType
 import com.popalay.cardme.core.extensions.applyThrottling
 import com.popalay.cardme.core.extensions.bindView
 import com.popalay.cardme.core.state.BindableMviView

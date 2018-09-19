@@ -1,7 +1,7 @@
 package com.popalay.cardme.cardlist
 
-import com.popalay.cardme.api.model.Card
-import com.popalay.cardme.api.state.Intent
+import com.popalay.cardme.api.core.model.Card
+import com.popalay.cardme.api.ui.state.Intent
 
 sealed class CardListIntent : Intent {
 

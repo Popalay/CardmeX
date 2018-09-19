@@ -1,8 +1,8 @@
 package com.popalay.cardme.cardlist.usecase
 
-import com.popalay.cardme.api.model.Card
-import com.popalay.cardme.api.repository.DeviceRepository
-import com.popalay.cardme.api.usecase.UseCase
+import com.popalay.cardme.api.core.model.Card
+import com.popalay.cardme.api.data.repository.DeviceRepository
+import com.popalay.cardme.api.core.usecase.UseCase
 import com.popalay.cardme.core.extensions.formattedNumber
 import io.reactivex.Observable
 import io.reactivex.ObservableSource

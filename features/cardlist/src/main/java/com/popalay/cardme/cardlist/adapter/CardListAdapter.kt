@@ -4,7 +4,7 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import com.popalay.cardme.addcard.R
-import com.popalay.cardme.api.model.CardType
+import com.popalay.cardme.api.core.model.CardType
 import com.popalay.cardme.cardlist.model.CardListItem
 import com.popalay.cardme.core.adapter.BindableViewHolder
 import com.popalay.cardme.core.adapter.IdentifiableListAdapter

@@ -2,10 +2,10 @@ package com.popalay.cardme.core.navigation
 
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
-import com.popalay.cardme.api.navigation.Destination
-import com.popalay.cardme.api.navigation.Navigator
-import com.popalay.cardme.api.navigation.NavigatorHolder
-import com.popalay.cardme.api.navigation.Router
+import com.popalay.cardme.api.ui.navigation.Destination
+import com.popalay.cardme.api.ui.navigation.Navigator
+import com.popalay.cardme.api.ui.navigation.NavigatorHolder
+import com.popalay.cardme.api.ui.navigation.Router
 
 class BaseRouter(override val navigationHolder: NavigatorHolder) : Router, Navigator {
 

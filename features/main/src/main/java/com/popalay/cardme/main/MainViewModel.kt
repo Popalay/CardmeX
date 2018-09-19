@@ -1,11 +1,11 @@
 package com.popalay.cardme.main
 
 import com.gojuno.koptional.None
-import com.popalay.cardme.api.navigation.Router
-import com.popalay.cardme.api.state.IntentProcessor
-import com.popalay.cardme.api.state.LambdaReducer
-import com.popalay.cardme.api.state.Processor
-import com.popalay.cardme.api.state.Reducer
+import com.popalay.cardme.api.ui.navigation.Router
+import com.popalay.cardme.api.ui.state.IntentProcessor
+import com.popalay.cardme.api.ui.state.LambdaReducer
+import com.popalay.cardme.api.ui.state.Processor
+import com.popalay.cardme.api.ui.state.Reducer
 import com.popalay.cardme.core.state.BaseMviViewModel
 import com.popalay.cardme.core.usecase.GetCurrentUserUseCase
 import com.popalay.cardme.core.usecase.LogOutUseCase

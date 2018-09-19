@@ -1,7 +1,7 @@
 package com.popalay.cardme.addcard
 
-import com.popalay.cardme.api.model.CardType
-import com.popalay.cardme.api.state.Intent
+import com.popalay.cardme.api.core.model.CardType
+import com.popalay.cardme.api.ui.state.Intent
 
 sealed class AddCardIntent : Intent {
 

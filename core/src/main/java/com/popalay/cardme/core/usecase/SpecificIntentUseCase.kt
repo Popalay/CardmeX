@@ -1,7 +1,7 @@
 package com.popalay.cardme.core.usecase
 
-import com.popalay.cardme.api.state.Intent
-import com.popalay.cardme.api.usecase.UseCase
+import com.popalay.cardme.api.ui.state.Intent
+import com.popalay.cardme.api.core.usecase.UseCase
 import io.reactivex.Observable
 import io.reactivex.ObservableSource
 

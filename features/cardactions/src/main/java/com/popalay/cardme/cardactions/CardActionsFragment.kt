@@ -8,8 +8,8 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.core.os.bundleOf
 import com.jakewharton.rxbinding2.view.RxView
-import com.popalay.cardme.api.error.ErrorHandler
-import com.popalay.cardme.api.model.Card
+import com.popalay.cardme.api.core.error.ErrorHandler
+import com.popalay.cardme.api.core.model.Card
 import com.popalay.cardme.core.extensions.applyThrottling
 import com.popalay.cardme.core.extensions.bindView
 import com.popalay.cardme.core.state.BindableMviView

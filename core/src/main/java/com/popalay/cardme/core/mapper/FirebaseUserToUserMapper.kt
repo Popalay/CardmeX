@@ -4,8 +4,8 @@ import com.gojuno.koptional.None
 import com.gojuno.koptional.Optional
 import com.gojuno.koptional.toOptional
 import com.google.firebase.auth.FirebaseUser
-import com.popalay.cardme.api.mapper.Mapper
-import com.popalay.cardme.api.model.User
+import com.popalay.cardme.api.core.mapper.Mapper
+import com.popalay.cardme.api.core.model.User
 
 class FirebaseUserToUserMapper : Mapper<FirebaseUser?, Optional<User>> {
 

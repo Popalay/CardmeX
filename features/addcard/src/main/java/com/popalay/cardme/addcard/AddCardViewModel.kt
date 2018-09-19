@@ -4,10 +4,10 @@ import com.popalay.cardme.addcard.usecase.IdentifyCardNumberUseCase
 import com.popalay.cardme.addcard.usecase.SaveCardUseCase
 import com.popalay.cardme.addcard.usecase.SaveUserCardUseCase
 import com.popalay.cardme.addcard.usecase.ValidateCardUseCase
-import com.popalay.cardme.api.state.IntentProcessor
-import com.popalay.cardme.api.state.LambdaReducer
-import com.popalay.cardme.api.state.Processor
-import com.popalay.cardme.api.state.Reducer
+import com.popalay.cardme.api.ui.state.IntentProcessor
+import com.popalay.cardme.api.ui.state.LambdaReducer
+import com.popalay.cardme.api.ui.state.Processor
+import com.popalay.cardme.api.ui.state.Reducer
 import com.popalay.cardme.core.state.BaseMviViewModel
 import com.popalay.cardme.core.usecase.GetCurrentUserUseCase
 import io.reactivex.rxkotlin.ofType

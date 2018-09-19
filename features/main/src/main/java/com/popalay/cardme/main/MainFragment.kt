@@ -18,8 +18,8 @@ import androidx.transition.AutoTransition
 import androidx.transition.TransitionManager
 import com.gojuno.koptional.Some
 import com.jakewharton.rxbinding2.view.RxView
-import com.popalay.cardme.api.error.ErrorHandler
-import com.popalay.cardme.api.navigation.NavigatorHolder
+import com.popalay.cardme.api.core.error.ErrorHandler
+import com.popalay.cardme.api.ui.navigation.NavigatorHolder
 import com.popalay.cardme.core.extensions.applyThrottling
 import com.popalay.cardme.core.extensions.bindView
 import com.popalay.cardme.core.extensions.loadImage

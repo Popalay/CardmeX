@@ -12,7 +12,7 @@ import com.google.firebase.auth.GoogleAuthProvider
 import com.popalay.cardme.api.auth.AuthCredentials
 import com.popalay.cardme.api.auth.AuthResult
 import com.popalay.cardme.api.auth.Authenticator
-import com.popalay.cardme.api.model.User
+import com.popalay.cardme.api.core.model.User
 import com.popalay.cardme.core.BuildConfig
 import com.popalay.cardme.core.mapper.FirebaseUserToUserMapper
 import io.reactivex.Single

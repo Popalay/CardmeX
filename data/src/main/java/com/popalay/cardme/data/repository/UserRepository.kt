@@ -2,10 +2,10 @@ package com.popalay.cardme.data.repository
 
 import com.gojuno.koptional.Optional
 import com.google.firebase.auth.FirebaseAuth
-import com.popalay.cardme.api.dao.CacheUserDao
-import com.popalay.cardme.api.dao.RemoteUserDao
-import com.popalay.cardme.api.model.User
-import com.popalay.cardme.api.repository.UserRepository
+import com.popalay.cardme.api.cache.dao.CacheUserDao
+import com.popalay.cardme.api.remote.dao.RemoteUserDao
+import com.popalay.cardme.api.core.model.User
+import com.popalay.cardme.api.data.repository.UserRepository
 import com.popalay.cardme.data.store.UserStore
 import io.reactivex.Completable
 import io.reactivex.Flowable

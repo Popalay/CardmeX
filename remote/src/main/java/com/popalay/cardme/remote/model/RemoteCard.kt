@@ -1,7 +1,7 @@
 package com.popalay.cardme.remote.model
 
 import com.google.firebase.Timestamp
-import com.popalay.cardme.api.model.CardType
+import com.popalay.cardme.api.core.model.CardType
 
 internal data class RemoteCard(
     val id: String = "",

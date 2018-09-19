@@ -4,7 +4,7 @@ import com.gojuno.koptional.Optional
 import com.popalay.cardme.api.auth.AuthCredentials
 import com.popalay.cardme.api.auth.AuthResult
 import com.popalay.cardme.api.auth.Authenticator
-import com.popalay.cardme.api.model.User
+import com.popalay.cardme.api.core.model.User
 import io.reactivex.Single
 import kotlin.reflect.KClass
 

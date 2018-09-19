@@ -1,7 +1,7 @@
 package com.popalay.cardme.remote.mapper
 
-import com.popalay.cardme.api.mapper.Mapper
-import com.popalay.cardme.api.model.User
+import com.popalay.cardme.api.core.mapper.Mapper
+import com.popalay.cardme.api.core.model.User
 import com.popalay.cardme.remote.model.RemoteUser
 
 internal class RemoteUserToUserMapper(

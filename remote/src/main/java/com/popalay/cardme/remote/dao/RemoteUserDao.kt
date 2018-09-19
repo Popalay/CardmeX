@@ -5,8 +5,8 @@ import com.gojuno.koptional.Optional
 import com.gojuno.koptional.toOptional
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
-import com.popalay.cardme.api.dao.RemoteUserDao
-import com.popalay.cardme.api.model.User
+import com.popalay.cardme.api.remote.dao.RemoteUserDao
+import com.popalay.cardme.api.core.model.User
 import com.popalay.cardme.remote.mapper.CardToRemoteCardMapper
 import com.popalay.cardme.remote.mapper.RemoteUserToUserMapper
 import com.popalay.cardme.remote.mapper.UserToRemoteUserMapper

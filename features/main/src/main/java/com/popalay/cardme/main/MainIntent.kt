@@ -1,6 +1,6 @@
 package com.popalay.cardme.main
 
-import com.popalay.cardme.api.state.Intent
+import com.popalay.cardme.api.ui.state.Intent
 
 internal sealed class MainIntent : Intent {
 

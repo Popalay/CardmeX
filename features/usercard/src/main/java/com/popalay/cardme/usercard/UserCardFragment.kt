@@ -18,8 +18,8 @@ import androidx.core.widget.ContentLoadingProgressBar
 import androidx.fragment.app.Fragment
 import com.jakewharton.rxbinding2.view.RxView
 import com.popalay.cardme.addcard.AddCardFragment
-import com.popalay.cardme.api.error.ErrorHandler
-import com.popalay.cardme.api.model.CardType
+import com.popalay.cardme.api.core.error.ErrorHandler
+import com.popalay.cardme.api.core.model.CardType
 import com.popalay.cardme.core.extensions.applyThrottling
 import com.popalay.cardme.core.extensions.bindView
 import com.popalay.cardme.core.extensions.formattedNumber

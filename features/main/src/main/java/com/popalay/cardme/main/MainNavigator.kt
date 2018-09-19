@@ -1,7 +1,7 @@
 package com.popalay.cardme.main
 
 import androidx.fragment.app.Fragment
-import com.popalay.cardme.api.navigation.Destination
+import com.popalay.cardme.api.ui.navigation.Destination
 import com.popalay.cardme.core.navigation.BaseNavigator
 
 class MainNavigator(fragment: Fragment) : BaseNavigator(fragment) {

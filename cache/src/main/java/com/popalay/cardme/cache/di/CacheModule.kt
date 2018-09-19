@@ -24,7 +24,7 @@ object CacheModule {
         single { CardToCacheCardMapper() }
         single { UserToCacheUserMapper(get()) }
         single { CacheUserToUserMapper(get()) }
-        single { CacheCardDao(get(), get(), get(), get(), get()) as com.popalay.cardme.api.dao.CacheCardDao }
-        single { CacheUserDao(get(), get(), get()) as com.popalay.cardme.api.dao.CacheUserDao }
+        single { CacheCardDao(get(), get(), get(), get(), get()) as com.popalay.cardme.api.cache.dao.CacheCardDao }
+        single { CacheUserDao(get(), get(), get()) as com.popalay.cardme.api.cache.dao.CacheUserDao }
     }
 }

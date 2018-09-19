@@ -1,7 +1,7 @@
 package com.popalay.cardme.cache.dao
 
-import com.popalay.cardme.api.dao.CacheCardDao
-import com.popalay.cardme.api.model.Card
+import com.popalay.cardme.api.cache.dao.CacheCardDao
+import com.popalay.cardme.api.core.model.Card
 import com.popalay.cardme.cache.database.dao.CardDao
 import com.popalay.cardme.cache.database.dao.HolderDao
 import com.popalay.cardme.cache.mapper.CacheCardWithHolderToCardMapper

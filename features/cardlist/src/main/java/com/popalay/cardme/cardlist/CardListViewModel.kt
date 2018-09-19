@@ -1,9 +1,9 @@
 package com.popalay.cardme.cardlist
 
-import com.popalay.cardme.api.state.IntentProcessor
-import com.popalay.cardme.api.state.LambdaReducer
-import com.popalay.cardme.api.state.Processor
-import com.popalay.cardme.api.state.Reducer
+import com.popalay.cardme.api.ui.state.IntentProcessor
+import com.popalay.cardme.api.ui.state.LambdaReducer
+import com.popalay.cardme.api.ui.state.Processor
+import com.popalay.cardme.api.ui.state.Reducer
 import com.popalay.cardme.cardlist.usecase.CardListUseCase
 import com.popalay.cardme.cardlist.usecase.CopyCardNumberUseCase
 import com.popalay.cardme.core.state.BaseMviViewModel

@@ -2,8 +2,8 @@ package com.popalay.cardme.cache.dao
 
 import com.gojuno.koptional.Optional
 import com.gojuno.koptional.toOptional
-import com.popalay.cardme.api.dao.CacheUserDao
-import com.popalay.cardme.api.model.User
+import com.popalay.cardme.api.cache.dao.CacheUserDao
+import com.popalay.cardme.api.core.model.User
 import com.popalay.cardme.cache.database.dao.UserDao
 import com.popalay.cardme.cache.mapper.CacheUserToUserMapper
 import com.popalay.cardme.cache.mapper.UserToCacheUserMapper

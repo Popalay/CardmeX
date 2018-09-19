@@ -3,7 +3,7 @@ package com.popalay.cardme.data.repository
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
-import com.popalay.cardme.api.repository.DeviceRepository
+import com.popalay.cardme.api.data.repository.DeviceRepository
 import io.reactivex.Completable
 
 class DeviceRepository(

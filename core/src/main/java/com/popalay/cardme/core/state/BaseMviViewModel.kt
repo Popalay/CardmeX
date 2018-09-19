@@ -1,10 +1,10 @@
 package com.popalay.cardme.core.state
 
-import com.popalay.cardme.api.state.Intent
-import com.popalay.cardme.api.state.MviViewModel
-import com.popalay.cardme.api.state.Processor
-import com.popalay.cardme.api.state.Reducer
-import com.popalay.cardme.api.state.ViewState
+import com.popalay.cardme.api.ui.state.Intent
+import com.popalay.cardme.api.ui.state.MviViewModel
+import com.popalay.cardme.api.ui.state.Processor
+import com.popalay.cardme.api.ui.state.Reducer
+import com.popalay.cardme.api.ui.state.ViewState
 import io.reactivex.Observable
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.PublishSubject

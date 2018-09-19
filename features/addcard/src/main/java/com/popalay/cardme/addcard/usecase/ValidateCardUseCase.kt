@@ -1,6 +1,6 @@
 package com.popalay.cardme.addcard.usecase
 
-import com.popalay.cardme.api.usecase.UseCase
+import com.popalay.cardme.api.core.usecase.UseCase
 import io.reactivex.Observable
 import io.reactivex.ObservableSource
 import io.reactivex.schedulers.Schedulers

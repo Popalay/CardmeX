@@ -1,7 +1,7 @@
 package com.popalay.cardme.addcard
 
-import com.popalay.cardme.api.model.CardType
-import com.popalay.cardme.api.state.ViewState
+import com.popalay.cardme.api.core.model.CardType
+import com.popalay.cardme.api.ui.state.ViewState
 
 data class AddCardViewState(
     val number: String = "",

@@ -11,8 +11,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.jakewharton.rxbinding2.view.RxView
 import com.popalay.cardme.addcard.AddCardFragment
 import com.popalay.cardme.addcard.R
-import com.popalay.cardme.api.error.ErrorHandler
-import com.popalay.cardme.api.model.Card
+import com.popalay.cardme.api.core.error.ErrorHandler
+import com.popalay.cardme.api.core.model.Card
 import com.popalay.cardme.cardactions.CardActionsFragment
 import com.popalay.cardme.cardlist.adapter.CardListAdapter
 import com.popalay.cardme.cardlist.model.CardListItem

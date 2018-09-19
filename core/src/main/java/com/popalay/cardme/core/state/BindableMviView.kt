@@ -4,10 +4,10 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.OnLifecycleEvent
-import com.popalay.cardme.api.state.Intent
-import com.popalay.cardme.api.state.MviView
-import com.popalay.cardme.api.state.MviViewModel
-import com.popalay.cardme.api.state.ViewState
+import com.popalay.cardme.api.ui.state.Intent
+import com.popalay.cardme.api.ui.state.MviView
+import com.popalay.cardme.api.ui.state.MviViewModel
+import com.popalay.cardme.api.ui.state.ViewState
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.plusAssign
