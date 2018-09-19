@@ -9,7 +9,7 @@ object CardListModule {
 
     fun get() = module("CardListModule") {
         viewModel { CardListViewModel(get(), get(), get()) }
-        single { CardListUseCase(get()) }
+        single { CardListUseCase(get(), get()) }
         single { CopyCardNumberUseCase(get()) }
     }
 }

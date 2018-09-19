@@ -18,14 +18,12 @@ internal class ShareCardUseCase(
     override fun apply(upstream: Observable<Action>): ObservableSource<Result> = upstream.switchMap { action ->
         cardRepository.get(action.cardId)
             .doOnNext {
-                it.toNullable()?.run {
                     val sendIntent: Intent = Intent().apply {
                         this.action = Intent.ACTION_SEND
-                        putExtra(Intent.EXTRA_TEXT, "${holder.name}: $formattedNumber")
+                        putExtra(Intent.EXTRA_TEXT, "${it.holder.name}: ${it.formattedNumber}")
                         type = "text/plain"
                     }
                     ContextCompat.startActivity(context, sendIntent, null)
-                }
             }
             .map { Result.Success }
             .cast(Result::class.java)

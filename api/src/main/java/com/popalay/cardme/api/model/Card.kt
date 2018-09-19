@@ -12,8 +12,3 @@ data class Card(
     val createdDate: Date,
     val updatedDate: Date
 )
-
-enum class CardType {
-
-    UNKNOWN, MASTER_CARD, VISA
-}

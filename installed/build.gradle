@@ -80,6 +80,7 @@ android {
         full {
             dimension "type"
             resValue "string", "app_name", "Cardme"
+            buildConfigField "boolean", "ENABLE_BUG_REPOTRING", "false"
         }
     }
 

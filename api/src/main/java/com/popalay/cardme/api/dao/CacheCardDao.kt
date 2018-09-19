@@ -1,10 +1,11 @@
-package com.popalay.cardme.api.repository
+package com.popalay.cardme.api.dao
 
 import com.popalay.cardme.api.model.Card
 import io.reactivex.Completable
 import io.reactivex.Flowable
+import io.reactivex.Single
 
-interface CardRepository {
+interface CacheCardDao {
 
     fun save(data: Card): Completable
 
@@ -12,7 +13,11 @@ interface CardRepository {
 
     fun get(id: String): Flowable<Card>
 
-    fun getAll(userId: String): Flowable<List<Card>>
+    fun getAll(): Flowable<List<Card>>
 
     fun delete(id: String): Completable
+
+    fun isPresent(id: String): Single<Boolean>
+
+    fun isNotEmpty(): Single<Boolean>
 }

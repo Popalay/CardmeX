@@ -21,6 +21,11 @@ android {
     }
 }
 
+kapt {
+    correctErrorTypes = true
+    mapDiagnosticLocations = true
+}
+
 dependencies {
 
     implementation project(":api")

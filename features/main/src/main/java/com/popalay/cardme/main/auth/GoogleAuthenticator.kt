@@ -36,7 +36,7 @@ internal class GoogleAuthenticator(
 
     override fun auth(credentials: AuthCredentials): Single<Optional<User>> = Single.create<Optional<User>> { emitter ->
         if (credentials !== CardmeAuthCredentials.Google) {
-            emitter.onError(IllegalArgumentException("Can handle only Google"))
+            emitter.tryOnError(IllegalArgumentException("Can handle only Google"))
             return@create
         }
         val account = GoogleSignIn.getLastSignedInAccount(context)
@@ -47,10 +47,10 @@ internal class GoogleAuthenticator(
                     if (it.isSuccessful) {
                         emitter.onSuccess(userMapper(it.result.user))
                     } else {
-                        emitter.onError(it.exception!!)
+                        emitter.tryOnError(it.exception!!)
                     }
                 }
-                .addOnFailureListener { emitter.onError(it) }
+                .addOnFailureListener { emitter.tryOnError(it) }
         } else {
             val client = GoogleSignIn.getClient(context, gso)
             val intent = client.signInIntent
@@ -61,7 +61,7 @@ internal class GoogleAuthenticator(
 
     override fun handleResult(result: AuthResult): Single<Optional<User>> = Single.create<Optional<User>> { emitter ->
         if (result !is CardmeAuthResult.Google) {
-            emitter.onError(IllegalArgumentException("Can handle only Google"))
+            emitter.tryOnError(IllegalArgumentException("Can handle only Google"))
             return@create
         }
         if (result.success && result.requestCode == REQUEST_CODE_SIGN_IN) {
@@ -74,12 +74,12 @@ internal class GoogleAuthenticator(
                         if (it.isSuccessful) {
                             emitter.onSuccess(userMapper(it.result.user))
                         } else {
-                            emitter.onError(it.exception!!)
+                            emitter.tryOnError(it.exception!!)
                         }
                     }
-                    .addOnFailureListener { emitter.onError(it) }
+                    .addOnFailureListener { emitter.tryOnError(it) }
             } catch (exception: ApiException) {
-                emitter.onError(exception)
+                emitter.tryOnError(exception)
             }
         } else {
             emitter.onSuccess(None)

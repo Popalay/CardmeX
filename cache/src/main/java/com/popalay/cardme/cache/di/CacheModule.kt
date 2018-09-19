@@ -1,14 +1,10 @@
 package com.popalay.cardme.cache.di
 
 import androidx.room.Room
+import com.popalay.cardme.cache.dao.CacheCardDao
+import com.popalay.cardme.cache.dao.CacheUserDao
 import com.popalay.cardme.cache.database.Database
-import com.popalay.cardme.cache.datasource.CardCacheDataSource
-import com.popalay.cardme.cache.mapper.CacheCardWithHolderToCardMapper
-import com.popalay.cardme.cache.mapper.CacheHolderToHolderMapper
-import com.popalay.cardme.cache.mapper.CardToCacheCardMapper
-import com.popalay.cardme.cache.mapper.HolderToCacheHolderMapper
-import com.popalay.cardme.cache.persister.CardCachePersister
-import com.popalay.cardme.cache.persister.HolderCachePersister
+import com.popalay.cardme.cache.mapper.*
 import org.koin.dsl.module.module
 
 object CacheModule {
@@ -21,12 +17,14 @@ object CacheModule {
         }
         single { get<Database>().cardDao() }
         single { get<Database>().holderDao() }
+        single { get<Database>().userDao() }
         single { CacheHolderToHolderMapper() }
         single { HolderToCacheHolderMapper() }
         single { CacheCardWithHolderToCardMapper(get()) }
         single { CardToCacheCardMapper() }
-        single { CardCacheDataSource(get(), get()) as com.popalay.cardme.api.data.datasource.CardCacheDataSource }
-        single { CardCachePersister(get(), get(), get(), get()) as com.popalay.cardme.api.data.persister.CardCachePersister }
-        single { HolderCachePersister(get(), get()) as com.popalay.cardme.api.data.persister.HolderCachePersister }
+        single { UserToCacheUserMapper(get()) }
+        single { CacheUserToUserMapper(get()) }
+        single { CacheCardDao(get(), get(), get(), get(), get()) as com.popalay.cardme.api.dao.CacheCardDao }
+        single { CacheUserDao(get(), get(), get()) as com.popalay.cardme.api.dao.CacheUserDao }
     }
 }

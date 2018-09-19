@@ -16,7 +16,7 @@ object MainModule {
 
     fun get() = module("MainModule") {
         viewModel { MainViewModel(get(), get(), get { it }, get { it }, get(), get()) }
-        single { LogOutUseCase() }
+        single { LogOutUseCase(get()) }
         single { AuthUseCase(get { it }, get()) }
         single { HandleAuthResultUseCase(get { it }, get()) }
         single<Authenticator> { AuthenticatorFacade(get { it }) }

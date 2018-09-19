@@ -26,7 +26,7 @@ internal class FirebasePhoneAuthenticator(
 
     override fun auth(credentials: AuthCredentials): Single<Optional<User>> = Single.create<Optional<User>> { emitter ->
         if (credentials !is CardmeAuthCredentials.Phone) {
-            emitter.onError(IllegalArgumentException("Can handle only Phone"))
+            emitter.tryOnError(IllegalArgumentException("Can handle only Phone"))
             return@create
         }
         PhoneAuthProvider.getInstance().verifyPhoneNumber(
@@ -41,14 +41,14 @@ internal class FirebasePhoneAuthenticator(
                             if (it.isSuccessful) {
                                 emitter.onSuccess(userMapper(it.result.user))
                             } else {
-                                emitter.onError(it.exception!!)
+                                emitter.tryOnError(it.exception!!)
                             }
                         }
-                        .addOnFailureListener { emitter.onError(it) }
+                        .addOnFailureListener { emitter.tryOnError(it) }
                 }
 
                 override fun onVerificationFailed(exception: FirebaseException) {
-                    emitter.onError(exception)
+                    emitter.tryOnError(exception)
                 }
 
                 override fun onCodeSent(verificationId: String, token: PhoneAuthProvider.ForceResendingToken) {
@@ -61,7 +61,7 @@ internal class FirebasePhoneAuthenticator(
 
     override fun handleResult(result: AuthResult): Single<Optional<User>> = Single.create<Optional<User>> { emitter ->
         if (result !is CardmeAuthResult.Phone) {
-            emitter.onError(IllegalArgumentException("Can handle only Phone"))
+            emitter.tryOnError(IllegalArgumentException("Can handle only Phone"))
             return@create
         }
         val credential = PhoneAuthProvider.getCredential(verificationId, result.code)
@@ -70,9 +70,9 @@ internal class FirebasePhoneAuthenticator(
                 if (it.isSuccessful) {
                     emitter.onSuccess(userMapper(it.result.user))
                 } else {
-                    emitter.onError(it.exception!!)
+                    emitter.tryOnError(it.exception!!)
                 }
             }
-            .addOnFailureListener { emitter.onError(it) }
+            .addOnFailureListener { emitter.tryOnError(it) }
     }.subscribeOn(Schedulers.io())
 }

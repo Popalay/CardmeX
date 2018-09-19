@@ -9,6 +9,9 @@ dependencies {
     implementation Libs.rxJava
     implementation Libs.rxKotlin
 
+    implementation Libs.firebaseAuth
+
     implementation Libs.koinCore
     implementation Libs.kOptional
+    implementation Libs.hoard
 }

@@ -1,6 +1,5 @@
 package com.popalay.cardme.core.di
 
-import com.google.firebase.auth.FirebaseAuth
 import com.popalay.cardme.api.error.ErrorHandler
 import com.popalay.cardme.api.navigation.NavigatorHolder
 import com.popalay.cardme.api.navigation.Router
@@ -21,6 +20,5 @@ object CoreModule {
         single<Router> { BaseRouter(get()) }
         single { SpecificIntentUseCase() }
         single { GetCurrentUserUseCase(get()) }
-        factory { get<FirebaseUserToUserMapper>()(FirebaseAuth.getInstance().currentUser) }
     }
 }

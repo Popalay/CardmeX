@@ -10,15 +10,3 @@ interface Navigator {
 
     fun popBackStackTo(destination: Destination, inclusive: Boolean = false)
 }
-
-interface Destination
-
-interface NavigatorHolder {
-
-    var navigator: Navigator?
-}
-
-interface Router : Navigator {
-
-    val navigationHolder: NavigatorHolder
-}

@@ -10,7 +10,3 @@ interface Authenticator {
 
     fun handleResult(result: AuthResult): Single<Optional<User>>
 }
-
-interface AuthCredentials
-
-interface AuthResult

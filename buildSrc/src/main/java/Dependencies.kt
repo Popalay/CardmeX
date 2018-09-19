@@ -32,6 +32,7 @@ object Versions {
     const val playServicesAuth = "16.0.0"
 
     const val koinDi = "1.0.0"
+    const val hoard = "1.0.0"
 
     const val kOptional = "1.6.0"
     const val timber = "4.6.0"
@@ -86,9 +87,11 @@ object Libs {
     // Lyfecycle
     const val lifecycle = "androidx.lifecycle:lifecycle-extensions:${Versions.acLifecycle}"
 
+    // Utils
     const val kOptional = "com.gojuno.koptional:koptional:${Versions.kOptional}"
     const val timber = "com.jakewharton.timber:timber:${Versions.timber}"
     const val picasso = "com.squareup.picasso:picasso:${Versions.picasso}"
+    const val hoard = "com.github.popalay:hoard:${Versions.hoard}"
 
     // Development
     const val androidProguards = "com.github.yongjhih.android-proguards:android-proguards:${Versions.androidProguards}"

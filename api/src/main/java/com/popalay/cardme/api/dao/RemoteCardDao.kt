@@ -1,10 +1,10 @@
-package com.popalay.cardme.api.repository
+package com.popalay.cardme.api.dao
 
 import com.popalay.cardme.api.model.Card
 import io.reactivex.Completable
 import io.reactivex.Flowable
 
-interface CardRepository {
+interface RemoteCardDao {
 
     fun save(data: Card): Completable
 
