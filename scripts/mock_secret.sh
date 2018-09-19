@@ -1,5 +1,5 @@
 echo 'object Secret {
-    const val googleClientId = "";
+    const val googleClientId = "\"\"";
 
     const val debugStoreFile = "mocked/store";
     const val releaseStoreFile = "mocked/store";
