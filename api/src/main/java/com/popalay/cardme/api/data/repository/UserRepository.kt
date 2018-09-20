@@ -14,4 +14,6 @@ interface UserRepository {
     fun update(user: User): Completable
 
     fun getCurrentUser(): Flowable<Optional<User>>
+
+    fun getAll(lastDisplayName: String, limit: Long): Flowable<List<User>>
 }

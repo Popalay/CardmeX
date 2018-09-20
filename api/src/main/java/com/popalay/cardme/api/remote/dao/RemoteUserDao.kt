@@ -14,4 +14,6 @@ interface RemoteUserDao {
     fun get(id: String): Flowable<Optional<User>>
 
     fun delete(id: String): Completable
+
+    fun getAll(lastDisplayName: String, limit: Long): Flowable<List<User>>
 }

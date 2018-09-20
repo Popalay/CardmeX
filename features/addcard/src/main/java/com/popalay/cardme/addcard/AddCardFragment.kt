@@ -41,6 +41,7 @@ class AddCardFragment : RoundedBottomSheetDialogFragment(), BindableMviView<AddC
     private val imageCardType: ImageView by bindView(R.id.image_card_type)
     private val inputNumber: EditText by bindView(R.id.input_number)
     private val buttonCamera: ImageButton by bindView(R.id.button_camera)
+    private val buttonPeople: ImageButton by bindView(R.id.button_people)
     private val buttonSave: ProgressMaterialButton by bindView(R.id.button_save)
     private val inputName: EditText by bindView(R.id.input_name)
     private val checkPublic: CheckBox by bindView(R.id.check_public)
@@ -64,7 +65,9 @@ class AddCardFragment : RoundedBottomSheetDialogFragment(), BindableMviView<AddC
                 Observable.just(AddCardIntent.OnStart),
                 saveClickedIntent,
                 nameChangedIntent,
-                numberChangedIntent
+                numberChangedIntent,
+                cameraClickedIntent,
+                peopleClickedIntent
             )
         )
     }
@@ -74,7 +77,6 @@ class AddCardFragment : RoundedBottomSheetDialogFragment(), BindableMviView<AddC
         with(viewState) {
             buttonSave.isEnabled = isValid
             buttonSave.isProgress = progress
-            checkPublic.isChecked = isPublic
             checkPublic.isEnabled = isPublicEditable
             inputName.isEnabled = isHolderNameEditable
             if (holderName.isNotBlank()) inputName.setText(holderName)
@@ -107,6 +109,16 @@ class AddCardFragment : RoundedBottomSheetDialogFragment(), BindableMviView<AddC
                 )
             }
 
+    private val cameraClickedIntent
+        get() = RxView.clicks(buttonCamera)
+            .applyThrottling()
+            .map { AddCardIntent.CameraClicked }
+
+    private val peopleClickedIntent
+        get() = RxView.clicks(buttonPeople)
+            .applyThrottling()
+            .map { AddCardIntent.PeopleClicked }
+
     private val nameChangedIntent
         get() = RxTextView.afterTextChangeEvents(inputName)
             .skipInitialValue()
@@ -130,5 +142,6 @@ class AddCardFragment : RoundedBottomSheetDialogFragment(), BindableMviView<AddC
             }
 
     private fun initView() {
+
     }
 }

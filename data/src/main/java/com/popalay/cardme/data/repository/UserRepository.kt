@@ -3,9 +3,9 @@ package com.popalay.cardme.data.repository
 import com.gojuno.koptional.Optional
 import com.google.firebase.auth.FirebaseAuth
 import com.popalay.cardme.api.cache.dao.CacheUserDao
-import com.popalay.cardme.api.remote.dao.RemoteUserDao
 import com.popalay.cardme.api.core.model.User
 import com.popalay.cardme.api.data.repository.UserRepository
+import com.popalay.cardme.api.remote.dao.RemoteUserDao
 import com.popalay.cardme.data.store.UserStore
 import io.reactivex.Completable
 import io.reactivex.Flowable
@@ -18,6 +18,10 @@ class UserRepository(
 
     override fun getCurrentUser(): Flowable<Optional<User>> =
         userStore.get(UserStore.Key.ById(FirebaseAuth.getInstance().currentUser?.uid ?: ""))
+
+    override fun getAll(lastDisplayName: String, limit: Long): Flowable<List<User>> =
+        remoteUserDao.getAll(lastDisplayName, limit)
+            .map { list -> list.filter { it.uuid != FirebaseAuth.getInstance().currentUser?.uid } }
 
     override fun save(user: User): Completable = Completable.mergeArray(
         remoteUserDao.save(user),

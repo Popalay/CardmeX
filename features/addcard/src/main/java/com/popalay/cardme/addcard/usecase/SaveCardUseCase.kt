@@ -3,9 +3,9 @@ package com.popalay.cardme.addcard.usecase
 import com.popalay.cardme.api.core.model.Card
 import com.popalay.cardme.api.core.model.CardType
 import com.popalay.cardme.api.core.model.Holder
+import com.popalay.cardme.api.core.usecase.UseCase
 import com.popalay.cardme.api.data.repository.CardRepository
 import com.popalay.cardme.api.data.repository.UserRepository
-import com.popalay.cardme.api.core.usecase.UseCase
 import io.reactivex.Observable
 import io.reactivex.ObservableSource
 import io.reactivex.schedulers.Schedulers
@@ -21,6 +21,7 @@ internal class SaveCardUseCase(
         val holderId = UUID.randomUUID().toString()
 
         userRepository.getCurrentUser()
+            .firstElement()
             .flatMapCompletable {
                 val card = Card(
                     cardId,

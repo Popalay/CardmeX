@@ -10,17 +10,19 @@
         style="@style/Cardme.EditText.Lineless"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
         android:ems="10"
         android:hint="Card number"
+        android:importantForAutofill="no"
         android:inputType="number"
         android:maxLength="16"
         android:singleLine="true"
         app:layout_constraintEnd_toStartOf="@+id/button_camera"
         app:layout_constraintStart_toEndOf="@+id/image_card_type"
         app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="UnusedAttribute"
         tools:text="@tools:sample/us_phones" />
 
     <ImageButton
@@ -29,11 +31,28 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="Scan card"
         android:padding="8dp"
         android:src="@drawable/ic_camera"
         android:tint="@color/colorPrimary"
         app:layout_constraintBottom_toBottomOf="@+id/input_number"
+        app:layout_constraintEnd_toStartOf="@+id/button_people"
+        app:layout_constraintStart_toEndOf="@id/input_number"
+        app:layout_constraintTop_toTopOf="@+id/input_number" />
+
+    <ImageButton
+        android:id="@+id/button_people"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="User list"
+        android:padding="8dp"
+        android:src="@drawable/ic_people"
+        android:tint="@color/colorPrimary"
+        app:layout_constraintBottom_toBottomOf="@+id/input_number"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/button_camera"
         app:layout_constraintTop_toTopOf="@+id/input_number" />
 
     <com.popalay.cardme.core.widget.ProgressMaterialButton
@@ -41,8 +60,8 @@
         style="@style/Cardme.Button.Colored"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
         android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
         android:text="Save"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/input_name" />
@@ -56,21 +75,23 @@
         android:layout_marginTop="8dp"
         android:ems="10"
         android:hint="Name"
+        android:importantForAutofill="no"
         android:inputType="textPersonName"
         android:maxLength="20"
         android:singleLine="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/image_face"
         app:layout_constraintTop_toBottomOf="@+id/input_number"
+        tools:ignore="UnusedAttribute"
         tools:text="@tools:sample/full_names" />
 
     <CheckBox
         android:id="@+id/check_public"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
         android:checked="true"
         android:text="Public"
         app:layout_constraintBottom_toBottomOf="@+id/button_save"
