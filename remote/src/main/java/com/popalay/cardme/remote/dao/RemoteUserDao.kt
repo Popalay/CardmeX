@@ -5,8 +5,8 @@ import com.gojuno.koptional.Optional
 import com.gojuno.koptional.toOptional
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
-import com.popalay.cardme.api.remote.dao.RemoteUserDao
 import com.popalay.cardme.api.core.model.User
+import com.popalay.cardme.api.remote.dao.RemoteUserDao
 import com.popalay.cardme.remote.mapper.CardToRemoteCardMapper
 import com.popalay.cardme.remote.mapper.RemoteUserToUserMapper
 import com.popalay.cardme.remote.mapper.UserToRemoteUserMapper
@@ -56,13 +56,24 @@ internal class RemoteUserDao(
         val listenerRegistration = firestore.users.document(id)
             .addSnapshotListener { snapshot, exception ->
                 if (exception != null) emitter.tryOnError(exception)
-                if (snapshot != null) {
-                    emitter.onNext(snapshot.toObject(RemoteUser::class.java)?.let { remoteUserToUserMapper(it) }.toOptional())
-                }
+                if (snapshot != null) emitter.onNext(snapshot.toObject(RemoteUser::class.java)?.let { remoteUserToUserMapper(it) }.toOptional())
             }
         emitter.setCancellable { listenerRegistration.remove() }
     }, BackpressureStrategy.LATEST)
         .onErrorReturnItem(None)
+        .subscribeOn(Schedulers.io())
+
+    override fun getAll(lastDisplayName: String, limit: Long): Flowable<List<User>> = Flowable.create<List<User>>({ emitter ->
+        val listenerRegistration = firestore.users
+            .orderBy("displayName")
+            .startAt(lastDisplayName)
+            .limit(limit)
+            .addSnapshotListener { snapshot, exception ->
+                if (exception != null) emitter.tryOnError(exception)
+                if (snapshot != null) emitter.onNext(snapshot.toObjects(RemoteUser::class.java).map { remoteUserToUserMapper(it) })
+            }
+        emitter.setCancellable { listenerRegistration.remove() }
+    }, BackpressureStrategy.LATEST)
         .subscribeOn(Schedulers.io())
 
     override fun delete(id: String): Completable = Completable.create { emitter ->

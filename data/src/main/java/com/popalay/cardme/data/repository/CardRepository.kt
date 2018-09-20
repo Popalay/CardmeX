@@ -1,9 +1,9 @@
 package com.popalay.cardme.data.repository
 
 import com.popalay.cardme.api.cache.dao.CacheCardDao
-import com.popalay.cardme.api.remote.dao.RemoteCardDao
 import com.popalay.cardme.api.core.model.Card
 import com.popalay.cardme.api.data.repository.CardRepository
+import com.popalay.cardme.api.remote.dao.RemoteCardDao
 import com.popalay.cardme.data.store.CardListStore
 import com.popalay.cardme.data.store.CardStore
 import io.reactivex.Completable
