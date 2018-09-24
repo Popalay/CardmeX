@@ -15,14 +15,16 @@
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         tools:listitem="@layout/item_card" />
 
-    <Button
+    <com.popalay.cardme.core.widget.CollapsibleButton
         android:id="@+id/button_add_card"
         style="@style/Cardme.Button.Floating.Long"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom|center_horizontal"
+        android:layout_gravity="bottom|end"
+        android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
         android:text="Add card"
+        android:textAllCaps="false"
         app:icon="@drawable/ic_add"
         app:layout_behavior="com.popalay.cardme.core.behavior.ScrollAwareBehavior" />
 

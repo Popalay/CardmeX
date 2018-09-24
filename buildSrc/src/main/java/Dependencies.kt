@@ -9,11 +9,11 @@ object Versions {
     const val compileSdkVersion = 28
 
     const val gradlePlugin = "3.3.0-alpha10"
-    const val kotlinLanguage = "1.3-M2"
+    const val kotlinLanguage = "1.3.0-rc-57"
 
     const val constraintLayout = "2.0.0-alpha2"
-    const val ktx = "1.0.0-rc02"
-    const val materialComponents = "1.0.0-rc02"
+    const val ktx = "1.0.0"
+    const val materialComponents = "1.0.0"
 
     const val rxJava = "2.2.2"
     const val rxAndroid = "2.1.0"
@@ -21,9 +21,9 @@ object Versions {
 
     const val rxBinding = "2.1.1"
 
-    const val acLifecycle = "2.0.0-rc01"
+    const val acLifecycle = "2.0.0"
     const val acRoom = "2.0.0-rc01"
-    const val acNavigation = "1.0.0-alpha05"
+    const val acNavigation = "1.0.0-alpha06"
 
     const val firebaseCore = "16.0.3"
     const val firebaseAuth = "16.0.3"
@@ -31,7 +31,7 @@ object Versions {
     const val firebaseStorage = "16.0.2"
     const val playServicesAuth = "16.0.0"
 
-    const val koinDi = "1.0.0"
+    const val koinDi = "1.0.1"
     const val hoard = "1.0.0"
 
     const val kOptional = "1.6.0"

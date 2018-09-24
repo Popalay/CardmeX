@@ -12,7 +12,7 @@ buildscript {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$Versions.kotlinLanguage"
         classpath "android.arch.navigation:navigation-safe-args-gradle-plugin:$Versions.acNavigation"
         classpath "com.google.gms:google-services:4.0.1"
-        classpath "io.fabric.tools:gradle:1.25.4"
+        classpath "io.fabric.tools:gradle:1.26.0"
         classpath "com.github.ben-manes:gradle-versions-plugin:0.20.0"
         classpath "org.jacoco:org.jacoco.core:0.8.2"
     }

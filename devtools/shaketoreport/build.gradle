@@ -19,5 +19,5 @@ dependencies {
 
     implementation Libs.firebaseFireStore
     implementation Libs.firebaseStorage
-    implementation "com.jraska:falcon:2.1.0"
+    implementation "com.jraska:falcon:2.1.1"
 }
