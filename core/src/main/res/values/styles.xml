@@ -6,6 +6,10 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="Cardme.AppBarOverlay" parent="ThemeOverlay.MaterialComponents.ActionBar">
+        <item name="android:background">#FBFBFB</item>
+    </style>
+
     <style name="Cardme.Button" parent="Widget.MaterialComponents.Button" />
 
     <style name="Cardme.EditText" parent="Base.Widget.AppCompat.EditText" />
@@ -20,7 +24,7 @@
     </style>
 
     <style name="Cardme.Button.Floating.Long" parent="Cardme.Button.Colored">
-        <item name="cornerRadius">24dp</item>
+        <item name="cornerRadius">28dp</item>
     </style>
 
     <style name="Cardme.Button.Outlined" parent="Widget.MaterialComponents.Button.OutlinedButton" />

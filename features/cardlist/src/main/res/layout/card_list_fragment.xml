@@ -25,7 +25,6 @@
         android:layout_marginBottom="16dp"
         android:text="Add card"
         android:textAllCaps="false"
-        app:icon="@drawable/ic_add"
-        app:layout_behavior="com.popalay.cardme.core.behavior.ScrollAwareBehavior" />
+        app:icon="@drawable/ic_add" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -5,9 +5,10 @@ import android.util.AttributeSet
 import android.view.View
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.view.ViewCompat
-import com.popalay.cardme.core.widget.CollapsibleButton
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 
-class ScrollAwareBehavior(context: Context? = null, attrs: AttributeSet? = null) : CoordinatorLayout.Behavior<View>(context, attrs) {
+class LiftBehavior(context: Context? = null, attrs: AttributeSet? = null) : CoordinatorLayout.Behavior<View>(context, attrs) {
 
     override fun onNestedScroll(
         coordinatorLayout: CoordinatorLayout,
@@ -20,11 +21,12 @@ class ScrollAwareBehavior(context: Context? = null, attrs: AttributeSet? = null)
         type: Int
     ) {
         super.onNestedScroll(coordinatorLayout, child, target, dxConsumed, dyConsumed, dxUnconsumed, dyUnconsumed, type)
-        if (dyConsumed > 0) {
-            (child as CollapsibleButton).isCollapsed = true
-        } else if (dyConsumed < 0) {
-            (child as CollapsibleButton).isCollapsed = false
+        val lift: Boolean = if (target is RecyclerView) {
+            (target.layoutManager as LinearLayoutManager).findFirstCompletelyVisibleItemPosition() > 0
+        } else {
+            dyConsumed > 0
         }
+        child.translationZ = if (lift) 8F else 0F
     }
 
     override fun onStartNestedScroll(
