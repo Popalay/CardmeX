@@ -4,6 +4,7 @@ dependencies {
     implementation project(":core")
     implementation project(":features:cardlist")
     implementation project(":features:usercard")
+    implementation project(":features:addcard")
 
     implementation Libs.rxBinding
 

@@ -6,6 +6,8 @@
 
     <color name="colorAccentRipple">#7d1cb489</color>
 
+    <color name="rippleColor">#A86ED7</color>
+
     <color name="black">#000</color>
     <color name="white">#FFF</color>
     <color name="grey">#999999</color>

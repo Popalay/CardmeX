@@ -20,7 +20,7 @@
     </style>
 
     <style name="Cardme.Button.Colored" parent="Widget.MaterialComponents.Button">
-        <item name="rippleColor">#A86ED7</item>
+        <item name="rippleColor">@color/rippleColor</item>
     </style>
 
     <style name="Cardme.Button.Floating.Long" parent="Cardme.Button.Colored">

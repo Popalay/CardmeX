@@ -21,17 +21,23 @@ internal class MainViewModel(
     private val logOutUseCase: LogOutUseCase,
     private val authUseCase: AuthUseCase,
     private val handleAuthResultUseCase: HandleAuthResultUseCase,
-    private val intentUseCase: SpecificIntentUseCase,
+    private val specificIntentUseCase: SpecificIntentUseCase,
     private val router: Router
 ) : BaseMviViewModel<MainViewState, MainIntent>() {
 
-    override val initialState: MainViewState = MainViewState.idle()
+    override val initialState: MainViewState = MainViewState()
 
     override val processor: Processor<MainIntent> = IntentProcessor { observable ->
         listOf(
             observable.ofType<MainIntent.OnStarted>()
                 .map { GetCurrentUserUseCase.Action }
                 .compose(getCurrentUserUseCase),
+            observable.ofType<MainIntent.OnAddCardDialogDismissed>()
+                .map { SpecificIntentUseCase.Action(it) }
+                .compose(specificIntentUseCase),
+            observable.ofType<MainIntent.OnAddCardClicked>()
+                .map { SpecificIntentUseCase.Action(it) }
+                .compose(specificIntentUseCase),
             observable.ofType<MainIntent.OnUnsyncClicked>()
                 .map { LogOutUseCase.Action }
                 .compose(logOutUseCase),
@@ -43,7 +49,7 @@ internal class MainViewModel(
                 .compose(handleAuthResultUseCase),
             observable.ofType<MainIntent.OnUserClicked>()
                 .map { SpecificIntentUseCase.Action(it) }
-                .compose(intentUseCase)
+                .compose(specificIntentUseCase)
         )
     }
 
@@ -70,9 +76,17 @@ internal class MainViewModel(
                 HandleAuthResultUseCase.Result.Idle -> it.copy(isSyncProgress = true)
                 is HandleAuthResultUseCase.Result.Failure -> it.copy(error = throwable, isSyncProgress = false)
             }
-            is SpecificIntentUseCase.Result -> {
-                if (intent is MainIntent.OnUserClicked) router.navigate(MainDestination.UserCard)
-                it
+
+            is SpecificIntentUseCase.Result -> with(intent as MainIntent) {
+                when (this) {
+                    MainIntent.OnAddCardClicked -> it.copy(showAddCardDialog = true)
+                    MainIntent.OnAddCardDialogDismissed -> it.copy(showAddCardDialog = false)
+                    MainIntent.OnUserClicked -> {
+                        router.navigate(MainDestination.UserCard)
+                        it
+                    }
+                    else -> throw UnsupportedOperationException()
+                }
             }
             else -> throw IllegalStateException("Can not reduce user for result ${javaClass.name}")
         }

@@ -6,7 +6,6 @@ import com.popalay.cardme.api.ui.state.ViewState
 internal data class CardListViewState(
     val cards: List<Card> = listOf(),
     val progress: Boolean = false,
-    val showAddCardDialog: Boolean = false,
     val selectedCard: Card? = null,
     val toastMessage: String? = null,
     val showToast: Boolean = false,

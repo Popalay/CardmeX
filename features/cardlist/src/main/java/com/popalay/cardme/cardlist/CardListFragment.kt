@@ -7,8 +7,6 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
-import com.jakewharton.rxbinding2.view.RxView
-import com.popalay.cardme.addcard.AddCardFragment
 import com.popalay.cardme.addcard.R
 import com.popalay.cardme.api.core.error.ErrorHandler
 import com.popalay.cardme.api.core.model.Card
@@ -20,7 +18,6 @@ import com.popalay.cardme.core.extensions.applyThrottling
 import com.popalay.cardme.core.extensions.bindView
 import com.popalay.cardme.core.extensions.px
 import com.popalay.cardme.core.state.BindableMviView
-import com.popalay.cardme.core.widget.ExpandableFloatingActionButton
 import com.popalay.cardme.core.widget.OnDialogDismissed
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
@@ -30,7 +27,6 @@ import org.koin.androidx.viewmodel.ext.android.getViewModel
 internal class CardListFragment : Fragment(), BindableMviView<CardListViewState, CardListIntent>, OnDialogDismissed {
 
     private val listCards: RecyclerView by bindView(R.id.list_cards)
-    private val buttonAddCard: ExpandableFloatingActionButton by bindView(R.id.button_add_card)
 
     private val errorHandler: ErrorHandler by inject()
 
@@ -54,7 +50,6 @@ internal class CardListFragment : Fragment(), BindableMviView<CardListViewState,
         Observable.merge(
             listOf(
                 Observable.just(CardListIntent.OnStart),
-                addCardClickedIntent,
                 intentSubject,
                 cardClickedIntent,
                 cardLongClickedIntent
@@ -64,7 +59,6 @@ internal class CardListFragment : Fragment(), BindableMviView<CardListViewState,
 
     override fun accept(viewState: CardListViewState) {
         with(viewState) {
-            if (showAddCardDialog) showAddCardDialog()
             selectedCard?.let { showCardActionsDialog(it) }
             showToast(toastMessage, showToast)
             cardsAdapter.submitList(cards.map(::CardListItem))
@@ -74,14 +68,8 @@ internal class CardListFragment : Fragment(), BindableMviView<CardListViewState,
     }
 
     override fun onDialogDismissed() {
-        intentSubject.onNext(CardListIntent.OnAddCardDialogDismissed)
         intentSubject.onNext(CardListIntent.OnCardActionsDialogDismissed)
     }
-
-    private val addCardClickedIntent
-        get() = RxView.clicks(buttonAddCard)
-            .applyThrottling()
-            .map { CardListIntent.OnAddCardClicked }
 
     private val cardClickedIntent
         get() = cardsAdapter.itemClickObservable
@@ -91,12 +79,6 @@ internal class CardListFragment : Fragment(), BindableMviView<CardListViewState,
     private val cardLongClickedIntent
         get() = cardsAdapter.itemLongClickObservable
             .map { CardListIntent.OnCardLongClicked(it.card) }
-
-    private fun showAddCardDialog() {
-        if (childFragmentManager.findFragmentByTag(AddCardFragment::class.java.simpleName) == null) {
-            AddCardFragment.newInstance().showNow(childFragmentManager, AddCardFragment::class.java.simpleName)
-        }
-    }
 
     private fun showCardActionsDialog(card: Card) {
         if (childFragmentManager.findFragmentByTag(CardActionsFragment::class.java.simpleName) == null) {

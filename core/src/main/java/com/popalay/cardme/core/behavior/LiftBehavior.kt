@@ -36,6 +36,5 @@ class LiftBehavior(context: Context? = null, attrs: AttributeSet? = null) : Coor
         target: View,
         axes: Int,
         type: Int
-    ): Boolean = axes == ViewCompat.SCROLL_AXIS_VERTICAL ||
-            super.onStartNestedScroll(coordinatorLayout, child, directTargetChild, target, axes, type)
+    ): Boolean = axes == ViewCompat.SCROLL_AXIS_VERTICAL
 }

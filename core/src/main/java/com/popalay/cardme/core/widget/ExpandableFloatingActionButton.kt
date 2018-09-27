@@ -138,7 +138,8 @@ class ExpandableFloatingActionButton @JvmOverloads constructor(
             target: View,
             axes: Int,
             type: Int
-        ): Boolean = axes == ViewCompat.SCROLL_AXIS_VERTICAL ||
-                super.onStartNestedScroll(coordinatorLayout, child, directTargetChild, target, axes, type)
+        ): Boolean {
+            return axes == ViewCompat.SCROLL_AXIS_VERTICAL
+        }
     }
 }
