@@ -113,11 +113,12 @@ class ExpandableFloatingActionButton @JvmOverloads constructor(
 
     override fun getBehavior(): CoordinatorLayout.Behavior<*> = ExpandableFloatingActionButton.Behavior()
 
-    class Behavior(context: Context? = null, attrs: AttributeSet? = null) : CoordinatorLayout.Behavior<View>(context, attrs) {
+    class Behavior(context: Context? = null, attrs: AttributeSet? = null) :
+        CoordinatorLayout.Behavior<ExpandableFloatingActionButton>(context, attrs) {
 
         override fun onNestedScroll(
             coordinatorLayout: CoordinatorLayout,
-            child: View,
+            child: ExpandableFloatingActionButton,
             target: View,
             dxConsumed: Int,
             dyConsumed: Int,
@@ -126,16 +127,13 @@ class ExpandableFloatingActionButton @JvmOverloads constructor(
             type: Int
         ) {
             super.onNestedScroll(coordinatorLayout, child, target, dxConsumed, dyConsumed, dxUnconsumed, dyUnconsumed, type)
-            if (dyConsumed > 0) {
-                (child as ExpandableFloatingActionButton).isExpanded = false
-            } else if (dyConsumed < 0) {
-                (child as ExpandableFloatingActionButton).isExpanded = true
-            }
+            if (dyConsumed == 0) return
+            child.isExpanded = dyConsumed < 0
         }
 
         override fun onStartNestedScroll(
             coordinatorLayout: CoordinatorLayout,
-            child: View,
+            child: ExpandableFloatingActionButton,
             directTargetChild: View,
             target: View,
             axes: Int,
