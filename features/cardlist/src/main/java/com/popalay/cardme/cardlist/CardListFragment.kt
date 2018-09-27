@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
@@ -21,6 +20,7 @@ import com.popalay.cardme.core.extensions.applyThrottling
 import com.popalay.cardme.core.extensions.bindView
 import com.popalay.cardme.core.extensions.px
 import com.popalay.cardme.core.state.BindableMviView
+import com.popalay.cardme.core.widget.ExpandableFloatingActionButton
 import com.popalay.cardme.core.widget.OnDialogDismissed
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
@@ -30,7 +30,7 @@ import org.koin.androidx.viewmodel.ext.android.getViewModel
 internal class CardListFragment : Fragment(), BindableMviView<CardListViewState, CardListIntent>, OnDialogDismissed {
 
     private val listCards: RecyclerView by bindView(R.id.list_cards)
-    private val buttonAddCard: Button by bindView(R.id.button_add_card)
+    private val buttonAddCard: ExpandableFloatingActionButton by bindView(R.id.button_add_card)
 
     private val errorHandler: ErrorHandler by inject()
 

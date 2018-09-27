@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="ExpandableFloatingActionButton">
+        <attr name="fabTextColor" format="color" />
+        <attr name="isExpanded" format="boolean" />
+        <attr name="fabText" format="string" />
+        <attr name="fabIcon" format="integer" />
+        <attr name="fabBackgroundColor" format="color" />
+    </declare-styleable>
+</resources>
