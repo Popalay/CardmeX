@@ -76,6 +76,24 @@ internal class RemoteUserDao(
     }, BackpressureStrategy.LATEST)
         .subscribeOn(Schedulers.io())
 
+    override fun getAllLike(like: String, lastDisplayName: String, limit: Long): Flowable<List<User>> = Flowable.create<List<User>>({ emitter ->
+        val listenerRegistration = firestore.users
+            .orderBy("displayName")
+            .startAt(like)
+            .startAfter(lastDisplayName)
+            .limit(limit)
+            .addSnapshotListener { snapshot, exception ->
+                if (exception != null) emitter.tryOnError(exception)
+                if (snapshot != null) emitter.onNext(snapshot.toObjects(RemoteUser::class.java).map { remoteUserToUserMapper(it) })
+            }
+        emitter.setCancellable { listenerRegistration.remove() }
+    }, BackpressureStrategy.LATEST)
+        .subscribeOn(Schedulers.io())
+
+    override fun getAllLikeWithCard(like: String, lastDisplayName: String, limit: Long): Flowable<List<User>> =
+        getAllLike(like, lastDisplayName, limit)
+            .map { list -> list.filter { it.card != null } }
+
     override fun delete(id: String): Completable = Completable.create { emitter ->
         firestore.users.document(id).delete()
             .addOnSuccessListener { emitter.onComplete() }

@@ -6,7 +6,6 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.widget.Toolbar
-import androidx.cardview.widget.CardView
 import androidx.constraintlayout.widget.Group
 import androidx.core.view.isVisible
 import androidx.core.widget.ContentLoadingProgressBar
@@ -14,11 +13,7 @@ import androidx.fragment.app.Fragment
 import com.jakewharton.rxbinding2.view.RxView
 import com.popalay.cardme.addcard.AddCardFragment
 import com.popalay.cardme.api.core.error.ErrorHandler
-import com.popalay.cardme.api.core.model.CardType
-import com.popalay.cardme.core.extensions.applyThrottling
-import com.popalay.cardme.core.extensions.bindView
-import com.popalay.cardme.core.extensions.formattedNumber
-import com.popalay.cardme.core.extensions.loadImage
+import com.popalay.cardme.core.extensions.*
 import com.popalay.cardme.core.picasso.CircleImageTransformation
 import com.popalay.cardme.core.state.BindableMviView
 import com.popalay.cardme.core.widget.OnDialogDismissed
@@ -35,7 +30,6 @@ internal class UserCardFragment : Fragment(), BindableMviView<UserCardViewState,
     private val buttonSkip: Button by bindView(R.id.button_skip)
     private val groupNoCard: Group by bindView(R.id.group_no_card)
     private val buttonAdd: Button by bindView(R.id.button_add)
-    private val layoutCard: CardView by bindView(R.id.layout_card)
     private val imageUserAvatar: ImageView by bindView(R.id.image_user_avatar)
     private val textDisplayName: TextView by bindView(R.id.text_display_name)
     private val imageCardType: ImageView by bindView(R.id.image_card_type)
@@ -104,12 +98,7 @@ internal class UserCardFragment : Fragment(), BindableMviView<UserCardViewState,
             }
             card?.run {
                 textCardNumber.text = formattedNumber
-                val cardTypeRes = when (cardType) {
-                    CardType.UNKNOWN -> return@run
-                    CardType.MASTER_CARD -> R.drawable.ic_mastercard
-                    CardType.VISA -> R.drawable.ic_visa
-                }
-                imageCardType.setImageResource(cardTypeRes)
+                imageCardType.setImageResource(cardType.icon)
             }
             groupNoCard.isVisible = card == null && !progress
             groupCard.isVisible = card != null && !progress

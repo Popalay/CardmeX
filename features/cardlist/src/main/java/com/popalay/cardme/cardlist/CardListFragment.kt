@@ -31,7 +31,6 @@ internal class CardListFragment : Fragment(), BindableMviView<CardListViewState,
 
     private val intentSubject = PublishSubject.create<CardListIntent>()
     private val cardsAdapter = CardListAdapter()
-    private var toast: Toast? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -89,7 +88,6 @@ internal class CardListFragment : Fragment(), BindableMviView<CardListViewState,
             setHasFixedSize(true)
             adapter = cardsAdapter
             addItemDecoration(SpacingItemDecoration(8.px, betweenItems = true))
-            //addItemDecoration(SpacingItemDecoration(onSides = false, betweenItems = true, dividerSize = 8.px))
         }
     }
 }

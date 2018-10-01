@@ -16,4 +16,8 @@ interface RemoteUserDao {
     fun delete(id: String): Completable
 
     fun getAll(lastDisplayName: String, limit: Long): Flowable<List<User>>
+
+    fun getAllLike(like: String, lastDisplayName: String, limit: Long): Flowable<List<User>>
+
+    fun getAllLikeWithCard(like: String, lastDisplayName: String, limit: Long): Flowable<List<User>>
 }

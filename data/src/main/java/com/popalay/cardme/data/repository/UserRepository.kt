@@ -23,6 +23,10 @@ class UserRepository(
         remoteUserDao.getAll(lastDisplayName, limit)
             .map { list -> list.filter { it.uuid != FirebaseAuth.getInstance().currentUser?.uid } }
 
+    override fun getAllLikeWithCard(like: String, lastDisplayName: String, limit: Long): Flowable<List<User>> =
+        remoteUserDao.getAllLikeWithCard(like, lastDisplayName, limit)
+            .map { list -> list.filter { it.uuid != FirebaseAuth.getInstance().currentUser?.uid } }
+
     override fun save(user: User): Completable = Completable.mergeArray(
         remoteUserDao.save(user),
         cacheUserDao.save(user)

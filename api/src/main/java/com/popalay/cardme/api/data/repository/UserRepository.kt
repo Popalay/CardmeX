@@ -16,4 +16,6 @@ interface UserRepository {
     fun getCurrentUser(): Flowable<Optional<User>>
 
     fun getAll(lastDisplayName: String, limit: Long): Flowable<List<User>>
+
+    fun getAllLikeWithCard(like: String, lastDisplayName: String, limit: Long): Flowable<List<User>>
 }
