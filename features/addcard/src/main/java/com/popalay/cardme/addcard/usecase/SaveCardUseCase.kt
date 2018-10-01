@@ -26,7 +26,7 @@ internal class SaveCardUseCase(
                 val card = Card(
                     cardId,
                     action.number,
-                    Holder(holderId, action.name),
+                    Holder(holderId, action.name.capitalize(), ""),
                     action.isPublic,
                     action.cardType,
                     it.toNullable()?.uuid ?: "",

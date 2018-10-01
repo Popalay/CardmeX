@@ -8,8 +8,8 @@ object Versions {
     const val targetSdkVersion = 28
     const val compileSdkVersion = 28
 
-    const val gradlePlugin = "3.3.0-alpha12"
-    const val kotlinLanguage = "1.3.0-rc-57"
+    const val gradlePlugin = "3.3.0-alpha10"
+    const val kotlinLanguage = "1.3.0-rc-116"
 
     const val constraintLayout = "2.0.0-alpha2"
     const val ktx = "1.0.0"
@@ -19,7 +19,7 @@ object Versions {
     const val rxAndroid = "2.1.0"
     const val rxKotlin = "2.3.0"
 
-    const val rxBinding = "2.1.1"
+    const val rxBinding = "2.2.0"
 
     const val acLifecycle = "2.0.0"
     const val acRoom = "2.0.0-rc01"

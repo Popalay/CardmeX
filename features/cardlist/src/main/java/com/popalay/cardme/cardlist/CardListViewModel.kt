@@ -43,10 +43,10 @@ internal class CardListViewModel(
                 is CardListUseCase.Result.Failure -> it.copy(error = throwable, progress = false)
             }
             is CopyCardNumberUseCase.Result -> when (this) {
-                is CopyCardNumberUseCase.Result.Success -> it.copy(toastMessage = "The card in the clipboard", showToast = true)
+                is CopyCardNumberUseCase.Result.Success -> it.copy(toastMessage = "The card in the clipboard")
                 CopyCardNumberUseCase.Result.Idle -> it
                 is CopyCardNumberUseCase.Result.Failure -> it.copy(error = throwable)
-                CopyCardNumberUseCase.Result.HideMessage -> it.copy(toastMessage = null, showToast = false)
+                CopyCardNumberUseCase.Result.HideMessage -> it.copy(toastMessage = null)
             }
             is SpecificIntentUseCase.Result -> with(intent as CardListIntent) {
                 when (this) {

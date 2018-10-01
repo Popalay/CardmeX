@@ -1,12 +1,7 @@
 package com.popalay.cardme.usercard
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.MenuItem
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
@@ -104,7 +99,7 @@ internal class UserCardFragment : Fragment(), BindableMviView<UserCardViewState,
         with(viewState) {
             if (showAddCardDialog) showAddCardDialog()
             user?.run {
-                imageUserAvatar.loadImage(photoUrl, CircleImageTransformation())
+                imageUserAvatar.loadImage(photoUrl, transformation = *arrayOf(CircleImageTransformation()))
                 textDisplayName.text = displayName
             }
             card?.run {

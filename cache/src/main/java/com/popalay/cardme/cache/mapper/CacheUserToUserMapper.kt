@@ -21,7 +21,7 @@ internal class CacheUserToUserMapper(
                 CacheCardWithHolder(
                     id = it.id,
                     number = it.number,
-                    holder = CacheHolder(value.uuid, value.displayName),
+                    holder = CacheHolder(value.uuid, value.displayName, value.photoUrl),
                     isPublic = it.isPublic,
                     cardType = it.cardType,
                     userId = it.userId,

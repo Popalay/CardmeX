@@ -22,14 +22,14 @@ internal abstract class CardDao : BaseDao<CacheCard> {
     abstract fun findAll(): Flowable<List<CacheCard>>
 
     @Query(
-            """SELECT cards.*, holders.id as holder_id, holders.name as holder_name
+            """SELECT cards.*, holders.id as holder_id, holders.name as holder_name, holders.photoUrl as holder_photoUrl
             FROM cards LEFT JOIN holders ON cards.holderId = holders.id
             ORDER BY updatedDate DESC"""
     )
     abstract fun findAllWithHolder(): Flowable<List<CacheCardWithHolder>>
 
     @Query(
-            """SELECT cards.*, holders.id as holder_id, holders.name as holder_name
+            """SELECT cards.*, holders.id as holder_id, holders.name as holder_name, holders.photoUrl as holder_photoUrl
             FROM cards LEFT JOIN holders ON cards.holderId = holders.id
             WHERE cards.id = :cardId
             ORDER BY updatedDate DESC LIMIT 1"""

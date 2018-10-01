@@ -8,6 +8,7 @@ internal class HolderToCacheHolderMapper : Mapper<Holder, CacheHolder> {
 
     override fun apply(value: Holder): CacheHolder = CacheHolder(
         id = value.id,
-        name = value.name
+        name = value.name,
+        photoUrl = value.photoUrl
     )
 }

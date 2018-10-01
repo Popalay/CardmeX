@@ -8,6 +8,7 @@ internal class RemoteHolderToHolderMapper : Mapper<RemoteHolder, Holder> {
 
     override fun apply(value: RemoteHolder): Holder = Holder(
         id = value.id,
-        name = value.name
+        name = value.name,
+        photoUrl = value.photoUrl
     )
 }

@@ -14,7 +14,6 @@ import com.popalay.cardme.cardactions.CardActionsFragment
 import com.popalay.cardme.cardlist.adapter.CardListAdapter
 import com.popalay.cardme.cardlist.model.CardListItem
 import com.popalay.cardme.core.adapter.SpacingItemDecoration
-import com.popalay.cardme.core.extensions.applyThrottling
 import com.popalay.cardme.core.extensions.bindView
 import com.popalay.cardme.core.extensions.px
 import com.popalay.cardme.core.state.BindableMviView
@@ -60,9 +59,9 @@ internal class CardListFragment : Fragment(), BindableMviView<CardListViewState,
     override fun accept(viewState: CardListViewState) {
         with(viewState) {
             selectedCard?.let { showCardActionsDialog(it) }
-            showToast(toastMessage, showToast)
+            toastMessage?.let { Toast.makeText(context, it, Toast.LENGTH_LONG).show() }
             cardsAdapter.submitList(cards.map(::CardListItem))
-            listCards.smoothScrollToPosition(0)
+            if (cardsAdapter.itemCount < cards.size) listCards.smoothScrollToPosition(0)
             errorHandler.accept(error)
         }
     }
@@ -73,7 +72,6 @@ internal class CardListFragment : Fragment(), BindableMviView<CardListViewState,
 
     private val cardClickedIntent
         get() = cardsAdapter.itemClickObservable
-            .applyThrottling()
             .map { CardListIntent.OnCardClicked(it.card) }
 
     private val cardLongClickedIntent
@@ -86,19 +84,12 @@ internal class CardListFragment : Fragment(), BindableMviView<CardListViewState,
         }
     }
 
-    private fun showToast(text: String?, show: Boolean) {
-        if (show) {
-            toast = toast ?: Toast.makeText(context, text, Toast.LENGTH_LONG)
-            toast?.show()
-        } else toast?.cancel()
-    }
-
     private fun initView() {
         listCards.apply {
             setHasFixedSize(true)
             adapter = cardsAdapter
-            addItemDecoration(SpacingItemDecoration(16.px))
-            addItemDecoration(SpacingItemDecoration(onSides = false, betweenItems = true, dividerSize = 8.px))
+            addItemDecoration(SpacingItemDecoration(8.px, betweenItems = true))
+            //addItemDecoration(SpacingItemDecoration(onSides = false, betweenItems = true, dividerSize = 8.px))
         }
     }
 }

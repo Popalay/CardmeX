@@ -3,8 +3,8 @@ package com.popalay.cardme.addcard.usecase
 import com.popalay.cardme.api.core.model.Card
 import com.popalay.cardme.api.core.model.CardType
 import com.popalay.cardme.api.core.model.Holder
-import com.popalay.cardme.api.data.repository.UserRepository
 import com.popalay.cardme.api.core.usecase.UseCase
+import com.popalay.cardme.api.data.repository.UserRepository
 import io.reactivex.Observable
 import io.reactivex.ObservableSource
 import io.reactivex.schedulers.Schedulers
@@ -23,7 +23,7 @@ internal class SaveUserCardUseCase(
                 val card = Card(
                     cardId,
                     action.number,
-                    Holder(holderId, action.name),
+                    Holder(holderId, action.name, ""),
                     action.isPublic,
                     action.cardType,
                     it.toNullable()?.uuid ?: "",

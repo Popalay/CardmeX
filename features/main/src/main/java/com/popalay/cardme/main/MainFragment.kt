@@ -88,7 +88,7 @@ internal class MainFragment : Fragment(), NavHost, BindableMviView<MainViewState
                     .addTarget(imageUserPhoto)
             )
             user.toNullable()?.run {
-                imageUserPhoto.loadImage(photoUrl, CircleImageTransformation())
+                imageUserPhoto.loadImage(photoUrl, transformation = *arrayOf(CircleImageTransformation()))
                 textUserDisplayName.text = displayName
             }
             buttonSync.text = if (state.user is Some) "Unsync" else "Sync"

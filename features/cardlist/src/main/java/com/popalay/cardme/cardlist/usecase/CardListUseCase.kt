@@ -3,9 +3,9 @@ package com.popalay.cardme.cardlist.usecase
 import com.popalay.cardme.api.core.model.Card
 import com.popalay.cardme.api.core.model.CardType
 import com.popalay.cardme.api.core.model.Holder
+import com.popalay.cardme.api.core.usecase.UseCase
 import com.popalay.cardme.api.data.repository.CardRepository
 import com.popalay.cardme.api.data.repository.UserRepository
-import com.popalay.cardme.api.core.usecase.UseCase
 import io.reactivex.Observable
 import io.reactivex.ObservableSource
 import io.reactivex.schedulers.Schedulers
@@ -31,7 +31,7 @@ internal class CardListUseCase(
         get() = Card(
             "0",
             "5555555555554444",
-            Holder("0", "Glindev 4ever"),
+            Holder("0", "Glindev 4ever", ""),
             true,
             CardType.MASTER_CARD,
             "user_id",
