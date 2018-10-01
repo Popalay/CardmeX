@@ -13,7 +13,7 @@
     <item
         android:width="18dp"
         android:height="18dp"
-        android:drawable="@drawable/ic_face"
+        android:drawable="@drawable/ic_account"
         android:gravity="center" />
 
 </layer-list>
