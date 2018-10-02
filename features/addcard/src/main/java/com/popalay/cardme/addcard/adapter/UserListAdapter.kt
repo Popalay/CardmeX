@@ -26,7 +26,7 @@ class UserListAdapter : IdentifiableListAdapter<UserListItem>(
 
         override fun bind(item: UserListItem) {
             with(item.user) {
-                imagePhoto.loadImage(null, R.drawable.ic_holder_placeholder, CircleImageTransformation())
+                imagePhoto.loadImage(photoUrl, R.drawable.ic_holder_placeholder, CircleImageTransformation())
                 textDisplayName.text = displayName
                 textCardNumber.text = card?.securedNumber
                 textCardNumber.setCompoundDrawablesWithIntrinsicBounds(card?.cardType?.icon ?: 0, 0, 0, 0)

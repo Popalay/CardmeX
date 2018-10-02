@@ -26,7 +26,7 @@ class CardListAdapter : IdentifiableListAdapter<CardListItem>(
 
         override fun bind(item: CardListItem) {
             with(item.card) {
-                imagePhoto.loadImage(null, R.drawable.ic_holder_placeholder, CircleImageTransformation())
+                imagePhoto.loadImage(holder.photoUrl, R.drawable.ic_holder_placeholder, CircleImageTransformation())
                 textDisplayName.text = holder.name
                 textCardNumber.text = securedNumber
                 textCardNumber.setCompoundDrawablesWithIntrinsicBounds(cardType.icon, 0, 0, 0)
