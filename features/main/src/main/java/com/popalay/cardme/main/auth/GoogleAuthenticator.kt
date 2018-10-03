@@ -45,8 +45,8 @@ internal class GoogleAuthenticator(
             FirebaseAuth.getInstance().signInWithCredential(credential)
                 .addOnCompleteListener {
                     if (it.isSuccessful) {
-                        emitter.onSuccess(userMapper(it.result.user))
-                    } else {
+                        emitter.onSuccess(userMapper(it.result?.user))
+                    } else if (it.exception != null) {
                         emitter.tryOnError(it.exception!!)
                     }
                 }
@@ -68,12 +68,12 @@ internal class GoogleAuthenticator(
             val task = GoogleSignIn.getSignedInAccountFromIntent(result.data)
             try {
                 val account = task.getResult(ApiException::class.java)
-                val credential = GoogleAuthProvider.getCredential(account.idToken, null)
+                val credential = GoogleAuthProvider.getCredential(account?.idToken, null)
                 FirebaseAuth.getInstance().signInWithCredential(credential)
                     .addOnCompleteListener {
                         if (it.isSuccessful) {
-                            emitter.onSuccess(userMapper(it.result.user))
-                        } else {
+                            emitter.onSuccess(userMapper(it.result?.user))
+                        } else if (it.exception != null) {
                             emitter.tryOnError(it.exception!!)
                         }
                     }

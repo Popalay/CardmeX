@@ -8,6 +8,7 @@ data class AddCardViewState(
     val number: String = "",
     val holderName: String = "",
     val isHolderNameEditable: Boolean = true,
+    val isCardNumberEditable: Boolean = true,
     val isPublic: Boolean = true,
     val isPublicEditable: Boolean = true,
     val saveProgress: Boolean = false,
@@ -16,5 +17,6 @@ data class AddCardViewState(
     val isValid: Boolean = false,
     val cardType: CardType = CardType.UNKNOWN,
     val users: List<User>? = null,
+    val selectedUser: User? = null,
     val error: Throwable? = null
 ) : ViewState

@@ -7,6 +7,7 @@ import com.popalay.cardme.api.ui.state.Processor
 import com.popalay.cardme.api.ui.state.Reducer
 import com.popalay.cardme.core.state.BaseMviViewModel
 import com.popalay.cardme.core.usecase.GetCurrentUserUseCase
+import com.popalay.cardme.core.usecase.SpecificIntentUseCase
 import io.reactivex.rxkotlin.ofType
 
 internal class AddCardViewModel(
@@ -16,7 +17,8 @@ internal class AddCardViewModel(
     private val identifyCardNumberUseCase: IdentifyCardNumberUseCase,
     private val getCurrentUserUseCase: GetCurrentUserUseCase,
     private val saveUserCardUseCase: SaveUserCardUseCase,
-    private val userListUseCase: UserListUseCase
+    private val userListUseCase: UserListUseCase,
+    private val specificIntentUseCase: SpecificIntentUseCase
 ) : BaseMviViewModel<AddCardViewState, AddCardIntent>() {
 
     override val initialState: AddCardViewState = AddCardViewState()
@@ -29,12 +31,19 @@ internal class AddCardViewModel(
                 .compose(getCurrentUserUseCase),
             observable.ofType<AddCardIntent.SaveClicked>()
                 .filter { !isUserCard }
-                .map { SaveCardUseCase.Action(it.number, it.name, it.isPublic, it.cardType) }
+                .map { SaveCardUseCase.Action(it.number, it.name, it.isPublic, it.cardType, it.selectedUser) }
                 .compose(saveCardUseCase),
             observable.ofType<AddCardIntent.PeopleClicked>()
-                .filter { !isUserCard }
+                .filter { !isUserCard && !it.peopleShowed }
                 .map { UserListUseCase.Action("", "", 100) }
                 .compose(userListUseCase),
+            observable.ofType<AddCardIntent.PeopleClicked>()
+                .filter { !isUserCard && it.peopleShowed }
+                .map { SpecificIntentUseCase.Action(it) }
+                .compose(specificIntentUseCase),
+            observable.ofType<AddCardIntent.OnUserClicked>()
+                .map { SpecificIntentUseCase.Action(it) }
+                .compose(specificIntentUseCase),
             observable.ofType<AddCardIntent.SaveClicked>()
                 .filter { isUserCard }
                 .map { SaveUserCardUseCase.Action(it.number, it.name, it.isPublic, it.cardType) }
@@ -90,6 +99,18 @@ internal class AddCardViewModel(
                 is UserListUseCase.Result.Success -> it.copy(users = users, peopleProgress = false)
                 UserListUseCase.Result.Idle -> it.copy(peopleProgress = true)
                 is UserListUseCase.Result.Failure -> it.copy(error = throwable, peopleProgress = false)
+            }
+            is SpecificIntentUseCase.Result -> with(intent as AddCardIntent) {
+                when (this) {
+                    is AddCardIntent.PeopleClicked -> it.copy(users = null)
+                    is AddCardIntent.OnUserClicked -> it.copy(
+                        selectedUser = user,
+                        users = null,
+                        isHolderNameEditable = false,
+                        isCardNumberEditable = false
+                    )
+                    else -> throw UnsupportedOperationException()
+                }
             }
             else -> throw IllegalStateException("Can not reduce user for result ${javaClass.name}")
         }

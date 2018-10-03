@@ -3,6 +3,7 @@ package com.popalay.cardme.addcard.usecase
 import com.popalay.cardme.api.core.model.Card
 import com.popalay.cardme.api.core.model.CardType
 import com.popalay.cardme.api.core.model.Holder
+import com.popalay.cardme.api.core.model.User
 import com.popalay.cardme.api.core.usecase.UseCase
 import com.popalay.cardme.api.data.repository.CardRepository
 import com.popalay.cardme.api.data.repository.UserRepository
@@ -18,15 +19,19 @@ internal class SaveCardUseCase(
 
     override fun apply(upstream: Observable<Action>): ObservableSource<Result> = upstream.switchMap { action ->
         val cardId = UUID.randomUUID().toString()
-        val holderId = UUID.randomUUID().toString()
+        val holderId = action.user?.uuid ?: UUID.randomUUID().toString()
 
         userRepository.getCurrentUser()
             .firstElement()
             .flatMapCompletable {
                 val card = Card(
                     cardId,
-                    action.number,
-                    Holder(holderId, action.name.capitalize(), ""),
+                    action.user?.card?.number ?: action.number,
+                    Holder(
+                        holderId,
+                        action.user?.displayName ?: action.name.capitalize(),
+                        action.user?.photoUrl ?: ""
+                    ),
                     action.isPublic,
                     action.cardType,
                     it.toNullable()?.uuid ?: "",
@@ -43,7 +48,13 @@ internal class SaveCardUseCase(
             .subscribeOn(Schedulers.io())
     }
 
-    data class Action(val number: String, val name: String, val isPublic: Boolean, val cardType: CardType) : UseCase.Action
+    data class Action(
+        val number: String,
+        val name: String,
+        val isPublic: Boolean,
+        val cardType: CardType,
+        val user: User?
+    ) : UseCase.Action
 
     sealed class Result : UseCase.Result {
         object Success : Result()

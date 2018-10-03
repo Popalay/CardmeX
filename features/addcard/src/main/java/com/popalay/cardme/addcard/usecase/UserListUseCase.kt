@@ -14,9 +14,6 @@ internal class UserListUseCase(
     override fun apply(upstream: Observable<Action>): ObservableSource<Result> = upstream.switchMap { action ->
         userRepository.getCurrentUser()
             .switchMap { userRepository.getAllLikeWithCard(action.query, action.lastDisplayName, action.limit) }
-            .map { list ->
-                (0..3).map { list }.reduce { acc, list1 -> (acc as MutableList<User>).addAll(list1);acc }
-            }
             .map { Result.Success(it) }
             .cast(Result::class.java)
             .onErrorReturn(Result::Failure)

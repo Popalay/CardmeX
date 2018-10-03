@@ -20,7 +20,8 @@ internal class FirebasePhoneAuthenticator(
     private val userMapper: FirebaseUserToUserMapper
 ) : Authenticator {
 
-    @Volatile var verificationId: String = ""
+    @Volatile
+    var verificationId: String = ""
 
     override fun auth(credentials: AuthCredentials): Single<Optional<User>> = Single.create<Optional<User>> { emitter ->
         if (credentials !is CardmeAuthCredentials.Phone) {
@@ -37,8 +38,8 @@ internal class FirebasePhoneAuthenticator(
                     FirebaseAuth.getInstance().signInWithCredential(credential)
                         .addOnCompleteListener {
                             if (it.isSuccessful) {
-                                emitter.onSuccess(userMapper(it.result.user))
-                            } else {
+                                emitter.onSuccess(userMapper(it.result?.user))
+                            } else if (it.exception != null) {
                                 emitter.tryOnError(it.exception!!)
                             }
                         }
@@ -66,8 +67,8 @@ internal class FirebasePhoneAuthenticator(
         FirebaseAuth.getInstance().signInWithCredential(credential)
             .addOnCompleteListener {
                 if (it.isSuccessful) {
-                    emitter.onSuccess(userMapper(it.result.user))
-                } else {
+                    emitter.onSuccess(userMapper(it.result?.user))
+                } else if (it.exception != null) {
                     emitter.tryOnError(it.exception!!)
                 }
             }

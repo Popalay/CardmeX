@@ -1,4 +1,0 @@
--dontwarn java.lang.invoke.*
--dontwarn com.google.errorprone.annotations.*
--dontwarn org.slf4j.*
--optimizations !code/allocation/variable

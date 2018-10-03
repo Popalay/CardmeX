@@ -3,29 +3,28 @@ package com.popalay.cardme.addcard
 import android.annotation.SuppressLint
 import android.app.Dialog
 import android.content.DialogInterface
+import android.graphics.PorterDuff
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
-import androidx.constraintlayout.widget.Group
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.constraintlayout.widget.ConstraintSet
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import androidx.transition.TransitionManager
 import com.google.android.material.bottomsheet.BottomSheetBehavior
-import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.jakewharton.rxbinding2.view.RxView
 import com.jakewharton.rxbinding2.widget.RxTextView
 import com.popalay.cardme.addcard.adapter.UserListAdapter
 import com.popalay.cardme.addcard.model.UserListItem
 import com.popalay.cardme.api.core.error.ErrorHandler
 import com.popalay.cardme.core.adapter.SpacingItemDecoration
-import com.popalay.cardme.core.extensions.applyThrottling
-import com.popalay.cardme.core.extensions.bindView
-import com.popalay.cardme.core.extensions.icon
-import com.popalay.cardme.core.extensions.px
+import com.popalay.cardme.core.extensions.*
+import com.popalay.cardme.core.picasso.CircleImageTransformation
 import com.popalay.cardme.core.state.BindableMviView
 import com.popalay.cardme.core.widget.OnDialogDismissed
 import com.popalay.cardme.core.widget.ProgressImageButton
@@ -49,6 +48,8 @@ class AddCardFragment : RoundedBottomSheetDialogFragment(), BindableMviView<AddC
         }
     }
 
+    private val imageFace: ImageView by bindView(R.id.image_face)
+    private val constraintLayout: ConstraintLayout by bindView(R.id.constraint_layout)
     private val imageCardType: ImageView by bindView(R.id.image_card_type)
     private val inputNumber: EditText by bindView(R.id.input_number)
     private val buttonCamera: ImageButton by bindView(R.id.button_camera)
@@ -57,7 +58,6 @@ class AddCardFragment : RoundedBottomSheetDialogFragment(), BindableMviView<AddC
     private val inputName: EditText by bindView(R.id.input_name)
     private val checkPublic: CheckBox by bindView(R.id.check_public)
     private val listUsers: RecyclerView by bindView(R.id.list_users)
-    private val groupCardFields: Group by bindView(R.id.group_card_fields)
 
     private val errorHandler: ErrorHandler by inject()
 
@@ -105,7 +105,8 @@ class AddCardFragment : RoundedBottomSheetDialogFragment(), BindableMviView<AddC
                 nameChangedIntent,
                 numberChangedIntent,
                 cameraClickedIntent,
-                peopleClickedIntent
+                peopleClickedIntent,
+                userClickedIntent
             )
         )
     }
@@ -117,15 +118,34 @@ class AddCardFragment : RoundedBottomSheetDialogFragment(), BindableMviView<AddC
             buttonSave.isProgress = saveProgress
             checkPublic.isEnabled = isPublicEditable
             inputName.isEnabled = isHolderNameEditable
-            buttonPeople.isVisible = isHolderNameEditable
+            inputNumber.isEnabled = isCardNumberEditable
+            selectedUser?.let {
+                inputName.setText(it.displayName)
+                inputNumber.setText(it.card?.number)
+            }
+            buttonPeople.isVisible = isHolderNameEditable || selectedUser != null
             buttonPeople.isProgress = peopleProgress
             if (holderName.isNotBlank()) inputName.setText(holderName)
             if (saved) dismissAllowingStateLoss()
+
+            val constraintSet1 = ConstraintSet()
+            constraintSet1.clone(constraintLayout)
+            val constraintSet2 = ConstraintSet().apply {
+                clone(constraintLayout)
+                constrainHeight(R.id.list_users, ConstraintSet.WRAP_CONTENT)
+                connect(R.id.button_save, ConstraintSet.TOP, R.id.list_users, ConstraintSet.BOTTOM)
+                connect(R.id.check_public, ConstraintSet.TOP, R.id.list_users, ConstraintSet.BOTTOM)
+                connect(R.id.list_users, ConstraintSet.TOP, R.id.input_name, ConstraintSet.BOTTOM)
+            }
+
             TransitionManager.beginDelayedTransition(view as ViewGroup)
+            val constraint = if (users == null) constraintSet1 else constraintSet2
+            constraint.applyTo(constraintLayout)
             imageCardType.setImageResource(cardType.icon.takeIf { it != 0 } ?: R.drawable.ic_credit_card)
-            listUsers.isVisible = users != null
-            groupCardFields.isVisible = users == null
             usersAdapter.submitList(users?.map(::UserListItem))
+            imageFace.imageTintMode = selectedUser?.let { PorterDuff.Mode.DST } ?: PorterDuff.Mode.MULTIPLY
+            imageFace.loadImage(selectedUser?.photoUrl, R.drawable.ic_account, CircleImageTransformation())
+
             errorHandler.accept(error)
         }
     }
@@ -143,7 +163,8 @@ class AddCardFragment : RoundedBottomSheetDialogFragment(), BindableMviView<AddC
                     inputNumber.text.toString(),
                     inputName.text.toString(),
                     checkPublic.isChecked,
-                    state.cardType
+                    state.cardType,
+                    state.selectedUser
                 )
             }
 
@@ -155,7 +176,7 @@ class AddCardFragment : RoundedBottomSheetDialogFragment(), BindableMviView<AddC
     private val peopleClickedIntent
         get() = RxView.clicks(buttonPeople)
             .applyThrottling()
-            .map { AddCardIntent.PeopleClicked }
+            .map { AddCardIntent.PeopleClicked(!state.users.isNullOrEmpty()) }
 
     private val nameChangedIntent
         get() = RxTextView.afterTextChangeEvents(inputName)
@@ -179,12 +200,14 @@ class AddCardFragment : RoundedBottomSheetDialogFragment(), BindableMviView<AddC
                 )
             }
 
+    private val userClickedIntent
+        get() = usersAdapter.itemClickObservable
+            .map { AddCardIntent.OnUserClicked(it.user) }
+
     private fun initView() {
         listUsers.apply {
-            setHasFixedSize(true)
             adapter = usersAdapter
             addItemDecoration(SpacingItemDecoration(8.px, betweenItems = true))
         }
-        (dialog as BottomSheetDialog)
     }
 }

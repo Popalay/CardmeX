@@ -16,17 +16,18 @@ internal class SaveUserCardUseCase(
 
     override fun apply(upstream: Observable<Action>): ObservableSource<Result> = upstream.switchMap { action ->
         val cardId = UUID.randomUUID().toString()
-        val holderId = UUID.randomUUID().toString()
 
         userRepository.getCurrentUser()
             .flatMapCompletable {
+                val userId = it.toNullable()?.uuid ?: UUID.randomUUID().toString()
+
                 val card = Card(
                     cardId,
                     action.number,
-                    Holder(holderId, action.name, ""),
+                    Holder(userId, action.name, ""),
                     action.isPublic,
                     action.cardType,
-                    it.toNullable()?.uuid ?: "",
+                    userId,
                     Date(),
                     Date()
                 )

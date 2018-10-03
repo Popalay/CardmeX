@@ -105,7 +105,6 @@ dependencies {
     implementation Libs.lifecycle
 
     implementation Libs.firebaseCore
-    implementation Libs.androidProguards
     implementation Libs.crashlytics
 
     implementation Libs.stetho

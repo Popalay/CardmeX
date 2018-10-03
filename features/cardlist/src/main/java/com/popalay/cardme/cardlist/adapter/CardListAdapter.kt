@@ -3,7 +3,7 @@ package com.popalay.cardme.cardlist.adapter
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
-import com.popalay.cardme.addcard.R
+import com.popalay.cardme.cardlist.R
 import com.popalay.cardme.cardlist.model.CardListItem
 import com.popalay.cardme.core.adapter.BindableViewHolder
 import com.popalay.cardme.core.adapter.IdentifiableListAdapter
