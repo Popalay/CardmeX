@@ -28,10 +28,10 @@ class App : Application() {
     }
 
     private fun initDevTools() {
-/*        val crashlyticsKit = Crashlytics.Builder()
+        val crashlyticsKit = Crashlytics.Builder()
             .core(CrashlyticsCore.Builder().disabled(BuildConfig.DEBUG).build())
             .build()
-        Fabric.with(this, crashlyticsKit)*/
+        Fabric.with(this, crashlyticsKit)
 
         if (BuildConfig.DEBUG) {
             Stetho.initializeWithDefaults(this)
