@@ -18,7 +18,7 @@ internal class ValidateCardUseCase : UseCase<ValidateCardUseCase.Action, Validat
             .map { Result.Success(it) }
             .cast(Result::class.java)
             .onErrorReturn(Result::Failure)
-            .startWith(Result.Idle)
+            .startWith(Result.Idle(action.number, action.name, action.isPublic))
             .subscribeOn(Schedulers.io())
     }
 
@@ -26,7 +26,7 @@ internal class ValidateCardUseCase : UseCase<ValidateCardUseCase.Action, Validat
 
     sealed class Result : UseCase.Result {
         data class Success(val isValid: Boolean) : Result()
-        object Idle : Result()
+        data class Idle(val number: String, val name: String, val isPublic: Boolean) : Result()
         data class Failure(val throwable: Throwable) : Result()
     }
 }

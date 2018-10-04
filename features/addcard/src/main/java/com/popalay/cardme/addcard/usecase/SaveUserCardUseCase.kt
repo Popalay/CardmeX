@@ -18,13 +18,14 @@ internal class SaveUserCardUseCase(
         val cardId = UUID.randomUUID().toString()
 
         userRepository.getCurrentUser()
+            .firstElement()
             .flatMapCompletable {
                 val userId = it.toNullable()?.uuid ?: UUID.randomUUID().toString()
 
                 val card = Card(
                     cardId,
                     action.number,
-                    Holder(userId, action.name, ""),
+                    Holder(userId, action.name, it.toNullable()?.photoUrl ?: ""),
                     action.isPublic,
                     action.cardType,
                     userId,

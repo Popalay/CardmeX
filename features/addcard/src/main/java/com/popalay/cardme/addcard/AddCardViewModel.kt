@@ -1,6 +1,7 @@
 package com.popalay.cardme.addcard
 
 import com.popalay.cardme.addcard.usecase.*
+import com.popalay.cardme.api.core.model.DisplayName
 import com.popalay.cardme.api.ui.state.IntentProcessor
 import com.popalay.cardme.api.ui.state.LambdaReducer
 import com.popalay.cardme.api.ui.state.Processor
@@ -80,8 +81,10 @@ internal class AddCardViewModel(
             is ValidateCardUseCase.Result -> when (this) {
                 is ValidateCardUseCase.Result.Success -> it.copy(isValid = isValid, saveProgress = false)
                 is ValidateCardUseCase.Result.Idle -> it.copy(
-                    clearHolderName = false,
-                    clearCardNumber = false
+                    holderName = name,
+                    cardNumber = number,
+                    selectedUser = it.selectedUser?.copy(displayName = DisplayName(name), card = it.selectedUser.card?.copy(number = number)),
+                    isPublic = isPublic
                 )
                 is ValidateCardUseCase.Result.Failure -> it.copy(isValid = false, error = throwable, saveProgress = false)
             }
@@ -111,8 +114,8 @@ internal class AddCardViewModel(
                         showClearButton = false,
                         isHolderNameEditable = true,
                         isCardNumberEditable = true,
-                        clearHolderName = true,
-                        clearCardNumber = true
+                        holderName = "",
+                        cardNumber = ""
                     )
                     is AddCardIntent.PeopleClicked -> it.copy(users = null)
                     is AddCardIntent.OnUserClicked -> it.copy(

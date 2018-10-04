@@ -7,12 +7,10 @@ import com.popalay.cardme.api.ui.state.ViewState
 data class AddCardViewState(
     val holderName: String = "",
     val isHolderNameEditable: Boolean = true,
-    val clearHolderName: Boolean = false,
 
     val cardType: CardType = CardType.UNKNOWN,
     val cardNumber: String = "",
     val isCardNumberEditable: Boolean = true,
-    val clearCardNumber: Boolean = false,
 
     val isPublic: Boolean = true,
     val isPublicEditable: Boolean = true,

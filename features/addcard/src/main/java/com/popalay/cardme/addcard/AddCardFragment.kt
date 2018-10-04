@@ -123,14 +123,12 @@ class AddCardFragment : RoundedBottomSheetDialogFragment(), BindableMviView<AddC
                 isProgress = saveProgress
             }
             inputName.apply {
-                selectedUser?.run { setTextIfNeeded(displayName.value) }
+                setTextIfNeeded(selectedUser?.displayName?.value ?: holderName)
                 isEnabled = isHolderNameEditable
-                if (clearHolderName) text = null
             }
             inputNumber.apply {
-                selectedUser?.run { setTextIfNeeded(card?.number) }
+                setTextIfNeeded(selectedUser?.card?.number ?: cardNumber)
                 isEnabled = isCardNumberEditable
-                if (clearCardNumber) text = null
             }
             checkPublic.apply {
                 isChecked = isPublic
@@ -187,10 +185,12 @@ class AddCardFragment : RoundedBottomSheetDialogFragment(), BindableMviView<AddC
 
     private val nameChangedIntent
         get() = RxTextView.afterTextChangeEvents(inputName)
+            .applyThrottling()
             .map { AddCardIntent.NameChanged(it.editable().toString()) }
 
     private val numberChangedIntent
         get() = RxTextView.afterTextChangeEvents(inputNumber)
+            .applyThrottling()
             .map { AddCardIntent.NumberChanged(it.editable().toString()) }
 
     private val isPublicChangedIntent

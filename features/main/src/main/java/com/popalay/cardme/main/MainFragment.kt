@@ -81,7 +81,7 @@ internal class MainFragment : Fragment(), NavHost, BindableMviView<MainViewState
         with(viewState) {
             if (showAddCardDialog) showAddCardDialog()
             TransitionManager.beginDelayedTransition(
-                constraintLayout, AutoTransition()
+                buttonSync.parent as ViewGroup, AutoTransition()
                     .addTarget(buttonSync)
                     .addTarget(textUserDisplayName)
                     .addTarget(imageUserPhoto)
