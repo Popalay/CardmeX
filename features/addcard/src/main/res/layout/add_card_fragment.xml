@@ -1,148 +1,159 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraint_layout"
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="0dp"
+        android:layout_weight="1">
 
-        <EditText
-            android:id="@+id/input_number"
-            style="@style/Cardme.EditText.Lineless"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="8dp"
-            android:ems="10"
-            android:hint="Card number"
-            android:importantForAutofill="no"
-            android:inputType="number"
-            android:maxLength="16"
-            android:singleLine="true"
-            app:layout_constraintEnd_toStartOf="@+id/button_camera"
-            app:layout_constraintStart_toEndOf="@+id/image_card_type"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="UnusedAttribute"
-            tools:text="@tools:sample/us_phones" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraint_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-        <ImageButton
-            android:id="@+id/button_camera"
+            <EditText
+                android:id="@+id/input_number"
+                style="@style/Cardme.EditText.Lineless"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="8dp"
+                android:ems="10"
+                android:hint="Card number"
+                android:importantForAutofill="no"
+                android:inputType="number"
+                android:maxLength="16"
+                android:singleLine="true"
+                app:layout_constraintEnd_toStartOf="@+id/button_camera"
+                app:layout_constraintStart_toEndOf="@+id/image_card_type"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="UnusedAttribute"
+                tools:text="@tools:sample/us_phones" />
+
+            <ImageButton
+                android:id="@+id/button_camera"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:background="@drawable/bg_ripple_rounded"
+                android:contentDescription="Scan card"
+                android:padding="8dp"
+                android:src="@drawable/ic_camera"
+                android:tint="@color/colorPrimary"
+                app:layout_constraintBottom_toBottomOf="@+id/input_number"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/input_number"
+                app:layout_constraintTop_toTopOf="@+id/input_number" />
+
+            <com.popalay.cardme.core.widget.ProgressImageButton
+                android:id="@+id/button_people"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:background="@drawable/sl_image_button_selectable"
+                android:contentDescription="User list"
+                android:elevation="2dp"
+                android:padding="8dp"
+                android:src="@drawable/ic_people"
+                android:tint="@color/colorPrimary"
+                app:layout_constraintBottom_toBottomOf="@+id/input_name"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/input_name"
+                app:layout_constraintTop_toTopOf="@+id/input_name" />
+
+            <EditText
+                android:id="@+id/input_name"
+                style="@style/Cardme.EditText.Lineless"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:ems="10"
+                android:hint="Name"
+                android:importantForAutofill="no"
+                android:inputType="textPersonName"
+                android:maxLength="30"
+                android:singleLine="true"
+                app:layout_constraintEnd_toStartOf="@id/button_people"
+                app:layout_constraintStart_toEndOf="@+id/image_face"
+                app:layout_constraintTop_toBottomOf="@+id/input_number"
+                tools:ignore="UnusedAttribute"
+                tools:text="@tools:sample/full_names" />
+
+            <ImageView
+                android:id="@+id/image_card_type"
+                android:layout_width="24dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:contentDescription="Card type"
+                android:src="@drawable/ic_credit_card"
+                android:tint="@color/colorPrimary"
+                app:layout_constraintBottom_toBottomOf="@id/input_number"
+                app:layout_constraintEnd_toStartOf="@id/input_number"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/input_number" />
+
+            <ImageView
+                android:id="@+id/image_face"
+                android:layout_width="24dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:contentDescription="Holder name"
+                android:src="@drawable/ic_account"
+                android:tint="@color/colorPrimary"
+                app:layout_constraintBottom_toBottomOf="@+id/input_name"
+                app:layout_constraintEnd_toStartOf="@+id/input_name"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/input_name" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/list_users"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/input_name"
+                tools:layout_height="150dp"
+                tools:listitem="@layout/item_user" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:paddingStart="12dp"
+        android:paddingTop="8dp"
+        android:paddingEnd="16dp">
+
+        <CheckBox
+            android:id="@+id/check_public"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:background="@drawable/bg_ripple_rounded"
-            android:contentDescription="Scan card"
-            android:padding="8dp"
-            android:src="@drawable/ic_camera"
-            android:tint="@color/colorPrimary"
-            app:layout_constraintBottom_toBottomOf="@+id/input_number"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/input_number"
-            app:layout_constraintTop_toTopOf="@+id/input_number" />
-
-        <com.popalay.cardme.core.widget.ProgressImageButton
-            android:id="@+id/button_people"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:background="@drawable/sl_image_button_selectable"
-            android:contentDescription="User list"
-            android:elevation="2dp"
-            android:padding="8dp"
-            android:src="@drawable/ic_people"
-            android:tint="@color/colorPrimary"
-            app:layout_constraintBottom_toBottomOf="@+id/input_name"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/input_name"
-            app:layout_constraintTop_toTopOf="@+id/input_name" />
+            android:checked="true"
+            android:paddingStart="8dp"
+            android:paddingEnd="0dp"
+            android:text="Public" />
 
         <com.popalay.cardme.core.widget.ProgressMaterialButton
             android:id="@+id/button_save"
             style="@style/Cardme.Button.Colored"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="16dp"
-            android:text="Save"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/list_users" />
+            android:layout_gravity="end"
+            android:text="Save" />
 
-        <EditText
-            android:id="@+id/input_name"
-            style="@style/Cardme.EditText.Lineless"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:ems="10"
-            android:hint="Name"
-            android:importantForAutofill="no"
-            android:inputType="textPersonName"
-            android:maxLength="30"
-            android:singleLine="true"
-            app:layout_constraintEnd_toStartOf="@id/button_people"
-            app:layout_constraintStart_toEndOf="@+id/image_face"
-            app:layout_constraintTop_toBottomOf="@+id/input_number"
-            tools:ignore="UnusedAttribute"
-            tools:text="@tools:sample/full_names" />
+    </FrameLayout>
 
-        <CheckBox
-            android:id="@+id/check_public"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
-            android:layout_marginTop="8dp"
-            android:checked="true"
-            android:paddingStart="8dp"
-            android:paddingEnd="0dp"
-            android:text="Public"
-            app:layout_constraintBottom_toBottomOf="@+id/button_save"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/list_users" />
-
-        <ImageView
-            android:id="@+id/image_card_type"
-            android:layout_width="24dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:contentDescription="Card type"
-            android:src="@drawable/ic_credit_card"
-            android:tint="@color/colorPrimary"
-            app:layout_constraintBottom_toBottomOf="@id/input_number"
-            app:layout_constraintEnd_toStartOf="@id/input_number"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/input_number" />
-
-        <ImageView
-            android:id="@+id/image_face"
-            android:layout_width="24dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:contentDescription="Holder name"
-            android:src="@drawable/ic_account"
-            android:tint="@color/colorPrimary"
-            app:layout_constraintBottom_toBottomOf="@+id/input_name"
-            app:layout_constraintEnd_toStartOf="@+id/input_name"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/input_name" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/list_users"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/input_name"
-            tools:layout_height="150dp"
-            tools:listitem="@layout/item_user" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-</androidx.core.widget.NestedScrollView>
+</LinearLayout>
