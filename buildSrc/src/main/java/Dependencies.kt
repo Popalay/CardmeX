@@ -1,15 +1,15 @@
 @file:Suppress("unused")
 
 object Versions {
-    const val versionName = "0.0.1"
-    val versionCode = (System.getenv("BITRISE_BUILD_NUMBER") ?: "19").toInt()
+    const val versionName = "0.1.0"
+    val versionCode = (System.getenv("BITRISE_BUILD_NUMBER") ?: "20").toInt()
 
     const val minSdkVersion = 23
     const val targetSdkVersion = 28
     const val compileSdkVersion = 28
 
     const val gradlePlugin = "3.3.0-alpha13"
-    const val kotlinLanguage = "1.3.0-rc-131"
+    const val kotlinLanguage = "1.3.0-rc-146"
 
     const val constraintLayout = "2.0.0-alpha2"
     const val ktx = "1.0.0"
@@ -29,7 +29,7 @@ object Versions {
     const val firebaseAuth = "16.0.4"
     const val firebaseFireStore = "17.1.1"
     const val firebaseStorage = "16.0.3"
-    const val playServicesAuth = "16.0.0"
+    const val playServicesAuth = "16.0.1"
 
     const val koinDi = "1.0.1"
     const val hoard = "1.0.0"
