@@ -18,7 +18,7 @@ class CardRepository(
 
     override fun save(data: Card): Completable = Completable.mergeArray(
         cacheCardDao.save(data),
-        if (data.isPublic) remoteCardDao.save(data) else Completable.complete()
+        if (data.isPublic) remoteCardDao.save(data).onErrorComplete() else Completable.complete()
     )
 
     override fun saveAll(data: List<Card>): Completable = Completable.mergeArray(
@@ -30,7 +30,7 @@ class CardRepository(
 
     override fun delete(id: String): Completable = Completable.mergeArray(
         cacheCardDao.delete(id),
-        remoteCardDao.delete(id)
+        remoteCardDao.delete(id).onErrorComplete()
     )
 
     override fun getAll(userId: String): Flowable<List<Card>> = cardListStore.get(CardListStore.Key.AllByUser(userId))
