@@ -5,18 +5,27 @@ import com.popalay.cardme.api.core.model.User
 import com.popalay.cardme.api.ui.state.ViewState
 
 data class AddCardViewState(
-    val number: String = "",
     val holderName: String = "",
     val isHolderNameEditable: Boolean = true,
+    val clearHolderName: Boolean = false,
+
+    val cardType: CardType = CardType.UNKNOWN,
+    val cardNumber: String = "",
     val isCardNumberEditable: Boolean = true,
+    val clearCardNumber: Boolean = false,
+
     val isPublic: Boolean = true,
     val isPublicEditable: Boolean = true,
+
     val saveProgress: Boolean = false,
     val peopleProgress: Boolean = false,
-    val saved: Boolean = false,
+
+    val showClearButton: Boolean = false,
     val isValid: Boolean = false,
-    val cardType: CardType = CardType.UNKNOWN,
+    val saved: Boolean = false,
+
     val users: List<User>? = null,
     val selectedUser: User? = null,
+
     val error: Throwable? = null
 ) : ViewState

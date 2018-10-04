@@ -20,7 +20,7 @@ internal class AuthUseCase(
     override fun apply(upstream: Observable<Action>): ObservableSource<Result> = upstream.switchMap { action ->
         authenticator.auth(action.authCredentials)
             .flatMap { user -> user.toNullable()?.let { userRepository.save(it).toSingleDefault(user) } ?: Single.just(user) }
-            .map { Result.Success(it) }
+            .map { Result.Success(it.toNullable()) }
             .cast(Result::class.java)
             .onErrorReturn(Result::Failure)
             .toObservable()
@@ -31,7 +31,7 @@ internal class AuthUseCase(
     data class Action(val authCredentials: CardmeAuthCredentials) : UseCase.Action
 
     sealed class Result : UseCase.Result {
-        data class Success(val user: Optional<User>) : Result()
+        data class Success(val user: User?) : Result()
         object Idle : Result()
         data class Failure(val throwable: Throwable) : Result()
     }

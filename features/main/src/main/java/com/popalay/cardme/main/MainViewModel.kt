@@ -1,6 +1,5 @@
 package com.popalay.cardme.main
 
-import com.gojuno.koptional.None
 import com.popalay.cardme.api.ui.navigation.Router
 import com.popalay.cardme.api.ui.state.IntentProcessor
 import com.popalay.cardme.api.ui.state.LambdaReducer
@@ -61,7 +60,7 @@ internal class MainViewModel(
                 is GetCurrentUserUseCase.Result.Failure -> it.copy(error = throwable, isSyncProgress = false)
             }
             is LogOutUseCase.Result -> when (this) {
-                LogOutUseCase.Result.Success -> it.copy(user = None, isSyncProgress = false)
+                LogOutUseCase.Result.Success -> it.copy(user = null, isSyncProgress = false)
 
                 LogOutUseCase.Result.Idle -> it.copy(isSyncProgress = true)
                 is LogOutUseCase.Result.Failure -> it.copy(error = throwable, isSyncProgress = false)

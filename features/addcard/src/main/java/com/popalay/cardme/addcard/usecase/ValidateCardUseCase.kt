@@ -13,7 +13,7 @@ internal class ValidateCardUseCase : UseCase<ValidateCardUseCase.Action, Validat
     override fun apply(upstream: Observable<Action>): ObservableSource<Result> = upstream.switchMap { action ->
         Observable.fromCallable {
             action.name.isNotBlank() && action.number.isNotBlank() &&
-                (masterCardRegex.matches(action.number) || visaRegex.matches(action.number))
+                    (masterCardRegex.matches(action.number) || visaRegex.matches(action.number))
         }
             .map { Result.Success(it) }
             .cast(Result::class.java)

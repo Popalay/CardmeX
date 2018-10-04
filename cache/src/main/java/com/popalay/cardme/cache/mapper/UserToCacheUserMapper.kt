@@ -13,7 +13,7 @@ internal class UserToCacheUserMapper(
         email = value.email,
         photoUrl = value.photoUrl,
         phoneNumber = value.phoneNumber,
-        displayName = value.displayName,
+        displayName = value.displayName.value,
         card = value.card?.let { cardToCacheCardMapper(it) }
     )
 }

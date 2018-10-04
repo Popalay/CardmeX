@@ -11,7 +11,7 @@ internal class UserToRemoteUserMapper: Mapper<User, RemoteUser> {
         email = value.email,
         photoUrl = value.photoUrl,
         phoneNumber = value.phoneNumber,
-        displayName = value.displayName,
+        displayName = value.displayName.value,
         card = null
     )
 }

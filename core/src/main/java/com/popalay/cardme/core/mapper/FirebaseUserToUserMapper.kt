@@ -5,6 +5,7 @@ import com.gojuno.koptional.Optional
 import com.gojuno.koptional.toOptional
 import com.google.firebase.auth.FirebaseUser
 import com.popalay.cardme.api.core.mapper.Mapper
+import com.popalay.cardme.api.core.model.DisplayName
 import com.popalay.cardme.api.core.model.User
 
 class FirebaseUserToUserMapper : Mapper<FirebaseUser?, Optional<User>> {
@@ -16,7 +17,7 @@ class FirebaseUserToUserMapper : Mapper<FirebaseUser?, Optional<User>> {
             email = value.email ?: "",
             phoneNumber = value.phoneNumber ?: "",
             photoUrl = value.photoUrl?.toString() ?: "",
-            displayName = value.displayName ?: "Undefined",
+            displayName = DisplayName(value.displayName ?: "Undefined"),
             card = null
         ).toOptional()
 }

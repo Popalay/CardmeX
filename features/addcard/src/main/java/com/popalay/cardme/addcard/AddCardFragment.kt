@@ -3,6 +3,7 @@ package com.popalay.cardme.addcard
 import android.annotation.SuppressLint
 import android.app.Dialog
 import android.content.DialogInterface
+import android.graphics.Color
 import android.graphics.PorterDuff
 import android.os.Bundle
 import android.util.Log
@@ -11,13 +12,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.constraintlayout.widget.ConstraintSet
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
+import androidx.transition.AutoTransition
 import androidx.transition.TransitionManager
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.jakewharton.rxbinding2.view.RxView
+import com.jakewharton.rxbinding2.widget.RxCompoundButton
 import com.jakewharton.rxbinding2.widget.RxTextView
 import com.popalay.cardme.addcard.adapter.UserListAdapter
 import com.popalay.cardme.addcard.model.UserListItem
@@ -106,7 +108,8 @@ class AddCardFragment : RoundedBottomSheetDialogFragment(), BindableMviView<AddC
                 numberChangedIntent,
                 cameraClickedIntent,
                 peopleClickedIntent,
-                userClickedIntent
+                userClickedIntent,
+                isPublicChangedIntent
             )
         )
     }
@@ -114,37 +117,41 @@ class AddCardFragment : RoundedBottomSheetDialogFragment(), BindableMviView<AddC
     override fun accept(viewState: AddCardViewState) {
         state = viewState
         with(viewState) {
-            buttonSave.isEnabled = isValid
-            buttonSave.isProgress = saveProgress
-            checkPublic.isEnabled = isPublicEditable
-            inputName.isEnabled = isHolderNameEditable
-            inputNumber.isEnabled = isCardNumberEditable
-            selectedUser?.let {
-                inputName.setText(it.displayName)
-                inputNumber.setText(it.card?.number)
-            }
-            buttonPeople.isVisible = isHolderNameEditable || selectedUser != null
-            buttonPeople.isProgress = peopleProgress
-            if (holderName.isNotBlank()) inputName.setText(holderName)
             if (saved) dismissAllowingStateLoss()
-
-            val constraintSet1 = ConstraintSet()
-            constraintSet1.clone(constraintLayout)
-            val constraintSet2 = ConstraintSet().apply {
-                clone(constraintLayout)
-                constrainHeight(R.id.list_users, ConstraintSet.WRAP_CONTENT)
-                connect(R.id.button_save, ConstraintSet.TOP, R.id.list_users, ConstraintSet.BOTTOM)
-                connect(R.id.check_public, ConstraintSet.TOP, R.id.list_users, ConstraintSet.BOTTOM)
-                connect(R.id.list_users, ConstraintSet.TOP, R.id.input_name, ConstraintSet.BOTTOM)
+            buttonSave.apply {
+                isEnabled = isValid
+                isProgress = saveProgress
+            }
+            inputName.apply {
+                selectedUser?.run { setTextIfNeeded(displayName.value) }
+                isEnabled = isHolderNameEditable
+                if (clearHolderName) text = null
+            }
+            inputNumber.apply {
+                selectedUser?.run { setTextIfNeeded(card?.number) }
+                isEnabled = isCardNumberEditable
+                if (clearCardNumber) text = null
+            }
+            checkPublic.apply {
+                isChecked = isPublic
+                isEnabled = isPublicEditable
+            }
+            buttonPeople.apply {
+                TransitionManager.beginDelayedTransition(view as ViewGroup, AutoTransition().addTarget(this))
+                setImageResource(if (showClearButton) R.drawable.ic_clear else R.drawable.ic_people)
+                isVisible = isHolderNameEditable || showClearButton
+                isProgress = peopleProgress
+                isSelected = !users.isNullOrEmpty()
+                drawable.setTint(if (isSelected) Color.WHITE else context.getColor(R.color.colorPrimary))
             }
 
             TransitionManager.beginDelayedTransition(view as ViewGroup)
-            val constraint = if (users == null) constraintSet1 else constraintSet2
-            constraint.applyTo(constraintLayout)
             imageCardType.setImageResource(cardType.icon.takeIf { it != 0 } ?: R.drawable.ic_credit_card)
             usersAdapter.submitList(users?.map(::UserListItem))
-            imageFace.imageTintMode = selectedUser?.let { PorterDuff.Mode.DST } ?: PorterDuff.Mode.MULTIPLY
-            imageFace.loadImage(selectedUser?.photoUrl, R.drawable.ic_account, CircleImageTransformation())
+            imageFace.apply {
+                imageTintMode = selectedUser?.let { PorterDuff.Mode.DST } ?: PorterDuff.Mode.MULTIPLY
+                loadImage(selectedUser?.photoUrl, R.drawable.ic_account, CircleImageTransformation())
+            }
 
             errorHandler.accept(error)
         }
@@ -160,9 +167,9 @@ class AddCardFragment : RoundedBottomSheetDialogFragment(), BindableMviView<AddC
             .applyThrottling()
             .map {
                 AddCardIntent.SaveClicked(
-                    inputNumber.text.toString(),
-                    inputName.text.toString(),
-                    checkPublic.isChecked,
+                    state.cardNumber,
+                    state.holderName,
+                    state.isPublic,
                     state.cardType,
                     state.selectedUser
                 )
@@ -176,29 +183,19 @@ class AddCardFragment : RoundedBottomSheetDialogFragment(), BindableMviView<AddC
     private val peopleClickedIntent
         get() = RxView.clicks(buttonPeople)
             .applyThrottling()
-            .map { AddCardIntent.PeopleClicked(!state.users.isNullOrEmpty()) }
+            .map { if (state.showClearButton) AddCardIntent.CrossClicked else AddCardIntent.PeopleClicked(!state.users.isNullOrEmpty()) }
 
     private val nameChangedIntent
         get() = RxTextView.afterTextChangeEvents(inputName)
-            .skipInitialValue()
-            .map {
-                AddCardIntent.NameChanged(
-                    inputNumber.text.toString(),
-                    inputName.text.toString(),
-                    checkPublic.isChecked
-                )
-            }
+            .map { AddCardIntent.NameChanged(it.editable().toString()) }
 
     private val numberChangedIntent
         get() = RxTextView.afterTextChangeEvents(inputNumber)
-            .skipInitialValue()
-            .map {
-                AddCardIntent.NumberChanged(
-                    inputNumber.text.toString(),
-                    inputName.text.toString(),
-                    checkPublic.isChecked
-                )
-            }
+            .map { AddCardIntent.NumberChanged(it.editable().toString()) }
+
+    private val isPublicChangedIntent
+        get() = RxCompoundButton.checkedChanges(checkPublic)
+            .map { AddCardIntent.IsPublicChanged(it) }
 
     private val userClickedIntent
         get() = usersAdapter.itemClickObservable

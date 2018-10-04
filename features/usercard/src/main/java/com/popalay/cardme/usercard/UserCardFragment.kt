@@ -93,15 +93,15 @@ internal class UserCardFragment : Fragment(), BindableMviView<UserCardViewState,
         with(viewState) {
             if (showAddCardDialog) showAddCardDialog()
             user?.run {
-                imageUserAvatar.loadImage(photoUrl, transformation = *arrayOf(CircleImageTransformation()))
-                textDisplayName.text = displayName
+                imageUserAvatar.loadImage(photoUrl, R.drawable.ic_holder_placeholder, CircleImageTransformation())
+                textDisplayName.text = displayName.value
+                card?.run {
+                    textCardNumber.text = formattedNumber
+                    imageCardType.setImageResource(cardType.icon)
+                }
             }
-            card?.run {
-                textCardNumber.text = formattedNumber
-                imageCardType.setImageResource(cardType.icon)
-            }
-            groupNoCard.isVisible = card == null && !progress
-            groupCard.isVisible = card != null && !progress
+            groupNoCard.isVisible = user?.card == null && !progress
+            groupCard.isVisible = user?.card != null && !progress
             if (progress) progressBar.show() else progressBar.hide()
             errorHandler.accept(error)
         }

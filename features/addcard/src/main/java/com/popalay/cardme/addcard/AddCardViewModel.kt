@@ -8,6 +8,7 @@ import com.popalay.cardme.api.ui.state.Reducer
 import com.popalay.cardme.core.state.BaseMviViewModel
 import com.popalay.cardme.core.usecase.GetCurrentUserUseCase
 import com.popalay.cardme.core.usecase.SpecificIntentUseCase
+import io.reactivex.rxkotlin.Observables
 import io.reactivex.rxkotlin.ofType
 
 internal class AddCardViewModel(
@@ -41,6 +42,9 @@ internal class AddCardViewModel(
                 .filter { !isUserCard && it.peopleShowed }
                 .map { SpecificIntentUseCase.Action(it) }
                 .compose(specificIntentUseCase),
+            observable.ofType<AddCardIntent.CrossClicked>()
+                .map { SpecificIntentUseCase.Action(it) }
+                .compose(specificIntentUseCase),
             observable.ofType<AddCardIntent.OnUserClicked>()
                 .map { SpecificIntentUseCase.Action(it) }
                 .compose(specificIntentUseCase),
@@ -49,16 +53,14 @@ internal class AddCardViewModel(
                 .map { SaveUserCardUseCase.Action(it.number, it.name, it.isPublic, it.cardType) }
                 .compose(saveUserCardUseCase),
             observable.ofType<AddCardIntent.NumberChanged>()
-                .map { ValidateCardUseCase.Action(it.number, it.name, it.isPublic) }
-                .compose(validateCardUseCase),
-            observable.ofType<AddCardIntent.NumberChanged>()
                 .map { IdentifyCardNumberUseCase.Action(it.number) }
                 .compose(identifyCardNumberUseCase),
-            observable.ofType<AddCardIntent.NumberChanged>()
-                .map { ValidateCardUseCase.Action(it.number, it.name, it.isPublic) }
-                .compose(validateCardUseCase),
-            observable.ofType<AddCardIntent.NameChanged>()
-                .map { ValidateCardUseCase.Action(it.number, it.name, it.isPublic) }
+            Observables.combineLatest(
+                observable.ofType<AddCardIntent.NumberChanged>(),
+                observable.ofType<AddCardIntent.NameChanged>(),
+                observable.ofType<AddCardIntent.IsPublicChanged>()
+            )
+                .map { ValidateCardUseCase.Action(it.first.number, it.second.name, it.third.isPublic) }
                 .compose(validateCardUseCase)
         )
     }
@@ -77,7 +79,10 @@ internal class AddCardViewModel(
             }
             is ValidateCardUseCase.Result -> when (this) {
                 is ValidateCardUseCase.Result.Success -> it.copy(isValid = isValid, saveProgress = false)
-                ValidateCardUseCase.Result.Idle -> it
+                is ValidateCardUseCase.Result.Idle -> it.copy(
+                    clearHolderName = false,
+                    clearCardNumber = false
+                )
                 is ValidateCardUseCase.Result.Failure -> it.copy(isValid = false, error = throwable, saveProgress = false)
             }
             is IdentifyCardNumberUseCase.Result -> when (this) {
@@ -87,8 +92,7 @@ internal class AddCardViewModel(
             }
             is GetCurrentUserUseCase.Result -> when (this) {
                 is GetCurrentUserUseCase.Result.Success -> it.copy(
-                    holderName = requireNotNull(user.toNullable()).displayName,
-                    number = user.toNullable()?.card?.number ?: "",
+                    selectedUser = user,
                     isPublicEditable = false,
                     isHolderNameEditable = false
                 )
@@ -102,9 +106,18 @@ internal class AddCardViewModel(
             }
             is SpecificIntentUseCase.Result -> with(intent as AddCardIntent) {
                 when (this) {
+                    AddCardIntent.CrossClicked -> it.copy(
+                        selectedUser = null,
+                        showClearButton = false,
+                        isHolderNameEditable = true,
+                        isCardNumberEditable = true,
+                        clearHolderName = true,
+                        clearCardNumber = true
+                    )
                     is AddCardIntent.PeopleClicked -> it.copy(users = null)
                     is AddCardIntent.OnUserClicked -> it.copy(
                         selectedUser = user,
+                        showClearButton = true,
                         users = null,
                         isHolderNameEditable = false,
                         isCardNumberEditable = false

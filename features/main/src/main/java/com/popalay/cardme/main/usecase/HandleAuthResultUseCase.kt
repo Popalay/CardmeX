@@ -19,7 +19,7 @@ internal class HandleAuthResultUseCase(
     override fun apply(upstream: Observable<Action>): ObservableSource<Result> = upstream.switchMap { action ->
         authenticator.handleResult(action.authResult)
             .flatMap { user -> user.toNullable()?.let { userRepository.save(it).toSingleDefault(user) } ?: Single.just(user) }
-            .map { Result.Success(it) }
+            .map { Result.Success(it.toNullable()) }
             .cast(Result::class.java)
             .onErrorReturn(Result::Failure)
             .toObservable()
@@ -30,7 +30,7 @@ internal class HandleAuthResultUseCase(
     data class Action(val authResult: CardmeAuthResult) : UseCase.Action
 
     sealed class Result : UseCase.Result {
-        data class Success(val user: Optional<User>) : Result()
+        data class Success(val user: User?) : Result()
         object Idle : Result()
         data class Failure(val throwable: Throwable) : Result()
     }

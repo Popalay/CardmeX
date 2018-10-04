@@ -41,7 +41,7 @@ internal class UserCardViewModel(
     override val reducer: Reducer<UserCardViewState> = LambdaReducer {
         when (this) {
             is GetCurrentUserUseCase.Result -> when (this) {
-                is GetCurrentUserUseCase.Result.Success -> it.copy(card = user.toNullable()?.card, user = user.toNullable(), progress = false)
+                is GetCurrentUserUseCase.Result.Success -> it.copy(user = user, progress = false)
                 GetCurrentUserUseCase.Result.Idle -> it.copy(progress = true)
                 is GetCurrentUserUseCase.Result.Failure -> it.copy(error = throwable, progress = false)
             }

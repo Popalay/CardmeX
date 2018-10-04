@@ -1,6 +1,7 @@
 package com.popalay.cardme.cache.mapper
 
 import com.popalay.cardme.api.core.mapper.Mapper
+import com.popalay.cardme.api.core.model.DisplayName
 import com.popalay.cardme.api.core.model.User
 import com.popalay.cardme.cache.model.CacheCardWithHolder
 import com.popalay.cardme.cache.model.CacheHolder
@@ -15,7 +16,7 @@ internal class CacheUserToUserMapper(
         email = value.email,
         photoUrl = value.photoUrl,
         phoneNumber = value.phoneNumber,
-        displayName = value.displayName,
+        displayName = DisplayName(value.displayName),
         card = value.card?.let {
             cacheCardWithHolderToCardMapper(
                 CacheCardWithHolder(

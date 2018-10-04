@@ -16,7 +16,6 @@ import androidx.navigation.NavHost
 import androidx.navigation.Navigation
 import androidx.transition.AutoTransition
 import androidx.transition.TransitionManager
-import com.gojuno.koptional.Some
 import com.jakewharton.rxbinding2.view.RxView
 import com.popalay.cardme.addcard.AddCardFragment
 import com.popalay.cardme.api.core.error.ErrorHandler
@@ -87,14 +86,18 @@ internal class MainFragment : Fragment(), NavHost, BindableMviView<MainViewState
                     .addTarget(textUserDisplayName)
                     .addTarget(imageUserPhoto)
             )
-            user.toNullable()?.run {
-                imageUserPhoto.loadImage(photoUrl, R.drawable.ic_holder_placeholder, CircleImageTransformation())
-                textUserDisplayName.text = displayName
+            textUserDisplayName.apply {
+                isVisible = user != null
+                text = user?.displayName?.value
             }
-            buttonSync.text = if (state.user is Some) "Unsync" else "Sync"
-            textUserDisplayName.isVisible = user is Some
-            imageUserPhoto.isVisible = user is Some
-            buttonSync.isProgress = isSyncProgress
+            imageUserPhoto.apply {
+                isVisible = user != null
+                loadImage(user?.photoUrl, R.drawable.ic_holder_placeholder, CircleImageTransformation())
+            }
+            buttonSync.apply {
+                text = user?.let { "Unsync" } ?: "Sync"
+                isProgress = isSyncProgress
+            }
 
             errorHandler.accept(error)
         }
@@ -113,7 +116,7 @@ internal class MainFragment : Fragment(), NavHost, BindableMviView<MainViewState
     private val syncClickedIntent
         get() = RxView.clicks(buttonSync)
             .applyThrottling()
-            .map { if (state.user is Some) MainIntent.OnUnsyncClicked else MainIntent.OnSyncClicked }
+            .map { state.user?.let { MainIntent.OnUnsyncClicked } ?: MainIntent.OnSyncClicked }
 
     private val userClickedIntent
         get() = RxView.clicks(layoutUser)

@@ -29,7 +29,7 @@ internal class SaveCardUseCase(
                     action.user?.card?.number ?: action.number,
                     Holder(
                         holderId,
-                        action.user?.displayName ?: action.name.capitalize(),
+                        action.user?.displayName?.value ?: action.name.capitalize(),
                         action.user?.photoUrl ?: ""
                     ),
                     action.isPublic,
