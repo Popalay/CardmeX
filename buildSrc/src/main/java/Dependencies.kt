@@ -27,8 +27,9 @@ object Versions {
 
     const val firebaseCore = "16.0.4"
     const val firebaseAuth = "16.0.4"
-    const val firebaseFireStore = "17.1.1"
     const val firebaseStorage = "16.0.3"
+    const val firebaseFireStore = "17.1.1"
+    const val firebaseMessaging = "17.3.3"
     const val playServicesAuth = "16.0.1"
 
     const val koinDi = "1.0.1"
@@ -57,6 +58,7 @@ object Libs {
     const val firebaseCore = "com.google.firebase:firebase-core:${Versions.firebaseCore}"
     const val firebaseFireStore = "com.google.firebase:firebase-firestore:${Versions.firebaseFireStore}"
     const val firebaseStorage = "com.google.firebase:firebase-storage:${Versions.firebaseStorage}"
+    const val firebaseMessaging = "com.google.firebase:firebase-messaging:${Versions.firebaseMessaging}"
     const val playServicesAuth = "com.google.android.gms:play-services-auth:${Versions.playServicesAuth}"
 
     // Kotlin
