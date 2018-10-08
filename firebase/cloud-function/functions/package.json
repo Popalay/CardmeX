@@ -15,8 +15,10 @@
     "firebase-functions": "^2.0.3"
   },
   "devDependencies": {
+    "ts-loader": "^5.2.1",
     "tslint": "~5.8.0",
-    "typescript": "~2.8.3"
+    "typescript": "~2.8.3",
+    "webpack-node-externals": "^1.7.2"
   },
   "private": true
 }
