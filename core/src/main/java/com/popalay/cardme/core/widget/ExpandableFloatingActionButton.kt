@@ -5,6 +5,7 @@ import android.content.res.TypedArray
 import android.graphics.PorterDuff
 import android.util.AttributeSet
 import android.view.View
+import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.ColorInt
@@ -15,12 +16,13 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.res.getResourceIdOrThrow
 import androidx.core.content.res.getStringOrThrow
 import androidx.core.view.ViewCompat
+import androidx.core.view.children
 import androidx.transition.ChangeBounds
 import androidx.transition.Transition
 import androidx.transition.TransitionListenerAdapter
 import androidx.transition.TransitionManager
-import com.popalay.cardme.core.extensions.bindView
 import com.popalay.cardme.core.R
+import com.popalay.cardme.core.extensions.bindView
 
 class ExpandableFloatingActionButton @JvmOverloads constructor(
     context: Context,
@@ -134,6 +136,36 @@ class ExpandableFloatingActionButton @JvmOverloads constructor(
         override fun onStartNestedScroll(
             coordinatorLayout: CoordinatorLayout,
             child: ExpandableFloatingActionButton,
+            directTargetChild: View,
+            target: View,
+            axes: Int,
+            type: Int
+        ): Boolean {
+            return axes == ViewCompat.SCROLL_AXIS_VERTICAL
+        }
+    }
+
+    class ParentBehavior(context: Context? = null, attrs: AttributeSet? = null) :
+        CoordinatorLayout.Behavior<ViewGroup>(context, attrs) {
+
+        override fun onNestedScroll(
+            coordinatorLayout: CoordinatorLayout,
+            child: ViewGroup,
+            target: View,
+            dxConsumed: Int,
+            dyConsumed: Int,
+            dxUnconsumed: Int,
+            dyUnconsumed: Int,
+            type: Int
+        ) {
+            super.onNestedScroll(coordinatorLayout, child, target, dxConsumed, dyConsumed, dxUnconsumed, dyUnconsumed, type)
+            if (dyConsumed == 0) return
+            (child.children.firstOrNull { it is ExpandableFloatingActionButton } as ExpandableFloatingActionButton).isExpanded = dyConsumed < 0
+        }
+
+        override fun onStartNestedScroll(
+            coordinatorLayout: CoordinatorLayout,
+            child: ViewGroup,
             directTargetChild: View,
             target: View,
             axes: Int,

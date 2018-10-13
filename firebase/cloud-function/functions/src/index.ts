@@ -7,21 +7,28 @@ exports.sendPushWhenAddCardRequest = functions.firestore
   .document('request/{requestId}')
   .onCreate((snap, context) => {
 
-    const request = snap.data();
-    const toUuid = request.toUuid
-    const fromUuid = request.fromUuid
+    const request = snap.data()
+    const type = request.type
+    const cardId = request.cardId
+    const toUuid = request.toUserUuid
+    const fromUuid = request.fromUserUuid
 
     return admin.auth().getUser(fromUuid)
       .then((userFrom) => {
         console.log('User has fetched');
+
+        const notificationRef = admin.firestore().collection('notification').doc()
+        const title = userFrom.displayName + ' wants add your card'
+        const description = "Description"
 
         const payload = {
           data: {
             //token: token
           },
           notification: {
-            title: "Title",
-            body: "Description",
+            title: title,
+            body: description,
+            icon: userFrom.photoURL,
             sound: "default"
           },
         };
@@ -31,13 +38,12 @@ exports.sendPushWhenAddCardRequest = functions.firestore
           timeToLive: 60 * 60 * 24
         };
 
-        const notificationRef = admin.firestore().collection('notification').doc()
         const notification = {
           id: notificationRef.id,
-          type: "ADD_CARD",
-          title: userFrom.displayName + 'wants add your card',
-          description: "Description",
-          card: request.card
+          type: type,
+          title: title,
+          description: description,
+          cardId: cardId
         };
 
         const saveNotificationPromise = notificationRef.set(notification)

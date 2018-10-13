@@ -6,3 +6,8 @@ dependencies {
     implementation Libs.rxJava
     implementation Libs.kOptional
 }
+compileKotlin {
+    kotlinOptions {
+        freeCompilerArgs = ["-XXLanguage:+InlineClasses"]
+    }
+}
