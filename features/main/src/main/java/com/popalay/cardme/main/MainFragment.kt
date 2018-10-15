@@ -17,6 +17,7 @@ import androidx.navigation.Navigation
 import androidx.transition.AutoTransition
 import androidx.transition.TransitionManager
 import com.jakewharton.rxbinding2.view.RxView
+import com.jakewharton.rxbinding2.widget.RxTextView
 import com.popalay.cardme.addcard.AddCardFragment
 import com.popalay.cardme.api.core.error.ErrorHandler
 import com.popalay.cardme.api.ui.navigation.NavigatorHolder

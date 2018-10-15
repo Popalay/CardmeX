@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
 import android.widget.CheckBox
 import android.widget.EditText
 import android.widget.ImageButton
@@ -91,7 +92,8 @@ class AddCardFragment : Fragment(), BindableMviView<AddCardViewState, AddCardInt
                 cameraClickedIntent,
                 crossClickedIntent,
                 userClickedIntent,
-                isPublicChangedIntent
+                isPublicChangedIntent,
+                doneActionClickedIntent
             )
         )
     }
@@ -131,6 +133,18 @@ class AddCardFragment : Fragment(), BindableMviView<AddCardViewState, AddCardInt
             errorHandler.accept(error)
         }
     }
+
+    private val doneActionClickedIntent
+        get() = RxTextView.editorActions(inputName) { it == EditorInfo.IME_ACTION_DONE && state.isValid }
+            .map {
+                AddCardIntent.SaveClicked(
+                    state.cardNumber,
+                    state.holderName,
+                    state.isPublic,
+                    state.cardType,
+                    state.selectedUser
+                )
+            }
 
     private val cameraClickedIntent
         get() = RxView.clicks(buttonCamera)
