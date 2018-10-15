@@ -56,12 +56,11 @@ internal class MainViewModel(
         when (this) {
             is GetCurrentUserUseCase.Result -> when (this) {
                 is GetCurrentUserUseCase.Result.Success -> it.copy(user = user, isSyncProgress = false)
-                GetCurrentUserUseCase.Result.Idle -> it.copy(isSyncProgress = true)
+                GetCurrentUserUseCase.Result.Idle -> it
                 is GetCurrentUserUseCase.Result.Failure -> it.copy(error = throwable, isSyncProgress = false)
             }
             is LogOutUseCase.Result -> when (this) {
                 LogOutUseCase.Result.Success -> it.copy(user = null, isSyncProgress = false)
-
                 LogOutUseCase.Result.Idle -> it.copy(isSyncProgress = true)
                 is LogOutUseCase.Result.Failure -> it.copy(error = throwable, isSyncProgress = false)
             }
@@ -78,7 +77,10 @@ internal class MainViewModel(
 
             is SpecificIntentUseCase.Result -> with(intent as MainIntent) {
                 when (this) {
-                    MainIntent.OnAddCardClicked -> it.copy(showAddCardDialog = true)
+                    MainIntent.OnAddCardClicked -> {
+                        router.navigate(MainDestination.AddCard)
+                        it
+                    }
                     MainIntent.OnAddCardDialogDismissed -> it.copy(showAddCardDialog = false)
                     MainIntent.OnUserClicked -> {
                         router.navigate(MainDestination.UserCard)

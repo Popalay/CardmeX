@@ -6,4 +6,7 @@ dependencies {
     implementation Libs.rxBinding
 
     implementation Libs.koinAndroidScope
+
+    implementation Libs.navigationFragment
+    implementation Libs.navigationUi
 }

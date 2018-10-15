@@ -1,13 +1,17 @@
 <resources>
 
-    <style name="Cardme" parent="Theme.MaterialComponents.Light.NoActionBar">
+    <style name="CardmeBase" parent="Theme.MaterialComponents.Light.NoActionBar" />
+
+    <style name="Cardme" parent="CardmeBase">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:statusBarColor">#FAFAFA</item>
     </style>
 
     <style name="Cardme.AppBarOverlay" parent="ThemeOverlay.MaterialComponents.ActionBar">
-        <item name="android:background">#FBFBFB</item>
+        <item name="android:background">#FAFAFA</item>
     </style>
 
     <style name="Cardme.Button" parent="Widget.MaterialComponents.Button" />
@@ -39,13 +43,12 @@
         <item name="android:background">@drawable/bg_bottom_dialog</item>
     </style>
 
-    <style name="Cardme.BaseBottomSheetDialog" parent="Theme.MaterialComponents.Light.BottomSheetDialog">
+    <style name="Cardme.BaseBottomSheetDialog" parent="Theme.MaterialComponents.Light.BottomSheetDialog" />
+
+    <style name="Cardme.BottomSheetDialogTheme" parent="Cardme.BaseBottomSheetDialog">
         <item name="android:windowIsFloating">false</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="bottomSheetStyle">@style/Cardme.BottomSheet</item>
-    </style>
-
-    <style name="Cardme.BottomSheetDialogTheme" parent="Cardme.BaseBottomSheetDialog">
         <item name="android:statusBarColor">@android:color/transparent</item>
     </style>
 

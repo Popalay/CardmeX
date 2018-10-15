@@ -7,6 +7,7 @@ import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.view.ViewCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.popalay.cardme.core.extensions.px
 
 class LiftBehavior(context: Context? = null, attrs: AttributeSet? = null) : CoordinatorLayout.Behavior<View>(context, attrs) {
 
@@ -21,12 +22,12 @@ class LiftBehavior(context: Context? = null, attrs: AttributeSet? = null) : Coor
         type: Int
     ) {
         super.onNestedScroll(coordinatorLayout, child, target, dxConsumed, dyConsumed, dxUnconsumed, dyUnconsumed, type)
-        val lift: Boolean = if (target is RecyclerView) {
+        val lift = if (target is RecyclerView) {
             (target.layoutManager as LinearLayoutManager).findFirstCompletelyVisibleItemPosition() > 0
         } else {
             dyConsumed > 0
         }
-        child.translationZ = if (lift) 8F else 0F
+        updateElevation(child, lift)
     }
 
     override fun onStartNestedScroll(
@@ -37,4 +38,8 @@ class LiftBehavior(context: Context? = null, attrs: AttributeSet? = null) : Coor
         axes: Int,
         type: Int
     ): Boolean = axes == ViewCompat.SCROLL_AXIS_VERTICAL
+
+    private fun updateElevation(child: View, lift: Boolean) {
+        child.elevation = if (lift) 6.px.toFloat() else 0F
+    }
 }

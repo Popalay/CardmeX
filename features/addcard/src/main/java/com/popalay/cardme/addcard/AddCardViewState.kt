@@ -20,7 +20,6 @@ data class AddCardViewState(
 
     val showClearButton: Boolean = false,
     val isValid: Boolean = false,
-    val saved: Boolean = false,
 
     val users: List<User>? = null,
     val selectedUser: User? = null,

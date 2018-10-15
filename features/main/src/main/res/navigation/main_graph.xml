@@ -7,6 +7,7 @@
 
     <include app:graph="@navigation/card_list_graph" />
     <include app:graph="@navigation/user_card_graph" />
+    <include app:graph="@navigation/add_card_graph" />
 
     <fragment
         android:id="@+id/mainFragment"
@@ -17,6 +18,11 @@
         <action
             android:id="@+id/action_from_main_to_user_card"
             app:destination="@id/user_card_graph"
+            app:popUpTo="@id/mainFragment" />
+
+        <action
+            android:id="@+id/action_from_main_to_add_card"
+            app:destination="@id/add_card_graph"
             app:popUpTo="@id/mainFragment" />
 
     </fragment>

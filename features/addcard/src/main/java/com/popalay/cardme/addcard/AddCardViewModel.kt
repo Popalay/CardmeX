@@ -2,6 +2,7 @@ package com.popalay.cardme.addcard
 
 import com.popalay.cardme.addcard.usecase.*
 import com.popalay.cardme.api.core.model.DisplayName
+import com.popalay.cardme.api.ui.navigation.Router
 import com.popalay.cardme.api.ui.state.IntentProcessor
 import com.popalay.cardme.api.ui.state.LambdaReducer
 import com.popalay.cardme.api.ui.state.Processor
@@ -20,7 +21,8 @@ internal class AddCardViewModel(
     private val getCurrentUserUseCase: GetCurrentUserUseCase,
     private val saveUserCardUseCase: SaveUserCardUseCase,
     private val userListUseCase: UserListUseCase,
-    private val specificIntentUseCase: SpecificIntentUseCase
+    private val specificIntentUseCase: SpecificIntentUseCase,
+    private val router: Router
 ) : BaseMviViewModel<AddCardViewState, AddCardIntent>() {
 
     override val initialState: AddCardViewState = AddCardViewState()
@@ -31,18 +33,14 @@ internal class AddCardViewModel(
                 .filter { isUserCard }
                 .map { GetCurrentUserUseCase.Action }
                 .compose(getCurrentUserUseCase),
+            observable.ofType<AddCardIntent.OnStart>()
+                .filter { !isUserCard }
+                .map { UserListUseCase.Action("", "", 100) }
+                .compose(userListUseCase),
             observable.ofType<AddCardIntent.SaveClicked>()
                 .filter { !isUserCard }
                 .map { SaveCardUseCase.Action(it.number, it.name, it.isPublic, it.cardType, it.selectedUser) }
                 .compose(saveCardUseCase),
-            observable.ofType<AddCardIntent.PeopleClicked>()
-                .filter { !isUserCard && !it.peopleShowed }
-                .map { UserListUseCase.Action("", "", 100) }
-                .compose(userListUseCase),
-            observable.ofType<AddCardIntent.PeopleClicked>()
-                .filter { !isUserCard && it.peopleShowed }
-                .map { SpecificIntentUseCase.Action(it) }
-                .compose(specificIntentUseCase),
             observable.ofType<AddCardIntent.CrossClicked>()
                 .map { SpecificIntentUseCase.Action(it) }
                 .compose(specificIntentUseCase),
@@ -69,12 +67,18 @@ internal class AddCardViewModel(
     override val reducer: Reducer<AddCardViewState> = LambdaReducer {
         when (this) {
             is SaveCardUseCase.Result -> when (this) {
-                is SaveCardUseCase.Result.Success -> it.copy(saved = true, saveProgress = false)
+                is SaveCardUseCase.Result.Success -> {
+                    router.navigateUp()
+                    it
+                }
                 SaveCardUseCase.Result.Idle -> it.copy(saveProgress = true)
                 is SaveCardUseCase.Result.Failure -> it.copy(error = throwable, saveProgress = false)
             }
             is SaveUserCardUseCase.Result -> when (this) {
-                is SaveUserCardUseCase.Result.Success -> it.copy(saved = true, saveProgress = false)
+                is SaveUserCardUseCase.Result.Success -> {
+                    router.navigateUp()
+                    it
+                }
                 SaveUserCardUseCase.Result.Idle -> it.copy(saveProgress = true)
                 is SaveUserCardUseCase.Result.Failure -> it.copy(error = throwable, saveProgress = false)
             }
@@ -117,11 +121,9 @@ internal class AddCardViewModel(
                         holderName = "",
                         cardNumber = ""
                     )
-                    is AddCardIntent.PeopleClicked -> it.copy(users = null)
                     is AddCardIntent.OnUserClicked -> it.copy(
                         selectedUser = user,
                         showClearButton = true,
-                        users = null,
                         isHolderNameEditable = false,
                         isCardNumberEditable = false
                     )

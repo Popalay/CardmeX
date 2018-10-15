@@ -1,45 +1,46 @@
 package com.popalay.cardme.addcard
 
-import android.annotation.SuppressLint
-import android.app.Dialog
-import android.content.DialogInterface
-import android.graphics.Color
 import android.graphics.PorterDuff
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.*
+import android.widget.CheckBox
+import android.widget.EditText
+import android.widget.ImageButton
+import android.widget.ImageView
+import androidx.appcompat.widget.Toolbar
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
+import androidx.core.widget.ContentLoadingProgressBar
+import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.NavigationUI
 import androidx.recyclerview.widget.RecyclerView
-import androidx.transition.AutoTransition
 import androidx.transition.TransitionManager
-import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.appbar.AppBarLayout
 import com.jakewharton.rxbinding2.view.RxView
 import com.jakewharton.rxbinding2.widget.RxCompoundButton
 import com.jakewharton.rxbinding2.widget.RxTextView
 import com.popalay.cardme.addcard.adapter.UserListAdapter
 import com.popalay.cardme.addcard.model.UserListItem
 import com.popalay.cardme.api.core.error.ErrorHandler
+import com.popalay.cardme.api.ui.navigation.NavigatorHolder
 import com.popalay.cardme.core.adapter.SpacingItemDecoration
 import com.popalay.cardme.core.extensions.*
 import com.popalay.cardme.core.picasso.CircleImageTransformation
 import com.popalay.cardme.core.state.BindableMviView
-import com.popalay.cardme.core.widget.OnDialogDismissed
 import com.popalay.cardme.core.widget.ProgressImageButton
-import com.popalay.cardme.core.widget.ProgressMaterialButton
-import com.popalay.cardme.core.widget.RoundedBottomSheetDialogFragment
 import io.reactivex.Observable
+import io.reactivex.subjects.PublishSubject
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.getViewModel
 import org.koin.core.parameter.parametersOf
 import kotlin.properties.Delegates
 
 
-class AddCardFragment : RoundedBottomSheetDialogFragment(), BindableMviView<AddCardViewState, AddCardIntent> {
+class AddCardFragment : Fragment(), BindableMviView<AddCardViewState, AddCardIntent> {
 
     companion object {
 
@@ -50,51 +51,32 @@ class AddCardFragment : RoundedBottomSheetDialogFragment(), BindableMviView<AddC
         }
     }
 
+    private val progressBar: ContentLoadingProgressBar by bindView(R.id.progress_bar)
+    private val toolbar: Toolbar by bindView(R.id.toolbar)
+    private val appbar: AppBarLayout by bindView(R.id.appbar)
     private val imageFace: ImageView by bindView(R.id.image_face)
     private val constraintLayout: ConstraintLayout by bindView(R.id.constraint_layout)
     private val imageCardType: ImageView by bindView(R.id.image_card_type)
     private val inputNumber: EditText by bindView(R.id.input_number)
     private val buttonCamera: ImageButton by bindView(R.id.button_camera)
-    private val buttonPeople: ProgressImageButton by bindView(R.id.button_people)
-    private val buttonSave: ProgressMaterialButton by bindView(R.id.button_save)
+    private val buttonCross: ProgressImageButton by bindView(R.id.button_cross)
     private val inputName: EditText by bindView(R.id.input_name)
     private val checkPublic: CheckBox by bindView(R.id.check_public)
     private val listUsers: RecyclerView by bindView(R.id.list_users)
 
     private val errorHandler: ErrorHandler by inject()
 
+    private val navigatorHolder: NavigatorHolder by inject()
     private val usersAdapter = UserListAdapter()
     private var state: AddCardViewState by Delegates.notNull()
-
-    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog =
-        super.onCreateDialog(savedInstanceState).also { dialog ->
-            dialog.setOnShowListener {
-                val bottomSheet = dialog.findViewById<FrameLayout?>(R.id.design_bottom_sheet)
-                val behaviour = BottomSheetBehavior.from(bottomSheet)
-                behaviour.setBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
-                    @SuppressLint("SwitchIntDef")
-                    override fun onStateChanged(bottomSheet: View, newState: Int) {
-                        when (newState) {
-                            BottomSheetBehavior.STATE_HIDDEN -> dialog.cancel()
-                            BottomSheetBehavior.STATE_EXPANDED -> {
-                                //TODO: show toolbar
-                            }
-                        }
-                        Log.d("AddCardFragment", "new state $newState")
-                    }
-
-                    override fun onSlide(bottomSheet: View, slideOffset: Float) {
-
-                    }
-                })
-            }
-        }
+    private val intentSubject = PublishSubject.create<AddCardIntent>()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View =
-        inflater.inflate(R.layout.add_card_fragment, container, false)
+        inflater.inflate(R.layout.add_card_fragment_full, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        navigatorHolder.navigator = AddCardNavigator(this)
         bind(getViewModel<AddCardViewModel> { parametersOf(arguments?.getBoolean(ARG_IS_USER_CARD) ?: false) })
         initView()
     }
@@ -103,11 +85,11 @@ class AddCardFragment : RoundedBottomSheetDialogFragment(), BindableMviView<AddC
         Observable.merge(
             listOf(
                 Observable.just(AddCardIntent.OnStart),
-                saveClickedIntent,
                 nameChangedIntent,
                 numberChangedIntent,
+                intentSubject,
                 cameraClickedIntent,
-                peopleClickedIntent,
+                crossClickedIntent,
                 userClickedIntent,
                 isPublicChangedIntent
             )
@@ -117,10 +99,9 @@ class AddCardFragment : RoundedBottomSheetDialogFragment(), BindableMviView<AddC
     override fun accept(viewState: AddCardViewState) {
         state = viewState
         with(viewState) {
-            if (saved) dismissAllowingStateLoss()
-            buttonSave.apply {
+            toolbar.menu.findItem(R.id.action_save)?.apply {
                 isEnabled = isValid
-                isProgress = saveProgress
+                icon.alpha = if (isValid) 255 else 64
             }
             inputName.apply {
                 setTextIfNeeded(selectedUser?.displayName?.value ?: holderName)
@@ -134,16 +115,12 @@ class AddCardFragment : RoundedBottomSheetDialogFragment(), BindableMviView<AddC
                 isChecked = isPublic
                 isEnabled = isPublicEditable
             }
-            buttonPeople.apply {
-                TransitionManager.beginDelayedTransition(view as ViewGroup, AutoTransition().addTarget(this))
-                setImageResource(if (showClearButton) R.drawable.ic_clear else R.drawable.ic_people)
-                isVisible = isHolderNameEditable || showClearButton
-                isProgress = peopleProgress
-                isSelected = !users.isNullOrEmpty()
-                drawable.setTint(if (isSelected) Color.WHITE else context.getColor(R.color.colorPrimary))
+            if (peopleProgress) progressBar.show() else progressBar.hide()
+            TransitionManager.beginDelayedTransition(view as ViewGroup)
+            buttonCross.apply {
+                isVisible = showClearButton
             }
 
-            TransitionManager.beginDelayedTransition(view as ViewGroup)
             imageCardType.setImageResource(cardType.icon.takeIf { it != 0 } ?: R.drawable.ic_credit_card)
             usersAdapter.submitList(users?.map(::UserListItem))
             imageFace.apply {
@@ -155,33 +132,15 @@ class AddCardFragment : RoundedBottomSheetDialogFragment(), BindableMviView<AddC
         }
     }
 
-    override fun onDismiss(dialog: DialogInterface?) {
-        super.onDismiss(dialog)
-        (parentFragment as? OnDialogDismissed)?.onDialogDismissed()
-    }
-
-    private val saveClickedIntent
-        get() = RxView.clicks(buttonSave)
-            .applyThrottling()
-            .map {
-                AddCardIntent.SaveClicked(
-                    state.cardNumber,
-                    state.holderName,
-                    state.isPublic,
-                    state.cardType,
-                    state.selectedUser
-                )
-            }
-
     private val cameraClickedIntent
         get() = RxView.clicks(buttonCamera)
             .applyThrottling()
             .map { AddCardIntent.CameraClicked }
 
-    private val peopleClickedIntent
-        get() = RxView.clicks(buttonPeople)
+    private val crossClickedIntent
+        get() = RxView.clicks(buttonCross)
             .applyThrottling()
-            .map { if (state.showClearButton) AddCardIntent.CrossClicked else AddCardIntent.PeopleClicked(!state.users.isNullOrEmpty()) }
+            .map { AddCardIntent.CrossClicked }
 
     private val nameChangedIntent
         get() = RxTextView.afterTextChangeEvents(inputName)
@@ -202,9 +161,29 @@ class AddCardFragment : RoundedBottomSheetDialogFragment(), BindableMviView<AddC
             .map { AddCardIntent.OnUserClicked(it.user) }
 
     private fun initView() {
+        NavigationUI.setupWithNavController(toolbar, findNavController())
         listUsers.apply {
             adapter = usersAdapter
             addItemDecoration(SpacingItemDecoration(8.px, betweenItems = true))
+        }
+
+        toolbar.inflateMenu(R.menu.add_card_menu)
+        toolbar.setOnMenuItemClickListener {
+            when (it?.itemId) {
+                R.id.action_save -> {
+                    intentSubject.onNext(
+                        AddCardIntent.SaveClicked(
+                            state.cardNumber,
+                            state.holderName,
+                            state.isPublic,
+                            state.cardType,
+                            state.selectedUser
+                        )
+                    )
+                    true
+                }
+                else -> false
+            }
         }
     }
 }

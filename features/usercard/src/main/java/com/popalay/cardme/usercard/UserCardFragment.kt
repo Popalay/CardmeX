@@ -36,8 +36,7 @@ internal class UserCardFragment : Fragment(), BindableMviView<UserCardViewState,
     private val textCardNumber: TextView by bindView(R.id.text_card_number)
 
     private val errorHandler: ErrorHandler by inject()
-    private val addCardDialogDismissedSubject = PublishSubject.create<UserCardIntent.OnAddCardDialogDismissed>()
-    private val menuSubject = PublishSubject.create<UserCardIntent>()
+    private val intentSubject = PublishSubject.create<UserCardIntent>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -56,7 +55,7 @@ internal class UserCardFragment : Fragment(), BindableMviView<UserCardViewState,
         toolbar.setOnMenuItemClickListener {
             when (it?.itemId) {
                 R.id.action_edit -> {
-                    menuSubject.onNext(UserCardIntent.OnEditClicked)
+                    intentSubject.onNext(UserCardIntent.OnEditClicked)
                     true
                 }
                 else -> false
@@ -64,25 +63,11 @@ internal class UserCardFragment : Fragment(), BindableMviView<UserCardViewState,
         }
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
-        super.onCreateOptionsMenu(menu, inflater)
-        inflater?.inflate(R.menu.user_card_menu, menu)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean = when (item?.itemId) {
-        R.id.action_edit -> {
-            menuSubject.onNext(UserCardIntent.OnEditClicked)
-            true
-        }
-        else -> super.onOptionsItemSelected(item)
-    }
-
     override val intents: Observable<UserCardIntent> = Observable.defer {
         Observable.merge(
             listOf(
                 Observable.just(UserCardIntent.OnStart),
-                addCardDialogDismissedSubject,
-                menuSubject.applyThrottling(),
+                intentSubject,
                 addClickedIntent.applyThrottling(),
                 skipClickedIntent.applyThrottling()
             )
@@ -108,7 +93,7 @@ internal class UserCardFragment : Fragment(), BindableMviView<UserCardViewState,
     }
 
     override fun onDialogDismissed() {
-        addCardDialogDismissedSubject.onNext(UserCardIntent.OnAddCardDialogDismissed)
+        intentSubject.onNext(UserCardIntent.OnAddCardDialogDismissed)
     }
 
     private val addClickedIntent
@@ -121,7 +106,7 @@ internal class UserCardFragment : Fragment(), BindableMviView<UserCardViewState,
 
     private fun showAddCardDialog() {
         if (childFragmentManager.findFragmentByTag(AddCardFragment::class.java.simpleName) == null) {
-            AddCardFragment.newInstance(isUserCard = true).showNow(childFragmentManager, AddCardFragment::class.java.simpleName)
+            //AddCardFragment.newInstance(isUserCard = true).showNow(childFragmentManager, AddCardFragment::class.java.simpleName)
         }
     }
 }

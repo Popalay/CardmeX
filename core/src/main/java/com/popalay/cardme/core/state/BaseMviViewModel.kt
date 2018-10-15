@@ -1,11 +1,13 @@
 package com.popalay.cardme.core.state
 
+import android.util.AndroidException
 import com.popalay.cardme.api.ui.state.Intent
 import com.popalay.cardme.api.ui.state.MviViewModel
 import com.popalay.cardme.api.ui.state.Processor
 import com.popalay.cardme.api.ui.state.Reducer
 import com.popalay.cardme.api.ui.state.ViewState
 import io.reactivex.Observable
+import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.PublishSubject
 
@@ -14,8 +16,8 @@ abstract class BaseMviViewModel<S : ViewState, I : Intent> : BaseViewModel(), Mv
     override val states: Observable<S> by lazy(LazyThreadSafetyMode.NONE) {
         intentsSubject
             .hide()
-            .observeOn(Schedulers.computation())
             .compose(processor)
+            .observeOn(AndroidSchedulers.mainThread())
             .scan(initialState, reducer)
             .distinctUntilChanged()
             .replay(1)

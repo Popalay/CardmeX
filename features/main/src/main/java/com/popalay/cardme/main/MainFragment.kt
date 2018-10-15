@@ -79,9 +79,9 @@ internal class MainFragment : Fragment(), NavHost, BindableMviView<MainViewState
     override fun accept(viewState: MainViewState) {
         state = viewState
         with(viewState) {
-            if (showAddCardDialog) showAddCardDialog()
+            //if (showAddCardDialog) showAddCardDialog()
             TransitionManager.beginDelayedTransition(
-                buttonSync.parent as ViewGroup, AutoTransition()
+                constraintLayout, AutoTransition()
                     .addTarget(buttonSync)
                     .addTarget(textUserDisplayName)
                     .addTarget(imageUserPhoto)
@@ -109,7 +109,8 @@ internal class MainFragment : Fragment(), NavHost, BindableMviView<MainViewState
 
     private fun showAddCardDialog() {
         if (childFragmentManager.findFragmentByTag(AddCardFragment::class.java.simpleName) == null) {
-            AddCardFragment.newInstance().showNow(childFragmentManager, AddCardFragment::class.java.simpleName)
+
+            //AddCardFragment.newInstance().showNow(childFragmentManager, AddCardFragment::class.java.simpleName)
         }
     }
 
