@@ -124,7 +124,7 @@ class AddCardFragment : Fragment(), BindableMviView<AddCardViewState, AddCardInt
             }
 
             imageCardType.setImageResource(cardType.icon.takeIf { it != 0 } ?: R.drawable.ic_credit_card)
-            usersAdapter.submitList(users?.map(::UserListItem))
+            usersAdapter.submitList(users?.map { UserListItem(it, it == selectedUser) })
             imageFace.apply {
                 imageTintMode = selectedUser?.let { PorterDuff.Mode.DST } ?: PorterDuff.Mode.MULTIPLY
                 loadImage(selectedUser?.photoUrl, R.drawable.ic_account, CircleImageTransformation())
@@ -136,15 +136,7 @@ class AddCardFragment : Fragment(), BindableMviView<AddCardViewState, AddCardInt
 
     private val doneActionClickedIntent
         get() = RxTextView.editorActions(inputName) { it == EditorInfo.IME_ACTION_DONE && state.isValid }
-            .map {
-                AddCardIntent.SaveClicked(
-                    state.cardNumber,
-                    state.holderName,
-                    state.isPublic,
-                    state.cardType,
-                    state.selectedUser
-                )
-            }
+            .map { createSaveIntent() }
 
     private val cameraClickedIntent
         get() = RxView.clicks(buttonCamera)
@@ -174,6 +166,16 @@ class AddCardFragment : Fragment(), BindableMviView<AddCardViewState, AddCardInt
         get() = usersAdapter.itemClickObservable
             .map { AddCardIntent.OnUserClicked(it.user) }
 
+    private fun createSaveIntent() = with(state) {
+        AddCardIntent.SaveClicked(
+            cardNumber,
+            holderName,
+            isPublic,
+            cardType,
+            selectedUser
+        )
+    }
+
     private fun initView() {
         NavigationUI.setupWithNavController(toolbar, findNavController())
         listUsers.apply {
@@ -185,15 +187,7 @@ class AddCardFragment : Fragment(), BindableMviView<AddCardViewState, AddCardInt
         toolbar.setOnMenuItemClickListener {
             when (it?.itemId) {
                 R.id.action_save -> {
-                    intentSubject.onNext(
-                        AddCardIntent.SaveClicked(
-                            state.cardNumber,
-                            state.holderName,
-                            state.isPublic,
-                            state.cardType,
-                            state.selectedUser
-                        )
-                    )
+                    intentSubject.onNext(createSaveIntent())
                     true
                 }
                 else -> false

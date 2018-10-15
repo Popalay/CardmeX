@@ -13,8 +13,9 @@ import io.reactivex.subjects.PublishSubject
 
 abstract class IdentifiableListAdapter<I : Identifiable>(
     @LayoutRes val layoutRes: Int,
+    diffCallback: DiffUtil.ItemCallback<I> = IdentifiableDiffCallback(),
     val createViewHolder: (view: View) -> BindableViewHolder<I>
-) : ListAdapter<I, BindableViewHolder<I>>(IdentifiableDiffCallback<I>()) {
+) : ListAdapter<I, BindableViewHolder<I>>(diffCallback) {
 
     private val itemClickSubject = PublishSubject.create<I>()
     private val itemLongClickSubject = PublishSubject.create<I>()
@@ -29,8 +30,12 @@ abstract class IdentifiableListAdapter<I : Identifiable>(
 
     override fun onBindViewHolder(holder: BindableViewHolder<I>, position: Int) {
         holder.bind(getItem(position))
+    }
+
+    override fun onBindViewHolder(holder: BindableViewHolder<I>, position: Int, payloads: MutableList<Any>) {
         holder.bindClick(itemClickSubject, getItem(position))
         holder.bindLongClick(itemLongClickSubject, getItem(position))
+        if (payloads.isEmpty()) onBindViewHolder(holder, position) else holder.bindPayloads(getItem(position), payloads)
     }
 }
 
@@ -38,7 +43,7 @@ interface Identifiable {
     val id: Long
 }
 
-class IdentifiableDiffCallback<I : Identifiable> : DiffUtil.ItemCallback<I>() {
+open class IdentifiableDiffCallback<I : Identifiable> : DiffUtil.ItemCallback<I>() {
 
     override fun areItemsTheSame(oldItem: I, newItem: I): Boolean =
         oldItem.javaClass == newItem.javaClass && (oldItem.id == newItem.id)
@@ -49,6 +54,8 @@ class IdentifiableDiffCallback<I : Identifiable> : DiffUtil.ItemCallback<I>() {
 interface Bindable<I> {
 
     fun bind(item: I)
+
+    fun bindPayloads(item: I, payloads: List<Any>) {}
 
     fun bindClick(subject: PublishSubject<I>, item: I)
 
