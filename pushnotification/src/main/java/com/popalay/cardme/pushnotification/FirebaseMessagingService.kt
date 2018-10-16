@@ -2,6 +2,7 @@ package com.popalay.cardme.pushnotification
 
 import android.app.NotificationChannel
 import android.app.NotificationManager
+import android.app.PendingIntent
 import android.os.Build
 import androidx.core.app.NotificationCompat
 import com.google.android.gms.tasks.Tasks
@@ -31,8 +32,14 @@ class FirebaseMessagingService : FirebaseMessagingService() {
             notificationManager.createNotificationChannel(channel)
         }
 
-        val notificationId = remoteMessage.data["notificationId"]
+        val notificationId = requireNotNull(remoteMessage.data["notificationId"])
         val notification = remoteMessage.notification?.run {
+
+            val allowPendingIntent: PendingIntent = NotificationActionBroadcastReceiver.createAllowActionIntent(
+                this@FirebaseMessagingService,
+                notificationId = notificationId.hashCode(),
+                requestId = notificationId
+            )
 
             NotificationCompat.Builder(this@FirebaseMessagingService, ADD_CARD_REQUEST_CHANNEL_ID)
                 .setSmallIcon(R.drawable.ic_notification)
@@ -41,7 +48,7 @@ class FirebaseMessagingService : FirebaseMessagingService() {
                 .setContentText(body)
                 .setAutoCancel(true)
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
-                .addAction(R.drawable.ic_allow, "Allow", null)
+                .addAction(R.drawable.ic_allow, "Allow", allowPendingIntent)
                 .build()
         }
 
