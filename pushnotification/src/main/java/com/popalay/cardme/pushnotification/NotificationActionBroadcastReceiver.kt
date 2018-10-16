@@ -5,6 +5,9 @@ import android.app.PendingIntent
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import android.util.Log
+import android.widget.Toast
+import com.google.firebase.firestore.FirebaseFirestore
 
 class NotificationActionBroadcastReceiver : BroadcastReceiver() {
 
@@ -25,10 +28,17 @@ class NotificationActionBroadcastReceiver : BroadcastReceiver() {
 
     override fun onReceive(context: Context, intent: Intent) {
         val notificationId = intent.getIntExtra(EXTRA_NOTIFICATION_ID, -1)
+        val requestId = intent.getStringExtra(EXTRA_REQUEST_ID)
+
         context.getSystemService(NotificationManager::class.java).cancel(notificationId)
         when (intent.action) {
             ACTION_ALLOW -> {
-                //TODO: SAVE allow
+                FirebaseFirestore.getInstance().collection("requests").document(requestId)
+                    .update("allow", true)
+                    .addOnFailureListener { Log.e("ActionReceiver", "onReceive: ", it) }
+                    .addOnSuccessListener {
+                        Toast.makeText(context, "Card was shared", Toast.LENGTH_LONG).show()
+                    }
             }
         }
     }

@@ -40,6 +40,7 @@ internal class RemoteUserDao(
                 "card.number" to card.number,
                 "card.holder.id" to card.holder.id,
                 "card.holder.name" to card.holder.name,
+                "card.holder.photoUrl" to card.holder.photoUrl,
                 "card.isPublic" to card.isPublic,
                 "card.cardType" to card.cardType,
                 "card.userId" to card.userId,

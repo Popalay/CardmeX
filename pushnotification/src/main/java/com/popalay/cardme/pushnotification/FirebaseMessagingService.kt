@@ -32,13 +32,15 @@ class FirebaseMessagingService : FirebaseMessagingService() {
             notificationManager.createNotificationChannel(channel)
         }
 
-        val notificationId = requireNotNull(remoteMessage.data["notificationId"])
+        val notificationId = requireNotNull(remoteMessage.data["notificationId"]).hashCode()
+        val requestId = requireNotNull(remoteMessage.data["requestId"])
+
         val notification = remoteMessage.notification?.run {
 
             val allowPendingIntent: PendingIntent = NotificationActionBroadcastReceiver.createAllowActionIntent(
                 this@FirebaseMessagingService,
-                notificationId = notificationId.hashCode(),
-                requestId = notificationId
+                notificationId = notificationId,
+                requestId = requestId
             )
 
             NotificationCompat.Builder(this@FirebaseMessagingService, ADD_CARD_REQUEST_CHANNEL_ID)
@@ -52,7 +54,7 @@ class FirebaseMessagingService : FirebaseMessagingService() {
                 .build()
         }
 
-        notificationManager.notify(notificationId.hashCode(), notification)
+        notificationManager.notify(notificationId, notification)
     }
 
     override fun onNewToken(token: String?) {

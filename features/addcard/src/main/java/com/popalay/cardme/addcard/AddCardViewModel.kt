@@ -115,7 +115,11 @@ internal class AddCardViewModel(
                 is UserListUseCase.Result.Failure -> it.copy(error = throwable, peopleProgress = false)
             }
             is SendAddCardUseCase.Result -> when (this) {
-                is SendAddCardUseCase.Result.Success -> it.copy(requestProgress = false)
+                is SendAddCardUseCase.Result.Success -> {
+                    //TODO show message
+                    router.navigateUp()
+                    it.copy(requestProgress = false)
+                }
                 SendAddCardUseCase.Result.Idle -> it.copy(requestProgress = true)
                 is SendAddCardUseCase.Result.Failure -> it.copy(error = throwable, requestProgress = false)
             }

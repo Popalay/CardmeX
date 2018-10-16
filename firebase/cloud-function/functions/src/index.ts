@@ -1,11 +1,11 @@
 import * as functions from 'firebase-functions';
 import * as admin from 'firebase-admin';
 
-admin.initializeApp(functions.config().firebase);
+admin.initializeApp();
 
 exports.sendPushWhenAddCardRequest = functions.firestore
   .document('requests/{requestId}')
-  .onCreate((snap, context) => {
+  .onCreate(async (snap, context) => {
 
     const request = snap.data()
     const type = request.type
@@ -13,7 +13,7 @@ exports.sendPushWhenAddCardRequest = functions.firestore
     const fromUuid = request.fromUserUuid
 
     return admin.auth().getUser(fromUuid)
-      .then((userFrom) => {
+      .then(async userFrom => {
         console.log('User has fetched');
 
         const notificationRef = admin.firestore().collection('notification').doc()
@@ -22,7 +22,8 @@ exports.sendPushWhenAddCardRequest = functions.firestore
 
         const payload = {
           data: {
-            notificationId: notificationRef.id
+            notificationId: notificationRef.id,
+            requestId: snap.id
           },
           notification: {
             title: title,
@@ -55,8 +56,42 @@ exports.sendPushWhenAddCardRequest = functions.firestore
             console.log('Notification has added');
             console.log('Push has sent');
           })
-          .catch(error => {
-            console.log('Send notification error: ', error);
-          });
+          .catch(error => console.log('Send notification error: ', error))
       });
+  });
+
+exports.saveCardToUserWhenAgree = functions.firestore
+  .document('requests/{requestId}')
+  .onUpdate(async (change, context) => {
+
+    const request = change.after.data()
+    const oldRequest = change.before.data()
+
+    console.log('Request has updated!')
+    if (request.allow !== oldRequest.allow) {
+
+      console.log('Request allow has updated!')
+      if (!request.allow) return
+
+      console.log('Request allow is true!')
+      const fromUserId = request.fromUserUuid
+      const toUserId = request.toUserUuid
+
+      const fetchUserPromise = admin.firestore().collection("users").doc(toUserId).get()
+      const deleteRequestPromise = change.after.ref.delete()
+
+      return fetchUserPromise.then(async userSnap => {
+        console.log('User has fetched!')
+        const card = userSnap.data().card
+        card.userId = fromUserId
+        return admin.firestore().collection("cards").add(card)
+          .then(async () => {
+            console.log('Card has added!')
+            return deleteRequestPromise
+              .then(() => console.log('Delete request succeeded!'))
+              .catch(error => console.log('Delete request error: ', error))
+          }).catch(error => console.log('Add card error: ', error))
+      }).catch(error => console.log('Fetch user error: ', error))
+    }
+    return null
   });
