@@ -18,7 +18,7 @@ exports.sendPushWhenAddCardRequest = functions.firestore
 
         const notificationRef = admin.firestore().collection('notification').doc()
         const title = userFrom.displayName + ' wants to add your card'
-        const description = "Allow if you want to share your card"
+        const description = "Allow if you want to share card"
 
         const payload = {
           data: {
