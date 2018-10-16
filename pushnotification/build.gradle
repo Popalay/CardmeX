@@ -5,6 +5,7 @@ dependencies {
     implementation project(":api")
 
     implementation Libs.kotlin
+    implementation Libs.picasso
 
     implementation Libs.firebaseMessaging
     implementation Libs.firebaseFireStore

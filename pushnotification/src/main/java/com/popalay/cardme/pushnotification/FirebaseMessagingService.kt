@@ -9,6 +9,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
+import com.squareup.picasso.Picasso
 
 class FirebaseMessagingService : FirebaseMessagingService() {
 
@@ -35,11 +36,12 @@ class FirebaseMessagingService : FirebaseMessagingService() {
 
             NotificationCompat.Builder(this@FirebaseMessagingService, ADD_CARD_REQUEST_CHANNEL_ID)
                 .setSmallIcon(R.drawable.ic_notification)
+                .setLargeIcon(Picasso.get().load(icon).transform(CircleImageTransformation()).get())
                 .setContentTitle(title)
                 .setContentText(body)
                 .setAutoCancel(true)
-                //.setLargeIcon(it.icon)
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
+                .addAction(R.drawable.ic_allow, "Allow", null)
                 .build()
         }
 
