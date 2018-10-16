@@ -2,6 +2,7 @@ package com.popalay.cardme.data.di
 
 import com.popalay.cardme.data.repository.CardRepository
 import com.popalay.cardme.data.repository.DeviceRepository
+import com.popalay.cardme.data.repository.RequestRepository
 import com.popalay.cardme.data.repository.UserRepository
 import com.popalay.cardme.data.store.CardListStore
 import com.popalay.cardme.data.store.CardStore
@@ -14,6 +15,7 @@ object DataModule {
         single<com.popalay.cardme.api.data.repository.CardRepository> { CardRepository(get(), get(), get(), get()) }
         single<com.popalay.cardme.api.data.repository.UserRepository> { UserRepository(get(), get(), get()) }
         single<com.popalay.cardme.api.data.repository.DeviceRepository> { DeviceRepository(get()) }
+        single<com.popalay.cardme.api.data.repository.RequestRepository> { RequestRepository(get()) }
         single { CardListStore(get(), get()) }
         single { CardStore(get(), get()) }
         single { UserStore(get(), get()) }

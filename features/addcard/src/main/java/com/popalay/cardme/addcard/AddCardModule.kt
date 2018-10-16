@@ -7,11 +7,12 @@ import org.koin.dsl.module.module
 object AddCardModule {
 
     fun get() = module("AddCardModule") {
-        viewModel { (isUserCard: Boolean) -> AddCardViewModel(isUserCard, get(), get(), get(), get(), get(), get(), get(), get()) }
+        viewModel { (isUserCard: Boolean) -> AddCardViewModel(isUserCard, get(), get(), get(), get(), get(), get(), get(), get(), get()) }
         single { SaveCardUseCase(get(), get()) }
         single { SaveUserCardUseCase(get()) }
         single { ValidateCardUseCase() }
         single { IdentifyCardNumberUseCase() }
         single { UserListUseCase(get()) }
+        single { SendAddCardUseCase(get(), get()) }
     }
 }

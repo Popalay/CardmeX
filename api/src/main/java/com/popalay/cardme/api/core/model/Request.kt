@@ -7,7 +7,7 @@ sealed class Request(
     val type: String
 ) {
 
-    data class AddUserCardRequest(
+    data class AddCardRequest(
         override val id: String,
         override val fromUserUuid: String,
         override val toUserUuid: String

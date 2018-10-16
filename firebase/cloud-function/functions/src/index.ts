@@ -4,12 +4,11 @@ import * as admin from 'firebase-admin';
 admin.initializeApp(functions.config().firebase);
 
 exports.sendPushWhenAddCardRequest = functions.firestore
-  .document('request/{requestId}')
+  .document('requests/{requestId}')
   .onCreate((snap, context) => {
 
     const request = snap.data()
     const type = request.type
-    const cardId = request.cardId
     const toUuid = request.toUserUuid
     const fromUuid = request.fromUserUuid
 
@@ -18,12 +17,12 @@ exports.sendPushWhenAddCardRequest = functions.firestore
         console.log('User has fetched');
 
         const notificationRef = admin.firestore().collection('notification').doc()
-        const title = userFrom.displayName + ' wants add your card'
-        const description = "Description"
+        const title = userFrom.displayName + ' wants to add your card'
+        const description = "Allow if you want to share your card"
 
         const payload = {
           data: {
-            //token: token
+            notificationId: notificationRef.id
           },
           notification: {
             title: title,
@@ -43,12 +42,13 @@ exports.sendPushWhenAddCardRequest = functions.firestore
           type: type,
           title: title,
           description: description,
-          cardId: cardId
+          toUserUuid: toUuid,
+          fromUserUuid: fromUuid
         };
 
         const saveNotificationPromise = notificationRef.set(notification)
-        const sendPushPromise = admin.firestore().collection("token").where('userUuid', '==', toUuid).limit(1).get()
-          .then(token => admin.messaging().sendToDevice(token.docs[0].data().token, payload, options))
+        const sendPushPromise = admin.firestore().collection("token").doc(toUuid).get()
+          .then(token => admin.messaging().sendToDevice(token.data().token, payload, options))
 
         return Promise.all([saveNotificationPromise, sendPushPromise])
           .then(results => {

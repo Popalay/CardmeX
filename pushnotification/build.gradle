@@ -7,4 +7,6 @@ dependencies {
     implementation Libs.kotlin
 
     implementation Libs.firebaseMessaging
+    implementation Libs.firebaseFireStore
+    implementation Libs.firebaseAuth
 }
