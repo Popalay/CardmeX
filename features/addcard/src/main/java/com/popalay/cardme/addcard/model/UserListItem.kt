@@ -5,7 +5,7 @@ import com.popalay.cardme.core.adapter.Identifiable
 
 data class UserListItem(
     val user: User,
-    val isSelected: Boolean
+    val isProgress: Boolean
 ) : Identifiable {
     override val id get() = user.uuid.hashCode().toLong()
 }

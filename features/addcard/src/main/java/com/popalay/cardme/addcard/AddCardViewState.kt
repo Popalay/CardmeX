@@ -16,13 +16,13 @@ data class AddCardViewState(
     val isPublicEditable: Boolean = true,
 
     val saveProgress: Boolean = false,
+    val requestProgress: Boolean = false,
     val peopleProgress: Boolean = false,
 
     val showClearButton: Boolean = false,
     val isValid: Boolean = false,
 
     val users: List<User>? = null,
-    val selectedUser: User? = null,
 
     val error: Throwable? = null
 ) : ViewState

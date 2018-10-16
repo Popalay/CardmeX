@@ -8,6 +8,10 @@
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:windowLightStatusBar">true</item>
         <item name="android:statusBarColor">#FAFAFA</item>
+        <item name="selectableItemBackground">@drawable/bg_ripple_rounded</item>
+        <item name="android:selectableItemBackground">@drawable/bg_ripple_rounded</item>
+        <item name="selectableItemBackgroundBorderless">@drawable/bg_ripple_borderless</item>
+        <item name="android:selectableItemBackgroundBorderless">@drawable/bg_ripple_borderless</item>
     </style>
 
     <style name="Cardme.AppBarOverlay" parent="ThemeOverlay.MaterialComponents.ActionBar">

@@ -16,8 +16,7 @@ sealed class AddCardIntent : Intent {
         val number: String,
         val name: String,
         val isPublic: Boolean,
-        val cardType: CardType,
-        val selectedUser: User?
+        val cardType: CardType
     ) : AddCardIntent()
 
     data class OnUserClicked(val user: User) : AddCardIntent()

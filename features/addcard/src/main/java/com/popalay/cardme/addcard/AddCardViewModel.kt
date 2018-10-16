@@ -39,14 +39,15 @@ internal class AddCardViewModel(
                 .compose(userListUseCase),
             observable.ofType<AddCardIntent.SaveClicked>()
                 .filter { !isUserCard }
-                .map { SaveCardUseCase.Action(it.number, it.name, it.isPublic, it.cardType, it.selectedUser) }
+                .map { SaveCardUseCase.Action(it.number, it.name, it.isPublic, it.cardType) }
                 .compose(saveCardUseCase),
             observable.ofType<AddCardIntent.CrossClicked>()
                 .map { SpecificIntentUseCase.Action(it) }
                 .compose(specificIntentUseCase),
-            observable.ofType<AddCardIntent.OnUserClicked>()
+            //TODO send request
+/*            observable.ofType<AddCardIntent.OnUserClicked>()
                 .map { SpecificIntentUseCase.Action(it) }
-                .compose(specificIntentUseCase),
+                .compose(specificIntentUseCase),*/
             observable.ofType<AddCardIntent.SaveClicked>()
                 .filter { isUserCard }
                 .map { SaveUserCardUseCase.Action(it.number, it.name, it.isPublic, it.cardType) }
@@ -83,11 +84,14 @@ internal class AddCardViewModel(
                 is SaveUserCardUseCase.Result.Failure -> it.copy(error = throwable, saveProgress = false)
             }
             is ValidateCardUseCase.Result -> when (this) {
-                is ValidateCardUseCase.Result.Success -> it.copy(isValid = isValid, saveProgress = false)
+                is ValidateCardUseCase.Result.Success -> it.copy(
+                    isValid = isValid,
+                    saveProgress = false,
+                    showClearButton = isValid
+                )
                 is ValidateCardUseCase.Result.Idle -> it.copy(
                     holderName = name,
                     cardNumber = number,
-                    selectedUser = it.selectedUser?.copy(displayName = DisplayName(name), card = it.selectedUser.card?.copy(number = number)),
                     isPublic = isPublic
                 )
                 is ValidateCardUseCase.Result.Failure -> it.copy(isValid = false, error = throwable, saveProgress = false)
@@ -97,9 +101,9 @@ internal class AddCardViewModel(
                 IdentifyCardNumberUseCase.Result.Idle -> it
                 is IdentifyCardNumberUseCase.Result.Failure -> it.copy(error = throwable)
             }
+            //TODO set user data
             is GetCurrentUserUseCase.Result -> when (this) {
                 is GetCurrentUserUseCase.Result.Success -> it.copy(
-                    selectedUser = user,
                     isPublicEditable = false,
                     isHolderNameEditable = false
                 )
@@ -114,18 +118,11 @@ internal class AddCardViewModel(
             is SpecificIntentUseCase.Result -> with(intent as AddCardIntent) {
                 when (this) {
                     AddCardIntent.CrossClicked -> it.copy(
-                        selectedUser = null,
                         showClearButton = false,
                         isHolderNameEditable = true,
                         isCardNumberEditable = true,
                         holderName = "",
                         cardNumber = ""
-                    )
-                    is AddCardIntent.OnUserClicked -> it.copy(
-                        selectedUser = user,
-                        showClearButton = true,
-                        isHolderNameEditable = false,
-                        isCardNumberEditable = false
                     )
                     else -> throw UnsupportedOperationException()
                 }

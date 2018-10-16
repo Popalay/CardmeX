@@ -10,6 +10,6 @@
             </item>
         </ripple>
     </item>
-    <item android:drawable="@drawable/bg_ripple_rounded" />
+    <item android:drawable="@drawable/bg_ripple_borderless" />
 
 </selector>

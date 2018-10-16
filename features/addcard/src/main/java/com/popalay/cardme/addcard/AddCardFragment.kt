@@ -60,7 +60,7 @@ class AddCardFragment : Fragment(), BindableMviView<AddCardViewState, AddCardInt
     private val imageCardType: ImageView by bindView(R.id.image_card_type)
     private val inputNumber: EditText by bindView(R.id.input_number)
     private val buttonCamera: ImageButton by bindView(R.id.button_camera)
-    private val buttonCross: ProgressImageButton by bindView(R.id.button_cross)
+    private val buttonCross: ImageButton by bindView(R.id.button_cross)
     private val inputName: EditText by bindView(R.id.input_name)
     private val checkPublic: CheckBox by bindView(R.id.check_public)
     private val listUsers: RecyclerView by bindView(R.id.list_users)
@@ -106,11 +106,11 @@ class AddCardFragment : Fragment(), BindableMviView<AddCardViewState, AddCardInt
                 icon.alpha = if (isValid) 255 else 64
             }
             inputName.apply {
-                setTextIfNeeded(selectedUser?.displayName?.value ?: holderName)
+                setTextIfNeeded(holderName)
                 isEnabled = isHolderNameEditable
             }
             inputNumber.apply {
-                setTextIfNeeded(selectedUser?.card?.number ?: cardNumber)
+                setTextIfNeeded(cardNumber)
                 isEnabled = isCardNumberEditable
             }
             checkPublic.apply {
@@ -124,11 +124,11 @@ class AddCardFragment : Fragment(), BindableMviView<AddCardViewState, AddCardInt
             }
 
             imageCardType.setImageResource(cardType.icon.takeIf { it != 0 } ?: R.drawable.ic_credit_card)
-            usersAdapter.submitList(users?.map { UserListItem(it, it == selectedUser) })
-            imageFace.apply {
+            usersAdapter.submitList(users?.map { UserListItem(it, requestProgress) })
+/*            imageFace.apply {
                 imageTintMode = selectedUser?.let { PorterDuff.Mode.DST } ?: PorterDuff.Mode.MULTIPLY
                 loadImage(selectedUser?.photoUrl, R.drawable.ic_account, CircleImageTransformation())
-            }
+            }*/
 
             errorHandler.accept(error)
         }
@@ -171,8 +171,7 @@ class AddCardFragment : Fragment(), BindableMviView<AddCardViewState, AddCardInt
             cardNumber,
             holderName,
             isPublic,
-            cardType,
-            selectedUser
+            cardType
         )
     }
 

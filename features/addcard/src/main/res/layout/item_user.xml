@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="56dp"
-    android:background="@drawable/bg_item_user"
+    android:background="?selectableItemBackground"
     android:clickable="true"
     android:focusable="true"
     android:paddingStart="8dp"
@@ -32,25 +32,25 @@
         android:lines="1"
         android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/text_card_number"
+        app:layout_constraintEnd_toStartOf="@id/button_request"
         app:layout_constraintStart_toEndOf="@id/image_photo"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="@tools:sample/full_names" />
 
-    <TextView
-        android:id="@+id/text_card_number"
-        android:layout_width="100dp"
+    <com.popalay.cardme.core.widget.ProgressImageButton
+        android:id="@+id/button_request"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:drawableStart="@drawable/ic_mastercard"
-        android:drawablePadding="4dp"
-        android:gravity="center_vertical|end"
-        android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
+        android:background="?selectableItemBackgroundBorderless"
+        android:contentDescription="Request card"
+        android:padding="8dp"
+        android:src="@drawable/ic_add_circle"
+        android:tint="@color/colorPrimary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/text_display_name"
         app:layout_constraintTop_toBottomOf="@id/text_display_name"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="****4444" />
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

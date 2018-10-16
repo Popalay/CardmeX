@@ -46,7 +46,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
-        android:background="@drawable/sl_image_button_selectable"
+        android:background="@drawable/bg_circular_button_selectable"
         android:contentDescription="User list"
         android:elevation="2dp"
         android:padding="8dp"
