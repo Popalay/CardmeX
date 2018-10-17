@@ -74,6 +74,7 @@ internal class RemoteUserDao(
     override fun getAllLikeWithCard(like: String, lastDisplayName: String, limit: Long): Flowable<List<User>> =
         Flowable.create<List<User>>({ emitter ->
             val listenerRegistration = firestore.users
+                .orderBy("cardId")
                 .whereGreaterThan("cardId", "")
                 .orderBy("displayName")
                 .startAt(like)
