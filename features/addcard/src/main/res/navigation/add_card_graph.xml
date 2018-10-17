@@ -8,6 +8,13 @@
         android:id="@+id/addCardFragment"
         android:name="com.popalay.cardme.addcard.AddCardFragment"
         android:label="New card"
-        tools:layout="@layout/add_card_fragment" />
+        tools:layout="@layout/add_card_fragment">
+
+        <argument
+            android:name="isUserCard"
+            android:defaultValue="false"
+            app:argType="boolean" />
+
+    </fragment>
 
 </navigation>

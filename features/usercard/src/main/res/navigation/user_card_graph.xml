@@ -5,10 +5,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     app:startDestination="@id/userCardFragment">
 
+    <include app:graph="@navigation/add_card_graph" />
+
     <fragment
         android:id="@+id/userCardFragment"
         android:name="com.popalay.cardme.usercard.UserCardFragment"
         android:label="card_list_fragment"
-        tools:layout="@layout/user_card_fragment" />
+        tools:layout="@layout/user_card_fragment" >
+
+        <action
+            android:id="@+id/action_from_user_card_to_add_card"
+            app:destination="@id/add_card_graph"
+            app:popUpTo="@id/userCardFragment" />
+
+    </fragment>
 
 </navigation>

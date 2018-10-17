@@ -17,8 +17,6 @@ import androidx.navigation.Navigation
 import androidx.transition.AutoTransition
 import androidx.transition.TransitionManager
 import com.jakewharton.rxbinding2.view.RxView
-import com.jakewharton.rxbinding2.widget.RxTextView
-import com.popalay.cardme.addcard.AddCardFragment
 import com.popalay.cardme.api.core.error.ErrorHandler
 import com.popalay.cardme.api.ui.navigation.NavigatorHolder
 import com.popalay.cardme.core.extensions.applyThrottling
@@ -26,7 +24,6 @@ import com.popalay.cardme.core.extensions.bindView
 import com.popalay.cardme.core.extensions.loadImage
 import com.popalay.cardme.core.picasso.CircleImageTransformation
 import com.popalay.cardme.core.state.BindableMviView
-import com.popalay.cardme.core.widget.OnDialogDismissed
 import com.popalay.cardme.core.widget.ProgressMaterialButton
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
@@ -35,7 +32,7 @@ import org.koin.androidx.viewmodel.ext.android.getViewModel
 import org.koin.core.parameter.parametersOf
 import kotlin.properties.Delegates
 
-internal class MainFragment : Fragment(), NavHost, BindableMviView<MainViewState, MainIntent>, OnDialogDismissed {
+internal class MainFragment : Fragment(), NavHost, BindableMviView<MainViewState, MainIntent> {
 
     private val buttonAddCard: View by bindView(R.id.button_add_card)
     private val layoutUser: View by bindView(R.id.layout_user)
@@ -80,7 +77,6 @@ internal class MainFragment : Fragment(), NavHost, BindableMviView<MainViewState
     override fun accept(viewState: MainViewState) {
         state = viewState
         with(viewState) {
-            //if (showAddCardDialog) showAddCardDialog()
             TransitionManager.beginDelayedTransition(
                 constraintLayout, AutoTransition()
                     .addTarget(buttonSync)
@@ -101,17 +97,6 @@ internal class MainFragment : Fragment(), NavHost, BindableMviView<MainViewState
             }
 
             errorHandler.accept(error)
-        }
-    }
-
-    override fun onDialogDismissed() {
-        intentSubject.onNext(MainIntent.OnAddCardDialogDismissed)
-    }
-
-    private fun showAddCardDialog() {
-        if (childFragmentManager.findFragmentByTag(AddCardFragment::class.java.simpleName) == null) {
-
-            //AddCardFragment.newInstance().showNow(childFragmentManager, AddCardFragment::class.java.simpleName)
         }
     }
 

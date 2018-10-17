@@ -9,6 +9,5 @@ internal sealed class MainIntent : Intent {
     object OnSyncClicked : MainIntent()
     object OnUserClicked : MainIntent()
     object OnAddCardClicked : MainIntent()
-    object OnAddCardDialogDismissed : MainIntent()
     data class OnActivityResult(val success: Boolean, val requestCode: Int, val data: android.content.Intent) : MainIntent()
 }

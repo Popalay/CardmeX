@@ -31,9 +31,6 @@ internal class UserCardViewModel(
                 .compose(specificIntentUseCase),
             observable.ofType<UserCardIntent.OnAddClicked>()
                 .map { SpecificIntentUseCase.Action(it) }
-                .compose(specificIntentUseCase),
-            observable.ofType<UserCardIntent.OnAddCardDialogDismissed>()
-                .map { SpecificIntentUseCase.Action(it) }
                 .compose(specificIntentUseCase)
         )
     }
@@ -46,13 +43,18 @@ internal class UserCardViewModel(
                 is GetCurrentUserWithCardUseCase.Result.Failure -> it.copy(error = throwable, progress = false)
             }
             is SpecificIntentUseCase.Result -> when (intent as UserCardIntent) {
-                UserCardIntent.OnEditClicked -> it.copy(showAddCardDialog = true)
-                UserCardIntent.OnAddClicked -> it.copy(showAddCardDialog = true)
+                UserCardIntent.OnEditClicked -> {
+                    router.navigate(UserCardDestination.AddCard)
+                    it
+                }
+                UserCardIntent.OnAddClicked -> {
+                    router.navigate(UserCardDestination.AddCard)
+                    it
+                }
                 UserCardIntent.OnSkipClicked -> {
                     router.navigateUp()
                     it
                 }
-                is UserCardIntent.OnAddCardDialogDismissed -> it.copy(showAddCardDialog = false)
                 else -> throw UnsupportedOperationException()
             }
             else -> throw IllegalStateException("Can not reduce user for result ${javaClass.name}")

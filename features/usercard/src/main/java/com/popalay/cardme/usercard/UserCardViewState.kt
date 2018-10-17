@@ -8,6 +8,5 @@ internal data class UserCardViewState(
     val user: User? = null,
     val card: Card? = null,
     val progress: Boolean = true,
-    val showAddCardDialog: Boolean = false,
     val error: Throwable? = null
 ) : ViewState

@@ -1,6 +1,5 @@
 package com.popalay.cardme.addcard
 
-import android.graphics.PorterDuff
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,7 +11,6 @@ import android.widget.ImageButton
 import android.widget.ImageView
 import androidx.appcompat.widget.Toolbar
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.core.widget.ContentLoadingProgressBar
 import androidx.fragment.app.Fragment
@@ -30,9 +28,7 @@ import com.popalay.cardme.api.core.error.ErrorHandler
 import com.popalay.cardme.api.ui.navigation.NavigatorHolder
 import com.popalay.cardme.core.adapter.SpacingItemDecoration
 import com.popalay.cardme.core.extensions.*
-import com.popalay.cardme.core.picasso.CircleImageTransformation
 import com.popalay.cardme.core.state.BindableMviView
-import com.popalay.cardme.core.widget.ProgressImageButton
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
 import org.koin.android.ext.android.inject
@@ -42,15 +38,6 @@ import kotlin.properties.Delegates
 
 
 class AddCardFragment : Fragment(), BindableMviView<AddCardViewState, AddCardIntent> {
-
-    companion object {
-
-        private const val ARG_IS_USER_CARD = "ARG_IS_USER_CARD"
-
-        fun newInstance(isUserCard: Boolean = false) = AddCardFragment().apply {
-            arguments = bundleOf(ARG_IS_USER_CARD to isUserCard)
-        }
-    }
 
     private val progressBar: ContentLoadingProgressBar by bindView(R.id.progress_bar)
     private val toolbar: Toolbar by bindView(R.id.toolbar)
@@ -78,7 +65,8 @@ class AddCardFragment : Fragment(), BindableMviView<AddCardViewState, AddCardInt
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         navigatorHolder.navigator = AddCardNavigator(this)
-        bind(getViewModel<AddCardViewModel> { parametersOf(arguments?.getBoolean(ARG_IS_USER_CARD) ?: false) })
+        val args = AddCardFragmentArgs.fromBundle(arguments)
+        bind(getViewModel<AddCardViewModel> { parametersOf(args.isUserCard) })
         initView()
     }
 

@@ -15,6 +15,7 @@ import androidx.fragment.app.Fragment
 import com.jakewharton.rxbinding2.view.RxView
 import com.popalay.cardme.addcard.AddCardFragment
 import com.popalay.cardme.api.core.error.ErrorHandler
+import com.popalay.cardme.api.ui.navigation.NavigatorHolder
 import com.popalay.cardme.core.extensions.*
 import com.popalay.cardme.core.picasso.CircleImageTransformation
 import com.popalay.cardme.core.state.BindableMviView
@@ -24,7 +25,7 @@ import io.reactivex.subjects.PublishSubject
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.getViewModel
 
-internal class UserCardFragment : Fragment(), BindableMviView<UserCardViewState, UserCardIntent>, OnDialogDismissed {
+internal class UserCardFragment : Fragment(), BindableMviView<UserCardViewState, UserCardIntent> {
 
     private val toolbar: Toolbar by bindView(R.id.toolbar)
     private val progressBar: ContentLoadingProgressBar by bindView(R.id.progress_bar)
@@ -38,6 +39,7 @@ internal class UserCardFragment : Fragment(), BindableMviView<UserCardViewState,
     private val textCardNumber: TextView by bindView(R.id.text_card_number)
 
     private val errorHandler: ErrorHandler by inject()
+    private val navigatorHolder: NavigatorHolder by inject()
     private val intentSubject = PublishSubject.create<UserCardIntent>()
 
     override fun onCreateView(
@@ -48,6 +50,7 @@ internal class UserCardFragment : Fragment(), BindableMviView<UserCardViewState,
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        navigatorHolder.navigator = UserCardNavigator(this)
         bind(getViewModel<UserCardViewModel>())
         initView()
     }
@@ -78,7 +81,6 @@ internal class UserCardFragment : Fragment(), BindableMviView<UserCardViewState,
 
     override fun accept(viewState: UserCardViewState) {
         with(viewState) {
-            if (showAddCardDialog) showAddCardDialog()
             user?.run {
                 imageUserAvatar.loadImage(photoUrl, R.drawable.ic_holder_placeholder, CircleImageTransformation())
                 textDisplayName.text = displayName.value
@@ -94,10 +96,6 @@ internal class UserCardFragment : Fragment(), BindableMviView<UserCardViewState,
         }
     }
 
-    override fun onDialogDismissed() {
-        intentSubject.onNext(UserCardIntent.OnAddCardDialogDismissed)
-    }
-
     private val addClickedIntent
         get() = RxView.clicks(buttonAdd)
             .map { UserCardIntent.OnAddClicked }
@@ -105,10 +103,4 @@ internal class UserCardFragment : Fragment(), BindableMviView<UserCardViewState,
     private val skipClickedIntent
         get() = RxView.clicks(buttonSkip)
             .map { UserCardIntent.OnSkipClicked }
-
-    private fun showAddCardDialog() {
-        if (childFragmentManager.findFragmentByTag(AddCardFragment::class.java.simpleName) == null) {
-            //AddCardFragment.newInstance(isUserCard = true).showNow(childFragmentManager, AddCardFragment::class.java.simpleName)
-        }
-    }
 }

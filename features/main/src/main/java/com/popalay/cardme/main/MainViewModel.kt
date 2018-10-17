@@ -31,9 +31,6 @@ internal class MainViewModel(
             observable.ofType<MainIntent.OnStarted>()
                 .map { GetCurrentUserUseCase.Action }
                 .compose(getCurrentUserUseCase),
-            observable.ofType<MainIntent.OnAddCardDialogDismissed>()
-                .map { SpecificIntentUseCase.Action(it) }
-                .compose(specificIntentUseCase),
             observable.ofType<MainIntent.OnAddCardClicked>()
                 .map { SpecificIntentUseCase.Action(it) }
                 .compose(specificIntentUseCase),
@@ -81,7 +78,6 @@ internal class MainViewModel(
                         router.navigate(MainDestination.AddCard)
                         it
                     }
-                    MainIntent.OnAddCardDialogDismissed -> it.copy(showAddCardDialog = false)
                     MainIntent.OnUserClicked -> {
                         router.navigate(MainDestination.UserCard)
                         it

@@ -8,15 +8,15 @@ class MainNavigator(fragment: Fragment) : BaseNavigator(fragment) {
 
     override fun navigate(destination: Destination) {
         when (destination as MainDestination) {
-            MainDestination.UserCard -> navController.navigate(R.id.action_from_main_to_user_card)
-            MainDestination.AddCard -> navController.navigate(R.id.action_from_main_to_add_card)
+            MainDestination.UserCard -> navController.navigate(MainFragmentDirections.actionFromMainToUserCard())
+            MainDestination.AddCard -> navController.navigate(MainFragmentDirections.actionFromMainToAddCard())
         }
     }
 
     override fun popBackStackTo(destination: Destination, inclusive: Boolean) {
         when (destination as MainDestination) {
-            MainDestination.UserCard -> navController.popBackStack(R.id.action_from_main_to_user_card, inclusive)
-            MainDestination.AddCard -> navController.popBackStack(R.id.action_from_main_to_add_card, inclusive)
+            MainDestination.UserCard -> navController.popBackStack(MainFragmentDirections.actionFromMainToUserCard().actionId, inclusive)
+            MainDestination.AddCard -> navController.popBackStack(MainFragmentDirections.actionFromMainToAddCard().actionId, inclusive)
         }
     }
 }
