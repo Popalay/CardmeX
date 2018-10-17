@@ -17,6 +17,7 @@ internal class SaveUserCardUseCase(
     override fun apply(upstream: Observable<Action>): ObservableSource<Result> = upstream.switchMap { action ->
         val cardId = UUID.randomUUID().toString()
 
+        //TODO: save user card
         userRepository.getCurrentUser()
             .firstElement()
             .flatMapCompletable {
@@ -32,7 +33,7 @@ internal class SaveUserCardUseCase(
                     Date(),
                     Date()
                 )
-                userRepository.update(requireNotNull(it.toNullable()).copy(card = card))
+                userRepository.update(requireNotNull(it.toNullable()))
             }
             .toSingleDefault(Result.Success)
             .cast(Result::class.java)

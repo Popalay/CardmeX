@@ -18,6 +18,6 @@ class FirebaseUserToUserMapper : Mapper<FirebaseUser?, Optional<User>> {
             phoneNumber = value.phoneNumber ?: "",
             photoUrl = value.photoUrl?.toString() ?: "",
             displayName = DisplayName(value.displayName ?: "Undefined"),
-            card = null
+            cardId = ""
         ).toOptional()
 }

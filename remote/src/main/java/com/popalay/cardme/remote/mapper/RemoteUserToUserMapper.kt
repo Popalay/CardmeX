@@ -5,9 +5,7 @@ import com.popalay.cardme.api.core.model.DisplayName
 import com.popalay.cardme.api.core.model.User
 import com.popalay.cardme.remote.model.RemoteUser
 
-internal class RemoteUserToUserMapper(
-    private val cardMapper: RemoteCardToCardMapper
-) : Mapper<RemoteUser, User> {
+internal class RemoteUserToUserMapper : Mapper<RemoteUser, User> {
 
     override fun apply(value: RemoteUser): User = User(
         uuid = value.uuid,
@@ -15,6 +13,6 @@ internal class RemoteUserToUserMapper(
         photoUrl = value.photoUrl,
         phoneNumber = value.phoneNumber,
         displayName = DisplayName(value.displayName),
-        card = value.card?.let { cardMapper(it) }
+        cardId = value.cardId
     )
 }

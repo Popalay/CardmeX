@@ -20,21 +20,21 @@ import io.reactivex.schedulers.Schedulers
 internal class RemoteUserDao(
     private val firestore: FirebaseFirestore,
     private val userToRemoteUserMapper: UserToRemoteUserMapper,
-    private val remoteUserToUserMapper: RemoteUserToUserMapper,
-    private val cardToRemoteCardMapper: CardToRemoteCardMapper
+    private val remoteUserToUserMapper: RemoteUserToUserMapper
 ) : RemoteUserDao {
 
     override fun save(data: User): Completable = Completable.create { emitter ->
         firestore.users.document(data.uuid).set(
             userToRemoteUserMapper(data),
-            SetOptions.mergeFields(listOf("uuid", "email", "photoUrl", "phoneNumber", "displayName"))
+            SetOptions.mergeFields(listOf("uuid", "email", "photoUrl", "phoneNumber", "displayName", "cardId"))
         )
             .addOnSuccessListener { emitter.onComplete() }
             .addOnFailureListener { emitter.tryOnError(it) }
     }.subscribeOn(Schedulers.io())
 
     override fun update(data: User): Completable = Completable.create { emitter ->
-        data.card?.let { cardToRemoteCardMapper(it) }?.let { card ->
+        //TODO: fix updating
+        /*data.card?.let { cardToRemoteCardMapper(it) }?.let { card ->
             val map = mapOf(
                 "card.id" to card.id,
                 "card.number" to card.number,
@@ -50,7 +50,7 @@ internal class RemoteUserDao(
             firestore.users.document(data.uuid).update(map)
                 .addOnSuccessListener { emitter.onComplete() }
                 .addOnFailureListener { emitter.tryOnError(it) }
-        } ?: emitter.onComplete()
+        } ?: */emitter.onComplete()
     }.subscribeOn(Schedulers.io())
 
     override fun get(id: String): Flowable<Optional<User>> = Flowable.create<Optional<User>>({ emitter ->
@@ -92,8 +92,20 @@ internal class RemoteUserDao(
         .subscribeOn(Schedulers.io())
 
     override fun getAllLikeWithCard(like: String, lastDisplayName: String, limit: Long): Flowable<List<User>> =
-        getAllLike(like, lastDisplayName, limit)
-            .map { list -> list.filter { it.card != null } }
+        Flowable.create<List<User>>({ emitter ->
+            val listenerRegistration = firestore.users
+                .whereEqualTo("hasCard", true)
+                .orderBy("displayName")
+                .startAt(like)
+                .startAfter(lastDisplayName)
+                .limit(limit)
+                .addSnapshotListener { snapshot, exception ->
+                    if (exception != null) emitter.tryOnError(exception)
+                    if (snapshot != null) emitter.onNext(snapshot.toObjects(RemoteUser::class.java).map { remoteUserToUserMapper(it) })
+                }
+            emitter.setCancellable { listenerRegistration.remove() }
+        }, BackpressureStrategy.LATEST)
+            .subscribeOn(Schedulers.io())
 
     override fun delete(id: String): Completable = Completable.create { emitter ->
         firestore.users.document(id).delete()

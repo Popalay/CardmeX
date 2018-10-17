@@ -17,7 +17,7 @@ import com.popalay.cardme.cache.model.CacheUser
         CacheHolder::class,
         CacheUser::class
     ],
-    version = 4
+    version = 5
 )
 @TypeConverters(
     value = [

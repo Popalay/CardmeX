@@ -26,10 +26,10 @@ object Versions {
     const val acNavigation = "1.0.0-alpha06"
 
     const val firebaseCore = "16.0.4"
-    const val firebaseAuth = "16.0.4"
+    const val firebaseAuth = "16.0.5"
     const val firebaseStorage = "16.0.3"
     const val firebaseFireStore = "17.1.1"
-    const val firebaseMessaging = "17.3.3"
+    const val firebaseMessaging = "17.3.4"
     const val playServicesAuth = "16.0.1"
 
     const val koinDi = "1.0.1"

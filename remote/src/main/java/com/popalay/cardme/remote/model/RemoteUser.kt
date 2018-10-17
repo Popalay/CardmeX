@@ -6,5 +6,5 @@ internal data class RemoteUser(
     val photoUrl: String = "",
     val phoneNumber: String = "",
     val displayName: String = "",
-    val card: RemoteCard? = null
+    val cardId: String = ""
 )

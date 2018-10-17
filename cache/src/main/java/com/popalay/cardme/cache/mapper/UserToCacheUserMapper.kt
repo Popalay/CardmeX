@@ -4,9 +4,7 @@ import com.popalay.cardme.api.core.mapper.Mapper
 import com.popalay.cardme.api.core.model.User
 import com.popalay.cardme.cache.model.CacheUser
 
-internal class UserToCacheUserMapper(
-    private val cardToCacheCardMapper: CardToCacheCardMapper
-) : Mapper<User, CacheUser> {
+internal class UserToCacheUserMapper : Mapper<User, CacheUser> {
 
     override fun apply(value: User): CacheUser = CacheUser(
         uuid = value.uuid,
@@ -14,6 +12,6 @@ internal class UserToCacheUserMapper(
         photoUrl = value.photoUrl,
         phoneNumber = value.phoneNumber,
         displayName = value.displayName.value,
-        card = value.card?.let { cardToCacheCardMapper(it) }
+        cardId = value.cardId
     )
 }

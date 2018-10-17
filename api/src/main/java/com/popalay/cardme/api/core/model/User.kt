@@ -6,7 +6,5 @@ data class User(
     val photoUrl: String,
     val phoneNumber: String,
     val displayName: DisplayName,
-    val card: Card?
+    val cardId: String
 )
-
-inline class DisplayName(val value: String)

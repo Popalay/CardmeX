@@ -50,7 +50,7 @@ class CardStore(
 
         override fun isNotEmpty(key: Key): Single<Boolean> = with(key) {
             when (this) {
-                is Key.ById -> cacheCardDao.isNotEmpty()
+                is Key.ById -> cacheCardDao.isPresent(id)
             }
         }
     }

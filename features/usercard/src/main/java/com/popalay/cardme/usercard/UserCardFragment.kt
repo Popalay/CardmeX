@@ -1,7 +1,9 @@
 package com.popalay.cardme.usercard
 
 import android.os.Bundle
-import android.view.*
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
@@ -80,13 +82,13 @@ internal class UserCardFragment : Fragment(), BindableMviView<UserCardViewState,
             user?.run {
                 imageUserAvatar.loadImage(photoUrl, R.drawable.ic_holder_placeholder, CircleImageTransformation())
                 textDisplayName.text = displayName.value
-                card?.run {
-                    textCardNumber.text = formattedNumber
-                    imageCardType.setImageResource(cardType.icon)
-                }
             }
-            groupNoCard.isVisible = user?.card == null && !progress
-            groupCard.isVisible = user?.card != null && !progress
+            card?.run {
+                textCardNumber.text = formattedNumber
+                imageCardType.setImageResource(cardType.icon)
+            }
+            groupNoCard.isVisible = card == null && !progress
+            groupCard.isVisible = card != null && !progress
             if (progress) progressBar.show() else progressBar.hide()
             errorHandler.accept(error)
         }
