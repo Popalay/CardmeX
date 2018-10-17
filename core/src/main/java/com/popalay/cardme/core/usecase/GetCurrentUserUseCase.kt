@@ -1,9 +1,7 @@
 package com.popalay.cardme.core.usecase
 
-import com.popalay.cardme.api.core.model.Card
 import com.popalay.cardme.api.core.model.User
 import com.popalay.cardme.api.core.usecase.UseCase
-import com.popalay.cardme.api.data.repository.CardRepository
 import com.popalay.cardme.api.data.repository.UserRepository
 import io.reactivex.Observable
 import io.reactivex.ObservableSource

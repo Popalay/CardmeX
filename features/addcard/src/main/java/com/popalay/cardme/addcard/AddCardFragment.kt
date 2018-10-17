@@ -36,8 +36,7 @@ import org.koin.androidx.viewmodel.ext.android.getViewModel
 import org.koin.core.parameter.parametersOf
 import kotlin.properties.Delegates
 
-
-class AddCardFragment : Fragment(), BindableMviView<AddCardViewState, AddCardIntent> {
+internal class AddCardFragment : Fragment(), BindableMviView<AddCardViewState, AddCardIntent> {
 
     private val progressBar: ContentLoadingProgressBar by bindView(R.id.progress_bar)
     private val toolbar: Toolbar by bindView(R.id.toolbar)

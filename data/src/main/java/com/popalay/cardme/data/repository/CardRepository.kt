@@ -29,8 +29,8 @@ class CardRepository(
     override fun get(id: String): Flowable<Card> = cardStore.get(CardStore.Key.ById(id))
 
     override fun delete(id: String): Completable = Completable.mergeArray(
-        cacheCardDao.delete(id),
-        remoteCardDao.delete(id).onErrorComplete()
+        remoteCardDao.delete(id).onErrorComplete(),
+        cacheCardDao.delete(id)
     )
 
     override fun getAll(userId: String): Flowable<List<Card>> = cardListStore.get(CardListStore.Key.AllByUser(userId))

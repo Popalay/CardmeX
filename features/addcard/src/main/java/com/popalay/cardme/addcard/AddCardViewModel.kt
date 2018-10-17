@@ -86,7 +86,7 @@ internal class AddCardViewModel(
                 is ValidateCardUseCase.Result.Success -> it.copy(
                     isValid = isValid,
                     saveProgress = false,
-                    showClearButton = isValid
+                    showClearButton = isValid && it.isHolderNameEditable && it.isCardNumberEditable
                 )
                 is ValidateCardUseCase.Result.Idle -> it.copy(
                     holderName = name,
@@ -100,9 +100,9 @@ internal class AddCardViewModel(
                 IdentifyCardNumberUseCase.Result.Idle -> it
                 is IdentifyCardNumberUseCase.Result.Failure -> it.copy(error = throwable)
             }
-            //TODO set user data
             is GetCurrentUserUseCase.Result -> when (this) {
                 is GetCurrentUserUseCase.Result.Success -> it.copy(
+                    holderName = user?.displayName?.value ?: "",
                     isPublicEditable = false,
                     isHolderNameEditable = false
                 )

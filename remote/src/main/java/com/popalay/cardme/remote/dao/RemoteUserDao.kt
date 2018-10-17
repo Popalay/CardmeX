@@ -4,10 +4,8 @@ import com.gojuno.koptional.None
 import com.gojuno.koptional.Optional
 import com.gojuno.koptional.toOptional
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.SetOptions
 import com.popalay.cardme.api.core.model.User
 import com.popalay.cardme.api.remote.dao.RemoteUserDao
-import com.popalay.cardme.remote.mapper.CardToRemoteCardMapper
 import com.popalay.cardme.remote.mapper.RemoteUserToUserMapper
 import com.popalay.cardme.remote.mapper.UserToRemoteUserMapper
 import com.popalay.cardme.remote.model.RemoteUser
@@ -24,33 +22,15 @@ internal class RemoteUserDao(
 ) : RemoteUserDao {
 
     override fun save(data: User): Completable = Completable.create { emitter ->
-        firestore.users.document(data.uuid).set(
-            userToRemoteUserMapper(data),
-            SetOptions.mergeFields(listOf("uuid", "email", "photoUrl", "phoneNumber", "displayName", "cardId"))
-        )
+        firestore.users.document(data.uuid).set(userToRemoteUserMapper(data))
             .addOnSuccessListener { emitter.onComplete() }
             .addOnFailureListener { emitter.tryOnError(it) }
     }.subscribeOn(Schedulers.io())
 
     override fun update(data: User): Completable = Completable.create { emitter ->
-        //TODO: fix updating
-        /*data.card?.let { cardToRemoteCardMapper(it) }?.let { card ->
-            val map = mapOf(
-                "card.id" to card.id,
-                "card.number" to card.number,
-                "card.holder.id" to card.holder.id,
-                "card.holder.name" to card.holder.name,
-                "card.holder.photoUrl" to card.holder.photoUrl,
-                "card.isPublic" to card.isPublic,
-                "card.cardType" to card.cardType,
-                "card.userId" to card.userId,
-                "card.createdDate" to card.createdDate as Any,
-                "card.updatedDate" to card.updatedDate as Any
-            )
-            firestore.users.document(data.uuid).update(map)
-                .addOnSuccessListener { emitter.onComplete() }
-                .addOnFailureListener { emitter.tryOnError(it) }
-        } ?: */emitter.onComplete()
+        firestore.users.document(data.uuid).set(userToRemoteUserMapper(data))
+            .addOnSuccessListener { emitter.onComplete() }
+            .addOnFailureListener { emitter.tryOnError(it) }
     }.subscribeOn(Schedulers.io())
 
     override fun get(id: String): Flowable<Optional<User>> = Flowable.create<Optional<User>>({ emitter ->
@@ -94,7 +74,7 @@ internal class RemoteUserDao(
     override fun getAllLikeWithCard(like: String, lastDisplayName: String, limit: Long): Flowable<List<User>> =
         Flowable.create<List<User>>({ emitter ->
             val listenerRegistration = firestore.users
-                .whereEqualTo("hasCard", true)
+                .whereGreaterThan("cardId", "")
                 .orderBy("displayName")
                 .startAt(like)
                 .startAfter(lastDisplayName)
