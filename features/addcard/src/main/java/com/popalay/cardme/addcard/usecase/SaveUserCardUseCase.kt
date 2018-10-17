@@ -35,8 +35,8 @@ internal class SaveUserCardUseCase(
                     Date()
                 )
                 Completable.mergeArray(
-                    userRepository.update(requireNotNull(optional.toNullable()).copy(cardId = cardId)),
-                    cardRepository.save(card)
+                    cardRepository.save(card),
+                    userRepository.update(requireNotNull(optional.toNullable()).copy(cardId = cardId))
                 )
             }
             .toSingleDefault(Result.Success)

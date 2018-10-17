@@ -1,7 +1,5 @@
 package com.popalay.cardme.usercard.usecase
 
-import com.gojuno.koptional.Some
-import com.popalay.cardme.api.core.error.UnauthorizedException
 import com.popalay.cardme.api.core.model.Card
 import com.popalay.cardme.api.core.model.User
 import com.popalay.cardme.api.core.usecase.UseCase
@@ -19,10 +17,15 @@ class GetCurrentUserWithCardUseCase(
 
     override fun apply(upstream: Observable<Action>): ObservableSource<Result> = upstream.switchMap { _ ->
         userRepository.getCurrentUser()
-            .switchMap { user ->
-                if (user is Some) cardRepository.get(user.value.cardId)
-                    .map { Result.Success(user.value, it) }
-                else Flowable.just(Result.Failure(UnauthorizedException()))
+            .switchMap { optional ->
+                val user = requireNotNull(optional.toNullable())
+                user.cardId
+                    .takeIf { it.isNotBlank() }
+                    ?.let { cardId ->
+                        cardRepository.get(cardId)
+                            .map { Result.Success(user, it) }
+                    }
+                    ?: Flowable.just(Result.Success(user, null))
             }
             .cast(Result::class.java)
             .onErrorReturn(Result::Failure)
