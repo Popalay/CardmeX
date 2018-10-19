@@ -41,7 +41,7 @@ class CardActionsFragment : RoundedBottomSheetDialogFragment(), BindableMviView<
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        bind(getViewModel<CardActionsViewModel> { parametersOf(arguments?.getString(ARG_CARD_ID) ?: "") })
+        bind(getViewModel<CardActionsViewModel> { parametersOf(this, arguments?.getString(ARG_CARD_ID) ?: "") })
     }
 
     override val intents: Observable<CardActionsIntent> = Observable.defer {

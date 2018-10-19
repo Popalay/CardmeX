@@ -1,29 +1,38 @@
 package com.popalay.cardme.cardactions.usecase
 
-import android.content.Context
-import android.content.Intent
-import androidx.core.content.ContextCompat
-import com.popalay.cardme.api.data.repository.CardRepository
+import android.net.Uri
+import androidx.core.app.ShareCompat
+import androidx.fragment.app.Fragment
 import com.popalay.cardme.api.core.usecase.UseCase
-import com.popalay.cardme.core.extensions.formattedNumber
+import com.popalay.cardme.api.data.repository.CardRepository
 import io.reactivex.Observable
 import io.reactivex.ObservableSource
 import io.reactivex.schedulers.Schedulers
 
 internal class ShareCardUseCase(
-    private val context: Context,
+    private val fragment: Fragment,
     private val cardRepository: CardRepository
 ) : UseCase<ShareCardUseCase.Action, ShareCardUseCase.Result> {
 
     override fun apply(upstream: Observable<Action>): ObservableSource<Result> = upstream.switchMap { action ->
         cardRepository.get(action.cardId)
+            .map {
+                Uri.Builder()
+                    .scheme("https")
+                    .authority("cardme.page.link")
+                    .appendPath("usercard")
+                    //.appendQueryParameter("cardId", it.id)
+                    .build()
+            }
             .doOnNext {
-                    val sendIntent: Intent = Intent().apply {
-                        this.action = Intent.ACTION_SEND
-                        putExtra(Intent.EXTRA_TEXT, "${it.holder.name}: ${it.formattedNumber}")
-                        type = "text/plain"
-                    }
-                    ContextCompat.startActivity(context, sendIntent, null)
+                val intent = ShareCompat.IntentBuilder.from(fragment.requireActivity())
+                    .setChooserTitle("Share with..")
+                    .setType("text/plain")
+                    .setText("Hey, check out my card: $it")
+                    .createChooserIntent()
+                if (intent.resolveActivity(fragment.requireActivity().packageManager) != null) {
+                    fragment.startActivity(intent)
+                }
             }
             .map { Result.Success }
             .cast(Result::class.java)

@@ -11,7 +11,7 @@ class GetCurrentUserUseCase(
     private val authRepository: AuthRepository
 ) : UseCase<GetCurrentUserUseCase.Action, GetCurrentUserUseCase.Result> {
 
-    override fun apply(upstream: Observable<Action>): ObservableSource<Result> = upstream.switchMap { action ->
+    override fun apply(upstream: Observable<Action>): ObservableSource<Result> = upstream.switchMap { _ ->
         authRepository.authState()
             .map { Result.Success(it.toNullable()) }
             .cast(Result::class.java)
