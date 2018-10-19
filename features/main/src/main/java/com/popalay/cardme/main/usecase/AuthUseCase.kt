@@ -3,6 +3,7 @@ package com.popalay.cardme.main.usecase
 import com.popalay.cardme.api.auth.AuthCredentialsFactory
 import com.popalay.cardme.api.core.usecase.UseCase
 import com.popalay.cardme.api.data.repository.AuthRepository
+import com.popalay.cardme.api.data.repository.NotificationRepository
 import com.popalay.cardme.api.data.repository.UserRepository
 import io.reactivex.Observable
 import io.reactivex.ObservableSource
@@ -13,12 +14,19 @@ import org.koin.standalone.KoinComponent
 internal class AuthUseCase(
     private val authRepository: AuthRepository,
     private val userRepository: UserRepository,
-    private val authCredentialsFactory: AuthCredentialsFactory
+    private val authCredentialsFactory: AuthCredentialsFactory,
+    private val notificationRepository: NotificationRepository
 ) : UseCase<AuthUseCase.Action, AuthUseCase.Result>, KoinComponent {
 
     override fun apply(upstream: Observable<Action>): ObservableSource<Result> = upstream.switchMap { _ ->
         authRepository.auth(authCredentialsFactory.build())
-            .flatMap { user -> user.toNullable()?.let { userRepository.save(it).toSingleDefault(user) } ?: Single.just(user) }
+            .flatMap { user ->
+                user.toNullable()?.let {
+                    userRepository.save(it)
+                        .andThen(notificationRepository.syncToken())
+                        .toSingleDefault(user)
+                } ?: Single.just(user)
+            }
             .map { Result.Success }
             .cast(Result::class.java)
             .onErrorReturn(Result::Failure)

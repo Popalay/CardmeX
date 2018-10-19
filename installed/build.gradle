@@ -99,7 +99,6 @@ dependencies {
     implementation project(":features:main")
     implementation project(":injector")
     implementation project(":devtools:shaketoreport")
-    implementation project(":pushnotification")
 
     implementation Libs.navigationFragment
     implementation Libs.navigationUi
