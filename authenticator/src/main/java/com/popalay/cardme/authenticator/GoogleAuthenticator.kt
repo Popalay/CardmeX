@@ -14,12 +14,15 @@ import com.popalay.cardme.api.auth.AuthResult
 import com.popalay.cardme.api.auth.Authenticator
 import com.popalay.cardme.api.core.model.User
 import com.popalay.cardme.authenticator.mapper.FirebaseUserToUserMapper
+import io.reactivex.Completable
+import io.reactivex.Flowable
 import io.reactivex.Single
 
 internal class GoogleAuthenticator(
     private val context: Context,
-    private val fragment: Fragment,
-    private val userMapper: FirebaseUserToUserMapper
+    private val fragment: Fragment?,
+    private val userMapper: FirebaseUserToUserMapper,
+    private val firebaseAuth: FirebaseAuth
 ) : Authenticator {
 
     companion object {
@@ -41,7 +44,7 @@ internal class GoogleAuthenticator(
         val account = GoogleSignIn.getLastSignedInAccount(context)
         if (account != null) {
             val credential = GoogleAuthProvider.getCredential(account.idToken, null)
-            FirebaseAuth.getInstance().signInWithCredential(credential)
+            firebaseAuth.signInWithCredential(credential)
                 .addOnCompleteListener {
                     if (it.isSuccessful) {
                         emitter.onSuccess(userMapper(it.result?.user))
@@ -53,7 +56,7 @@ internal class GoogleAuthenticator(
         } else {
             val client = GoogleSignIn.getClient(context, gso)
             val intent = client.signInIntent
-            fragment.startActivityForResult(intent, REQUEST_CODE_SIGN_IN)
+            fragment?.startActivityForResult(intent, REQUEST_CODE_SIGN_IN)
             emitter.onSuccess(None)
         }
     }
@@ -68,7 +71,7 @@ internal class GoogleAuthenticator(
             try {
                 val account = task.getResult(ApiException::class.java)
                 val credential = GoogleAuthProvider.getCredential(account?.idToken, null)
-                FirebaseAuth.getInstance().signInWithCredential(credential)
+                firebaseAuth.signInWithCredential(credential)
                     .addOnCompleteListener {
                         if (it.isSuccessful) {
                             emitter.onSuccess(userMapper(it.result?.user))
@@ -83,5 +86,17 @@ internal class GoogleAuthenticator(
         } else {
             emitter.onSuccess(None)
         }
+    }
+
+    override fun authState(): Flowable<Optional<User>> {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun signOut(): Completable {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun currentUser(): Single<Optional<User>> {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 }

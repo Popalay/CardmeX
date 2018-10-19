@@ -3,6 +3,7 @@ package com.popalay.cardme.usercard.usecase
 import com.popalay.cardme.api.core.model.Card
 import com.popalay.cardme.api.core.model.User
 import com.popalay.cardme.api.core.usecase.UseCase
+import com.popalay.cardme.api.data.repository.AuthRepository
 import com.popalay.cardme.api.data.repository.CardRepository
 import com.popalay.cardme.api.data.repository.UserRepository
 import io.reactivex.Flowable
@@ -11,12 +12,14 @@ import io.reactivex.ObservableSource
 import io.reactivex.schedulers.Schedulers
 
 class GetCurrentUserWithCardUseCase(
+    private val cardRepository: CardRepository,
     private val userRepository: UserRepository,
-    private val cardRepository: CardRepository
+    private val authRepository: AuthRepository
 ) : UseCase<GetCurrentUserWithCardUseCase.Action, GetCurrentUserWithCardUseCase.Result> {
 
     override fun apply(upstream: Observable<Action>): ObservableSource<Result> = upstream.switchMap { _ ->
-        userRepository.getCurrentUser()
+        authRepository.authState()
+            .switchMap { userRepository.get(it.toNullable()?.uuid ?: "") }
             .switchMap { optional ->
                 val user = requireNotNull(optional.toNullable())
                 user.cardId

@@ -14,14 +14,14 @@ object RemoteModule {
 
         single { RemoteHolderToHolderMapper() }
         single { HolderToRemoteHolderMapper() }
-        single { RemoteCardToCardMapper(get()) }
-        single { CardToRemoteCardMapper(get()) }
+        single { RemoteCardToCardMapper(get { it }) }
+        single { CardToRemoteCardMapper(get { it }) }
         single { UserToRemoteUserMapper() }
         single { RequestToRemoteRequestMapper() }
         single { RemoteUserToUserMapper() }
-        single { RemoteCardDao(get(), get(), get()) as com.popalay.cardme.api.remote.dao.RemoteCardDao }
-        single { RemoteUserDao(get(), get(), get()) as com.popalay.cardme.api.remote.dao.RemoteUserDao }
-        single { RemoteRequestDao(get(), get()) as com.popalay.cardme.api.remote.dao.RemoteRequestDao }
+        single { RemoteCardDao(get { it }, get { it }, get { it }) as com.popalay.cardme.api.remote.dao.RemoteCardDao }
+        single { RemoteUserDao(get { it }, get { it }, get { it }) as com.popalay.cardme.api.remote.dao.RemoteUserDao }
+        single { RemoteRequestDao(get { it }, get { it }) as com.popalay.cardme.api.remote.dao.RemoteRequestDao }
         single {
             FirebaseFirestore.getInstance().apply {
                 firestoreSettings = FirebaseFirestoreSettings.Builder()

@@ -15,8 +15,8 @@ object CoreModule {
     fun get() = module {
         single<ErrorHandler> { DefaultErrorHandler() }
         single<NavigatorHolder> { BaseNavigationHolder() }
-        single<Router> { BaseRouter(get()) }
+        single<Router> { BaseRouter(get { it }) }
         single { SpecificIntentUseCase() }
-        single { GetCurrentUserUseCase(get()) }
+        single { GetCurrentUserUseCase(get { it }) }
     }
 }

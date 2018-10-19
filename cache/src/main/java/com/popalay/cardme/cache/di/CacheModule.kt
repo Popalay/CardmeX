@@ -11,7 +11,7 @@ object CacheModule {
 
     fun get() = module {
         single {
-            Room.databaseBuilder(get(), Database::class.java, "cardme-database")
+            Room.databaseBuilder(get { it }, Database::class.java, "cardme-database")
                 .fallbackToDestructiveMigration()
                 .build()
         }
@@ -20,11 +20,11 @@ object CacheModule {
         single { get<Database>().userDao() }
         single { CacheHolderToHolderMapper() }
         single { HolderToCacheHolderMapper() }
-        single { CacheCardWithHolderToCardMapper(get()) }
+        single { CacheCardWithHolderToCardMapper(get { it }) }
         single { CardToCacheCardMapper() }
         single { UserToCacheUserMapper() }
         single { CacheUserToUserMapper() }
-        single { CacheCardDao(get(), get(), get(), get(), get()) as com.popalay.cardme.api.cache.dao.CacheCardDao }
-        single { CacheUserDao(get(), get(), get()) as com.popalay.cardme.api.cache.dao.CacheUserDao }
+        single { CacheCardDao(get { it }, get { it }, get { it }, get { it }, get { it }) as com.popalay.cardme.api.cache.dao.CacheCardDao }
+        single { CacheUserDao(get { it }, get { it }, get { it }) as com.popalay.cardme.api.cache.dao.CacheUserDao }
     }
 }

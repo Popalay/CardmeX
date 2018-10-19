@@ -4,20 +4,20 @@ import com.gojuno.koptional.Some
 import com.popalay.cardme.api.core.model.Request
 import com.popalay.cardme.api.core.model.User
 import com.popalay.cardme.api.core.usecase.UseCase
+import com.popalay.cardme.api.data.repository.AuthRepository
 import com.popalay.cardme.api.data.repository.RequestRepository
-import com.popalay.cardme.api.data.repository.UserRepository
 import io.reactivex.Observable
 import io.reactivex.ObservableSource
 import io.reactivex.schedulers.Schedulers
 import java.util.*
 
 internal class SendAddCardRequestUseCase(
-    private val userRepository: UserRepository,
+    private val authRepository: AuthRepository,
     private val requestRepository: RequestRepository
 ) : UseCase<SendAddCardRequestUseCase.Action, SendAddCardRequestUseCase.Result> {
 
     override fun apply(upstream: Observable<Action>): ObservableSource<Result> = upstream.switchMap { action ->
-        userRepository.getCurrentUser()
+        authRepository.currentUser()
             .filter { it is Some }
             .map { it.component1() }
             .flatMapCompletable {

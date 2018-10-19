@@ -4,8 +4,8 @@ import com.popalay.cardme.api.core.model.Card
 import com.popalay.cardme.api.core.model.CardType
 import com.popalay.cardme.api.core.model.Holder
 import com.popalay.cardme.api.core.usecase.UseCase
+import com.popalay.cardme.api.data.repository.AuthRepository
 import com.popalay.cardme.api.data.repository.CardRepository
-import com.popalay.cardme.api.data.repository.UserRepository
 import io.reactivex.Observable
 import io.reactivex.ObservableSource
 import io.reactivex.schedulers.Schedulers
@@ -13,15 +13,14 @@ import java.util.*
 
 internal class SaveCardUseCase(
     private val cardRepository: CardRepository,
-    private val userRepository: UserRepository
+    private val authRepository: AuthRepository
 ) : UseCase<SaveCardUseCase.Action, SaveCardUseCase.Result> {
 
     override fun apply(upstream: Observable<Action>): ObservableSource<Result> = upstream.switchMap { action ->
         val cardId = UUID.randomUUID().toString()
         val holderId = UUID.randomUUID().toString()
 
-        userRepository.getCurrentUser()
-            .firstElement()
+        authRepository.currentUser()
             .flatMapCompletable {
                 val card = Card(
                     cardId,

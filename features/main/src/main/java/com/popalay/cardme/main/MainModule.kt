@@ -9,9 +9,9 @@ import org.koin.dsl.module.module
 object MainModule {
 
     fun get() = module("MainModule") {
-        viewModel { MainViewModel(get(), get(), get { it }, get { it }, get(), get()) }
-        single { LogOutUseCase(get()) }
-        single { AuthUseCase(get { it }, get()) }
-        single { HandleAuthResultUseCase(get { it }, get()) }
+        viewModel { MainViewModel(get { it }, get { it }, get { it }, get { it }, get { it }, get { it }) }
+        single { LogOutUseCase(get { it }, get { it }) }
+        single { AuthUseCase(get { it }, get { it }, get { it }) }
+        single { HandleAuthResultUseCase(get { it }, get { it }, get { it }) }
     }
 }

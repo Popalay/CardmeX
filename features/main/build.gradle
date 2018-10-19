@@ -3,7 +3,6 @@ apply plugin: "androidx.navigation.safeargs"
 
 dependencies {
     implementation project(":core")
-    implementation project(":authenticator")
     implementation project(":features:cardlist")
     implementation project(":features:usercard")
     implementation project(":features:addcard")

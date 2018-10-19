@@ -4,6 +4,7 @@ import com.popalay.cardme.api.core.model.Card
 import com.popalay.cardme.api.core.model.CardType
 import com.popalay.cardme.api.core.model.Holder
 import com.popalay.cardme.api.core.usecase.UseCase
+import com.popalay.cardme.api.data.repository.AuthRepository
 import com.popalay.cardme.api.data.repository.CardRepository
 import com.popalay.cardme.api.data.repository.UserRepository
 import io.reactivex.Completable
@@ -14,12 +15,12 @@ import java.util.*
 
 internal class SaveUserCardUseCase(
     private val userRepository: UserRepository,
-    private val cardRepository: CardRepository
+    private val cardRepository: CardRepository,
+    private val authRepository: AuthRepository
 ) : UseCase<SaveUserCardUseCase.Action, SaveUserCardUseCase.Result> {
 
     override fun apply(upstream: Observable<Action>): ObservableSource<Result> = upstream.switchMap { action ->
-        userRepository.getCurrentUser()
-            .firstElement()
+        authRepository.currentUser()
             .flatMapCompletable { optional ->
                 val user = requireNotNull(optional.toNullable())
                 val cardId = user.cardId.takeIf { it.isNotBlank() } ?: UUID.randomUUID().toString()

@@ -5,7 +5,7 @@ import com.popalay.cardme.api.data.repository.RequestRepository
 import com.popalay.cardme.api.remote.dao.RemoteRequestDao
 import io.reactivex.Completable
 
-class RequestRepository(
+internal class RequestRepository(
     private val remoteRequestDao: RemoteRequestDao
 ) : RequestRepository {
 

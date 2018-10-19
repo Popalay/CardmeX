@@ -1,24 +1,24 @@
 package com.popalay.cardme.main.usecase
 
-import com.popalay.cardme.api.auth.Authenticator
-import com.popalay.cardme.api.core.model.User
-import com.popalay.cardme.api.data.repository.UserRepository
+import com.popalay.cardme.api.auth.AuthResultFactory
 import com.popalay.cardme.api.core.usecase.UseCase
-import com.popalay.cardme.authenticator.CardmeAuthResult
+import com.popalay.cardme.api.data.repository.AuthRepository
+import com.popalay.cardme.api.data.repository.UserRepository
 import io.reactivex.Observable
 import io.reactivex.ObservableSource
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
 
 internal class HandleAuthResultUseCase(
-    private val authenticator: Authenticator,
-    private val userRepository: UserRepository
+    private val authRepository: AuthRepository,
+    private val userRepository: UserRepository,
+    private val authResultFactory: AuthResultFactory
 ) : UseCase<HandleAuthResultUseCase.Action, HandleAuthResultUseCase.Result> {
 
     override fun apply(upstream: Observable<Action>): ObservableSource<Result> = upstream.switchMap { action ->
-        authenticator.handleResult(action.authResult)
+        authRepository.handleResult(authResultFactory.build(action.success, action.requestCode, action.data))
             .flatMap { user -> user.toNullable()?.let { userRepository.save(it).toSingleDefault(user) } ?: Single.just(user) }
-            .map { Result.Success(it.toNullable()) }
+            .map { Result.Success }
             .cast(Result::class.java)
             .onErrorReturn(Result::Failure)
             .toObservable()
@@ -26,10 +26,10 @@ internal class HandleAuthResultUseCase(
             .subscribeOn(Schedulers.io())
     }
 
-    data class Action(val authResult: com.popalay.cardme.authenticator.CardmeAuthResult) : UseCase.Action
+    data class Action(val success: Boolean, val requestCode: Int, val data: android.content.Intent) : UseCase.Action
 
     sealed class Result : UseCase.Result {
-        data class Success(val user: User?) : Result()
+        object Success : Result()
         object Idle : Result()
         data class Failure(val throwable: Throwable) : Result()
     }

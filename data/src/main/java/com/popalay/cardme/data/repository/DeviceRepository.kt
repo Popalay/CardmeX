@@ -6,7 +6,7 @@ import android.content.Context
 import com.popalay.cardme.api.data.repository.DeviceRepository
 import io.reactivex.Completable
 
-class DeviceRepository(
+internal class DeviceRepository(
     private val context: Context
 ) : DeviceRepository {
 

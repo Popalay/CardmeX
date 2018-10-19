@@ -8,8 +8,8 @@ import org.koin.dsl.module.module
 object CardListModule {
 
     fun get() = module("CardListModule") {
-        viewModel { CardListViewModel(get(), get(), get()) }
-        single { CardListUseCase(get(), get()) }
+        viewModel { CardListViewModel(get { it }, get { it }, get { it }) }
+        single { CardListUseCase(get(), get { it }) }
         single { CopyCardNumberUseCase(get()) }
     }
 }

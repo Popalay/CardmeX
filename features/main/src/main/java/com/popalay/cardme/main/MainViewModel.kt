@@ -9,8 +9,6 @@ import com.popalay.cardme.core.state.BaseMviViewModel
 import com.popalay.cardme.core.usecase.GetCurrentUserUseCase
 import com.popalay.cardme.core.usecase.LogOutUseCase
 import com.popalay.cardme.core.usecase.SpecificIntentUseCase
-import com.popalay.cardme.authenticator.CardmeAuthCredentials
-import com.popalay.cardme.authenticator.CardmeAuthResult
 import com.popalay.cardme.main.usecase.AuthUseCase
 import com.popalay.cardme.main.usecase.HandleAuthResultUseCase
 import io.reactivex.rxkotlin.ofType
@@ -38,10 +36,10 @@ internal class MainViewModel(
                 .map { LogOutUseCase.Action }
                 .compose(logOutUseCase),
             observable.ofType<MainIntent.OnSyncClicked>()
-                .map { AuthUseCase.Action(com.popalay.cardme.authenticator.CardmeAuthCredentials.Google) }
+                .map { AuthUseCase.Action }
                 .compose(authUseCase),
             observable.ofType<MainIntent.OnActivityResult>()
-                .map { HandleAuthResultUseCase.Action(com.popalay.cardme.authenticator.CardmeAuthResult.Google(it.success, it.requestCode, it.data)) }
+                .map { HandleAuthResultUseCase.Action(it.success, it.requestCode, it.data) }
                 .compose(handleAuthResultUseCase),
             observable.ofType<MainIntent.OnUserClicked>()
                 .map { SpecificIntentUseCase.Action(it) }
@@ -57,17 +55,17 @@ internal class MainViewModel(
                 is GetCurrentUserUseCase.Result.Failure -> it.copy(error = throwable, isSyncProgress = false)
             }
             is LogOutUseCase.Result -> when (this) {
-                LogOutUseCase.Result.Success -> it.copy(user = null, isSyncProgress = false)
+                LogOutUseCase.Result.Success -> it.copy(isSyncProgress = false)
                 LogOutUseCase.Result.Idle -> it.copy(isSyncProgress = true)
                 is LogOutUseCase.Result.Failure -> it.copy(error = throwable, isSyncProgress = false)
             }
             is AuthUseCase.Result -> when (this) {
-                is AuthUseCase.Result.Success -> it.copy(user = user, isSyncProgress = false)
+                AuthUseCase.Result.Success -> it.copy(isSyncProgress = false)
                 AuthUseCase.Result.Idle -> it.copy(isSyncProgress = true)
                 is AuthUseCase.Result.Failure -> it.copy(error = throwable, isSyncProgress = false)
             }
             is HandleAuthResultUseCase.Result -> when (this) {
-                is HandleAuthResultUseCase.Result.Success -> it.copy(user = user, isSyncProgress = false)
+                HandleAuthResultUseCase.Result.Success -> it.copy(isSyncProgress = false)
                 HandleAuthResultUseCase.Result.Idle -> it.copy(isSyncProgress = true)
                 is HandleAuthResultUseCase.Result.Failure -> it.copy(error = throwable, isSyncProgress = false)
             }

@@ -9,7 +9,7 @@ import com.popalay.cardme.data.store.CardStore
 import io.reactivex.Completable
 import io.reactivex.Flowable
 
-class CardRepository(
+internal class CardRepository(
     private val cacheCardDao: CacheCardDao,
     private val remoteCardDao: RemoteCardDao,
     private val cardStore: CardStore,
