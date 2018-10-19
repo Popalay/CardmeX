@@ -9,7 +9,7 @@ object Versions {
     const val compileSdkVersion = 28
 
     const val gradlePlugin = "3.3.0-alpha13"
-    const val kotlinLanguage = "1.3.0-rc-146"
+    const val kotlinLanguage = "1.3.0-rc-190"
 
     const val constraintLayout = "2.0.0-alpha2"
     const val ktx = "1.0.0"
@@ -86,7 +86,7 @@ object Libs {
     const val koinAndroidScope = "org.koin:koin-androidx-scope:${Versions.koinDi}"
     const val koinTest = "org.koin:koin-test:${Versions.koinDi}"
 
-    // Lyfecycle
+    // Lifecycle
     const val lifecycle = "androidx.lifecycle:lifecycle-extensions:${Versions.acLifecycle}"
 
     // Utils
