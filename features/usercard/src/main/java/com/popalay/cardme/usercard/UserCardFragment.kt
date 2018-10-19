@@ -12,6 +12,7 @@ import androidx.constraintlayout.widget.Group
 import androidx.core.view.isVisible
 import androidx.core.widget.ContentLoadingProgressBar
 import androidx.fragment.app.Fragment
+import com.jakewharton.rxbinding2.view.RxMenuItem
 import com.jakewharton.rxbinding2.view.RxView
 import com.popalay.cardme.api.core.error.ErrorHandler
 import com.popalay.cardme.api.ui.navigation.NavigatorHolder
@@ -19,7 +20,6 @@ import com.popalay.cardme.core.extensions.*
 import com.popalay.cardme.core.picasso.CircleImageTransformation
 import com.popalay.cardme.core.state.BindableMviView
 import io.reactivex.Observable
-import io.reactivex.subjects.PublishSubject
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.getViewModel
 
@@ -38,7 +38,6 @@ internal class UserCardFragment : Fragment(), BindableMviView<UserCardViewState,
 
     private val errorHandler: ErrorHandler by inject()
     private val navigatorHolder: NavigatorHolder by inject()
-    private val intentSubject = PublishSubject.create<UserCardIntent>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -55,24 +54,15 @@ internal class UserCardFragment : Fragment(), BindableMviView<UserCardViewState,
 
     private fun initView() {
         toolbar.inflateMenu(R.menu.user_card_menu)
-        toolbar.setOnMenuItemClickListener {
-            when (it?.itemId) {
-                R.id.action_edit -> {
-                    intentSubject.onNext(UserCardIntent.OnEditClicked)
-                    true
-                }
-                else -> false
-            }
-        }
     }
 
     override val intents: Observable<UserCardIntent> = Observable.defer {
         Observable.merge(
             listOf(
                 Observable.just(UserCardIntent.OnStart),
-                intentSubject,
-                addClickedIntent.applyThrottling(),
-                skipClickedIntent.applyThrottling()
+                addClickedIntent,
+                skipClickedIntent,
+                editClickedIntent
             )
         )
     }
@@ -96,9 +86,16 @@ internal class UserCardFragment : Fragment(), BindableMviView<UserCardViewState,
 
     private val addClickedIntent
         get() = RxView.clicks(buttonAdd)
+            .applyThrottling()
             .map { UserCardIntent.OnAddClicked }
 
     private val skipClickedIntent
         get() = RxView.clicks(buttonSkip)
+            .applyThrottling()
             .map { UserCardIntent.OnSkipClicked }
+
+    private val editClickedIntent
+        get() = RxMenuItem.clicks(toolbar.menu.findItem(R.id.action_edit))
+            .applyThrottling()
+            .map { UserCardIntent.OnEditClicked }
 }

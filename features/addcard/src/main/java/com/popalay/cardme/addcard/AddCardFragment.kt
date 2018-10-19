@@ -19,6 +19,7 @@ import androidx.navigation.ui.NavigationUI
 import androidx.recyclerview.widget.RecyclerView
 import androidx.transition.TransitionManager
 import com.google.android.material.appbar.AppBarLayout
+import com.jakewharton.rxbinding2.view.RxMenuItem
 import com.jakewharton.rxbinding2.view.RxView
 import com.jakewharton.rxbinding2.widget.RxCompoundButton
 import com.jakewharton.rxbinding2.widget.RxTextView
@@ -30,7 +31,6 @@ import com.popalay.cardme.core.adapter.SpacingItemDecoration
 import com.popalay.cardme.core.extensions.*
 import com.popalay.cardme.core.state.BindableMviView
 import io.reactivex.Observable
-import io.reactivex.subjects.PublishSubject
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.getViewModel
 import org.koin.core.parameter.parametersOf
@@ -56,7 +56,6 @@ internal class AddCardFragment : Fragment(), BindableMviView<AddCardViewState, A
     private val navigatorHolder: NavigatorHolder by inject()
     private val usersAdapter = UserListAdapter()
     private var state: AddCardViewState by Delegates.notNull()
-    private val intentSubject = PublishSubject.create<AddCardIntent>()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View =
         inflater.inflate(R.layout.add_card_fragment_full, container, false)
@@ -75,12 +74,12 @@ internal class AddCardFragment : Fragment(), BindableMviView<AddCardViewState, A
                 Observable.just(AddCardIntent.OnStart),
                 nameChangedIntent,
                 numberChangedIntent,
-                intentSubject,
                 cameraClickedIntent,
                 crossClickedIntent,
                 userClickedIntent,
                 isPublicChangedIntent,
-                doneActionClickedIntent
+                doneActionClickedIntent,
+                saveClickedIntent
             )
         )
     }
@@ -153,6 +152,11 @@ internal class AddCardFragment : Fragment(), BindableMviView<AddCardViewState, A
         get() = usersAdapter.itemClickObservable
             .map { AddCardIntent.OnUserClicked(it.user) }
 
+    private val saveClickedIntent
+        get() = RxMenuItem.clicks(toolbar.menu.findItem(R.id.action_save))
+            .applyThrottling()
+            .map { createSaveIntent() }
+
     private fun createSaveIntent() = with(state) {
         AddCardIntent.SaveClicked(
             cardNumber,
@@ -164,20 +168,10 @@ internal class AddCardFragment : Fragment(), BindableMviView<AddCardViewState, A
 
     private fun initView() {
         NavigationUI.setupWithNavController(toolbar, findNavController())
+        toolbar.inflateMenu(R.menu.add_card_menu)
         listUsers.apply {
             adapter = usersAdapter
             addItemDecoration(SpacingItemDecoration(8.px, betweenItems = true))
-        }
-
-        toolbar.inflateMenu(R.menu.add_card_menu)
-        toolbar.setOnMenuItemClickListener {
-            when (it?.itemId) {
-                R.id.action_save -> {
-                    intentSubject.onNext(createSaveIntent())
-                    true
-                }
-                else -> false
-            }
         }
     }
 }
