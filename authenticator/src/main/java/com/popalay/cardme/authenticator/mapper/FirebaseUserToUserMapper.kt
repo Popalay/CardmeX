@@ -1,4 +1,4 @@
-package com.popalay.cardme.core.mapper
+package com.popalay.cardme.authenticator.mapper
 
 import com.gojuno.koptional.None
 import com.gojuno.koptional.Optional

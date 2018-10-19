@@ -1,4 +1,4 @@
-package com.popalay.cardme.main.auth
+package com.popalay.cardme.authenticator
 
 import com.gojuno.koptional.Optional
 import com.popalay.cardme.api.auth.AuthCredentials

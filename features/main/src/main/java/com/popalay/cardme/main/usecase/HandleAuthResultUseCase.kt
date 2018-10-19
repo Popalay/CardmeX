@@ -1,11 +1,10 @@
 package com.popalay.cardme.main.usecase
 
-import com.gojuno.koptional.Optional
 import com.popalay.cardme.api.auth.Authenticator
 import com.popalay.cardme.api.core.model.User
 import com.popalay.cardme.api.data.repository.UserRepository
 import com.popalay.cardme.api.core.usecase.UseCase
-import com.popalay.cardme.main.auth.CardmeAuthResult
+import com.popalay.cardme.authenticator.CardmeAuthResult
 import io.reactivex.Observable
 import io.reactivex.ObservableSource
 import io.reactivex.Single
@@ -27,7 +26,7 @@ internal class HandleAuthResultUseCase(
             .subscribeOn(Schedulers.io())
     }
 
-    data class Action(val authResult: CardmeAuthResult) : UseCase.Action
+    data class Action(val authResult: com.popalay.cardme.authenticator.CardmeAuthResult) : UseCase.Action
 
     sealed class Result : UseCase.Result {
         data class Success(val user: User?) : Result()

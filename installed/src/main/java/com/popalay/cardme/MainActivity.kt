@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.NavHost
 import androidx.navigation.Navigation
+import com.popalay.cardme.injector.Injector
 import com.popalay.shaketoreport.model.Config
 import com.popalay.shaketoreport.model.ReportTimeout
 import com.popalay.shaketoreport.ShakeToReport

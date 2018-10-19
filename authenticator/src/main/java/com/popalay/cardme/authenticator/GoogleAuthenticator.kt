@@ -1,4 +1,4 @@
-package com.popalay.cardme.main.auth
+package com.popalay.cardme.authenticator
 
 import android.content.Context
 import androidx.fragment.app.Fragment
@@ -13,8 +13,7 @@ import com.popalay.cardme.api.auth.AuthCredentials
 import com.popalay.cardme.api.auth.AuthResult
 import com.popalay.cardme.api.auth.Authenticator
 import com.popalay.cardme.api.core.model.User
-import com.popalay.cardme.core.BuildConfig
-import com.popalay.cardme.core.mapper.FirebaseUserToUserMapper
+import com.popalay.cardme.authenticator.mapper.FirebaseUserToUserMapper
 import io.reactivex.Single
 
 internal class GoogleAuthenticator(

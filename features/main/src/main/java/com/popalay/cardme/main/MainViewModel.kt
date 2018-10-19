@@ -9,8 +9,8 @@ import com.popalay.cardme.core.state.BaseMviViewModel
 import com.popalay.cardme.core.usecase.GetCurrentUserUseCase
 import com.popalay.cardme.core.usecase.LogOutUseCase
 import com.popalay.cardme.core.usecase.SpecificIntentUseCase
-import com.popalay.cardme.main.auth.CardmeAuthCredentials
-import com.popalay.cardme.main.auth.CardmeAuthResult
+import com.popalay.cardme.authenticator.CardmeAuthCredentials
+import com.popalay.cardme.authenticator.CardmeAuthResult
 import com.popalay.cardme.main.usecase.AuthUseCase
 import com.popalay.cardme.main.usecase.HandleAuthResultUseCase
 import io.reactivex.rxkotlin.ofType
@@ -38,10 +38,10 @@ internal class MainViewModel(
                 .map { LogOutUseCase.Action }
                 .compose(logOutUseCase),
             observable.ofType<MainIntent.OnSyncClicked>()
-                .map { AuthUseCase.Action(CardmeAuthCredentials.Google) }
+                .map { AuthUseCase.Action(com.popalay.cardme.authenticator.CardmeAuthCredentials.Google) }
                 .compose(authUseCase),
             observable.ofType<MainIntent.OnActivityResult>()
-                .map { HandleAuthResultUseCase.Action(CardmeAuthResult.Google(it.success, it.requestCode, it.data)) }
+                .map { HandleAuthResultUseCase.Action(com.popalay.cardme.authenticator.CardmeAuthResult.Google(it.success, it.requestCode, it.data)) }
                 .compose(handleAuthResultUseCase),
             observable.ofType<MainIntent.OnUserClicked>()
                 .map { SpecificIntentUseCase.Action(it) }

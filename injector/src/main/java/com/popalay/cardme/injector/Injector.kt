@@ -2,6 +2,7 @@ package com.popalay.cardme.injector
 
 import android.app.Application
 import com.popalay.cardme.addcard.AddCardModule
+import com.popalay.cardme.authenticator.AuthenticatorModule
 import com.popalay.cardme.cache.di.CacheModule
 import com.popalay.cardme.cardactions.CardActionsModule
 import com.popalay.cardme.cardlist.CardListModule
@@ -22,6 +23,7 @@ object Injector {
                 CacheModule.get(),
                 RemoteModule.get(),
                 DataModule.get(),
+                AuthenticatorModule.get(),
                 MainModule.get(),
                 CardListModule.get(),
                 AddCardModule.get(),

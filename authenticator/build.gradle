@@ -19,25 +19,17 @@ android {
 }
 
 dependencies {
-    api project(":api")
-    api Libs.kotlin
+    implementation project(":api")
 
-    api Libs.materialComponents
-    api Libs.constraintLayout
+    implementation Libs.kotlin
 
-    api Libs.rxJava
-    api Libs.rxAndroid
-    api Libs.rxKotlin
+    implementation Libs.rxJava
 
-    implementation Libs.lifecycle
-
-    implementation Libs.navigationFragment
-    implementation Libs.navigationUi
     implementation Libs.firebaseAuth
+    implementation Libs.playServicesAuth
 
-    api Libs.koinAndroid
-    api Libs.koinViewModel
-    api Libs.kOptional
-    api Libs.ktx
-    api Libs.picasso
+    implementation Libs.kOptional
+
+    implementation Libs.koinCore
+    implementation Libs.koinAndroid
 }
