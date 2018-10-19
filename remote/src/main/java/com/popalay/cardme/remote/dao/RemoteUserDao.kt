@@ -4,6 +4,7 @@ import com.gojuno.koptional.None
 import com.gojuno.koptional.Optional
 import com.gojuno.koptional.toOptional
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.SetOptions
 import com.popalay.cardme.api.core.model.User
 import com.popalay.cardme.api.remote.dao.RemoteUserDao
 import com.popalay.cardme.remote.mapper.RemoteUserToUserMapper
@@ -22,13 +23,16 @@ internal class RemoteUserDao(
 ) : RemoteUserDao {
 
     override fun save(data: User): Completable = Completable.create { emitter ->
-        firestore.users.document(data.uuid).set(userToRemoteUserMapper(data))
+        firestore.users.document(data.uuid).set(
+            userToRemoteUserMapper(data),
+            SetOptions.mergeFields("uuid", "email", "photoUrl", "phoneNumber", "displayName")
+        )
             .addOnSuccessListener { emitter.onComplete() }
             .addOnFailureListener { emitter.tryOnError(it) }
     }.subscribeOn(Schedulers.io())
 
     override fun update(data: User): Completable = Completable.create { emitter ->
-        firestore.users.document(data.uuid).set(userToRemoteUserMapper(data))
+        firestore.users.document(data.uuid).set(userToRemoteUserMapper(data), SetOptions.merge())
             .addOnSuccessListener { emitter.onComplete() }
             .addOnFailureListener { emitter.tryOnError(it) }
     }.subscribeOn(Schedulers.io())

@@ -11,10 +11,10 @@ import io.reactivex.ObservableSource
 import io.reactivex.schedulers.Schedulers
 import java.util.*
 
-internal class SendAddCardUseCase(
+internal class SendAddCardRequestUseCase(
     private val userRepository: UserRepository,
     private val requestRepository: RequestRepository
-) : UseCase<SendAddCardUseCase.Action, SendAddCardUseCase.Result> {
+) : UseCase<SendAddCardRequestUseCase.Action, SendAddCardRequestUseCase.Result> {
 
     override fun apply(upstream: Observable<Action>): ObservableSource<Result> = upstream.switchMap { action ->
         userRepository.getCurrentUser()

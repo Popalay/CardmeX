@@ -21,7 +21,7 @@ internal class AddCardViewModel(
     private val saveUserCardUseCase: SaveUserCardUseCase,
     private val userListUseCase: UserListUseCase,
     private val specificIntentUseCase: SpecificIntentUseCase,
-    private val addCardUseCase: SendAddCardUseCase,
+    private val sendAddCardRequestUseCase: SendAddCardRequestUseCase,
     private val router: Router
 ) : BaseMviViewModel<AddCardViewState, AddCardIntent>() {
 
@@ -45,8 +45,8 @@ internal class AddCardViewModel(
                 .map { SpecificIntentUseCase.Action(it) }
                 .compose(specificIntentUseCase),
             observable.ofType<AddCardIntent.OnUserClicked>()
-                .map { SendAddCardUseCase.Action(it.user) }
-                .compose(addCardUseCase),
+                .map { SendAddCardRequestUseCase.Action(it.user) }
+                .compose(sendAddCardRequestUseCase),
             observable.ofType<AddCardIntent.SaveClicked>()
                 .filter { isUserCard }
                 .map { SaveUserCardUseCase.Action(it.number, it.name, it.isPublic, it.cardType) }
@@ -114,14 +114,14 @@ internal class AddCardViewModel(
                 UserListUseCase.Result.Idle -> it.copy(peopleProgress = true)
                 is UserListUseCase.Result.Failure -> it.copy(error = throwable, peopleProgress = false)
             }
-            is SendAddCardUseCase.Result -> when (this) {
-                is SendAddCardUseCase.Result.Success -> {
+            is SendAddCardRequestUseCase.Result -> when (this) {
+                is SendAddCardRequestUseCase.Result.Success -> {
                     //TODO show message
                     router.navigateUp()
                     it.copy(requestProgress = false)
                 }
-                SendAddCardUseCase.Result.Idle -> it.copy(requestProgress = true)
-                is SendAddCardUseCase.Result.Failure -> it.copy(error = throwable, requestProgress = false)
+                SendAddCardRequestUseCase.Result.Idle -> it.copy(requestProgress = true)
+                is SendAddCardRequestUseCase.Result.Failure -> it.copy(error = throwable, requestProgress = false)
             }
             is SpecificIntentUseCase.Result -> with(intent as AddCardIntent) {
                 when (this) {
