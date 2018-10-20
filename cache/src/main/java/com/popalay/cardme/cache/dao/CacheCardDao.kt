@@ -1,5 +1,7 @@
 package com.popalay.cardme.cache.dao
 
+import com.gojuno.koptional.Optional
+import com.gojuno.koptional.toOptional
 import com.popalay.cardme.api.cache.dao.CacheCardDao
 import com.popalay.cardme.api.core.model.Card
 import com.popalay.cardme.cache.database.dao.CardDao
@@ -30,8 +32,8 @@ internal class CacheCardDao(
         cardDao.insertAll(data.map { cardMapper(it) })
     }.subscribeOn(Schedulers.io())
 
-    override fun get(id: String): Flowable<Card> = cardDao.findOneWithHolder(id)
-        .map { cacheCardMapper(it) }
+    override fun get(id: String): Flowable<Optional<Card>> = cardDao.findOneWithHolder(id)
+        .map { cards -> cards.firstOrNull()?.let { cacheCardMapper(it) }.toOptional() }
         .subscribeOn(Schedulers.io())
 
     override fun getAll(): Flowable<List<Card>> = cardDao.findAllWithHolder()

@@ -5,9 +5,9 @@ import com.popalay.cardme.api.core.usecase.UseCase
 import com.popalay.cardme.api.data.repository.AuthRepository
 import com.popalay.cardme.api.data.repository.NotificationRepository
 import com.popalay.cardme.api.data.repository.UserRepository
+import io.reactivex.Flowable
 import io.reactivex.Observable
 import io.reactivex.ObservableSource
-import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
 import org.koin.standalone.KoinComponent
 
@@ -20,14 +20,9 @@ internal class AuthUseCase(
 
     override fun apply(upstream: Observable<Action>): ObservableSource<Result> = upstream.switchMap { _ ->
         authRepository.auth(authCredentialsFactory.build())
-            .flatMap { user ->
-                user.toNullable()?.let {
-                    userRepository.save(it)
-                        .andThen(notificationRepository.syncToken())
-                        .toSingleDefault(user)
-                } ?: Single.just(user)
-            }
-            .map { Result.Success }
+            .flatMapPublisher { user -> user.toNullable()?.let { userRepository.get(it.uuid) } ?: Flowable.just(user) }
+            .flatMapCompletable { notificationRepository.syncToken() }
+            .toSingleDefault(Result.Success)
             .cast(Result::class.java)
             .onErrorReturn(Result::Failure)
             .toObservable()

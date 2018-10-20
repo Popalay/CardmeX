@@ -1,5 +1,7 @@
 package com.popalay.cardme.remote.dao
 
+import com.gojuno.koptional.Optional
+import com.gojuno.koptional.toOptional
 import com.google.firebase.firestore.FirebaseFirestore
 import com.popalay.cardme.api.core.model.Card
 import com.popalay.cardme.api.remote.dao.RemoteCardDao
@@ -30,11 +32,14 @@ internal class RemoteCardDao(
             .addOnFailureListener { emitter.tryOnError(it) }
     }.subscribeOn(Schedulers.io())
 
-    override fun get(id: String): Flowable<Card> = Flowable.create<Card>({ emitter ->
+    override fun get(id: String): Flowable<Optional<Card>> = Flowable.create<Optional<Card>>({ emitter ->
         val listenerRegistration = firestore.cards.document(id)
             .addSnapshotListener { snapshot, exception ->
                 if (exception != null) emitter.tryOnError(exception)
-                if (snapshot != null) emitter.onNext(remoteCardToCardMapper(snapshot.toObject(RemoteCard::class.java)!!))
+                if (snapshot != null) {
+                    val card = snapshot.toObject(RemoteCard::class.java)?.let { remoteCardToCardMapper(it) }.toOptional()
+                    emitter.onNext(card)
+                }
             }
         emitter.setCancellable { listenerRegistration.remove() }
     }, BackpressureStrategy.LATEST)

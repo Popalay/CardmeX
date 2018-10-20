@@ -41,7 +41,10 @@ internal class RemoteUserDao(
         val listenerRegistration = firestore.users.document(id)
             .addSnapshotListener { snapshot, exception ->
                 if (exception != null) emitter.tryOnError(exception)
-                if (snapshot != null) emitter.onNext(snapshot.toObject(RemoteUser::class.java)?.let { remoteUserToUserMapper(it) }.toOptional())
+                if (snapshot != null) {
+                    val user = snapshot.toObject(RemoteUser::class.java)?.let { remoteUserToUserMapper(it) }.toOptional()
+                    emitter.onNext(user)
+                }
             }
         emitter.setCancellable { listenerRegistration.remove() }
     }, BackpressureStrategy.LATEST)

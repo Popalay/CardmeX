@@ -23,7 +23,7 @@ internal class CacheUserDao(
     }.subscribeOn(Schedulers.io())
 
     override fun get(): Flowable<Optional<User>> = userDao.findOne()
-        .map { list -> list.takeIf { it.isNotEmpty() }?.let { cacheUserToUserMapper(it.first()) }.toOptional() }
+        .map { list -> list.firstOrNull()?.let { cacheUserToUserMapper(it) }.toOptional() }
         .subscribeOn(Schedulers.io())
 
     override fun delete(): Completable = Completable.fromAction {

@@ -34,7 +34,7 @@ internal abstract class CardDao : BaseDao<CacheCard> {
             WHERE cards.id = :cardId
             ORDER BY updatedDate DESC LIMIT 1"""
     )
-    abstract fun findOneWithHolder(cardId: String): Flowable<CacheCardWithHolder>
+    abstract fun findOneWithHolder(cardId: String): Flowable<List<CacheCardWithHolder>>
 
     @Query("""SELECT count(id) FROM cards WHERE id = :id LIMIT 1""")
     abstract fun isPresent(id: String): Single<Boolean>

@@ -5,9 +5,9 @@ import com.popalay.cardme.api.core.usecase.UseCase
 import com.popalay.cardme.api.data.repository.AuthRepository
 import com.popalay.cardme.api.data.repository.NotificationRepository
 import com.popalay.cardme.api.data.repository.UserRepository
+import io.reactivex.Flowable
 import io.reactivex.Observable
 import io.reactivex.ObservableSource
-import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
 
 internal class HandleAuthResultUseCase(
@@ -19,14 +19,9 @@ internal class HandleAuthResultUseCase(
 
     override fun apply(upstream: Observable<Action>): ObservableSource<Result> = upstream.switchMap { action ->
         authRepository.handleResult(authResultFactory.build(action.success, action.requestCode, action.data))
-            .flatMap { user ->
-                user.toNullable()?.let {
-                    userRepository.save(it)
-                        .andThen(notificationRepository.syncToken())
-                        .toSingleDefault(user)
-                } ?: Single.just(user)
-            }
-            .map { Result.Success }
+            .flatMapPublisher { user -> user.toNullable()?.let { userRepository.get(it.uuid) } ?: Flowable.just(user) }
+            .flatMapCompletable { notificationRepository.syncToken() }
+            .toSingleDefault(AuthUseCase.Result.Success)
             .cast(Result::class.java)
             .onErrorReturn(Result::Failure)
             .toObservable()

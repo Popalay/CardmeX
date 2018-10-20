@@ -1,5 +1,6 @@
 package com.popalay.cardme.api.remote.dao
 
+import com.gojuno.koptional.Optional
 import com.popalay.cardme.api.core.model.Card
 import io.reactivex.Completable
 import io.reactivex.Flowable
@@ -10,7 +11,7 @@ interface RemoteCardDao {
 
     fun saveAll(data: List<Card>): Completable
 
-    fun get(id: String): Flowable<Card>
+    fun get(id: String): Flowable<Optional<Card>>
 
     fun getAll(userId: String): Flowable<List<Card>>
 

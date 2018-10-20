@@ -1,5 +1,6 @@
 package com.popalay.cardme.usercard.usecase
 
+import com.gojuno.koptional.None
 import com.popalay.cardme.api.core.model.Card
 import com.popalay.cardme.api.core.model.User
 import com.popalay.cardme.api.core.usecase.UseCase
@@ -19,16 +20,11 @@ class GetCurrentUserWithCardUseCase(
 
     override fun apply(upstream: Observable<Action>): ObservableSource<Result> = upstream.switchMap { _ ->
         authRepository.authState()
-            .switchMap { userRepository.get(it.toNullable()?.uuid ?: "") }
+            .switchMap { user -> user.toNullable()?.let { userRepository.get(it.uuid) } ?: Flowable.just(None) }
             .switchMap { optional ->
                 val user = requireNotNull(optional.toNullable())
-                user.cardId
-                    .takeIf { it.isNotBlank() }
-                    ?.let { cardId ->
-                        cardRepository.get(cardId)
-                            .map { Result.Success(user, it) }
-                    }
-                    ?: Flowable.just(Result.Success(user, null))
+                cardRepository.get(user.cardId)
+                    .map { Result.Success(user, it.toNullable()) }
             }
             .cast(Result::class.java)
             .onErrorReturn(Result::Failure)

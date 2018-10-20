@@ -1,5 +1,6 @@
 package com.popalay.cardme.data.repository
 
+import com.gojuno.koptional.Optional
 import com.popalay.cardme.api.cache.dao.CacheCardDao
 import com.popalay.cardme.api.core.model.Card
 import com.popalay.cardme.api.data.repository.CardRepository
@@ -26,7 +27,7 @@ internal class CardRepository(
         remoteCardDao.saveAll(data.filter { it.isPublic })
     )
 
-    override fun get(id: String): Flowable<Card> = cardStore.get(CardStore.Key.ById(id))
+    override fun get(id: String): Flowable<Optional<Card>> = cardStore.get(CardStore.Key.ById(id))
 
     override fun delete(id: String): Completable = Completable.mergeArray(
         remoteCardDao.delete(id).onErrorComplete(),
