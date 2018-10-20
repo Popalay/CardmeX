@@ -7,8 +7,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
@@ -22,14 +22,13 @@ import com.popalay.cardme.api.ui.navigation.NavigatorHolder
 import com.popalay.cardme.core.extensions.applyThrottling
 import com.popalay.cardme.core.extensions.bindView
 import com.popalay.cardme.core.extensions.loadImage
-import com.popalay.cardme.core.picasso.CircleImageTransformation
+import com.popalay.cardme.core.extensions.px
+import com.popalay.cardme.core.picasso.CircleBorderedImageTransformation
 import com.popalay.cardme.core.state.BindableMviView
-import com.popalay.cardme.core.widget.ProgressMaterialButton
+import com.popalay.cardme.core.widget.ProgressImageButton
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
 import org.koin.android.ext.android.inject
-import org.koin.androidx.scope.ext.android.bindScope
-import org.koin.androidx.scope.ext.android.getOrCreateScope
 import org.koin.androidx.viewmodel.ext.android.getViewModel
 import org.koin.core.parameter.parametersOf
 import kotlin.properties.Delegates
@@ -37,11 +36,9 @@ import kotlin.properties.Delegates
 internal class MainFragment : Fragment(), NavHost, BindableMviView<MainViewState, MainIntent> {
 
     private val buttonAddCard: View by bindView(R.id.button_add_card)
-    private val layoutUser: View by bindView(R.id.layout_user)
     private val constraintLayout: ConstraintLayout by bindView(R.id.constraint_layout)
-    private val textUserDisplayName: TextView by bindView(R.id.text_user_display_name)
     private val imageUserPhoto: ImageView by bindView(R.id.image_user_photo)
-    private val buttonSync: ProgressMaterialButton by bindView(R.id.button_sync)
+    private val buttonSync: ProgressImageButton by bindView(R.id.button_sync)
 
     private val intentSubject = PublishSubject.create<MainIntent>()
     private val errorHandler: ErrorHandler by inject()
@@ -82,19 +79,18 @@ internal class MainFragment : Fragment(), NavHost, BindableMviView<MainViewState
             TransitionManager.beginDelayedTransition(
                 constraintLayout, AutoTransition()
                     .addTarget(buttonSync)
-                    .addTarget(textUserDisplayName)
                     .addTarget(imageUserPhoto)
             )
-            textUserDisplayName.apply {
-                isVisible = user != null
-                text = user?.displayName?.value
-            }
             imageUserPhoto.apply {
                 isVisible = user != null
-                loadImage(user?.photoUrl, R.drawable.ic_holder_placeholder, CircleImageTransformation())
+                loadImage(
+                    user?.photoUrl,
+                    R.drawable.ic_holder_placeholder,
+                    CircleBorderedImageTransformation(2.px.toFloat(), ContextCompat.getColor(requireContext(), R.color.colorAccent))
+                )
             }
             buttonSync.apply {
-                text = user?.let { "Unsync" } ?: "Sync"
+                setImageResource(user?.let { R.drawable.ic_exit } ?: R.drawable.ic_sync)
                 isProgress = isSyncProgress
             }
 
@@ -108,7 +104,7 @@ internal class MainFragment : Fragment(), NavHost, BindableMviView<MainViewState
             .map { state.user?.let { MainIntent.OnUnsyncClicked } ?: MainIntent.OnSyncClicked }
 
     private val userClickedIntent
-        get() = RxView.clicks(layoutUser)
+        get() = RxView.clicks(imageUserPhoto)
             .applyThrottling()
             .map { MainIntent.OnUserClicked }
 

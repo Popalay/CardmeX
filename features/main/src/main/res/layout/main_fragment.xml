@@ -18,59 +18,47 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <View
-                android:id="@+id/layout_user"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:background="@drawable/bg_user_layout"
-                android:clickable="true"
-                android:focusable="true"
-                app:layout_constraintBottom_toBottomOf="@id/image_user_photo"
-                app:layout_constraintEnd_toEndOf="@id/text_user_display_name"
-                app:layout_constraintStart_toStartOf="@id/image_user_photo"
-                app:layout_constraintTop_toTopOf="@id/image_user_photo" />
-
             <ImageView
                 android:id="@+id/image_user_photo"
                 android:layout_width="36dp"
                 android:layout_height="36dp"
                 android:layout_marginStart="16dp"
-                android:background="@null"
-                android:contentDescription="@null"
-                app:layout_constraintBottom_toBottomOf="@id/button_sync"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:contentDescription="User card"
+                android:foreground="?selectableItemBackgroundBorderless"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@id/button_sync"
+                app:layout_constraintTop_toTopOf="parent"
                 tools:src="@tools:sample/avatars" />
 
             <TextView
-                android:id="@+id/text_user_display_name"
-                android:layout_width="0dp"
+                android:id="@+id/text_title"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp"
-                android:background="@null"
-                android:ellipsize="end"
-                android:lines="1"
-                android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                android:gravity="center"
+                android:text="@string/app_name"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
                 app:layout_constraintBottom_toBottomOf="@id/image_user_photo"
-                app:layout_constraintEnd_toStartOf="@id/button_sync"
-                app:layout_constraintStart_toEndOf="@+id/image_user_photo"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@id/image_user_photo"
-                tools:text="@tools:sample/full_names" />
+                tools:text="Cardme" />
 
-            <com.popalay.cardme.core.widget.ProgressMaterialButton
+            <com.popalay.cardme.core.widget.ProgressImageButton
                 android:id="@+id/button_sync"
                 style="@style/Cardme.Button.Colored"
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
                 android:layout_marginTop="8dp"
-                android:layout_marginEnd="16dp"
+                android:layout_marginEnd="4dp"
                 android:layout_marginBottom="8dp"
-                android:text="Sync"
+                android:background="?selectableItemBackgroundBorderless"
+                android:contentDescription="Sync"
+                android:src="@drawable/ic_people"
+                android:tint="@color/colorAccent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="1"
-                app:layout_constraintStart_toEndOf="@id/layout_user"
                 app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
