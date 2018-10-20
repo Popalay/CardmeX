@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/feature_main"
+    app:startDestination="@id/action_global_feature_main">
+
+    <fragment
+        android:id="@+id/action_global_feature_main"
+        android:name="com.popalay.cardme.main.MainFragment"
+        android:label="main_fragment"
+        tools:layout="@layout/main_fragment">
+
+        <deepLink app:uri="cardme.page.link/main" />
+
+    </fragment>
+
+</navigation>

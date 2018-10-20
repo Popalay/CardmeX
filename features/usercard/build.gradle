@@ -3,7 +3,6 @@ apply plugin: "androidx.navigation.safeargs"
 
 dependencies {
     implementation project(":core")
-    implementation project(":features:addcard")
 
     implementation Libs.rxBinding
 

@@ -2,21 +2,16 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/user_card_graph"
-    app:startDestination="@id/userCardFragment">
-
-    <include app:graph="@navigation/add_card_graph" />
+    android:id="@+id/feature_user_card"
+    app:startDestination="@+id/action_global_feature_user_card">
 
     <fragment
-        android:id="@+id/userCardFragment"
+        android:id="@+id/action_global_feature_user_card"
         android:name="com.popalay.cardme.usercard.UserCardFragment"
         android:label="card_list_fragment"
         tools:layout="@layout/user_card_fragment">
 
-        <action
-            android:id="@+id/action_from_user_card_to_add_card"
-            app:destination="@id/add_card_graph"
-            app:popUpTo="@id/userCardFragment" />
+        <deepLink app:uri="cardme.page.link/usercard" />
 
     </fragment>
 

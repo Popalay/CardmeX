@@ -71,7 +71,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        app:navGraph="@navigation/card_list_graph" />
+        app:navGraph="@navigation/feature_card_list_nav" />
 
     <com.popalay.cardme.core.widget.ExpandableFloatingActionButton
         android:id="@+id/button_add_card"
