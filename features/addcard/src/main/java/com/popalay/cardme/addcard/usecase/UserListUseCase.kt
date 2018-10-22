@@ -2,17 +2,23 @@ package com.popalay.cardme.addcard.usecase
 
 import com.popalay.cardme.api.core.model.User
 import com.popalay.cardme.api.core.usecase.UseCase
+import com.popalay.cardme.api.data.repository.AuthRepository
 import com.popalay.cardme.api.data.repository.UserRepository
 import io.reactivex.Observable
 import io.reactivex.ObservableSource
 import io.reactivex.schedulers.Schedulers
 
 internal class UserListUseCase(
-    private val userRepository: UserRepository
+    private val userRepository: UserRepository,
+    private val authRepository: AuthRepository
 ) : UseCase<UserListUseCase.Action, UserListUseCase.Result> {
 
     override fun apply(upstream: Observable<Action>): ObservableSource<Result> = upstream.switchMap { action ->
-        userRepository.getAllLikeWithCard(action.query, action.lastDisplayName, action.limit)
+        authRepository.currentUser()
+            .flatMapPublisher { user ->
+                userRepository.getAllLikeWithCard(action.query, action.lastDisplayName, action.limit)
+                    .map { users -> users.filter { it.uuid != user.toNullable()?.uuid } }
+            }
             .map { Result.Success(it) }
             .cast(Result::class.java)
             .onErrorReturn(Result::Failure)

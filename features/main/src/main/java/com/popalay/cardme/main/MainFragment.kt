@@ -15,8 +15,6 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.NavHost
 import androidx.navigation.Navigation
-import androidx.transition.AutoTransition
-import androidx.transition.TransitionManager
 import com.google.android.gms.instantapps.InstantApps
 import com.jakewharton.rxbinding2.view.RxView
 import com.popalay.cardme.api.core.error.ErrorHandler
@@ -80,11 +78,6 @@ internal class MainFragment : Fragment(), NavHost, BindableMviView<MainViewState
     override fun accept(viewState: MainViewState) {
         state = viewState
         with(viewState) {
-            TransitionManager.beginDelayedTransition(
-                constraintLayout, AutoTransition()
-                    .addTarget(buttonSync)
-                    .addTarget(imageUserPhoto)
-            )
             imageUserPhoto.apply {
                 isVisible = user != null
                 loadImage(

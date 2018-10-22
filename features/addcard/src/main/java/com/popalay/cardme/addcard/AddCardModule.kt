@@ -12,7 +12,7 @@ object AddCardModule {
         single { SaveUserCardUseCase(get { it }, get { it }, get { it }) }
         single { ValidateCardUseCase() }
         single { IdentifyCardNumberUseCase() }
-        single { UserListUseCase(get { it }) }
+        single { UserListUseCase(get { it }, get { it }) }
         single { SendAddCardRequestUseCase(get { it }, get { it }) }
     }
 }
