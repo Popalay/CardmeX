@@ -15,7 +15,7 @@ class CircleBorderedImageTransformation(
     }
 
     override fun transform(source: Bitmap): Bitmap {
-        val minEdge = Math.min(source.width, source.height).toFloat()
+        val minEdge = Math.min(source.width, source.height).toFloat() + strokeWidth * 2
         val dx = (source.width - minEdge) / 2
         val dy = (source.height - minEdge) / 2
 
