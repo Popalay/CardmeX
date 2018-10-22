@@ -10,5 +10,5 @@ dependencies {
     implementation Libs.navigationUi
 
     implementation Libs.koinAndroidScope
-    implementation 'konifar:fab-transformation:1.0.0'
+    implementation Libs.playServicesInstant
 }

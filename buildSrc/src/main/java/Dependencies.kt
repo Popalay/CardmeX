@@ -31,6 +31,7 @@ object Versions {
     const val firebaseFireStore = "17.1.1"
     const val firebaseMessaging = "17.3.4"
     const val playServicesAuth = "16.0.1"
+    const val playServicesInstant = "16.0.1"
 
     const val koinDi = "1.0.1"
     const val hoard = "1.0.0"
@@ -59,7 +60,9 @@ object Libs {
     const val firebaseFireStore = "com.google.firebase:firebase-firestore:${Versions.firebaseFireStore}"
     const val firebaseStorage = "com.google.firebase:firebase-storage:${Versions.firebaseStorage}"
     const val firebaseMessaging = "com.google.firebase:firebase-messaging:${Versions.firebaseMessaging}"
+
     const val playServicesAuth = "com.google.android.gms:play-services-auth:${Versions.playServicesAuth}"
+    const val playServicesInstant = "com.google.android.gms:play-services-instantapps:${Versions.playServicesInstant}"
 
     // Kotlin
     const val kotlin = "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${Versions.kotlinLanguage}"

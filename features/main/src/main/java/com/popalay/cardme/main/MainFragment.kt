@@ -2,6 +2,7 @@ package com.popalay.cardme.main
 
 import android.app.Activity
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -16,6 +17,7 @@ import androidx.navigation.NavHost
 import androidx.navigation.Navigation
 import androidx.transition.AutoTransition
 import androidx.transition.TransitionManager
+import com.google.android.gms.instantapps.InstantApps
 import com.jakewharton.rxbinding2.view.RxView
 import com.popalay.cardme.api.core.error.ErrorHandler
 import com.popalay.cardme.api.ui.navigation.NavigatorHolder
@@ -39,6 +41,7 @@ internal class MainFragment : Fragment(), NavHost, BindableMviView<MainViewState
     private val constraintLayout: ConstraintLayout by bindView(R.id.constraint_layout)
     private val imageUserPhoto: ImageView by bindView(R.id.image_user_photo)
     private val buttonSync: ProgressImageButton by bindView(R.id.button_sync)
+    private val buttonInstall: ProgressImageButton by bindView(R.id.button_install)
 
     private val intentSubject = PublishSubject.create<MainIntent>()
     private val errorHandler: ErrorHandler by inject()
@@ -52,6 +55,7 @@ internal class MainFragment : Fragment(), NavHost, BindableMviView<MainViewState
         super.onViewCreated(view, savedInstanceState)
         navigatorHolder.navigator = MainNavigator(this)
         bind(getViewModel<MainViewModel> { parametersOf(this) })
+        initView()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
@@ -112,4 +116,17 @@ internal class MainFragment : Fragment(), NavHost, BindableMviView<MainViewState
         get() = RxView.clicks(buttonAddCard)
             .applyThrottling()
             .map { MainIntent.OnAddCardClicked }
+
+    private fun initView() {
+        buttonInstall.apply {
+            isVisible = com.google.android.gms.common.wrappers.InstantApps.isInstantApp(context)
+            setOnClickListener {
+                val intent = Intent(
+                    Intent.ACTION_VIEW,
+                    Uri.parse("https://cardme.page.link")
+                ).addCategory(Intent.CATEGORY_BROWSABLE)
+                InstantApps.showInstallPrompt(requireActivity(), intent, 0, null)
+            }
+        }
+    }
 }
