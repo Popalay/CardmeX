@@ -43,7 +43,7 @@ android {
         }
     }
 
-    flavorDimensions "type", "env", "experience"
+    flavorDimensions "type", "env"
     productFlavors {
 
         dev {
@@ -81,16 +81,6 @@ android {
             dimension "type"
             resValue "string", "app_name", "Cardme"
             buildConfigField "boolean", "ENABLE_BUG_REPOTRING", "false"
-        }
-
-        instant {
-            dimension "experience"
-            versionCode Versions.versionCodeInstant
-        }
-
-        installed {
-            dimension "experience"
-            versionCode Versions.versionCode
         }
     }
 

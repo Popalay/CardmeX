@@ -19,10 +19,10 @@ internal class UserRepository(
         userStore.get(UserStore.Key.ById(id))
 
     override fun getAll(lastDisplayName: String, limit: Long): Flowable<List<User>> =
-        remoteUserDao.getAll(lastDisplayName, limit)
+        remoteUserDao.getAll(lastDisplayName, limit).onErrorReturnItem(listOf())
 
     override fun getAllLikeWithCard(like: String, lastDisplayName: String, limit: Long): Flowable<List<User>> =
-        remoteUserDao.getAllLikeWithCard(like, lastDisplayName, limit)
+        remoteUserDao.getAllLikeWithCard(like, lastDisplayName, limit).onErrorReturnItem(listOf())
 
     override fun save(user: User): Completable = Completable.mergeArray(
         remoteUserDao.save(user),
