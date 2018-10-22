@@ -10,7 +10,7 @@ class UserCardNavigator(fragment: Fragment) : BaseNavigator(fragment) {
     override fun navigate(destination: Destination) {
         when (destination as UserCardDestination) {
             UserCardDestination.AddCard -> {
-                val bundle = bundleOf("isUserCard" to true)
+                val bundle = bundleOf("isUserCard" to true.toString())
                 navController.navigate(R.id.feature_add_card, bundle)
             }
         }

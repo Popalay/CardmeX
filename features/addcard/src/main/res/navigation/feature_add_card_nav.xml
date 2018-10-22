@@ -13,9 +13,9 @@
         <argument
             android:name="isUserCard"
             android:defaultValue="false"
-            app:argType="boolean" />
+            app:argType="string" />
 
-        <deepLink app:uri="cardme,page.link/addcard/{isUserCard}" />
+        <deepLink app:uri="cardme.page.link/addcard/{isUserCard}" />
 
     </fragment>
 
