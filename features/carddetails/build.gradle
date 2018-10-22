@@ -1,0 +1,11 @@
+apply from: "$rootDir/scripts/base_module.gradle"
+apply plugin: "androidx.navigation.safeargs"
+
+dependencies {
+    implementation project(":core")
+
+    implementation Libs.rxBinding
+
+    implementation Libs.koinAndroidScope
+    implementation Libs.navigationFragment
+}

@@ -1,0 +1,20 @@
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/feature_card_details"
+    app:startDestination="@+id/action_global_feature_card_details">
+
+    <fragment
+        android:id="@+id/action_global_feature_card_details"
+        android:name="com.popalay.cardme.carddetails.CardDetailsFragment"
+        tools:layout="@layout/card_details_fragment">
+
+        <argument
+            android:name="cardId"
+            app:argType="string" />
+
+        <deepLink app:uri="cardme.page.link/card/{cardId}" />
+
+    </fragment>
+
+</navigation>

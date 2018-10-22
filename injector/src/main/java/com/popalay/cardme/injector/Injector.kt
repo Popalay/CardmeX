@@ -5,6 +5,7 @@ import com.popalay.cardme.addcard.AddCardModule
 import com.popalay.cardme.authenticator.AuthenticatorModule
 import com.popalay.cardme.cache.di.CacheModule
 import com.popalay.cardme.cardactions.CardActionsModule
+import com.popalay.cardme.carddetails.CardDetailsModule
 import com.popalay.cardme.cardlist.CardListModule
 import com.popalay.cardme.core.di.CoreModule
 import com.popalay.cardme.data.di.DataModule
@@ -30,7 +31,8 @@ object Injector {
                 CardListModule.get(),
                 AddCardModule.get(),
                 UserCardModule.get(),
-                CardActionsModule.get()
+                CardActionsModule.get(),
+                CardDetailsModule.get()
             )
         )
     }

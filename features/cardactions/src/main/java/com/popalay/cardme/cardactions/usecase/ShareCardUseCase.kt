@@ -20,8 +20,8 @@ internal class ShareCardUseCase(
                 Uri.Builder()
                     .scheme("https")
                     .authority("cardme.page.link")
-                    .appendPath("usercard")
-                    //.appendQueryParameter("cardId", it.id)
+                    .appendPath("card")
+                    .appendPath(it.toNullable()?.id)
                     .build()
             }
             .doOnNext {

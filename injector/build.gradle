@@ -12,6 +12,7 @@ dependencies {
     implementation project(":features:addcard")
     implementation project(":features:usercard")
     implementation project(":features:cardactions")
+    implementation project(":features:carddetails")
 
     implementation Libs.koinAndroid
 }

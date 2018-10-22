@@ -10,8 +10,8 @@ object MainModule {
 
     fun get() = module("MainModule") {
         viewModel { MainViewModel(get { it }, get { it }, get { it }, get { it }, get { it }, get { it }) }
-        single { LogOutUseCase(get { it }, get { it }) }
-        single { AuthUseCase(get { it }, get { it }, get { it }, get { it }) }
-        single { HandleAuthResultUseCase(get { it }, get { it }, get { it }, get { it }) }
+        factory { LogOutUseCase(get { it }, get { it }) }
+        factory { AuthUseCase(get { it }, get { it }, get { it }, get { it }) }
+        factory { HandleAuthResultUseCase(get { it }, get { it }, get { it }, get { it }) }
     }
 }
