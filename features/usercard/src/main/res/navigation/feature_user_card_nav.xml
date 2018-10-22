@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/action_global_feature_user_card"
-        android:name="com.popalay.cardme.carddetails.CardDetailsFragment"
+        android:name="com.popalay.cardme.usercard.UserCardFragment"
         android:label="card_list_fragment"
         tools:layout="@layout/user_card_fragment">
 

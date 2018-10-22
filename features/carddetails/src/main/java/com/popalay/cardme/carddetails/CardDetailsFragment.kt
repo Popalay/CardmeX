@@ -12,6 +12,7 @@ import androidx.core.widget.ContentLoadingProgressBar
 import androidx.fragment.app.Fragment
 import com.jakewharton.rxbinding2.view.RxView
 import com.popalay.cardme.api.core.error.ErrorHandler
+import com.popalay.cardme.api.ui.navigation.NavigatorHolder
 import com.popalay.cardme.core.extensions.*
 import com.popalay.cardme.core.picasso.CircleImageTransformation
 import com.popalay.cardme.core.state.BindableMviView
@@ -32,6 +33,7 @@ internal class CardDetailsFragment : Fragment(), BindableMviView<CardDetailsView
     private val imageCardType: ImageView by bindView(R.id.image_card_type)
     private val textCardNumber: TextView by bindView(R.id.text_card_number)
 
+    private val navigatorHolder: NavigatorHolder by inject()
     private val errorHandler: ErrorHandler by inject()
     private var state: CardDetailsViewState by Delegates.notNull()
 
@@ -43,6 +45,7 @@ internal class CardDetailsFragment : Fragment(), BindableMviView<CardDetailsView
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        navigatorHolder.navigator = CardDetailsNavigator(this)
         val args = CardDetailsFragmentArgs.fromBundle(arguments)
         bind(getViewModel<CardDetailsViewModel> { parametersOf(args.cardId) })
         initView()
