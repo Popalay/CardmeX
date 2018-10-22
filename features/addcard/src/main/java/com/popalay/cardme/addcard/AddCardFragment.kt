@@ -5,10 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
-import android.widget.CheckBox
-import android.widget.EditText
-import android.widget.ImageButton
-import android.widget.ImageView
+import android.widget.*
 import androidx.appcompat.widget.Toolbar
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.isVisible
@@ -111,10 +108,7 @@ internal class AddCardFragment : Fragment(), BindableMviView<AddCardViewState, A
 
             imageCardType.setImageResource(cardType.icon.takeIf { it != 0 } ?: R.drawable.ic_credit_card)
             usersAdapter.submitList(users?.map { UserListItem(it, requestProgress) })
-/*            imageFace.apply {
-                imageTintMode = selectedUser?.let { PorterDuff.Mode.DST } ?: PorterDuff.Mode.MULTIPLY
-                loadImage(selectedUser?.photoUrl, R.drawable.ic_account, CircleImageTransformation())
-            }*/
+            toastMessage?.let { Toast.makeText(context, it, Toast.LENGTH_LONG).show() }
 
             errorHandler.accept(error)
         }

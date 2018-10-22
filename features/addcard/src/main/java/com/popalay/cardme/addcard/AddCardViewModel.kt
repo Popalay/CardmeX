@@ -116,12 +116,11 @@ internal class AddCardViewModel(
             }
             is SendAddCardRequestUseCase.Result -> when (this) {
                 is SendAddCardRequestUseCase.Result.Success -> {
-                    //TODO show message
                     router.navigateUp()
-                    it.copy(requestProgress = false)
+                    it.copy(requestProgress = false, toastMessage = null)
                 }
-                SendAddCardRequestUseCase.Result.Idle -> it.copy(requestProgress = true)
-                is SendAddCardRequestUseCase.Result.Failure -> it.copy(error = throwable, requestProgress = false)
+                SendAddCardRequestUseCase.Result.Idle -> it.copy(requestProgress = true, toastMessage = "Sending request...")
+                is SendAddCardRequestUseCase.Result.Failure -> it.copy(error = throwable, requestProgress = false, toastMessage = null)
             }
             is SpecificIntentUseCase.Result -> with(intent as AddCardIntent) {
                 when (this) {

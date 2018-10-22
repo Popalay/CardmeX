@@ -58,8 +58,8 @@ internal class CardListFragment : Fragment(), BindableMviView<CardListViewState,
         with(viewState) {
             selectedCard?.let { showCardActionsDialog(it) }
             toastMessage?.let { Toast.makeText(context, it, Toast.LENGTH_LONG).show() }
-            cardsAdapter.submitList(cards.map(::CardListItem))
             if (cardsAdapter.itemCount < cards.size) listCards.smoothScrollToPosition(0)
+            cardsAdapter.submitList(cards.map(::CardListItem))
             errorHandler.accept(error)
         }
     }
