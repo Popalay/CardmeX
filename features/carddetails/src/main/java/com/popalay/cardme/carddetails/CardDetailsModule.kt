@@ -8,7 +8,7 @@ import org.koin.dsl.module.module
 object CardDetailsModule {
 
     fun get() = module("CardDetailsModule") {
-        viewModel { (cardId: String) -> CardDetailsViewModel(cardId, get(), get(), get()) }
+        viewModel { (cardId: String) -> CardDetailsViewModel(cardId, get(), get(), get(), get()) }
         single { GetCardUseCase(get { it }) }
         single { SaveCardUseCase(get { it }) }
     }

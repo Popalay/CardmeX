@@ -7,5 +7,6 @@ internal data class CardDetailsViewState(
     val card: Card? = null,
     val progress: Boolean = false,
     val saveProgress: Boolean = false,
+    val toastMessage: String? = null,
     val error: Throwable? = null
 ) : ViewState

@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.cardview.widget.CardView
 import androidx.core.view.isVisible
 import androidx.core.widget.ContentLoadingProgressBar
@@ -58,7 +59,8 @@ internal class CardDetailsFragment : Fragment(), BindableMviView<CardDetailsView
         Observable.merge(
             listOf(
                 Observable.just(CardDetailsIntent.OnStart),
-                addClickedIntent
+                addClickedIntent,
+                cardClickedIntent
             )
         )
     }
@@ -72,6 +74,7 @@ internal class CardDetailsFragment : Fragment(), BindableMviView<CardDetailsView
                 textDisplayName.text = holder.name
                 imageUserAvatar.loadImage(holder.photoUrl, R.drawable.ic_holder_placeholder, CircleImageTransformation())
             }
+            toastMessage?.let { Toast.makeText(context, it, Toast.LENGTH_LONG).show() }
             layoutCard.isVisible = card != null && !progress
             buttonSave.isVisible = card != null && !progress
             buttonSave.isProgress = saveProgress
@@ -79,6 +82,11 @@ internal class CardDetailsFragment : Fragment(), BindableMviView<CardDetailsView
             errorHandler.accept(error)
         }
     }
+
+    private val cardClickedIntent
+        get() = RxView.clicks(layoutCard)
+            .applyThrottling()
+            .map { CardDetailsIntent.OnCardClicked(requireNotNull(state.card)) }
 
     private val addClickedIntent
         get() = RxView.clicks(buttonSave)
