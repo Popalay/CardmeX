@@ -1,4 +1,4 @@
-package com.popalay.cardme.cardlist.usecase
+package com.popalay.cardme.core.usecase
 
 import com.popalay.cardme.api.core.model.Card
 import com.popalay.cardme.api.data.repository.DeviceRepository
@@ -9,7 +9,7 @@ import io.reactivex.ObservableSource
 import io.reactivex.android.schedulers.AndroidSchedulers
 import java.util.concurrent.TimeUnit
 
-internal class CopyCardNumberUseCase(
+class CopyCardNumberUseCase(
     private val deviceRepository: DeviceRepository
 ) : UseCase<CopyCardNumberUseCase.Action, CopyCardNumberUseCase.Result> {
 

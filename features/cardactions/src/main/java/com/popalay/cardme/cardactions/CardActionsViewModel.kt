@@ -5,7 +5,7 @@ import com.popalay.cardme.api.ui.state.LambdaReducer
 import com.popalay.cardme.api.ui.state.Processor
 import com.popalay.cardme.api.ui.state.Reducer
 import com.popalay.cardme.cardactions.usecase.RemoveCardUseCase
-import com.popalay.cardme.cardactions.usecase.ShareCardUseCase
+import com.popalay.cardme.core.usecase.ShareCardUseCase
 import com.popalay.cardme.core.state.BaseMviViewModel
 import io.reactivex.rxkotlin.ofType
 

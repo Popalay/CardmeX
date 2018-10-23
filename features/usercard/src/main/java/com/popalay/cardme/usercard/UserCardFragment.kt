@@ -7,7 +7,9 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
+import androidx.cardview.widget.CardView
 import androidx.constraintlayout.widget.Group
 import androidx.core.view.isVisible
 import androidx.core.widget.ContentLoadingProgressBar
@@ -22,9 +24,12 @@ import com.popalay.cardme.core.state.BindableMviView
 import io.reactivex.Observable
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.getViewModel
+import org.koin.core.parameter.parametersOf
+import kotlin.properties.Delegates
 
 internal class UserCardFragment : Fragment(), BindableMviView<UserCardViewState, UserCardIntent> {
 
+    private val layoutCard: CardView by bindView(R.id.layout_card)
     private val toolbar: Toolbar by bindView(R.id.toolbar)
     private val progressBar: ContentLoadingProgressBar by bindView(R.id.progress_bar)
     private val groupCard: Group by bindView(R.id.group_card)
@@ -38,6 +43,7 @@ internal class UserCardFragment : Fragment(), BindableMviView<UserCardViewState,
 
     private val errorHandler: ErrorHandler by inject()
     private val navigatorHolder: NavigatorHolder by inject()
+    private var state: UserCardViewState by Delegates.notNull()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -48,7 +54,7 @@ internal class UserCardFragment : Fragment(), BindableMviView<UserCardViewState,
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         navigatorHolder.navigator = UserCardNavigator(this)
-        bind(getViewModel<UserCardViewModel>())
+        bind(getViewModel<UserCardViewModel> { parametersOf(this) })
         initView()
     }
 
@@ -62,12 +68,15 @@ internal class UserCardFragment : Fragment(), BindableMviView<UserCardViewState,
                 Observable.just(UserCardIntent.OnStart),
                 addClickedIntent,
                 skipClickedIntent,
-                editClickedIntent
+                editClickedIntent,
+                shareClickedIntent,
+                cardClickedIntent
             )
         )
     }
 
     override fun accept(viewState: UserCardViewState) {
+        state = viewState
         with(viewState) {
             user?.run {
                 imageUserAvatar.loadImage(photoUrl, R.drawable.ic_holder_placeholder, CircleImageTransformation())
@@ -77,6 +86,7 @@ internal class UserCardFragment : Fragment(), BindableMviView<UserCardViewState,
                 textCardNumber.text = formattedNumber
                 imageCardType.setImageResource(cardType.icon)
             }
+            toastMessage?.let { Toast.makeText(context, it, Toast.LENGTH_LONG).show() }
             groupNoCard.isVisible = card == null && !progress
             groupCard.isVisible = card != null && !progress
             if (progress) progressBar.show() else progressBar.hide()
@@ -94,8 +104,18 @@ internal class UserCardFragment : Fragment(), BindableMviView<UserCardViewState,
             .applyThrottling()
             .map { UserCardIntent.OnSkipClicked }
 
+    private val cardClickedIntent
+        get() = RxView.clicks(layoutCard)
+            .applyThrottling()
+            .map { UserCardIntent.OnCardClicked(requireNotNull(state.card)) }
+
     private val editClickedIntent
         get() = RxMenuItem.clicks(toolbar.menu.findItem(R.id.action_edit))
             .applyThrottling()
             .map { UserCardIntent.OnEditClicked }
+
+    private val shareClickedIntent
+        get() = RxMenuItem.clicks(toolbar.menu.findItem(R.id.action_share))
+            .applyThrottling()
+            .map { UserCardIntent.OnShareClicked(requireNotNull(state.card)) }
 }

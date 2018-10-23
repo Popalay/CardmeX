@@ -7,7 +7,7 @@ import org.koin.dsl.module.module
 object UserCardModule {
 
     fun get() = module("UserCardModule") {
-        viewModel { UserCardViewModel(get { it }, get { it }, get { it }) }
+        viewModel { UserCardViewModel(get { it }, get { it }, get { it }, get { it }, get { it }) }
         single { GetCurrentUserWithCardUseCase(get { it }, get { it }, get { it }) }
     }
 }

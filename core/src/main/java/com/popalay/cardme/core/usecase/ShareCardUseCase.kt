@@ -1,4 +1,4 @@
-package com.popalay.cardme.cardactions.usecase
+package com.popalay.cardme.core.usecase
 
 import android.net.Uri
 import androidx.core.app.ShareCompat
@@ -9,7 +9,7 @@ import io.reactivex.Observable
 import io.reactivex.ObservableSource
 import io.reactivex.schedulers.Schedulers
 
-internal class ShareCardUseCase(
+class ShareCardUseCase(
     private val fragment: Fragment,
     private val cardRepository: CardRepository
 ) : UseCase<ShareCardUseCase.Action, ShareCardUseCase.Result> {

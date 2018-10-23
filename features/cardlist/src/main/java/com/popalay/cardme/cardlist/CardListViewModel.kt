@@ -5,7 +5,7 @@ import com.popalay.cardme.api.ui.state.LambdaReducer
 import com.popalay.cardme.api.ui.state.Processor
 import com.popalay.cardme.api.ui.state.Reducer
 import com.popalay.cardme.cardlist.usecase.CardListUseCase
-import com.popalay.cardme.cardlist.usecase.CopyCardNumberUseCase
+import com.popalay.cardme.core.usecase.CopyCardNumberUseCase
 import com.popalay.cardme.core.state.BaseMviViewModel
 import com.popalay.cardme.core.usecase.SpecificIntentUseCase
 import io.reactivex.rxkotlin.ofType

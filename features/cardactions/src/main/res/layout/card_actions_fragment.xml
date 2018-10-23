@@ -30,7 +30,6 @@
         android:clickable="true"
         android:drawablePadding="8dp"
         android:drawableStart="@drawable/ic_share"
-        android:drawableTint="@color/colorPrimary"
         android:focusable="true"
         android:gravity="center_vertical"
         android:paddingBottom="8dp"

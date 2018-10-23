@@ -3,9 +3,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
+        android:id="@+id/action_share"
+        android:icon="@drawable/ic_share"
+        android:title="Share"
+        app:showAsAction="ifRoom" />
+
+    <item
         android:id="@+id/action_send"
         android:icon="@drawable/ic_speaker"
-        android:title="Share"
+        android:title="Share wireless"
         app:showAsAction="ifRoom" />
 
     <item
