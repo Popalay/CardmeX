@@ -9,13 +9,13 @@ object Versions {
     const val compileSdkVersion = 28
 
     const val gradlePlugin = "3.3.0-beta01"
-    const val kotlinLanguage = "1.3.0-rc-190"
+    const val kotlinLanguage = "1.3.0-rc-198"
 
     const val constraintLayout = "2.0.0-alpha2"
     const val ktx = "1.0.0"
     const val materialComponents = "1.0.0"
 
-    const val rxJava = "2.2.2"
+    const val rxJava = "2.2.3"
     const val rxAndroid = "2.1.0"
     const val rxKotlin = "2.3.0"
 
@@ -27,8 +27,8 @@ object Versions {
 
     const val firebaseCore = "16.0.4"
     const val firebaseAuth = "16.0.5"
-    const val firebaseStorage = "16.0.3"
-    const val firebaseFireStore = "17.1.1"
+    const val firebaseStorage = "16.0.4"
+    const val firebaseFireStore = "17.1.2"
     const val firebaseMessaging = "17.3.4"
     const val firebaseDynamicLinks = "16.1.2"
 
@@ -41,7 +41,6 @@ object Versions {
     const val kOptional = "1.6.0"
     const val timber = "4.6.0"
     const val picasso = "2.71828"
-    const val androidProguards = "2.0.1"
     const val crashlytics = "2.9.5"
     const val stetho = "1.5.0"
 
@@ -102,7 +101,6 @@ object Libs {
     const val hoard = "com.github.popalay:hoard:${Versions.hoard}"
 
     // Development
-    const val androidProguards = "com.github.yongjhih.android-proguards:android-proguards:${Versions.androidProguards}"
     const val crashlytics = "com.crashlytics.sdk.android:crashlytics:${Versions.crashlytics}"
     const val stetho = "com.facebook.stetho:stetho:${Versions.stetho}"
 
