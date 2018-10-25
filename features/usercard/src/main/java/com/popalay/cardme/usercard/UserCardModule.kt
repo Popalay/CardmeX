@@ -6,9 +6,9 @@ import org.koin.androidx.scope.ext.android.createScope
 import org.koin.androidx.viewmodel.ext.koin.viewModel
 import org.koin.dsl.module.module
 
-object UserCardModule {
+private object UserCardModule {
 
-    fun get() = module("UserCardModule") {
+    fun get() = module("UserCardModule", override = true) {
         viewModel { UserCardViewModel(get { it }, get { it }, get { it }, get { it }, get { it }) }
         single { GetCurrentUserWithCardUseCase(get { it }, get { it }, get { it }) }
     }

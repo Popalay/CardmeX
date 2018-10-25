@@ -10,7 +10,7 @@ import org.koin.dsl.module.module
 
 private object CardActionsModule {
 
-    fun get() = module("CardActionsModule") {
+    fun get() = module("CardActionsModule", override = true) {
         viewModel { (fragment: Fragment, cardId: String) -> CardActionsViewModel(cardId, get { parametersOf(fragment) }, get()) }
         single { RemoveCardUseCase(get { it }) }
     }

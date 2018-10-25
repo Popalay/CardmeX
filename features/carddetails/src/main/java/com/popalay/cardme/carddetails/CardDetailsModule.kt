@@ -9,7 +9,7 @@ import org.koin.dsl.module.module
 
 private object CardDetailsModule {
 
-    fun get() = module("CardDetailsModule") {
+    fun get() = module("CardDetailsModule", override = true) {
         viewModel { (cardId: String) -> CardDetailsViewModel(cardId, get(), get(), get(), get()) }
         scope(scopeId) { GetCardUseCase(get { it }) }
         scope(scopeId) { SaveCardUseCase(get { it }) }
