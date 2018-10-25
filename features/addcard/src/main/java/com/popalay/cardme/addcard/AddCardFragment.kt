@@ -112,7 +112,7 @@ internal class AddCardFragment : Fragment(), BindableMviView<AddCardViewState, A
             }
 
             imageCardType.setImageResource(cardType.icon.takeIf { it != 0 } ?: R.drawable.ic_credit_card)
-            usersAdapter.submitList(users?.map { UserListItem(it, requestProgress) })
+            usersAdapter.submitList(users?.map { UserListItem(it, it == requestedUser) })
             toastMessage?.let { Toast.makeText(context, it, Toast.LENGTH_LONG).show() }
 
             errorHandler.accept(error)

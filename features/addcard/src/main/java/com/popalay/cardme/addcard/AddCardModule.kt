@@ -9,13 +9,13 @@ import org.koin.dsl.module.module
 private object AddCardModule {
 
     fun get() = module("AddCardModule", override = true) {
-        viewModel { (isUserCard: String) -> AddCardViewModel(isUserCard.toBoolean(), get(), get(), get(), get(), get(), get(), get(), get(), get()) }
-        scope(scopeId) { SaveCardUseCase(get { it }, get { it }) }
-        scope(scopeId) { SaveUserCardUseCase(get { it }, get { it }, get { it }) }
+        viewModel { (isUserCard: String) -> AddCardViewModel(isUserCard.toBoolean(), get(), get(), get(), get(), get(), get(), get(), get()) }
+        scope(scopeId) { SaveCardUseCase(get { it }, get { it }, get { it }) }
+        scope(scopeId) { SaveUserCardUseCase(get { it }, get { it }, get { it }, get { it }) }
         scope(scopeId) { ValidateCardUseCase() }
         scope(scopeId) { IdentifyCardNumberUseCase() }
         scope(scopeId) { UserListUseCase(get { it }, get { it }) }
-        scope(scopeId) { SendAddCardRequestUseCase(get { it }, get { it }) }
+        scope(scopeId) { SendAddCardRequestUseCase(get { it }, get { it }, get { it }) }
     }
 }
 

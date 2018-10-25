@@ -1,7 +1,6 @@
 package com.popalay.cardme.addcard
 
 import com.popalay.cardme.addcard.usecase.*
-import com.popalay.cardme.api.ui.navigation.Router
 import com.popalay.cardme.api.ui.state.IntentProcessor
 import com.popalay.cardme.api.ui.state.LambdaReducer
 import com.popalay.cardme.api.ui.state.Processor
@@ -21,8 +20,7 @@ internal class AddCardViewModel(
     private val saveUserCardUseCase: SaveUserCardUseCase,
     private val userListUseCase: UserListUseCase,
     private val specificIntentUseCase: SpecificIntentUseCase,
-    private val sendAddCardRequestUseCase: SendAddCardRequestUseCase,
-    private val router: Router
+    private val sendAddCardRequestUseCase: SendAddCardRequestUseCase
 ) : BaseMviViewModel<AddCardViewState, AddCardIntent>() {
 
     override val initialState: AddCardViewState = AddCardViewState()
@@ -39,17 +37,17 @@ internal class AddCardViewModel(
                 .compose(userListUseCase),
             observable.ofType<AddCardIntent.SaveClicked>()
                 .filter { !isUserCard }
-                .map { SaveCardUseCase.Action(it.number, it.name, it.isPublic, it.cardType) }
+                .map { SaveCardUseCase.Action(it.number, it.name, it.isPublic, it.cardType, closeOnSuccess = true) }
                 .compose(saveCardUseCase),
             observable.ofType<AddCardIntent.CrossClicked>()
                 .map { SpecificIntentUseCase.Action(it) }
                 .compose(specificIntentUseCase),
             observable.ofType<AddCardIntent.OnUserClicked>()
-                .map { SendAddCardRequestUseCase.Action(it.user) }
+                .map { SendAddCardRequestUseCase.Action(it.user, closeOnSuccess = true) }
                 .compose(sendAddCardRequestUseCase),
             observable.ofType<AddCardIntent.SaveClicked>()
                 .filter { isUserCard }
-                .map { SaveUserCardUseCase.Action(it.number, it.name, it.isPublic, it.cardType) }
+                .map { SaveUserCardUseCase.Action(it.number, it.name, it.isPublic, it.cardType, closeOnSuccess = true) }
                 .compose(saveUserCardUseCase),
             observable.ofType<AddCardIntent.NumberChanged>()
                 .map { IdentifyCardNumberUseCase.Action(it.number) }
@@ -67,18 +65,12 @@ internal class AddCardViewModel(
     override val reducer: Reducer<AddCardViewState> = LambdaReducer {
         when (this) {
             is SaveCardUseCase.Result -> when (this) {
-                is SaveCardUseCase.Result.Success -> {
-                    router.navigateUp()
-                    it
-                }
+                is SaveCardUseCase.Result.Success -> it
                 SaveCardUseCase.Result.Idle -> it.copy(saveProgress = true)
                 is SaveCardUseCase.Result.Failure -> it.copy(error = throwable, saveProgress = false)
             }
             is SaveUserCardUseCase.Result -> when (this) {
-                is SaveUserCardUseCase.Result.Success -> {
-                    router.navigateUp()
-                    it
-                }
+                is SaveUserCardUseCase.Result.Success -> it
                 SaveUserCardUseCase.Result.Idle -> it.copy(saveProgress = true)
                 is SaveUserCardUseCase.Result.Failure -> it.copy(error = throwable, saveProgress = false)
             }
@@ -115,12 +107,9 @@ internal class AddCardViewModel(
                 is UserListUseCase.Result.Failure -> it.copy(error = throwable, peopleProgress = false)
             }
             is SendAddCardRequestUseCase.Result -> when (this) {
-                is SendAddCardRequestUseCase.Result.Success -> {
-                    router.navigateUp()
-                    it.copy(requestProgress = false, toastMessage = null)
-                }
-                SendAddCardRequestUseCase.Result.Idle -> it.copy(requestProgress = true, toastMessage = "Sending request...")
-                is SendAddCardRequestUseCase.Result.Failure -> it.copy(error = throwable, requestProgress = false, toastMessage = null)
+                is SendAddCardRequestUseCase.Result.Success -> it.copy(requestedUser = null, toastMessage = "Request has sent")
+                is SendAddCardRequestUseCase.Result.Idle -> it.copy(requestedUser = user, toastMessage = "Sending request...")
+                is SendAddCardRequestUseCase.Result.Failure -> it.copy(error = throwable, requestedUser = null, toastMessage = null)
             }
             is SpecificIntentUseCase.Result -> with(intent as AddCardIntent) {
                 when (this) {

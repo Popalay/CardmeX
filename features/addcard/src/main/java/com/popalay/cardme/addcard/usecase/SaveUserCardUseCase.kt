@@ -7,6 +7,7 @@ import com.popalay.cardme.api.core.usecase.UseCase
 import com.popalay.cardme.api.data.repository.AuthRepository
 import com.popalay.cardme.api.data.repository.CardRepository
 import com.popalay.cardme.api.data.repository.UserRepository
+import com.popalay.cardme.api.ui.navigation.Router
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.ObservableSource
@@ -16,7 +17,8 @@ import java.util.*
 internal class SaveUserCardUseCase(
     private val userRepository: UserRepository,
     private val cardRepository: CardRepository,
-    private val authRepository: AuthRepository
+    private val authRepository: AuthRepository,
+    private val router: Router
 ) : UseCase<SaveUserCardUseCase.Action, SaveUserCardUseCase.Result> {
 
     override fun apply(upstream: Observable<Action>): ObservableSource<Result> = upstream.switchMap { action ->
@@ -38,7 +40,7 @@ internal class SaveUserCardUseCase(
                 Completable.mergeArray(
                     cardRepository.save(card),
                     userRepository.update(requireNotNull(optional.toNullable()).copy(cardId = cardId))
-                )
+                ).doOnComplete { if (action.closeOnSuccess) router.navigateUp() }
             }
             .toSingleDefault(Result.Success)
             .cast(Result::class.java)
@@ -48,7 +50,13 @@ internal class SaveUserCardUseCase(
             .subscribeOn(Schedulers.io())
     }
 
-    data class Action(val number: String, val name: String, val isPublic: Boolean, val cardType: CardType) : UseCase.Action
+    data class Action(
+        val number: String,
+        val name: String,
+        val isPublic: Boolean,
+        val cardType: CardType,
+        val closeOnSuccess: Boolean
+    ) : UseCase.Action
 
     sealed class Result : UseCase.Result {
         object Success : Result()

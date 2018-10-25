@@ -16,7 +16,7 @@ data class AddCardViewState(
     val isPublicEditable: Boolean = true,
 
     val saveProgress: Boolean = false,
-    val requestProgress: Boolean = false,
+    val requestedUser: User? = null,
     val peopleProgress: Boolean = false,
 
     val showClearButton: Boolean = false,
