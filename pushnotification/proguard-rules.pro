@@ -1,1 +1,1 @@
--keep class com.popalay.cardme.pushnotification.Token
+-keep class com.popalay.cardme.pushnotification.Token { *; }

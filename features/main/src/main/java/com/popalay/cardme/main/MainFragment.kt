@@ -46,6 +46,11 @@ internal class MainFragment : Fragment(), NavHost, BindableMviView<MainViewState
     private val navigatorHolder: NavigatorHolder by inject()
     private var state: MainViewState by Delegates.notNull()
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        loadModule()
+    }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View =
         inflater.inflate(R.layout.main_fragment, container, false)
 
@@ -116,7 +121,7 @@ internal class MainFragment : Fragment(), NavHost, BindableMviView<MainViewState
             setOnClickListener {
                 val intent = Intent(
                     Intent.ACTION_VIEW,
-                    Uri.parse("https://cardme.page.link")
+                    Uri.parse("https://mecard.page.link")
                 ).addCategory(Intent.CATEGORY_BROWSABLE)
                 InstantApps.showInstallPrompt(requireActivity(), intent, 0, null)
             }

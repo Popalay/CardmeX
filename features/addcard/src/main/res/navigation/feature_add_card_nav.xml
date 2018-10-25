@@ -15,7 +15,7 @@
             android:defaultValue="false"
             app:argType="string" />
 
-        <deepLink app:uri="cardme.page.link/addcard/{isUserCard}" />
+        <deepLink app:uri="mecard.page.link/addcard/{isUserCard}" />
 
     </fragment>
 

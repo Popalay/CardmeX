@@ -21,7 +21,7 @@ import androidx.transition.ChangeBounds
 import androidx.transition.Transition
 import androidx.transition.TransitionListenerAdapter
 import androidx.transition.TransitionManager
-import com.popalay.cardme.core.R
+import com.popalay.cardme.R
 import com.popalay.cardme.core.extensions.bindView
 
 class ExpandableFloatingActionButton @JvmOverloads constructor(

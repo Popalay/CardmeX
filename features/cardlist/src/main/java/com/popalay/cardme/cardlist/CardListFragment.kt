@@ -31,6 +31,11 @@ internal class CardListFragment : Fragment(), BindableMviView<CardListViewState,
     private val intentSubject = PublishSubject.create<CardListIntent>()
     private val cardsAdapter = CardListAdapter()
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        loadModule()
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

@@ -13,7 +13,6 @@ android {
         minSdkVersion Versions.minSdkVersion
         targetSdkVersion Versions.targetSdkVersion
         versionName Versions.versionName
-        versionCode Versions.versionCode
     }
 
     signingConfigs {
@@ -43,7 +42,7 @@ android {
         }
     }
 
-    flavorDimensions "type", "env"
+    flavorDimensions "type", "env", "experience"
     productFlavors {
 
         dev {
@@ -60,7 +59,6 @@ android {
             dimension "type"
             applicationIdSuffix ".x"
             resValue "string", "app_name", "CardmeX"
-            buildConfigField "boolean", "ENABLE_BUG_REPOTRING", "true"
 
             signingConfigs {
 
@@ -80,7 +78,16 @@ android {
         full {
             dimension "type"
             resValue "string", "app_name", "Cardme"
-            buildConfigField "boolean", "ENABLE_BUG_REPOTRING", "false"
+        }
+
+        instant {
+            dimension "experience"
+            versionCode Versions.versionCode
+        }
+
+        installed {
+            dimension "experience"
+            versionCode Versions.versionCode + 1
         }
     }
 
@@ -97,16 +104,11 @@ android {
 dependencies {
     implementation project(":core")
     implementation project(":features:main")
-    implementation project(":injector")
-    implementation project(":devtools:shaketoreport")
-
-    implementation Libs.navigationFragment
-    implementation Libs.navigationUi
-    implementation Libs.lifecycle
-
-    implementation Libs.crashlytics
-
-    implementation Libs.stetho
+    implementation project(":features:cardlist")
+    implementation project(":features:addcard")
+    implementation project(":features:usercard")
+    implementation project(":features:cardactions")
+    implementation project(":features:carddetails")
 }
 
 apply plugin: "com.google.gms.google-services"

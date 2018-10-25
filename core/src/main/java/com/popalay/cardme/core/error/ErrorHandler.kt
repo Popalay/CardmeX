@@ -1,7 +1,7 @@
 package com.popalay.cardme.core.error
 
+import com.popalay.cardme.BuildConfig
 import com.popalay.cardme.api.core.error.ErrorHandler
-import com.popalay.cardme.core.BuildConfig
 
 class DefaultErrorHandler : ErrorHandler {
 

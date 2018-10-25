@@ -19,6 +19,7 @@ import io.reactivex.Observable
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.getViewModel
 import org.koin.core.parameter.parametersOf
+import org.koin.standalone.StandAloneContext.loadKoinModules
 
 class CardActionsFragment : RoundedBottomSheetDialogFragment(), BindableMviView<CardActionsViewState, CardActionsIntent> {
 
@@ -33,8 +34,12 @@ class CardActionsFragment : RoundedBottomSheetDialogFragment(), BindableMviView<
 
     private val buttonRemove: TextView by bindView(R.id.button_remove)
     private val buttonShare: TextView by bindView(R.id.button_share)
-
     private val errorHandler: ErrorHandler by inject()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        loadModule()
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View =
         inflater.inflate(R.layout.card_actions_fragment, container, false)

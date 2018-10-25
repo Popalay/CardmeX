@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.view.WindowManager
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.popalay.cardme.core.R
+import com.popalay.cardme.R
 
 open class RoundedBottomSheetDialogFragment : BottomSheetDialogFragment() {
 

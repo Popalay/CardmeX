@@ -13,7 +13,7 @@
             android:name="cardId"
             app:argType="string" />
 
-        <deepLink app:uri="cardme.page.link/card/{cardId}" />
+        <deepLink app:uri="mecard.page.link/card/{cardId}" />
 
     </fragment>
 

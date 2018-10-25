@@ -11,7 +11,7 @@
         android:label="main_fragment"
         tools:layout="@layout/main_fragment">
 
-        <deepLink app:uri="cardme.page.link/main" />
+        <deepLink app:uri="mecard.page.link/main" />
 
     </fragment>
 

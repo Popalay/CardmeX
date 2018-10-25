@@ -21,22 +21,28 @@ android {
 dependencies {
     api project(":api")
     api Libs.kotlin
-
     api Libs.materialComponents
     api Libs.constraintLayout
-
     api Libs.rxJava
     api Libs.rxAndroid
     api Libs.rxKotlin
-
-    implementation Libs.lifecycle
-
-    implementation Libs.navigationFragment
-    implementation Libs.navigationUi
-
     api Libs.koinAndroid
     api Libs.koinViewModel
     api Libs.kOptional
     api Libs.ktx
     api Libs.picasso
+
+    implementation project(":cache")
+    implementation project(":remote")
+    implementation project(":data")
+    implementation project(":authenticator")
+    implementation project(":pushnotification")
+
+    implementation Libs.lifecycle
+    implementation Libs.navigationFragment
+    implementation Libs.navigationUi
+    implementation 'com.google.firebase:firebase-dynamic-links:16.1.2'
+    implementation 'com.google.firebase:firebase-iid:17.0.4'
+    implementation Libs.crashlytics
+    implementation Libs.stetho
 }

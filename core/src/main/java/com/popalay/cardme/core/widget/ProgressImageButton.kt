@@ -7,7 +7,7 @@ import android.util.AttributeSet
 import android.view.View
 import android.widget.ImageButton
 import androidx.core.content.ContextCompat
-import com.popalay.cardme.core.R
+import com.popalay.cardme.R
 import com.popalay.cardme.core.extensions.px
 
 class ProgressImageButton : ImageButton {

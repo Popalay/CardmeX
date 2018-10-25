@@ -22,6 +22,7 @@ import io.reactivex.Observable
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.getViewModel
 import org.koin.core.parameter.parametersOf
+import org.koin.standalone.StandAloneContext.loadKoinModules
 import kotlin.properties.Delegates
 
 internal class CardDetailsFragment : Fragment(), BindableMviView<CardDetailsViewState, CardDetailsIntent> {
@@ -37,6 +38,11 @@ internal class CardDetailsFragment : Fragment(), BindableMviView<CardDetailsView
     private val navigatorHolder: NavigatorHolder by inject()
     private val errorHandler: ErrorHandler by inject()
     private var state: CardDetailsViewState by Delegates.notNull()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        loadModule()
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,

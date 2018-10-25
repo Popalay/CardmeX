@@ -10,7 +10,7 @@ import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.OnLifecycleEvent
 import com.popalay.cardme.core.extensions.vibrate
 import com.popalay.shaketoreport.model.Config
-import java.util.Date
+import java.util.*
 
 class ShakeToReport(
     private val activity: AppCompatActivity,

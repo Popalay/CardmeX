@@ -2,7 +2,7 @@ package com.popalay.cardme.core.extensions
 
 import com.popalay.cardme.api.core.model.Card
 import com.popalay.cardme.api.core.model.CardType
-import com.popalay.cardme.core.R
+import com.popalay.cardme.R
 
 val Card.formattedNumber: String
     get() {
