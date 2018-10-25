@@ -12,7 +12,7 @@ private object CardActionsModule {
 
     fun get() = module("CardActionsModule", override = true) {
         viewModel { (fragment: Fragment, cardId: String) -> CardActionsViewModel(cardId, get { parametersOf(fragment) }, get()) }
-        single { RemoveCardUseCase(get { it }) }
+        scope(scopeId)  { RemoveCardUseCase(get { it }) }
     }
 }
 
