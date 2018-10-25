@@ -41,8 +41,7 @@ dependencies {
     implementation Libs.lifecycle
     implementation Libs.navigationFragment
     implementation Libs.navigationUi
-    implementation 'com.google.firebase:firebase-dynamic-links:16.1.2'
-    implementation 'com.google.firebase:firebase-iid:17.0.4'
+    implementation Libs.firebaseDynamicLinks
     implementation Libs.crashlytics
     implementation Libs.stetho
 }

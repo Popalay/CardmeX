@@ -7,27 +7,20 @@ import io.reactivex.Single
 import java.net.URL
 import java.net.URLDecoder
 
-/*fun Uri.createDynamicLink(): Single<String> = Single.create { emitter ->
-    val link = FirebaseDynamicLinks.getInstance()
-        .createDynamicLink()
-        .setLink(this)
-        .setDomainUriPrefix("https://mecard.page.link/")
-        .setAndroidParameters(DynamicLink.AndroidParameters.Builder().build())
-        .buildDynamicLink()
-
-    emitter.onSuccess(URL(URLDecoder.decode(link.uri.toString(), "UTF-8")).toString())
-}*/
-
 fun Uri.createDynamicLink(): Single<String> = Single.create { emitter ->
-    FirebaseDynamicLinks.getInstance()
+    val builder = FirebaseDynamicLinks.getInstance()
         .createDynamicLink()
         .setLink(this)
         .setDomainUriPrefix("https://mecard.page.link/")
         .setAndroidParameters(DynamicLink.AndroidParameters.Builder().build())
-        .buildShortDynamicLink()
+
+    builder.buildShortDynamicLink()
         .addOnSuccessListener {
             val link = URL(URLDecoder.decode(it.shortLink.toString(), "UTF-8"))
             emitter.onSuccess(link.toString())
         }
-        .addOnFailureListener { emitter.tryOnError(it) }
+        .addOnFailureListener {
+            val link = URL(URLDecoder.decode(builder.buildDynamicLink().uri.toString(), "UTF-8"))
+            emitter.onSuccess(link.toString())
+        }
 }
