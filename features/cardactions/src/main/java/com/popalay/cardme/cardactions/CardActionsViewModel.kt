@@ -5,8 +5,8 @@ import com.popalay.cardme.api.ui.state.LambdaReducer
 import com.popalay.cardme.api.ui.state.Processor
 import com.popalay.cardme.api.ui.state.Reducer
 import com.popalay.cardme.cardactions.usecase.RemoveCardUseCase
-import com.popalay.cardme.core.usecase.ShareCardUseCase
 import com.popalay.cardme.core.state.BaseMviViewModel
+import com.popalay.cardme.core.usecase.ShareCardUseCase
 import io.reactivex.rxkotlin.ofType
 
 internal class CardActionsViewModel(
@@ -31,14 +31,14 @@ internal class CardActionsViewModel(
     override val reducer: Reducer<CardActionsViewState> = LambdaReducer {
         when (this) {
             is ShareCardUseCase.Result -> when (this) {
-                is ShareCardUseCase.Result.Success -> it.copy(completed = true)
-                ShareCardUseCase.Result.Idle -> it
-                is ShareCardUseCase.Result.Failure -> it.copy(error = throwable)
+                is ShareCardUseCase.Result.Success -> it.copy(completed = true, progress = false)
+                ShareCardUseCase.Result.Idle -> it.copy(progress = true)
+                is ShareCardUseCase.Result.Failure -> it.copy(error = throwable, progress = false)
             }
             is RemoveCardUseCase.Result -> when (this) {
-                is RemoveCardUseCase.Result.Success -> it.copy(completed = true)
-                RemoveCardUseCase.Result.Idle -> it
-                is RemoveCardUseCase.Result.Failure -> it.copy(error = throwable)
+                is RemoveCardUseCase.Result.Success -> it.copy(completed = true, progress = false)
+                RemoveCardUseCase.Result.Idle -> it.copy(progress = true)
+                is RemoveCardUseCase.Result.Failure -> it.copy(error = throwable, progress = false)
             }
             else -> throw IllegalStateException("Can not reduce user for result ${javaClass.name}")
         }

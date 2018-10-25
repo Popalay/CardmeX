@@ -6,7 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.constraintlayout.widget.Group
 import androidx.core.os.bundleOf
+import androidx.core.view.isInvisible
+import androidx.core.widget.ContentLoadingProgressBar
 import com.jakewharton.rxbinding2.view.RxView
 import com.popalay.cardme.api.core.error.ErrorHandler
 import com.popalay.cardme.api.core.model.Card
@@ -19,7 +22,6 @@ import io.reactivex.Observable
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.getViewModel
 import org.koin.core.parameter.parametersOf
-import org.koin.standalone.StandAloneContext.loadKoinModules
 
 class CardActionsFragment : RoundedBottomSheetDialogFragment(), BindableMviView<CardActionsViewState, CardActionsIntent> {
 
@@ -32,6 +34,8 @@ class CardActionsFragment : RoundedBottomSheetDialogFragment(), BindableMviView<
         }
     }
 
+    private val groupActions: Group by bindView(R.id.group_actions)
+    private val progressBar: ContentLoadingProgressBar by bindView(R.id.progress_bar)
     private val buttonRemove: TextView by bindView(R.id.button_remove)
     private val buttonShare: TextView by bindView(R.id.button_share)
     private val errorHandler: ErrorHandler by inject()
@@ -61,6 +65,9 @@ class CardActionsFragment : RoundedBottomSheetDialogFragment(), BindableMviView<
     override fun accept(viewState: CardActionsViewState) {
         with(viewState) {
             if (completed) dismissAllowingStateLoss()
+            if (progress) progressBar.show() else progressBar.hide()
+            groupActions.isInvisible = progress
+            isCancelable = !progress
             errorHandler.accept(error)
         }
     }
