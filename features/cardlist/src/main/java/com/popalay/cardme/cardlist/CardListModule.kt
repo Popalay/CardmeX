@@ -2,7 +2,7 @@ package com.popalay.cardme.cardlist
 
 import com.popalay.cardme.cardlist.usecase.CardListUseCase
 import org.koin.androidx.scope.ext.android.bindScope
-import org.koin.androidx.scope.ext.android.createScope
+import org.koin.androidx.scope.ext.android.getOrCreateScope
 import org.koin.androidx.viewmodel.ext.koin.viewModel
 import org.koin.dsl.module.module
 import org.koin.standalone.StandAloneContext.loadKoinModules
@@ -19,5 +19,5 @@ private const val scopeId = "CardListFeature"
 
 internal fun CardListFragment.loadModule() {
     loadKoinModules(CardListModule.get())
-    bindScope(createScope(scopeId))
+    bindScope(getOrCreateScope(scopeId))
 }

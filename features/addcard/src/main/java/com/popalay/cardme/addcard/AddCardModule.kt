@@ -2,7 +2,7 @@ package com.popalay.cardme.addcard
 
 import com.popalay.cardme.addcard.usecase.*
 import org.koin.androidx.scope.ext.android.bindScope
-import org.koin.androidx.scope.ext.android.createScope
+import org.koin.androidx.scope.ext.android.getOrCreateScope
 import org.koin.androidx.viewmodel.ext.koin.viewModel
 import org.koin.dsl.module.module
 
@@ -23,5 +23,5 @@ private const val scopeId = "AddCardFeature"
 
 internal fun AddCardFragment.loadModule() {
     org.koin.standalone.StandAloneContext.loadKoinModules(AddCardModule.get())
-    bindScope(createScope(scopeId))
+    bindScope(getOrCreateScope(scopeId))
 }

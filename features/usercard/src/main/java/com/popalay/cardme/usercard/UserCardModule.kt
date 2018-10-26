@@ -2,7 +2,7 @@ package com.popalay.cardme.usercard
 
 import com.popalay.cardme.usercard.usecase.GetCurrentUserWithCardUseCase
 import org.koin.androidx.scope.ext.android.bindScope
-import org.koin.androidx.scope.ext.android.createScope
+import org.koin.androidx.scope.ext.android.getOrCreateScope
 import org.koin.androidx.viewmodel.ext.koin.viewModel
 import org.koin.dsl.module.module
 import org.koin.standalone.StandAloneContext
@@ -19,5 +19,5 @@ private const val scopeId = "UserCardFeature"
 
 internal fun UserCardFragment.loadModule() {
     StandAloneContext.loadKoinModules(UserCardModule.get())
-    bindScope(createScope(scopeId))
+    bindScope(getOrCreateScope(scopeId))
 }

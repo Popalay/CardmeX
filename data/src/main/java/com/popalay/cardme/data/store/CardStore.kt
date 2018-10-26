@@ -4,8 +4,6 @@ import com.github.popalay.hoard.Hoard
 import com.github.popalay.hoard.fetchpolicy.FetchPolicyFactory
 import com.github.popalay.hoard.fetchpolicy.TimeFetchPolicy
 import com.gojuno.koptional.Optional
-import com.gojuno.koptional.Some
-import com.gojuno.koptional.toOptional
 import com.popalay.cardme.api.cache.dao.CacheCardDao
 import com.popalay.cardme.api.core.model.Card
 import com.popalay.cardme.api.remote.dao.RemoteCardDao

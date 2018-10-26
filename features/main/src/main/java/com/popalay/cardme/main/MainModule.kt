@@ -4,7 +4,7 @@ import com.popalay.cardme.core.usecase.LogOutUseCase
 import com.popalay.cardme.main.usecase.AuthUseCase
 import com.popalay.cardme.main.usecase.HandleAuthResultUseCase
 import org.koin.androidx.scope.ext.android.bindScope
-import org.koin.androidx.scope.ext.android.createScope
+import org.koin.androidx.scope.ext.android.getOrCreateScope
 import org.koin.androidx.viewmodel.ext.koin.viewModel
 import org.koin.dsl.module.module
 import org.koin.standalone.StandAloneContext.loadKoinModules
@@ -23,5 +23,5 @@ private const val scopeId = "MainFeature"
 
 internal fun MainFragment.loadModule() {
     loadKoinModules(MainModule.get())
-    bindScope(createScope(scopeId))
+    bindScope(getOrCreateScope(scopeId))
 }
