@@ -46,17 +46,13 @@ internal class MainFragment : Fragment(), NavHost, BindableMviView<MainViewState
     private val navigatorHolder: NavigatorHolder by inject()
     private var state: MainViewState by Delegates.notNull()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        loadModule()
-    }
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View =
         inflater.inflate(R.layout.main_fragment, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         navigatorHolder.navigator = MainNavigator(this)
+        loadModule()
         bind(getViewModel<MainViewModel> { parametersOf(this) })
         initView()
     }

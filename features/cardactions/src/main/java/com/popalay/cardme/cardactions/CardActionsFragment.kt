@@ -40,16 +40,12 @@ class CardActionsFragment : RoundedBottomSheetDialogFragment(), BindableMviView<
     private val buttonShare: TextView by bindView(R.id.button_share)
     private val errorHandler: ErrorHandler by inject()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        loadModule()
-    }
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View =
         inflater.inflate(R.layout.card_actions_fragment, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        loadModule()
         bind(getViewModel<CardActionsViewModel> { parametersOf(this, arguments?.getString(ARG_CARD_ID) ?: "") })
     }
 

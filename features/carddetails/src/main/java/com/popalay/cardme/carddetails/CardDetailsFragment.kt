@@ -8,6 +8,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.cardview.widget.CardView
+import androidx.constraintlayout.widget.Group
 import androidx.core.view.isVisible
 import androidx.core.widget.ContentLoadingProgressBar
 import androidx.fragment.app.Fragment
@@ -22,11 +23,11 @@ import io.reactivex.Observable
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.getViewModel
 import org.koin.core.parameter.parametersOf
-import org.koin.standalone.StandAloneContext.loadKoinModules
 import kotlin.properties.Delegates
 
 internal class CardDetailsFragment : Fragment(), BindableMviView<CardDetailsViewState, CardDetailsIntent> {
 
+    private val groupCardFields: Group by bindView(R.id.group_card_fields)
     private val layoutCard: CardView by bindView(R.id.layout_card)
     private val progressBar: ContentLoadingProgressBar by bindView(R.id.progress_bar)
     private val buttonSave: ProgressMaterialButton by bindView(R.id.button_save)
@@ -34,15 +35,11 @@ internal class CardDetailsFragment : Fragment(), BindableMviView<CardDetailsView
     private val textDisplayName: TextView by bindView(R.id.text_display_name)
     private val imageCardType: ImageView by bindView(R.id.image_card_type)
     private val textCardNumber: TextView by bindView(R.id.text_card_number)
+    private val textCardNotFound: TextView by bindView(R.id.text_card_not_found)
 
     private val navigatorHolder: NavigatorHolder by inject()
     private val errorHandler: ErrorHandler by inject()
     private var state: CardDetailsViewState by Delegates.notNull()
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        loadModule()
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -52,6 +49,7 @@ internal class CardDetailsFragment : Fragment(), BindableMviView<CardDetailsView
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        loadModule()
         navigatorHolder.navigator = CardDetailsNavigator(this)
         val args = CardDetailsFragmentArgs.fromBundle(arguments)
         bind(getViewModel<CardDetailsViewModel> { parametersOf(args.cardId) })
@@ -81,8 +79,10 @@ internal class CardDetailsFragment : Fragment(), BindableMviView<CardDetailsView
                 imageUserAvatar.loadImage(holder.photoUrl, R.drawable.ic_holder_placeholder, CircleImageTransformation())
             }
             toastMessage?.let { Toast.makeText(context, it, Toast.LENGTH_LONG).show() }
-            layoutCard.isVisible = card != null && !progress
+            groupCardFields.isVisible = card != null && !progress
+            layoutCard.isVisible = !progress
             buttonSave.isVisible = card != null && !progress
+            textCardNotFound.isVisible = card == null && !progress
             buttonSave.isProgress = saveProgress
             if (progress) progressBar.show() else progressBar.hide()
             errorHandler.accept(error)

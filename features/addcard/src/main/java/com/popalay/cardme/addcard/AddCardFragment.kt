@@ -54,16 +54,12 @@ internal class AddCardFragment : Fragment(), BindableMviView<AddCardViewState, A
     private val usersAdapter = UserListAdapter()
     private var state: AddCardViewState by Delegates.notNull()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        loadModule()
-    }
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View =
         inflater.inflate(R.layout.add_card_fragment, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        loadModule()
         navigatorHolder.navigator = AddCardNavigator(this)
         val args = AddCardFragmentArgs.fromBundle(arguments)
         bind(getViewModel<AddCardViewModel> { parametersOf(args.isUserCard) })

@@ -46,11 +46,6 @@ internal class UserCardFragment : Fragment(), BindableMviView<UserCardViewState,
     private val navigatorHolder: NavigatorHolder by inject()
     private var state: UserCardViewState by Delegates.notNull()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        loadModule()
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -60,6 +55,7 @@ internal class UserCardFragment : Fragment(), BindableMviView<UserCardViewState,
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         navigatorHolder.navigator = UserCardNavigator(this)
+        loadModule()
         bind(getViewModel<UserCardViewModel> { parametersOf(this) })
         initView()
     }
