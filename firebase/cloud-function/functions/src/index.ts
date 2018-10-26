@@ -82,17 +82,21 @@ exports.saveCardToUserWhenAgree = functions.firestore
 
       return fetchUserPromise.then(async userSnap => {
         console.log('User has fetched!')
-        const cardRef = admin.firestore().collection("cards").doc()
-        const card = userSnap.data().card
-        card.id = cardRef
-        card.userId = fromUserId
-        return cardRef.set(card).then(async () => {
-          console.log('Card has added!')
-          return deleteRequestPromise
-            .then(() => console.log('Delete request succeeded!'))
-            .catch(error => console.log('Delete request error: ', error))
-        }).catch(error => console.log('Add card error: ', error))
-      }).catch(error => console.log('Fetch user error: ', error))
+        const userCardId = userSnap.data().cardId
+        return admin.firestore().collection("cards").doc(userCardId).get().then(async cardSnap => {
+          console.log('User card has fetched!')
+          const card = cardSnap.data()
+          const cardRef = admin.firestore().collection("cards").doc()
+          card.id = cardRef.id
+          card.userId = fromUserId
+          return cardRef.set(card).then(async () => {
+            console.log('Card has added!')
+            return deleteRequestPromise
+              .then(() => console.log('Delete request succeeded!'))
+              .catch(error => console.log('Delete request error: ', error))
+          }).catch(error => console.log('Add card error: ', error))
+        }).catch(error => console.log('Fetch user error: ', error))
+        })
     }
     return null
   });
