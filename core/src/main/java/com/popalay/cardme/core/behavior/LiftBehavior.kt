@@ -3,10 +3,12 @@ package com.popalay.cardme.core.behavior
 import android.content.Context
 import android.util.AttributeSet
 import android.view.View
+import android.view.ViewGroup
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.view.ViewCompat
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.transition.AutoTransition
+import androidx.transition.TransitionManager
 import com.popalay.cardme.core.extensions.px
 
 class LiftBehavior(context: Context? = null, attrs: AttributeSet? = null) : CoordinatorLayout.Behavior<View>(context, attrs) {
@@ -22,11 +24,7 @@ class LiftBehavior(context: Context? = null, attrs: AttributeSet? = null) : Coor
         type: Int
     ) {
         super.onNestedScroll(coordinatorLayout, child, target, dxConsumed, dyConsumed, dxUnconsumed, dyUnconsumed, type)
-        val lift = if (target is RecyclerView) {
-            (target.layoutManager as LinearLayoutManager).findFirstCompletelyVisibleItemPosition() > 0
-        } else {
-            dyConsumed > 0
-        }
+        val lift = if (target is RecyclerView) target.canScrollVertically(-1) else dyConsumed > 0
         updateElevation(child, lift)
     }
 
@@ -40,6 +38,7 @@ class LiftBehavior(context: Context? = null, attrs: AttributeSet? = null) : Coor
     ): Boolean = axes == ViewCompat.SCROLL_AXIS_VERTICAL
 
     private fun updateElevation(child: View, lift: Boolean) {
-        child.elevation = if (lift) 6.px.toFloat() else 0F
+        TransitionManager.beginDelayedTransition(child.parent as ViewGroup, AutoTransition().addTarget(child))
+        child.translationZ = if (lift) 6.px.toFloat() else 0F
     }
 }
