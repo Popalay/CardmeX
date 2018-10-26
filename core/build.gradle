@@ -41,7 +41,6 @@ dependencies {
     implementation Libs.lifecycle
     implementation Libs.navigationFragment
     implementation Libs.navigationUi
-    implementation Libs.firebaseDynamicLinks
     implementation Libs.crashlytics
     implementation Libs.stetho
 }
