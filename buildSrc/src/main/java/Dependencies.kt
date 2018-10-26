@@ -2,7 +2,7 @@
 
 object Versions {
     const val versionName = "0.1.3"
-    val versionCode = (System.getenv("BITRISE_BUILD_NUMBER") ?: "35").toInt()
+    val versionCode = (System.getenv("BITRISE_BUILD_NUMBER") ?: "36").toInt()
 
     const val minSdkVersion = 23
     const val targetSdkVersion = 28
