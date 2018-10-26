@@ -6,6 +6,7 @@ import org.koin.androidx.scope.ext.android.bindScope
 import org.koin.androidx.scope.ext.android.getOrCreateScope
 import org.koin.androidx.viewmodel.ext.koin.viewModel
 import org.koin.dsl.module.module
+import org.koin.standalone.StandAloneContext.loadKoinModules
 
 private object CardDetailsModule {
 
@@ -19,6 +20,6 @@ private object CardDetailsModule {
 private const val scopeId = "CardDetailsFeature"
 
 internal fun CardDetailsFragment.loadModule() {
-    org.koin.standalone.StandAloneContext.loadKoinModules(CardDetailsModule.get())
+    loadKoinModules(CardDetailsModule.get())
     bindScope(getOrCreateScope(scopeId))
 }
