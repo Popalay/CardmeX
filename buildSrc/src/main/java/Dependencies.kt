@@ -9,7 +9,7 @@ object Versions {
     const val compileSdkVersion = 28
 
     const val gradlePlugin = "3.3.0-beta01"
-    const val kotlinLanguage = "1.3.0-rc-198"
+    const val kotlinLanguage = "1.3.0"
 
     const val constraintLayout = "2.0.0-alpha2"
     const val ktx = "1.0.0"
