@@ -21,6 +21,7 @@ import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.getViewModel
+import org.koin.core.parameter.parametersOf
 
 internal class CardListFragment : Fragment(), BindableMviView<CardListViewState, CardListIntent>, OnDialogDismissed {
 
@@ -40,7 +41,7 @@ internal class CardListFragment : Fragment(), BindableMviView<CardListViewState,
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         loadModule()
-        bind(getViewModel<CardListViewModel>())
+        bind(getViewModel<CardListViewModel>{ parametersOf(this)})
         initView()
     }
 

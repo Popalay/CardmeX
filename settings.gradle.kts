@@ -1,2 +1,19 @@
-include(":installed", ":api", ":core", ":cache", ":data", ":remote", ":devtools:shaketoreport", ":pushnotification", ":authenticator")
-include("features:cardlist", ":features:main", ":features:addcard", ":features:usercard", "features:cardactions", "features:carddetails")
+include(
+    ":installed",
+    ":api",
+    ":core",
+    ":cache",
+    ":data",
+    ":remote",
+    ":devtools:shaketoreport",
+    ":pushnotification",
+    ":authenticator",
+
+    "features:cardlist",
+    ":features:main",
+    ":features:addcard",
+    ":features:usercard",
+    "features:cardactions",
+    "features:carddetails",
+    "features:notifications"
+)

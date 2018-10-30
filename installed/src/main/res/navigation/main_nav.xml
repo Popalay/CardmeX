@@ -5,4 +5,9 @@
     app:startDestination="@id/base_nav">
 
     <include app:graph="@navigation/base_nav" />
+    <include app:graph="@navigation/feature_main_nav" />
+    <include app:graph="@navigation/feature_user_card_nav" />
+    <include app:graph="@navigation/feature_add_card_nav" />
+    <include app:graph="@navigation/feature_card_details_nav" />
+
 </navigation>

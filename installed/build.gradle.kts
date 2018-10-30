@@ -112,4 +112,6 @@ dependencies {
     implementation(project(":features:usercard"))
     implementation(project(":features:cardactions"))
     implementation(project(":features:carddetails"))
+
+    implementation(Libs.navigationUi)
 }

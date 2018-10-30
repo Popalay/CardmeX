@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.NavHost
 import androidx.navigation.Navigation
+import androidx.navigation.findNavController
 import com.popalay.cardme.R
 
 class MainActivity : AppCompatActivity(), NavHost {
@@ -15,7 +16,7 @@ class MainActivity : AppCompatActivity(), NavHost {
         setContentView(R.layout.main_activity)
     }
 
-    override fun onSupportNavigateUp() = Navigation.findNavController(this, R.id.nav_host_fragment).navigateUp()
+    override fun onSupportNavigateUp() = findNavController(R.id.nav_host_fragment).navigateUp()
 
-    override fun getNavController(): NavController = Navigation.findNavController(this, R.id.nav_host_fragment)
+    override fun getNavController(): NavController = findNavController(R.id.nav_host_fragment)
 }

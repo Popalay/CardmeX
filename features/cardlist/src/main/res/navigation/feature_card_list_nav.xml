@@ -3,10 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/feature_card_list"
-    app:startDestination="@+id/action_global_feature_card_list">
+    app:startDestination="@+id/card_list_fragment">
 
     <fragment
-        android:id="@+id/action_global_feature_card_list"
+        android:id="@+id/card_list_fragment"
         android:name="com.popalay.cardme.cardlist.CardListFragment"
         android:label="card_list_fragment"
         tools:layout="@layout/card_list_fragment">

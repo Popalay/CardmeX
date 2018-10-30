@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-
-    <item name="feature_add_card" type="id" />
-    <item name="feature_user_card" type="id" />
-    <item name="feature_card_list" type="id" />
-    <item name="feature_main" type="id" />
-
-</resources>

@@ -14,7 +14,7 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.NavHost
-import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import com.google.android.gms.instantapps.InstantApps
 import com.jakewharton.rxbinding2.view.RxView
 import com.popalay.cardme.api.core.error.ErrorHandler
@@ -62,7 +62,7 @@ internal class MainFragment : Fragment(), NavHost, BindableMviView<MainViewState
         intentSubject.onNext(MainIntent.OnActivityResult(resultCode == Activity.RESULT_OK, requestCode, data))
     }
 
-    override fun getNavController(): NavController = Navigation.findNavController(view!!)
+    override fun getNavController(): NavController = findNavController()
 
     override val intents: Observable<MainIntent> = Observable.defer {
         Observable.merge(

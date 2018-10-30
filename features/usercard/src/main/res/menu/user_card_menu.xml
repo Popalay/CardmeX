@@ -9,12 +9,6 @@
         app:showAsAction="ifRoom" />
 
     <item
-        android:id="@+id/action_send"
-        android:icon="@drawable/ic_speaker"
-        android:title="Share wireless"
-        app:showAsAction="ifRoom" />
-
-    <item
         android:id="@+id/action_edit"
         android:icon="@drawable/ic_edit"
         android:title="Edit"
