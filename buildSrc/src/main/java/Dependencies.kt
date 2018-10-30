@@ -22,8 +22,8 @@ object Versions {
     const val rxBinding = "2.2.0"
 
     const val acLifecycle = "2.0.0"
-    const val acRoom = "2.0.0"
-    const val acNavigation = "1.0.0-alpha06"
+    const val acRoom = "2.1.0-alpha01"
+    const val acNavigation = "1.0.0-alpha07"
 
     const val firebaseCore = "16.0.4"
     const val firebaseAuth = "16.0.5"
@@ -45,6 +45,11 @@ object Versions {
     const val stetho = "1.5.0"
 
     const val kotlinTest = "3.1.10"
+
+    const val googleServicesPlugin = "4.2.0"
+    const val fabricPlugin = "1.26.1"
+    const val versionsUpdatePlugin = "0.20.0"
+    const val jacocoPlugin = "0.8.2"
 }
 
 object Libs {
