@@ -16,5 +16,4 @@ dependencies {
 
     implementation(Libs.koinCore)
     implementation(Libs.kOptional)
-    implementation(Libs.hoard)
 }

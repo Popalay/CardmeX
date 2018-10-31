@@ -8,7 +8,7 @@ import io.reactivex.Completable
 
 internal class DeviceRepository(
     private val context: Context
-) : DeviceRepository {
+) : BaseRepository(), DeviceRepository {
 
     override fun saveToClipboard(label: String, text: String): Completable = Completable.fromAction {
         val clipboard = context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager

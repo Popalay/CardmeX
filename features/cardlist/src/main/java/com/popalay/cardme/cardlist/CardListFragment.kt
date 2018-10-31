@@ -21,7 +21,6 @@ import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.getViewModel
-import org.koin.core.parameter.parametersOf
 
 internal class CardListFragment : Fragment(), BindableMviView<CardListViewState, CardListIntent>, OnDialogDismissed {
 
@@ -41,7 +40,7 @@ internal class CardListFragment : Fragment(), BindableMviView<CardListViewState,
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         loadModule()
-        bind(getViewModel<CardListViewModel>{ parametersOf(this)})
+        bind(getViewModel<CardListViewModel>())
         initView()
     }
 
@@ -60,8 +59,9 @@ internal class CardListFragment : Fragment(), BindableMviView<CardListViewState,
         with(viewState) {
             selectedCard?.let { showCardActionsDialog(it) }
             toastMessage?.let { Toast.makeText(context, it, Toast.LENGTH_LONG).show() }
-            if (cardsAdapter.itemCount < cards.size) listCards.smoothScrollToPosition(0)
+            val shouldScrollToTop = cardsAdapter.itemCount < cards.size
             cardsAdapter.submitList(cards.map(::CardListItem))
+            if (shouldScrollToTop) listCards.smoothScrollToPosition(0)
             errorHandler.accept(error)
         }
     }

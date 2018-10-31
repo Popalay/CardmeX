@@ -8,7 +8,7 @@ import io.reactivex.Single
 
 interface CacheCardDao {
 
-    fun save(data: Card): Completable
+    fun save(data: Optional<Card>): Completable
 
     fun saveAll(data: List<Card>): Completable
 

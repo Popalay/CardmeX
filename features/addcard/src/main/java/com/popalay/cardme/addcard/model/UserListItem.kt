@@ -7,5 +7,6 @@ data class UserListItem(
     val user: User,
     val isProgress: Boolean
 ) : Identifiable {
-    override val id get() = user.uuid.hashCode().toLong()
+
+    override val id: String = user.uuid
 }

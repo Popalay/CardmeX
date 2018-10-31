@@ -17,7 +17,7 @@ internal class UserListUseCase(
         authRepository.currentUser()
             .flatMapPublisher { user ->
                 userRepository.getAllLikeWithCard(action.query, action.lastDisplayName, action.limit)
-                    .map { users -> users.filter { it.uuid != user.toNullable()?.uuid } }
+                    //.map { users -> users.filter { it.uuid != user.toNullable()?.uuid } }
             }
             .map { Result.Success(it) }
             .cast(Result::class.java)

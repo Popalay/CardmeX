@@ -10,9 +10,9 @@ import io.reactivex.Completable
 import io.reactivex.Flowable
 import io.reactivex.Single
 
-class AuthRepository(
+internal class AuthRepository(
     private val authenticator: Authenticator
-) : AuthRepository {
+) : BaseRepository(), AuthRepository {
 
     override fun authState(): Flowable<Optional<User>> = authenticator.authState()
 

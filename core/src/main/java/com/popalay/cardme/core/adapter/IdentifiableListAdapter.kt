@@ -40,7 +40,7 @@ abstract class IdentifiableListAdapter<I : Identifiable>(
 }
 
 interface Identifiable {
-    val id: Long
+    val id: String
 }
 
 open class IdentifiableDiffCallback<I : Identifiable> : DiffUtil.ItemCallback<I>() {

@@ -22,9 +22,11 @@ internal class CacheCardDao(
     private val cacheCardMapper: CacheCardWithHolderToCardMapper
 ) : CacheCardDao {
 
-    override fun save(data: Card): Completable = Completable.fromAction {
-        holderDao.insertOrUpdate(holderMapper(data.holder))
-        cardDao.insertOrUpdate(cardMapper(data))
+    override fun save(data: Optional<Card>): Completable = Completable.fromAction {
+        data.toNullable()?.let {
+            holderDao.insertOrUpdate(holderMapper(it.holder))
+            cardDao.insertOrUpdate(cardMapper(it))
+        }
     }.subscribeOn(Schedulers.io())
 
     override fun saveAll(data: List<Card>): Completable = Completable.fromAction {

@@ -18,8 +18,8 @@ internal class CacheUserDao(
     private val userToCacheUserMapper: UserToCacheUserMapper
 ) : CacheUserDao {
 
-    override fun save(data: User): Completable = Completable.fromAction {
-        userDao.insertOrUpdate(userToCacheUserMapper(data))
+    override fun save(data: Optional<User>): Completable = Completable.fromAction {
+        data.toNullable()?.let { userDao.insertOrUpdate(userToCacheUserMapper(it)) }
     }.subscribeOn(Schedulers.io())
 
     override fun get(): Flowable<Optional<User>> = userDao.findOne()

@@ -8,7 +8,7 @@ import io.reactivex.Single
 
 interface CacheUserDao {
 
-    fun save(data: User): Completable
+    fun save(data: Optional<User>): Completable
 
     fun get(): Flowable<Optional<User>>
 

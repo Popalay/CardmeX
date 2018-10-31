@@ -7,7 +7,7 @@ import io.reactivex.Completable
 
 internal class RequestRepository(
     private val remoteRequestDao: RemoteRequestDao
-) : RequestRepository {
+) : BaseRepository(), RequestRepository {
 
     override fun save(data: Request): Completable = remoteRequestDao.save(data).onErrorComplete()
 }
