@@ -1,0 +1,27 @@
+<template format="4"
+		revision="1"
+		name="MVI Template"
+		description="Creates a new MVI classes - ViewModel, View, ViewState, Intent and DI Module">
+
+	<category value="MVI" />
+    <formfactor value="Mobile" />
+
+	<parameter id="className"
+		name="Functionality Name"
+		type="string"
+		constraints="class|unique|nonempty"
+		default="MviFunction"
+		help="The name of the functionality that requires MVI components"/>
+
+	<parameter id="fragmentLayoutName"
+		name="Fragmewnt layout name"
+		type="string"
+		suggest="${classToResource(className)}_fragment"
+		constraints="layout|unique|nonempty"
+		default="custom_fragment"
+		help="The name of the layout"/>
+
+	<globals file="globals.xml.ftl" />
+    <execute file="recipe.xml.ftl" />
+
+</template>
