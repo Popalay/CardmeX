@@ -11,14 +11,14 @@ class UserCardNavigator(fragment: Fragment) : BaseNavigator(fragment) {
         when (destination as UserCardDestination) {
             UserCardDestination.AddCard -> {
                 val bundle = bundleOf("isUserCard" to true.toString())
-                navController.navigate(R.id.feature_add_card, bundle)
+                navController.navigate(R.id.action_to_add_card, bundle)
             }
         }
     }
 
     override fun popBackStackTo(destination: Destination, inclusive: Boolean) {
         when (destination as UserCardDestination) {
-            UserCardDestination.AddCard -> navController.popBackStack(R.id.feature_add_card, inclusive)
+            UserCardDestination.AddCard -> navController.popBackStack(R.id.action_to_add_card, inclusive)
         }
     }
 }
