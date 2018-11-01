@@ -11,7 +11,7 @@ class UserCardNavigator(fragment: Fragment) : BaseNavigator(fragment) {
         when (destination as UserCardDestination) {
             UserCardDestination.AddCard -> {
                 val bundle = bundleOf("isUserCard" to true.toString())
-                navController.navigate(R.id.action_to_add_card, bundle)
+                navController.navigate(R.id.feature_add_card, bundle)
             }
         }
     }

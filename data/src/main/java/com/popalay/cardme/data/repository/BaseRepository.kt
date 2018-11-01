@@ -23,20 +23,10 @@ internal abstract class BaseRepository {
         persist: (List<D>) -> Completable
     ): Flowable<List<D>> = with(cacheFlow.share()) {
         Flowable.merge(
-            take(1)
-                .flatMap { cached ->
-                    if (cached.isEmpty()) handleRemoteFlow(remoteFlow, persist)
-                    else handleCacheFlow(cached, remoteFlow, persist)
-                },
+            take(1).flatMap { handleRemoteFlow(remoteFlow, persist).startWith(it) },
             skip(1)
         ).distinctUntilChanged()
     }
-
-    private fun <D> handleCacheFlow(
-        it: List<D>,
-        remoteFlow: Flowable<List<D>>,
-        persist: (List<D>) -> Completable
-    ): Flowable<List<D>> = Flowable.concat(Flowable.just(it), handleRemoteFlow(remoteFlow, persist))
 
     private fun <D> handleRemoteFlow(
         remoteFlow: Flowable<List<D>>,
@@ -44,4 +34,5 @@ internal abstract class BaseRepository {
     ): Flowable<List<D>> = remoteFlow
         .filter { it.isNotEmpty() }
         .doOnNext { persist(it).blockingAwait() }
+        .filter { false }
 }

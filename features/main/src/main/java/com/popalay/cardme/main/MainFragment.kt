@@ -12,9 +12,6 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import androidx.navigation.NavController
-import androidx.navigation.NavHost
-import androidx.navigation.fragment.findNavController
 import com.google.android.gms.instantapps.InstantApps
 import com.jakewharton.rxbinding2.view.RxView
 import com.popalay.cardme.api.core.error.ErrorHandler
@@ -33,7 +30,7 @@ import org.koin.androidx.viewmodel.ext.android.getViewModel
 import org.koin.core.parameter.parametersOf
 import kotlin.properties.Delegates
 
-internal class MainFragment : Fragment(), NavHost, BindableMviView<MainViewState, MainIntent> {
+internal class MainFragment : Fragment(), BindableMviView<MainViewState, MainIntent> {
 
     private val buttonAddCard: View by bindView(R.id.button_add_card)
     private val constraintLayout: ConstraintLayout by bindView(R.id.constraint_layout)
@@ -61,8 +58,6 @@ internal class MainFragment : Fragment(), NavHost, BindableMviView<MainViewState
         super.onActivityResult(requestCode, resultCode, data)
         intentSubject.onNext(MainIntent.OnActivityResult(resultCode == Activity.RESULT_OK, requestCode, data))
     }
-
-    override fun getNavController(): NavController = findNavController()
 
     override val intents: Observable<MainIntent> = Observable.defer {
         Observable.merge(
