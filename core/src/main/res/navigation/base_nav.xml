@@ -28,6 +28,10 @@
             android:id="@+id/action_to_card_details"
             app:destination="@+id/feature_card_details" />
 
+        <action
+            android:id="@+id/action_to_notifications"
+            app:destination="@+id/feature_notifications" />
+
         <deepLink app:uri="mecard.page.link/base" />
 
     </fragment>
