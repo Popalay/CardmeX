@@ -94,6 +94,7 @@ exports.saveCardToUserWhenAgree = functions.firestore
           const cardRef = admin.firestore().collection("cards").doc()
           card.id = cardRef.id
           card.userId = fromUserId
+          card.updatedDate = admin.firestore.Timestamp.now()
           return cardRef.set(card).then(async () => {
             console.log('Card has added!')
             return deleteRequestPromise
