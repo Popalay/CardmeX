@@ -1,6 +1,5 @@
 package com.popalay.cardme.carddetails
 
-import com.popalay.cardme.api.ui.navigation.Router
 import com.popalay.cardme.api.ui.state.IntentProcessor
 import com.popalay.cardme.api.ui.state.LambdaReducer
 import com.popalay.cardme.api.ui.state.Processor
@@ -15,8 +14,7 @@ internal class CardDetailsViewModel(
     private val cardId: String,
     private val getCardUseCase: GetCardUseCase,
     private val saveCardUseCase: SaveCardUseCase,
-    private val copyCardNumberUseCase: CopyCardNumberUseCase,
-    private val router: Router
+    private val copyCardNumberUseCase: CopyCardNumberUseCase
 ) : BaseMviViewModel<CardDetailsViewState, CardDetailsIntent>() {
 
     override val initialState: CardDetailsViewState = CardDetailsViewState()
@@ -27,7 +25,7 @@ internal class CardDetailsViewModel(
                 .map { GetCardUseCase.Action(cardId) }
                 .compose(getCardUseCase),
             observable.ofType<CardDetailsIntent.OnAddClicked>()
-                .map { SaveCardUseCase.Action(it.card) }
+                .map { SaveCardUseCase.Action(it.card, closeOnSuccess = true) }
                 .compose(saveCardUseCase),
             observable.ofType<CardDetailsIntent.OnCardClicked>()
                 .map { CopyCardNumberUseCase.Action(it.card) }
@@ -43,10 +41,7 @@ internal class CardDetailsViewModel(
                 is GetCardUseCase.Result.Failure -> it.copy(error = throwable, progress = false)
             }
             is SaveCardUseCase.Result -> when (this) {
-                is SaveCardUseCase.Result.Success -> {
-                    router.popBackStack()
-                    it.copy(saveProgress = false)
-                }
+                is SaveCardUseCase.Result.Success -> it.copy(saveProgress = false)
                 SaveCardUseCase.Result.Idle -> it.copy(saveProgress = true)
                 is SaveCardUseCase.Result.Failure -> it.copy(error = throwable, saveProgress = false)
             }

@@ -8,32 +8,32 @@
         android:id="@+id/base_fragment"
         android:name="com.popalay.cardme.main.MainFragment">
 
-        <action
-            android:id="@+id/action_to_user_card"
-            app:destination="@+id/feature_user_card" />
-
-        <action
-            android:id="@+id/action_to_add_card"
-            app:destination="@+id/feature_add_card" />
-
-        <action
-            android:id="@+id/action_to_card_list"
-            app:destination="@+id/feature_card_list" />
-
-        <action
-            android:id="@+id/action_to_main"
-            app:destination="@+id/feature_main" />
-
-        <action
-            android:id="@+id/action_to_card_details"
-            app:destination="@+id/feature_card_details" />
-
-        <action
-            android:id="@+id/action_to_notifications"
-            app:destination="@+id/feature_notifications" />
-
         <deepLink app:uri="mecard.page.link/base" />
 
     </fragment>
+
+    <action
+        android:id="@+id/action_to_user_card"
+        app:destination="@+id/feature_user_card" />
+
+    <action
+        android:id="@+id/action_to_add_card"
+        app:destination="@+id/feature_add_card" />
+
+    <action
+        android:id="@+id/action_to_card_list"
+        app:destination="@+id/feature_card_list" />
+
+    <action
+        android:id="@+id/action_to_main"
+        app:destination="@+id/feature_main" />
+
+    <action
+        android:id="@+id/action_to_card_details"
+        app:destination="@+id/feature_card_details" />
+
+    <action
+        android:id="@+id/action_to_notifications"
+        app:destination="@+id/feature_notifications" />
 
 </navigation>

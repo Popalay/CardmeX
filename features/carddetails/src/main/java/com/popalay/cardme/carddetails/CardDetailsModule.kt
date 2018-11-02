@@ -11,9 +11,9 @@ import org.koin.standalone.StandAloneContext.loadKoinModules
 private object CardDetailsModule {
 
     fun get() = module("CardDetailsModule", override = true) {
-        viewModel { (cardId: String) -> CardDetailsViewModel(cardId, get(), get(), get(), get()) }
+        viewModel { (cardId: String) -> CardDetailsViewModel(cardId, get(), get(), get()) }
         scope(scopeId) { GetCardUseCase(get { it }) }
-        scope(scopeId) { SaveCardUseCase(get { it }) }
+        scope(scopeId) { SaveCardUseCase(get { it }, get { it }, get { it }) }
     }
 }
 
