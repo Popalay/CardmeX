@@ -6,18 +6,21 @@ import androidx.room.TypeConverters
 import com.popalay.cardme.cache.converter.DateTypeConverter
 import com.popalay.cardme.cache.database.dao.CardDao
 import com.popalay.cardme.cache.database.dao.HolderDao
+import com.popalay.cardme.cache.database.dao.NotificationDao
 import com.popalay.cardme.cache.database.dao.UserDao
 import com.popalay.cardme.cache.model.CacheCard
 import com.popalay.cardme.cache.model.CacheHolder
+import com.popalay.cardme.cache.model.CacheNotification
 import com.popalay.cardme.cache.model.CacheUser
 
 @Database(
     entities = [
         CacheCard::class,
         CacheHolder::class,
-        CacheUser::class
+        CacheUser::class,
+        CacheNotification::class
     ],
-    version = 5
+    version = 7
 )
 @TypeConverters(
     value = [
@@ -31,4 +34,6 @@ internal abstract class Database : RoomDatabase() {
     abstract fun holderDao(): HolderDao
 
     abstract fun userDao(): UserDao
+
+    abstract fun notificationDao(): NotificationDao
 }

@@ -5,16 +5,16 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.iid.FirebaseInstanceId
 import com.google.firebase.iid.InstanceIdResult
-import com.popalay.cardme.api.data.repository.NotificationRepository
+import com.popalay.cardme.api.data.repository.TokenRepository
 import io.reactivex.Completable
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
 import java.util.concurrent.Executors
 
-internal class NotificationRepository(
+internal class TokenRepository(
     private val firestore: FirebaseFirestore,
     private val firebaseAuth: FirebaseAuth
-) : NotificationRepository {
+) : TokenRepository {
 
     override fun syncToken(): Completable = Single.create<String> { emitter ->
         FirebaseInstanceId.getInstance().instanceId

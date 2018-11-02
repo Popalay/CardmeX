@@ -16,7 +16,7 @@ exports.sendPushWhenAddCardRequest = functions.firestore
       .then(async userFrom => {
         console.log('User has fetched');
 
-        const notificationRef = admin.firestore().collection('notification').doc()
+        const notificationRef = admin.firestore().collection('notifications').doc()
         const title = userFrom.displayName + ' wants to add your card'
         const description = "Allow if you want to share card"
 
@@ -44,7 +44,12 @@ exports.sendPushWhenAddCardRequest = functions.firestore
           title: title,
           description: description,
           toUserUuid: toUuid,
-          fromUserUuid: fromUuid
+          fromUser: {
+            id: userFrom.uid,
+            displayName: userFrom.displayName,
+            photoUrl: userFrom.photoURL
+          },
+          createdDate: admin.firestore.Timestamp.now()
         };
 
         const saveNotificationPromise = notificationRef.set(notification)
@@ -96,7 +101,7 @@ exports.saveCardToUserWhenAgree = functions.firestore
               .catch(error => console.log('Delete request error: ', error))
           }).catch(error => console.log('Add card error: ', error))
         }).catch(error => console.log('Fetch user error: ', error))
-        })
+      })
     }
     return null
   });

@@ -1,18 +1,18 @@
 package com.popalay.cardme.main.usecase
 
 import com.popalay.cardme.api.core.usecase.UseCase
-import com.popalay.cardme.api.data.repository.NotificationRepository
+import com.popalay.cardme.api.data.repository.TokenRepository
 import io.reactivex.Observable
 import io.reactivex.ObservableSource
 import io.reactivex.schedulers.Schedulers
 import org.koin.standalone.KoinComponent
 
 internal class SyncTokenUseCase(
-    private val notificationRepository: NotificationRepository
+    private val tokenRepository: TokenRepository
 ) : UseCase<SyncTokenUseCase.Action, SyncTokenUseCase.Result>, KoinComponent {
 
     override fun apply(upstream: Observable<Action>): ObservableSource<Result> = upstream.switchMap { _ ->
-        notificationRepository.syncToken()
+        tokenRepository.syncToken()
             .toSingleDefault(Result.Success)
             .cast(Result::class.java)
             .onErrorReturn(Result::Failure)

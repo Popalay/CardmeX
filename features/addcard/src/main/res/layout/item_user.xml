@@ -37,13 +37,11 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:text="@tools:sample/full_names" />
 
-    <com.popalay.cardme.core.widget.ProgressImageButton
+    <com.popalay.cardme.core.widget.ProgressImageView
         android:id="@+id/button_request"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:background="?selectableItemBackgroundBorderless"
-        android:contentDescription="Request card"
         android:padding="8dp"
         android:src="@drawable/ic_add_circle"
         android:tint="@color/colorPrimary"

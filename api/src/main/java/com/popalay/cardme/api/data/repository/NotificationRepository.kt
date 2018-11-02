@@ -1,10 +1,9 @@
 package com.popalay.cardme.api.data.repository
 
-import io.reactivex.Completable
+import com.popalay.cardme.api.core.model.Notification
+import io.reactivex.Flowable
 
 interface NotificationRepository {
 
-    fun syncToken(): Completable
-
-    fun syncToken(token: String): Completable
+    fun getAll(userId: String): Flowable<List<Notification>>
 }

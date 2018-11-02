@@ -35,17 +35,16 @@ internal class CardListUseCase(
             .subscribeOn(Schedulers.io())
     }
 
-    private val defaultCard: Card
-        get() = Card(
-            "0",
-            "5555555555554444",
-            Holder("0", "Glindev 4ever", ""),
-            true,
-            CardType.MASTER_CARD,
-            "user_id",
-            Date(),
-            Date()
-        )
+    private val defaultCard = Card(
+        "0",
+        "5555555555554444",
+        Holder("0", "Glindev 4ever", ""),
+        true,
+        CardType.MASTER_CARD,
+        "user_id",
+        Date(),
+        Date()
+    )
 
     object Action : UseCase.Action
 

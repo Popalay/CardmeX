@@ -8,13 +8,13 @@ import androidx.core.app.NotificationCompat
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
-import com.popalay.cardme.api.data.repository.NotificationRepository
+import com.popalay.cardme.api.data.repository.TokenRepository
 import com.squareup.picasso.Picasso
 import org.koin.android.ext.android.inject
 
 class FirebaseMessagingService : FirebaseMessagingService() {
 
-    private val notificationRepository: NotificationRepository by inject()
+    private val tokenRepository: TokenRepository by inject()
 
     companion object {
 
@@ -62,6 +62,6 @@ class FirebaseMessagingService : FirebaseMessagingService() {
 
     override fun onNewToken(token: String?) {
         super.onNewToken(token)
-        notificationRepository.syncToken(token ?: "").blockingAwait()
+        tokenRepository.syncToken(token ?: "").blockingAwait()
     }
 }

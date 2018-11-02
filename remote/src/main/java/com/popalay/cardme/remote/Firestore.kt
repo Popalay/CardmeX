@@ -7,3 +7,5 @@ internal val FirebaseFirestore.cards get() = collection("cards")
 internal val FirebaseFirestore.users get() = collection("users")
 
 internal val FirebaseFirestore.requests get() = collection("requests")
+
+internal val FirebaseFirestore.notifications get() = collection("notifications")

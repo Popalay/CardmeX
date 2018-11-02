@@ -13,7 +13,7 @@ import org.koin.standalone.StandAloneContext.loadKoinModules
 private object MainModule {
 
     fun get() = module("MainModule", override = true) {
-        viewModel { MainViewModel(get { it }, get { it }, get { it }, get { it }, get { it }, get { it }) }
+        viewModel { MainViewModel(get { it }, get { it }, get { it }, get { it }, get { it }, get { it }, get { it }) }
         scope(scopeId) { LogOutUseCase(get { it }, get { it }) }
         scope(scopeId) { AuthUseCase(get { it }, get { it }, get { it }, get { it }) }
         scope(scopeId) { HandleAuthResultUseCase(get { it }, get { it }, get { it }, get { it }) }

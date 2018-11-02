@@ -12,7 +12,7 @@ import com.popalay.cardme.core.adapter.IdentifiableListAdapter
 import com.popalay.cardme.core.extensions.bindView
 import com.popalay.cardme.core.extensions.loadImage
 import com.popalay.cardme.core.picasso.CircleImageTransformation
-import com.popalay.cardme.core.widget.ProgressImageButton
+import com.popalay.cardme.core.widget.ProgressImageView
 
 class UserListAdapter : IdentifiableListAdapter<UserListItem>(
     layoutRes = R.layout.item_user,
@@ -29,7 +29,7 @@ class UserListAdapter : IdentifiableListAdapter<UserListItem>(
 
         private val imagePhoto: ImageView by bindView(R.id.image_photo)
         private val textDisplayName: TextView by bindView(R.id.text_display_name)
-        private val buttonRequest: ProgressImageButton by bindView(R.id.button_request)
+        private val buttonRequest: ProgressImageView by bindView(R.id.button_request)
 
         override fun bind(item: UserListItem) {
             with(item.user) {

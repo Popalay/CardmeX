@@ -17,11 +17,13 @@ internal class SaveCardUseCase(
 ) : UseCase<SaveCardUseCase.Action, SaveCardUseCase.Result> {
 
     override fun apply(upstream: Observable<Action>): ObservableSource<Result> = upstream.switchMap { action ->
-        val cardId = UUID.randomUUID().toString()
-
         authRepository.currentUser()
             .flatMapCompletable {
-                cardRepository.save(action.card.copy(id = cardId, userId = it.toNullable()?.uuid ?: ""))
+                val cardId = UUID.randomUUID().toString()
+                val userId = it.toNullable()?.uuid ?: ""
+                val updatedDate = Date()
+
+                cardRepository.save(action.card.copy(id = cardId, userId = userId, updatedDate = updatedDate))
                     .doOnComplete { if (action.closeOnSuccess) router.navigateUp() }
             }
             .toSingleDefault(Result.Success)
