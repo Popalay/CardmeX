@@ -18,11 +18,11 @@ object AuthenticatorModule {
         single<AuthResultFactory> { GoogleAuthResultFactory() }
         single<AuthCredentialsFactory> { GoolgeAuthCredentialsFactory() }
         factory<Authenticator> { AuthenticatorFacade(get { it }, get { it }, get { it }) }
-        factory { (fragment: Fragment) ->
+        factory { parameters ->
             mapOf<KClass<*>, Authenticator>(
                 GoogleAuthenticator::class to GoogleAuthenticator(
                     androidContext(),
-                    fragment,
+                    parameters.values.firstOrNull { it is Fragment } as Fragment?,
                     get(),
                     get()
                 ),
