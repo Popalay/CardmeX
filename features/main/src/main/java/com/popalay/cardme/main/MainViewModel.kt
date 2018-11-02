@@ -11,6 +11,7 @@ import com.popalay.cardme.core.usecase.LogOutUseCase
 import com.popalay.cardme.core.usecase.SpecificIntentUseCase
 import com.popalay.cardme.main.usecase.AuthUseCase
 import com.popalay.cardme.main.usecase.HandleAuthResultUseCase
+import com.popalay.cardme.main.usecase.SyncTokenUseCase
 import io.reactivex.rxkotlin.ofType
 
 internal class MainViewModel(
@@ -19,6 +20,7 @@ internal class MainViewModel(
     private val authUseCase: AuthUseCase,
     private val handleAuthResultUseCase: HandleAuthResultUseCase,
     private val specificIntentUseCase: SpecificIntentUseCase,
+    private val syncTokenUseCase: SyncTokenUseCase,
     private val router: Router
 ) : BaseMviViewModel<MainViewState, MainIntent>() {
 
@@ -29,6 +31,9 @@ internal class MainViewModel(
             observable.ofType<MainIntent.OnStarted>()
                 .map { GetCurrentUserUseCase.Action }
                 .compose(getCurrentUserUseCase),
+            observable.ofType<MainIntent.OnStarted>()
+                .map { SyncTokenUseCase.Action }
+                .compose(syncTokenUseCase),
             observable.ofType<MainIntent.OnAddCardClicked>()
                 .map { SpecificIntentUseCase.Action(it) }
                 .compose(specificIntentUseCase),
@@ -69,7 +74,7 @@ internal class MainViewModel(
                 HandleAuthResultUseCase.Result.Idle -> it.copy(isSyncProgress = true)
                 is HandleAuthResultUseCase.Result.Failure -> it.copy(error = throwable, isSyncProgress = false)
             }
-
+            is SyncTokenUseCase.Result -> it
             is SpecificIntentUseCase.Result -> with(intent as MainIntent) {
                 when (this) {
                     MainIntent.OnAddCardClicked -> {

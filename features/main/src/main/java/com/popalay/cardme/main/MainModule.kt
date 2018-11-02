@@ -3,6 +3,7 @@ package com.popalay.cardme.main
 import com.popalay.cardme.core.usecase.LogOutUseCase
 import com.popalay.cardme.main.usecase.AuthUseCase
 import com.popalay.cardme.main.usecase.HandleAuthResultUseCase
+import com.popalay.cardme.main.usecase.SyncTokenUseCase
 import org.koin.androidx.scope.ext.android.bindScope
 import org.koin.androidx.scope.ext.android.getOrCreateScope
 import org.koin.androidx.viewmodel.ext.koin.viewModel
@@ -16,6 +17,7 @@ private object MainModule {
         scope(scopeId) { LogOutUseCase(get { it }, get { it }) }
         scope(scopeId) { AuthUseCase(get { it }, get { it }, get { it }, get { it }) }
         scope(scopeId) { HandleAuthResultUseCase(get { it }, get { it }, get { it }, get { it }) }
+        scope(scopeId) { SyncTokenUseCase(get { it }) }
     }
 }
 
