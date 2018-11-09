@@ -5,13 +5,19 @@
     <item
         android:id="@+id/action_share"
         android:icon="@drawable/ic_share"
-        android:title="Share"
+        android:title="Share card"
         app:showAsAction="ifRoom" />
 
     <item
         android:id="@+id/action_edit"
         android:icon="@drawable/ic_edit"
-        android:title="Edit"
+        android:title="Edit card"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/action_add"
+        android:icon="@drawable/ic_add"
+        android:title="Add card"
         app:showAsAction="ifRoom" />
 
 </menu>

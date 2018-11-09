@@ -1,4 +1,4 @@
-package com.popalay.cardme.notifications.usecase
+package com.popalay.cardme.usercard.usecase
 
 import com.popalay.cardme.api.core.model.Notification
 import com.popalay.cardme.api.core.usecase.UseCase

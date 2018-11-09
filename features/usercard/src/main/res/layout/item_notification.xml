@@ -3,8 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="56dp"
-    android:background="?selectableItemBackground"
+    android:layout_height="wrap_content"
     android:clickable="true"
     android:focusable="true"
     android:paddingStart="8dp"
@@ -15,8 +14,6 @@
         android:layout_width="36dp"
         android:layout_height="36dp"
         android:contentDescription="@null"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/text_display_name"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:src="@drawable/ic_holder_placeholder" />
@@ -26,29 +23,35 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:drawablePadding="4dp"
-        android:ellipsize="end"
-        android:gravity="center_vertical"
-        android:lines="1"
-        android:textAppearance="?textAppearanceBody2"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/button_request"
+        android:textAppearance="?textAppearanceSubtitle2"
+        app:layout_constraintEnd_toStartOf="@id/text_date"
         app:layout_constraintStart_toEndOf="@id/image_photo"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="@tools:sample/full_names" />
 
-    <com.popalay.cardme.core.widget.ProgressImageView
-        android:id="@+id/button_request"
+    <TextView
+        android:id="@+id/text_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:padding="8dp"
-        android:src="@drawable/ic_add_circle"
-        android:tint="?colorPrimary"
+        android:textAppearance="?textAppearanceCaption"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="@tools:sample/date/ddmmyy" />
+
+    <TextView
+        android:id="@+id/text_message"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:ellipsize="end"
+        android:lines="2"
+        android:maxLines="2"
+        android:textAppearance="?textAppearanceBody1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/text_display_name"
+        app:layout_constraintStart_toEndOf="@id/image_photo"
         app:layout_constraintTop_toBottomOf="@id/text_display_name"
-        app:layout_constraintTop_toTopOf="parent" />
+        tools:text="@tools:sample/lorem/random" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -12,5 +12,6 @@ dependencies {
     implementation(Libs.rxBinding)
 
     implementation(Libs.koinAndroidScope)
+    implementation(Libs.navigationUi)
     implementation(Libs.navigationFragment)
 }

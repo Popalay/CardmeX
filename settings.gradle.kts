@@ -14,6 +14,5 @@ include(
     ":features:addcard",
     ":features:usercard",
     "features:cardactions",
-    "features:carddetails",
-    "features:notifications"
+    "features:carddetails"
 )

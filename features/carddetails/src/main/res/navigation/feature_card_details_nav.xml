@@ -13,7 +13,9 @@
             android:name="cardId"
             app:argType="string" />
 
-        <deepLink app:uri="mecard.page.link/card/{cardId}" />
+        <deepLink
+            android:autoVerify="true"
+            app:uri="mecard.page.link/card/{cardId}" />
 
     </fragment>
 

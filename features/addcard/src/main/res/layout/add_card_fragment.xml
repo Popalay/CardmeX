@@ -9,7 +9,7 @@
         android:id="@+id/appbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:theme="@style/Cardme.AppBarOverlay">
+        android:theme="?windowActionBarOverlay">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
@@ -69,7 +69,7 @@
                 android:contentDescription="Scan card"
                 android:padding="8dp"
                 android:src="@drawable/ic_camera"
-                android:tint="@color/colorPrimary"
+                android:tint="?colorPrimary"
                 app:layout_constraintBottom_toBottomOf="@+id/input_number"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/input_number"
@@ -84,7 +84,7 @@
                 android:contentDescription="Clear"
                 android:padding="8dp"
                 android:src="@drawable/ic_clear"
-                android:tint="@color/colorPrimary"
+                android:tint="?colorPrimary"
                 android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="@id/input_name"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -98,7 +98,7 @@
                 android:layout_marginStart="16dp"
                 android:contentDescription="Card type"
                 android:src="@drawable/ic_credit_card"
-                android:tint="@color/colorPrimary"
+                android:tint="?colorPrimary"
                 app:layout_constraintBottom_toBottomOf="@id/input_number"
                 app:layout_constraintEnd_toStartOf="@id/input_number"
                 app:layout_constraintStart_toStartOf="parent"
@@ -111,7 +111,7 @@
                 android:layout_marginStart="16dp"
                 android:contentDescription="Holder name"
                 android:src="@drawable/ic_account"
-                android:tint="@color/colorPrimary"
+                android:tint="?colorPrimary"
                 app:layout_constraintBottom_toBottomOf="@+id/input_name"
                 app:layout_constraintEnd_toStartOf="@+id/input_name"
                 app:layout_constraintStart_toStartOf="parent"
@@ -137,7 +137,7 @@
 
     <androidx.core.widget.ContentLoadingProgressBar
         android:id="@+id/progress_bar"
-        style="?android:attr/progressBarStyleLarge"
+        style="?android:progressBarStyleLarge"
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:layout_marginTop="16dp"

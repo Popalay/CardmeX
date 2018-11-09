@@ -2,15 +2,7 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/base_nav"
-    app:startDestination="@id/base_fragment">
-
-    <fragment
-        android:id="@+id/base_fragment"
-        android:name="com.popalay.cardme.main.MainFragment">
-
-        <deepLink app:uri="mecard.page.link/base" />
-
-    </fragment>
+    app:startDestination="@+id/base_fragment">
 
     <action
         android:id="@+id/action_to_user_card"
@@ -35,5 +27,9 @@
     <action
         android:id="@+id/action_to_notifications"
         app:destination="@+id/feature_notifications" />
+
+    <fragment
+        android:id="@+id/base_fragment"
+        android:name="com.popalay.cardme.main.MainFragment" />
 
 </navigation>

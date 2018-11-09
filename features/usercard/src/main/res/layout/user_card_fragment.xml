@@ -1,164 +1,99 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.motion.widget.MotionLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/motion_layout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    app:layoutDescription="@xml/scene_user_card"
+    app:showPaths="true">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appbar"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:menu="@menu/user_card_menu" />
+        android:layout_height="0dp"
+        android:theme="?windowActionBarOverlay"
+        app:elevation="0dp">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:menu="@menu/user_card_menu" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/layout_card"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:cardElevation="0dp"
+        app:strokeColor="@color/selected"
+        app:strokeWidth="1dp" />
 
     <androidx.core.widget.ContentLoadingProgressBar
         android:id="@+id/progress_bar"
         style="?android:attr/progressBarStyleLarge"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/text_no_card_message"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:gravity="center"
-        android:text="You haven't had your card yet.\nLet's add 😉"
-        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_height="0dp" />
+
+    <ImageView
+        android:id="@+id/image_user_avatar"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:contentDescription="@null"
+        tools:src="@tools:sample/avatars" />
 
     <Button
         android:id="@+id/button_add"
-        style="@style/Cardme.Button.Colored"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="Go!"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/button_skip"
-        app:layout_constraintTop_toBottomOf="@+id/text_no_card_message" />
-
-    <Button
-        android:id="@+id/button_skip"
         style="@style/Cardme.Button.Outlined"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="Skip"
-        app:layout_constraintEnd_toEndOf="@+id/button_add"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_no_card_message" />
+        android:text="Add card" />
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/layout_card"
+    <TextView
+        android:id="@+id/text_display_name"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        app:layout_constraintDimensionRatio="3:1.75"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/toolbar">
+        android:ellipsize="end"
+        android:lines="1"
+        android:textAppearance="?textAppearanceSubtitle1"
+        tools:text="@tools:sample/full_names" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+    <ImageView
+        android:id="@+id/image_card_type"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:contentDescription="@null"
+        tools:src="@tools:sample/avatars" />
+
+    <com.popalay.cardme.core.widget.CharacterWrapTextView
+        android:id="@+id/text_card_number"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:gravity="center"
+        android:textAppearance="?textAppearanceHeadline6"
+        tools:text="5555 5555 5555 55555" />
+
+    <TextView
+        android:id="@+id/label_notifications"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Notifications"
+        android:textAppearance="?textAppearanceOverline" />
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/card_notifications"
+        android:layout_width="0dp"
+        android:layout_height="0dp">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/list_notifications"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/item_notification" />
 
-            <ImageView
-                android:id="@+id/image_user_avatar"
-                android:layout_width="36dp"
-                android:layout_height="0dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginBottom="16dp"
-                android:contentDescription="@null"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                tools:src="@tools:sample/avatars" />
+    </com.google.android.material.card.MaterialCardView>
 
-            <TextView
-                android:id="@+id/text_display_name"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:ellipsize="end"
-                android:lines="1"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
-                app:layout_constraintBottom_toBottomOf="@+id/image_user_avatar"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/image_user_avatar"
-                app:layout_constraintTop_toTopOf="@+id/image_user_avatar"
-                tools:text="@tools:sample/full_names" />
-
-            <ImageView
-                android:id="@+id/image_card_type"
-                android:layout_width="32dp"
-                android:layout_height="0dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="16dp"
-                android:contentDescription="@null"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:src="@tools:sample/avatars" />
-
-            <com.popalay.cardme.core.widget.CharacterWrapTextView
-                android:id="@+id/text_card_number"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:gravity="center"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:text="5555 5555 5555 55555" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </androidx.cardview.widget.CardView>
-
-    <fragment
-        android:id="@+id/nav_host_fragment"
-        android:name="androidx.navigation.fragment.NavHostFragment"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/layout_card"
-        app:navGraph="@navigation/feature_user_card_nested_nav" />
-
-    <androidx.constraintlayout.widget.Group
-        android:id="@+id/group_no_card"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:visibility="gone"
-        app:constraint_referenced_ids="button_add,button_skip,text_no_card_message"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:visibility="visible" />
-
-    <androidx.constraintlayout.widget.Group
-        android:id="@+id/group_card"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:visibility="gone"
-        app:constraint_referenced_ids="toolbar,layout_card,nav_host_fragment"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:visibility="visible" />
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.motion.widget.MotionLayout>

@@ -6,5 +6,24 @@
 
     <include app:graph="@navigation/base_nav" />
 
-    <!--Activity destinations-->
+    <activity
+        android:id="@+id/action_to_main"
+        app:action="android.intent.action.VIEW"
+        app:data="https://mecard.page.link/main" />
+
+    <activity
+        android:id="@+id/action_to_card_details"
+        app:action="android.intent.action.VIEW"
+        app:data="https://mecard.page.link/card/{cardId}" />
+
+    <activity
+        android:id="@+id/action_to_add_card"
+        app:action="android.intent.action.VIEW"
+        app:data="https://mecard.page.link/addcard" />
+
+    <activity
+        android:id="@+id/action_to_user_card"
+        app:action="android.intent.action.VIEW"
+        app:data="https://mecard.page.link/usercard" />
+
 </navigation>

@@ -8,11 +8,11 @@ object Versions {
     const val targetSdkVersion = 28
     const val compileSdkVersion = 28
 
-    const val gradlePlugin = "3.3.0-beta02"
+    const val gradlePlugin = "3.3.0-beta03"
     const val kotlinLanguage = "1.3.0"
 
     const val constraintLayout = "2.0.0-alpha2"
-    const val ktx = "1.0.0"
+    const val ktx = "1.0.1"
     const val materialComponents = "1.0.0"
 
     const val rxJava = "2.2.3"
@@ -22,7 +22,7 @@ object Versions {
     const val rxBinding = "2.2.0"
 
     const val acLifecycle = "2.0.0"
-    const val acRoom = "2.1.0-alpha01"
+    const val acRoom = "2.1.0-alpha02"
     const val acNavigation = "1.0.0-alpha07"
 
     const val firebaseCore = "16.0.4"
@@ -40,7 +40,7 @@ object Versions {
     const val kOptional = "1.6.0"
     const val timber = "4.6.0"
     const val picasso = "2.71828"
-    const val crashlytics = "2.9.5"
+    const val crashlytics = "2.9.6"
     const val stetho = "1.5.0"
 
     const val kotlinTest = "3.1.10"

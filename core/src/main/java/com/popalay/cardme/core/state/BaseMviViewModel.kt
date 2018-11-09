@@ -1,14 +1,8 @@
 package com.popalay.cardme.core.state
 
-import android.util.AndroidException
-import com.popalay.cardme.api.ui.state.Intent
-import com.popalay.cardme.api.ui.state.MviViewModel
-import com.popalay.cardme.api.ui.state.Processor
-import com.popalay.cardme.api.ui.state.Reducer
-import com.popalay.cardme.api.ui.state.ViewState
+import com.popalay.cardme.api.ui.state.*
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.PublishSubject
 
 abstract class BaseMviViewModel<S : ViewState, I : Intent> : BaseViewModel(), MviViewModel<S, I> {

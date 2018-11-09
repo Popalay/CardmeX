@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MotionScene xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <Transition
+        app:constraintSetEnd="@id/user_card_collapsed"
+        app:constraintSetStart="@id/user_card_expanded"
+        app:duration="1000">
+
+        <OnSwipe
+            app:dragDirection="dragUp"
+            app:touchAnchorId="@id/card_notifications"
+            app:touchAnchorSide="top" />
+
+        <KeyFrameSet>
+
+            <KeyAttribute
+                android:elevation="0dp"
+                app:framePosition="99"
+                app:target="@id/appbar" />
+
+            <KeyAttribute
+                android:alpha="0"
+                app:framePosition="50"
+                app:target="@id/text_card_number" />
+
+            <KeyAttribute
+                android:alpha="0"
+                app:framePosition="50"
+                app:target="@id/image_card_type" />
+
+            <KeyAttribute
+                android:alpha="0"
+                app:framePosition="50"
+                app:target="@id/layout_card" />
+
+            <KeyAttribute
+                android:alpha="0"
+                app:framePosition="70"
+                app:target="@id/button_add" />
+
+        </KeyFrameSet>
+
+    </Transition>
+
+    <ConstraintSet android:id="@+id/user_card_expanded">
+
+        <Constraint
+            android:id="@id/appbar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:elevation="0dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Constraint
+            android:id="@id/layout_card"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintDimensionRatio="3:1.75"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/appbar" />
+
+        <Constraint
+            android:id="@id/progress_bar"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Constraint
+            android:id="@id/image_user_avatar"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginBottom="16dp"
+            app:layout_constraintBottom_toBottomOf="@id/layout_card"
+            app:layout_constraintStart_toStartOf="@id/layout_card" />
+
+        <Constraint
+            android:id="@id/text_display_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            app:layout_constraintBottom_toBottomOf="@id/image_user_avatar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/image_user_avatar"
+            app:layout_constraintTop_toTopOf="@id/image_user_avatar" />
+
+        <Constraint
+            android:id="@+id/button_add"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@id/layout_card"
+            app:layout_constraintEnd_toEndOf="@id/layout_card"
+            app:layout_constraintStart_toStartOf="@id/layout_card"
+            app:layout_constraintTop_toTopOf="@id/layout_card" />
+
+        <Constraint
+            android:id="@id/text_card_number"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintBottom_toBottomOf="@id/layout_card"
+            app:layout_constraintEnd_toEndOf="@id/layout_card"
+            app:layout_constraintStart_toStartOf="@id/layout_card"
+            app:layout_constraintTop_toTopOf="@id/layout_card" />
+
+        <Constraint
+            android:id="@id/image_card_type"
+            android:layout_width="32dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:contentDescription="@null"
+            app:layout_constraintEnd_toEndOf="@id/layout_card"
+            app:layout_constraintTop_toTopOf="@id/layout_card" />
+
+        <Constraint
+            android:id="@+id/label_notifications"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintBottom_toTopOf="@id/card_notifications"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/layout_card" />
+
+        <Constraint
+            android:id="@id/card_notifications"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/label_notifications" />
+
+    </ConstraintSet>
+
+    <ConstraintSet android:id="@+id/user_card_collapsed">
+
+        <Constraint
+            android:id="@id/appbar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:elevation="6dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Constraint
+            android:id="@+id/progress_bar"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Constraint
+            android:id="@+id/layout_card"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:alpha="0"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/appbar" />
+
+        <Constraint
+            android:id="@+id/image_user_avatar"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginStart="48dp"
+            android:elevation="6dp"
+            app:layout_constraintBottom_toBottomOf="@id/appbar"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/appbar" />
+
+        <Constraint
+            android:id="@+id/text_display_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:elevation="6dp"
+            app:layout_constraintBottom_toTopOf="@id/label_notifications"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/image_user_avatar"
+            app:layout_constraintTop_toTopOf="@id/appbar"
+            app:layout_constraintVertical_chainStyle="packed" />
+
+        <Constraint
+            android:id="@+id/text_card_number"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:alpha="0"
+            app:layout_constraintBottom_toBottomOf="@id/layout_card"
+            app:layout_constraintEnd_toEndOf="@id/layout_card"
+            app:layout_constraintStart_toStartOf="@id/layout_card"
+            app:layout_constraintTop_toTopOf="@id/layout_card" />
+
+        <Constraint
+            android:id="@id/image_card_type"
+            android:layout_width="32dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:contentDescription="@null"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="@id/layout_card"
+            app:layout_constraintTop_toTopOf="@id/layout_card" />
+
+        <Constraint
+            android:id="@+id/button_add"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:alpha="0"
+            app:layout_constraintBottom_toBottomOf="@id/layout_card"
+            app:layout_constraintEnd_toEndOf="@id/layout_card"
+            app:layout_constraintStart_toStartOf="@id/layout_card"
+            app:layout_constraintTop_toTopOf="@id/layout_card" />
+
+        <Constraint
+            android:id="@+id/label_notifications"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="70dp"
+            android:elevation="6dp"
+            android:scaleX="0.8"
+            android:scaleY="0.8"
+            app:layout_constraintBottom_toBottomOf="@id/appbar"
+            app:layout_constraintStart_toStartOf="@id/appbar"
+            app:layout_constraintTop_toBottomOf="@id/text_display_name"
+            app:layout_constraintVertical_chainStyle="packed" />
+
+        <Constraint
+            android:id="@+id/card_notifications"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/appbar" />
+
+    </ConstraintSet>
+
+</MotionScene>

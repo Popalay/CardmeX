@@ -10,6 +10,7 @@ import com.popalay.cardme.core.usecase.CopyCardNumberUseCase
 import com.popalay.cardme.core.usecase.ShareCardUseCase
 import com.popalay.cardme.core.usecase.SpecificIntentUseCase
 import com.popalay.cardme.usercard.usecase.GetCurrentUserWithCardUseCase
+import com.popalay.cardme.usercard.usecase.NotificationListUseCase
 import io.reactivex.rxkotlin.ofType
 
 internal class UserCardViewModel(
@@ -17,6 +18,7 @@ internal class UserCardViewModel(
     private val specificIntentUseCase: SpecificIntentUseCase,
     private val shareCardUseCase: ShareCardUseCase,
     private val copyCardNumberUseCase: CopyCardNumberUseCase,
+    private val notificationListUseCase: NotificationListUseCase,
     private val router: Router
 ) : BaseMviViewModel<UserCardViewState, UserCardIntent>() {
 
@@ -27,9 +29,9 @@ internal class UserCardViewModel(
             observable.ofType<UserCardIntent.OnStart>()
                 .map { GetCurrentUserWithCardUseCase.Action }
                 .compose(getCurrentUserWithCardUseCase),
-            observable.ofType<UserCardIntent.OnSkipClicked>()
-                .map { SpecificIntentUseCase.Action(it) }
-                .compose(specificIntentUseCase),
+            observable.ofType<UserCardIntent.OnStart>()
+                .map { NotificationListUseCase.Action }
+                .compose(notificationListUseCase),
             observable.ofType<UserCardIntent.OnEditClicked>()
                 .map { SpecificIntentUseCase.Action(it) }
                 .compose(specificIntentUseCase),
@@ -37,10 +39,12 @@ internal class UserCardViewModel(
                 .map { SpecificIntentUseCase.Action(it) }
                 .compose(specificIntentUseCase),
             observable.ofType<UserCardIntent.OnShareClicked>()
-                .map { ShareCardUseCase.Action(it.card.id) }
+                .filter { it.card != null }
+                .map { ShareCardUseCase.Action(requireNotNull(it.card).id) }
                 .compose(shareCardUseCase),
             observable.ofType<UserCardIntent.OnCardClicked>()
-                .map { CopyCardNumberUseCase.Action(it.card) }
+                .filter { it.card != null }
+                .map { CopyCardNumberUseCase.Action(requireNotNull(it.card)) }
                 .compose(copyCardNumberUseCase)
         )
     }
@@ -63,6 +67,11 @@ internal class UserCardViewModel(
                 ShareCardUseCase.Result.Idle -> it
                 is ShareCardUseCase.Result.Failure -> it.copy(error = throwable)
             }
+            is NotificationListUseCase.Result -> when (this) {
+                is NotificationListUseCase.Result.Success -> it.copy(notifications = notifications, progress = false)
+                NotificationListUseCase.Result.Idle -> it.copy(progress = true)
+                is NotificationListUseCase.Result.Failure -> it.copy(error = throwable, progress = false)
+            }
             is SpecificIntentUseCase.Result -> when (intent as UserCardIntent) {
                 UserCardIntent.OnEditClicked -> {
                     router.navigate(UserCardDestination.AddCard)
@@ -70,10 +79,6 @@ internal class UserCardViewModel(
                 }
                 UserCardIntent.OnAddClicked -> {
                     router.navigate(UserCardDestination.AddCard)
-                    it
-                }
-                UserCardIntent.OnSkipClicked -> {
-                    router.navigateUp()
                     it
                 }
                 else -> throw UnsupportedOperationException()

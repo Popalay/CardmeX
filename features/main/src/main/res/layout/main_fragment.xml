@@ -9,7 +9,7 @@
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:theme="@style/Cardme.AppBarOverlay"
+        android:theme="?windowActionBarOverlay"
         app:elevation="0dp"
         app:layout_behavior="com.popalay.cardme.core.behavior.LiftBehavior">
 
@@ -38,7 +38,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="@string/app_name"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+                android:textAppearance="?textAppearanceHeadline6"
                 app:layout_constraintBottom_toBottomOf="@id/image_user_photo"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -55,7 +55,7 @@
                 android:background="?selectableItemBackgroundBorderless"
                 android:contentDescription="Install"
                 android:src="@drawable/ic_install"
-                android:tint="@color/colorAccent"
+                android:tint="?colorAccent"
                 android:tooltipText="Install"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/button_sync"
@@ -71,7 +71,7 @@
                 android:background="?selectableItemBackgroundBorderless"
                 android:contentDescription="Sync"
                 android:src="@drawable/ic_sync"
-                android:tint="@color/colorAccent"
+                android:tint="?colorAccent"
                 android:tooltipText="Sync"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

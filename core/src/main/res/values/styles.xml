@@ -12,6 +12,7 @@
         <item name="android:selectableItemBackground">@drawable/bg_ripple_rounded</item>
         <item name="selectableItemBackgroundBorderless">@drawable/bg_ripple_borderless</item>
         <item name="android:selectableItemBackgroundBorderless">@drawable/bg_ripple_borderless</item>
+        <item name="windowActionBarOverlay">@style/Cardme.AppBarOverlay</item>
     </style>
 
     <style name="Cardme.Launcher">

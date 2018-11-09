@@ -23,7 +23,7 @@ class CharacterWrapTextView(
         var hi = 1f
         var lo = 0f
 
-        while (hi - lo > 0.1f) {
+        while (hi - lo > 0.2f) {
             val size = (hi + lo) / 2
             testPaint.letterSpacing = size
             val textWidthCalculated = testPaint.measureText(text, 0, text.length)

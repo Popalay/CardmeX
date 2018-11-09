@@ -11,7 +11,6 @@ plugins {
     id("io.fabric")
     id("com.google.gms.google-services")
 }
-apply(from = "$rootDir/scripts/jococo.gradle")
 
 android {
     compileSdkVersion(Versions.compileSdkVersion)
@@ -56,6 +55,7 @@ android {
             setDimension("env")
             versionNameSuffix = "-dev"
             extra["enableCrashlytics"] = false
+            resConfigs("en", "xxhdpi")
         }
 
         register("prod") {
@@ -112,7 +112,6 @@ dependencies {
     implementation(project(":features:usercard"))
     implementation(project(":features:cardactions"))
     implementation(project(":features:carddetails"))
-    implementation(project(":features:notifications"))
 
     implementation(Libs.navigationUi)
 }
