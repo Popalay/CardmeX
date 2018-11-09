@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:dist="http://schemas.android.com/apk/distribution"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.popalay.cardme">
+    package="com.popalay.cardme"
+    android:targetSandboxVersion="2"
+    tools:ignore="UnusedAttribute">
+
+    <dist:module dist:instant="true" />
 
     <application
         android:name=".core.App"

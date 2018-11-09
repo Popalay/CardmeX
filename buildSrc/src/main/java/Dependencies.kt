@@ -1,8 +1,8 @@
 @file:Suppress("unused")
 
 object Versions {
-    const val versionName = "0.1.5"
-    val versionCode = (System.getenv("BITRISE_BUILD_NUMBER") ?: "40").toInt()
+    const val versionName = "0.1.6"
+    val versionCode = (System.getenv("BITRISE_BUILD_NUMBER") ?: "43").toInt()
 
     const val minSdkVersion = 23
     const val targetSdkVersion = 28
@@ -120,7 +120,7 @@ object ApiKeys {
 
 object SignIn {
     const val debugStoreFile = "../keys/debug.keystore"
-    const val releaseStoreFile = "../keys/release.keystore"
+    const val releaseStoreFile = "../keys/debug.keystore"
     val storePassword = System.getenv("BITRISEIO_ANDROID_KEYSTORE_PASSWORD") ?: Secret.storePassword
 
     val releaseXKeyAlias = System.getenv("BITRISEIO_ANDROID_KEYSTORE_ALIAS") ?: Secret.releaseXKeyAlias

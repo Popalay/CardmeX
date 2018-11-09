@@ -4,7 +4,6 @@ import Versions.targetSdkVersion
 import Versions.versionCode
 import Versions.versionName
 import com.android.build.gradle.AppExtension
-import groovy.util.Eval.x
 
 plugins {
     id("com.android.application")
@@ -19,6 +18,7 @@ android {
         minSdkVersion(Versions.minSdkVersion)
         targetSdkVersion(Versions.targetSdkVersion)
         versionName = Versions.versionName
+        versionCode = Versions.versionCode
     }
 
     signingConfigs {
@@ -41,14 +41,14 @@ android {
         }
 
         getByName("release") {
-            signingConfig = signingConfigs.getByName("release")
+            signingConfig = signingConfigs.getByName("debug")
             isMinifyEnabled = true
             isShrinkResources = true
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
     }
 
-    flavorDimensions("type", "env", "experience")
+    flavorDimensions("type", "env")
     productFlavors {
 
         register("dev") {
@@ -62,7 +62,7 @@ android {
             setDimension("env")
         }
 
-        create("x") {
+        register("x") {
             setDimension("type")
             applicationIdSuffix = ".x"
             resValue("string", "app_name", "CardmeX")
@@ -85,16 +85,6 @@ android {
         register("full") {
             setDimension("type")
             resValue("string", "app_name", "Cardme")
-        }
-
-        register("instant") {
-            setDimension("experience")
-            versionCode = Versions.versionCode
-        }
-
-        register("installed") {
-            setDimension("experience")
-            versionCode = Versions.versionCode + 1
         }
     }
 
