@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/user_card_fragment"
         android:name="com.popalay.cardme.usercard.UserCardFragment"
-        android:label=""
+        android:label=" "
         tools:layout="@layout/user_card_fragment">
 
         <deepLink app:uri="mecard.page.link/usercard" />

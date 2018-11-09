@@ -131,12 +131,6 @@ internal class UserCardFragment : Fragment(), BindableMviView<UserCardViewState,
         }
     }
 
-    private val RecyclerView.isAllItemsVisible: Boolean
-        get() = (layoutManager as? LinearLayoutManager)?.let {
-            it.findFirstCompletelyVisibleItemPosition() <= 0 &&
-                    it.findLastCompletelyVisibleItemPosition() == listNotifications.childCount - 1
-        } ?: false
-
     private val cardClickedIntent
         get() = layoutCard.clicks()
             .applyThrottling()

@@ -5,8 +5,7 @@
     android:id="@+id/motion_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    app:layoutDescription="@xml/scene_user_card"
-    app:showPaths="true">
+    app:layoutDescription="@xml/scene_user_card">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appbar"

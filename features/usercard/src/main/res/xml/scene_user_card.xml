@@ -235,7 +235,7 @@
             android:id="@+id/label_notifications"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="70dp"
+            android:layout_marginStart="68dp"
             android:elevation="6dp"
             android:scaleX="0.8"
             android:scaleY="0.8"
