@@ -108,7 +108,7 @@ class ExpandableFloatingActionButton @JvmOverloads constructor(
         )
         fabBackgroundColor = typedArray.getColor(
             R.styleable.ExpandableFloatingActionButton_fabBackgroundColor,
-            ContextCompat.getColor(context, R.color.colorAccent)
+            ContextCompat.getColor(context, R.color.secondary)
         )
         typedArray.recycle()
     }

@@ -1,18 +1,28 @@
 <resources>
 
-    <style name="CardmeBase" parent="Theme.MaterialComponents.Light.NoActionBar" />
+    <style name="CardmeBase" parent="Theme.MaterialComponents.DayNight.NoActionBar" />
 
     <style name="Cardme" parent="CardmeBase">
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorPrimaryVariant">@color/primaryVariant</item>
+        <item name="colorSecondary">@color/secondary</item>
+        <item name="colorSecondaryVariant">@color/secondaryVariant</item>
+        <item name="colorOnBackground">@color/onBackground</item>
+        <item name="android:colorBackground">@color/background</item>
+        <item name="android:textColorPrimary">?colorOnBackground</item>
+
         <item name="android:windowLightStatusBar">true</item>
-        <item name="android:statusBarColor">#FAFAFA</item>
+        <item name="android:statusBarColor">@color/background</item>
         <item name="selectableItemBackground">@drawable/bg_ripple_rounded</item>
         <item name="android:selectableItemBackground">@drawable/bg_ripple_rounded</item>
         <item name="selectableItemBackgroundBorderless">@drawable/bg_ripple_borderless</item>
         <item name="android:selectableItemBackgroundBorderless">@drawable/bg_ripple_borderless</item>
         <item name="windowActionBarOverlay">@style/Cardme.AppBarOverlay</item>
+        <item name="materialCardViewStyle">@style/Cardme.CardView</item>
+    </style>
+
+    <style name="Cardme.CardView" parent="Widget.MaterialComponents.CardView">
+        <item name="cardBackgroundColor">@color/background</item>
     </style>
 
     <style name="Cardme.Launcher">
@@ -20,7 +30,7 @@
     </style>
 
     <style name="Cardme.AppBarOverlay" parent="ThemeOverlay.MaterialComponents.ActionBar">
-        <item name="android:background">#FAFAFA</item>
+        <item name="android:background">@color/background</item>
     </style>
 
     <style name="Cardme.Button" parent="Widget.MaterialComponents.Button" />
@@ -56,7 +66,7 @@
 
     <style name="Cardme.BottomSheetDialogTheme" parent="Cardme.BaseBottomSheetDialog">
         <item name="android:windowIsFloating">false</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorAccent">@color/secondary</item>
         <item name="bottomSheetStyle">@style/Cardme.BottomSheet</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
     </style>

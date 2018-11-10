@@ -4,13 +4,8 @@
     <color name="primaryVariant">#3B5763</color>
     <color name="secondary">#1CB489</color>
     <color name="secondaryVariant">#A31CB489</color>
-    <color name="background">#FFF</color>
-    <color name="onBackground">#000</color>
+    <color name="background">#0D0F14</color>
+    <color name="onBackground">#FFF</color>
 
     <color name="rippleColor">#A86ED7</color>
-
-    <color name="black">#000</color>
-    <color name="white">#FFF</color>
-    <color name="grey">#BBBBBB</color>
-    <color name="grey_dark">#757575</color>
 </resources>

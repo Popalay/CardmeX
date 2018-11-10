@@ -27,7 +27,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:cardElevation="0dp"
-        app:strokeColor="@color/selected"
+        app:strokeColor="?colorSecondaryVariant"
         app:strokeWidth="1dp" />
 
     <androidx.core.widget.ContentLoadingProgressBar

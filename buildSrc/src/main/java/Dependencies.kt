@@ -4,7 +4,7 @@ object Versions {
     const val versionName = "0.1.6"
     val versionCode = (System.getenv("BITRISE_BUILD_NUMBER") ?: "43").toInt()
 
-    const val minSdkVersion = 23
+    const val minSdkVersion = 24
     const val targetSdkVersion = 28
     const val compileSdkVersion = 28
 
@@ -13,7 +13,7 @@ object Versions {
 
     const val constraintLayout = "2.0.0-alpha2"
     const val ktx = "1.0.1"
-    const val materialComponents = "1.0.0"
+    const val materialComponents = "1.1.0-alpha01"
 
     const val rxJava = "2.2.3"
     const val rxAndroid = "2.1.0"
@@ -27,15 +27,15 @@ object Versions {
 
     const val firebaseCore = "16.0.4"
     const val firebaseAuth = "16.0.5"
-    const val firebaseStorage = "16.0.4"
-    const val firebaseFireStore = "17.1.2"
+    const val firebaseStorage = "16.0.5"
+    const val firebaseFireStore = "17.1.3"
     const val firebaseMessaging = "17.3.4"
     const val firebaseDynamicLinks = "16.1.2"
 
     const val playServicesAuth = "16.0.1"
     const val playServicesInstant = "16.0.1"
 
-    const val koinDi = "1.0.1"
+    const val koinDi = "1.0.2"
 
     const val kOptional = "1.6.0"
     const val timber = "4.6.0"
@@ -120,7 +120,7 @@ object ApiKeys {
 
 object SignIn {
     const val debugStoreFile = "../keys/debug.keystore"
-    const val releaseStoreFile = "../keys/debug.keystore"
+    const val releaseStoreFile = "../keys/release.keystore"
     val storePassword = System.getenv("BITRISEIO_ANDROID_KEYSTORE_PASSWORD") ?: Secret.storePassword
 
     val releaseXKeyAlias = System.getenv("BITRISEIO_ANDROID_KEYSTORE_ALIAS") ?: Secret.releaseXKeyAlias

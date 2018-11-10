@@ -3,11 +3,11 @@
 
     <style name="CardmeBase" parent="Theme.MaterialComponents.Light.NoActionBar">
         <item name="android:windowLightNavigationBar">true</item>
-        <item name="android:navigationBarColor">@color/white</item>
+        <item name="android:navigationBarColor">@color/background</item>
     </style>
 
     <style name="Cardme.BaseBottomSheetDialog" parent="Theme.MaterialComponents.Light.BottomSheetDialog">
-        <item name="android:navigationBarColor">@color/white</item>
+        <item name="android:navigationBarColor">@color/background</item>
         <item name="android:windowLightNavigationBar">true</item>
     </style>
 </resources>

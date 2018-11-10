@@ -2,6 +2,7 @@ package com.popalay.cardme.core
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.navigation.NavController
 import androidx.navigation.NavHost
 import androidx.navigation.Navigation
@@ -14,6 +15,7 @@ class MainActivity : AppCompatActivity(), NavHost {
         setTheme(R.style.Cardme)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_activity)
+
     }
 
     override fun onSupportNavigateUp() = findNavController(R.id.nav_host_fragment).navigateUp()

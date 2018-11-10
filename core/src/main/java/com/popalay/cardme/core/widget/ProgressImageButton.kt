@@ -55,7 +55,7 @@ class ProgressImageButton : ImageButton {
 
     private fun init() {
         progressBar = CircularProgressDrawable(
-            ContextCompat.getColor(context, R.color.colorAccent),
+            ContextCompat.getColor(context, R.color.secondary),
             2.px.toFloat()
         ).apply {
             callback = this@ProgressImageButton
