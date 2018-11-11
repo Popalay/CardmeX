@@ -1,11 +1,12 @@
 package com.popalay.cardme.core.util
 
 import android.content.SharedPreferences
-import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.fragment.app.FragmentActivity
+import com.popalay.cardme.core.MainActivity
+
 
 class UiModeDelegate(
-    private val activity: AppCompatActivity,
     private val sharedPreferences: SharedPreferences
 ) {
 
@@ -14,18 +15,22 @@ class UiModeDelegate(
         private const val KEY_UI_MODE = "KEY_UI_MODE"
     }
 
+    init {
+        applyDayNight()
+    }
+
     fun applyDayNight() {
         val uiMode = getUiMode()
         AppCompatDelegate.setDefaultNightMode(uiMode)
     }
 
-    fun toggleDayNight() {
+    fun toggleDayNight(activity: FragmentActivity) {
         val uiMode = AppCompatDelegate.getDefaultNightMode().let { mode ->
             if (mode == AppCompatDelegate.MODE_NIGHT_YES) AppCompatDelegate.MODE_NIGHT_NO
             else AppCompatDelegate.MODE_NIGHT_YES
         }
         AppCompatDelegate.setDefaultNightMode(uiMode)
-        activity.recreate()
+        restartActivity(activity)
         persistUiMode(uiMode)
     }
 
@@ -34,4 +39,8 @@ class UiModeDelegate(
     }
 
     private fun getUiMode(): Int = sharedPreferences.getInt(KEY_UI_MODE, AppCompatDelegate.MODE_NIGHT_NO)
+
+    private fun restartActivity(activity: FragmentActivity) {
+        (activity as? MainActivity)?.restart()
+    }
 }

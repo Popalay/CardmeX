@@ -8,16 +8,18 @@ import com.facebook.stetho.Stetho
 import com.popalay.cardme.BuildConfig
 import com.popalay.cardme.core.di.addDependencies
 import com.popalay.cardme.core.error.DefaultRxErrorHandler
+import com.popalay.cardme.core.util.UiModeDelegate
 import io.fabric.sdk.android.Fabric
 import io.reactivex.android.plugins.RxAndroidPlugins
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.plugins.RxJavaPlugins
+import org.koin.android.ext.android.get
 
 class App : Application() {
 
     override fun onCreate() {
-        super.onCreate()
         addDependencies()
+        super.onCreate()
         initDevTools()
         initRx()
     }

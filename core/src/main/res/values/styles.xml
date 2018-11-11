@@ -22,12 +22,15 @@
         <item name="materialCardViewStyle">@style/Cardme.CardView</item>
     </style>
 
-    <style name="Cardme.CardView" parent="Widget.MaterialComponents.CardView">
-        <item name="cardBackgroundColor">@color/background</item>
+    <style name="Cardme.Launcher" parent="Theme.MaterialComponents.NoActionBar">
+        <item name="colorPrimary">@color/primary</item>
+        <item name="android:navigationBarColor">@color/primary</item>
+        <item name="android:statusBarColor">@color/primary</item>
+        <item name="android:windowBackground">@drawable/launch_screen</item>
     </style>
 
-    <style name="Cardme.Launcher">
-        <item name="android:windowBackground">@drawable/launch_screen</item>
+    <style name="Cardme.CardView" parent="Widget.MaterialComponents.CardView">
+        <item name="cardBackgroundColor">@color/background</item>
     </style>
 
     <style name="Cardme.AppBarOverlay" parent="ThemeOverlay.MaterialComponents.ActionBar">

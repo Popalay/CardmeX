@@ -105,7 +105,9 @@ internal class MainFragment : Fragment(), BindableMviView<MainViewState, MainInt
             .map { MainIntent.OnAddCardClicked }
 
     private fun initView() {
-        buttonUiMode.setOnClickListener { uiModeDelegate.toggleDayNight() }
+        buttonUiMode.setOnClickListener {
+            uiModeDelegate.toggleDayNight(requireActivity())
+        }
 
         buttonInstall.apply {
             isVisible = com.google.android.gms.common.wrappers.InstantApps.isInstantApp(context)
