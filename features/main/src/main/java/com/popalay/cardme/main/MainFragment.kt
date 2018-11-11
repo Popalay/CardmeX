@@ -2,15 +2,12 @@ package com.popalay.cardme.main
 
 import android.app.Activity
 import android.content.Intent
-import android.content.res.Configuration
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.app.AppCompatDelegate
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
@@ -21,8 +18,8 @@ import com.popalay.cardme.api.ui.navigation.NavigatorHolder
 import com.popalay.cardme.core.extensions.applyThrottling
 import com.popalay.cardme.core.extensions.bindView
 import com.popalay.cardme.core.extensions.showMenuUser
-import com.popalay.cardme.core.extensions.showUser
 import com.popalay.cardme.core.state.BindableMviView
+import com.popalay.cardme.core.util.UiModeDelegate
 import com.popalay.cardme.core.widget.ProgressImageButton
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
@@ -44,6 +41,8 @@ internal class MainFragment : Fragment(), BindableMviView<MainViewState, MainInt
     private val errorHandler: ErrorHandler by inject()
     private val navigatorHolder: NavigatorHolder by inject()
     private var state: MainViewState by Delegates.notNull()
+
+    private val uiModeDelegate: UiModeDelegate by inject()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View =
         inflater.inflate(R.layout.main_fragment, container, false)
@@ -106,15 +105,7 @@ internal class MainFragment : Fragment(), BindableMviView<MainViewState, MainInt
             .map { MainIntent.OnAddCardClicked }
 
     private fun initView() {
-        buttonUiMode.setOnClickListener {
-            val nightMode = (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK).let { mode ->
-                if (mode == Configuration.UI_MODE_NIGHT_YES) AppCompatDelegate.MODE_NIGHT_NO
-                else AppCompatDelegate.MODE_NIGHT_YES
-            }
-            AppCompatDelegate.setDefaultNightMode(nightMode)
-            (requireActivity() as AppCompatActivity).delegate.setLocalNightMode(nightMode)
-        }
-
+        buttonUiMode.setOnClickListener { uiModeDelegate.toggleDayNight() }
 
         buttonInstall.apply {
             isVisible = com.google.android.gms.common.wrappers.InstantApps.isInstantApp(context)

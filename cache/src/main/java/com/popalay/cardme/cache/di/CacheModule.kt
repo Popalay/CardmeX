@@ -1,5 +1,6 @@
 package com.popalay.cardme.cache.di
 
+import android.preference.PreferenceManager
 import androidx.room.Room
 import com.popalay.cardme.cache.dao.CacheCardDao
 import com.popalay.cardme.cache.dao.CacheNotificationDao
@@ -16,6 +17,7 @@ object CacheModule {
                 .fallbackToDestructiveMigration()
                 .build()
         }
+        single { PreferenceManager.getDefaultSharedPreferences(get()) }
         single { get<Database>().cardDao() }
         single { get<Database>().holderDao() }
         single { get<Database>().userDao() }

@@ -1,5 +1,6 @@
 package com.popalay.cardme.core.di
 
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.popalay.cardme.api.core.error.ErrorHandler
 import com.popalay.cardme.api.ui.navigation.NavigatorHolder
@@ -11,6 +12,7 @@ import com.popalay.cardme.core.usecase.CopyCardNumberUseCase
 import com.popalay.cardme.core.usecase.GetCurrentUserUseCase
 import com.popalay.cardme.core.usecase.ShareCardUseCase
 import com.popalay.cardme.core.usecase.SpecificIntentUseCase
+import com.popalay.cardme.core.util.UiModeDelegate
 import org.koin.dsl.module.module
 
 object CoreModule {
@@ -23,5 +25,6 @@ object CoreModule {
         single { GetCurrentUserUseCase(get { it }) }
         factory { (fragment: Fragment) -> ShareCardUseCase(fragment, get()) }
         single { CopyCardNumberUseCase(get { it }) }
+        single { (activity: AppCompatActivity) -> UiModeDelegate(activity, get()) }
     }
 }
