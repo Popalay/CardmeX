@@ -12,7 +12,6 @@ import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import com.google.android.gms.instantapps.InstantApps
@@ -21,9 +20,8 @@ import com.popalay.cardme.api.core.error.ErrorHandler
 import com.popalay.cardme.api.ui.navigation.NavigatorHolder
 import com.popalay.cardme.core.extensions.applyThrottling
 import com.popalay.cardme.core.extensions.bindView
-import com.popalay.cardme.core.extensions.loadImage
-import com.popalay.cardme.core.extensions.px
-import com.popalay.cardme.core.picasso.CircleBorderedImageTransformation
+import com.popalay.cardme.core.extensions.showMenuUser
+import com.popalay.cardme.core.extensions.showUser
 import com.popalay.cardme.core.state.BindableMviView
 import com.popalay.cardme.core.widget.ProgressImageButton
 import io.reactivex.Observable
@@ -78,14 +76,11 @@ internal class MainFragment : Fragment(), BindableMviView<MainViewState, MainInt
     override fun accept(viewState: MainViewState) {
         state = viewState
         with(viewState) {
-            imageUserPhoto.apply {
-                isVisible = user != null
-                loadImage(
-                    user?.photoUrl,
-                    R.drawable.ic_holder_placeholder,
-                    CircleBorderedImageTransformation(2.px.toFloat(), ContextCompat.getColor(requireContext(), R.color.secondary))
-                )
+            imageUserPhoto.isVisible = user != null
+            user?.let {
+                imageUserPhoto.showMenuUser(user)
             }
+
             buttonSync.apply {
                 setImageResource(user?.let { R.drawable.ic_exit } ?: R.drawable.ic_sync)
                 isProgress = isSyncProgress

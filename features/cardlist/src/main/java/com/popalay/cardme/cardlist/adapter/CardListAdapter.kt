@@ -9,9 +9,8 @@ import com.popalay.cardme.core.adapter.BindableViewHolder
 import com.popalay.cardme.core.adapter.IdentifiableListAdapter
 import com.popalay.cardme.core.extensions.bindView
 import com.popalay.cardme.core.extensions.icon
-import com.popalay.cardme.core.extensions.loadImage
 import com.popalay.cardme.core.extensions.securedNumber
-import com.popalay.cardme.core.picasso.CircleImageTransformation
+import com.popalay.cardme.core.extensions.showHolder
 
 class CardListAdapter : IdentifiableListAdapter<CardListItem>(
     layoutRes = R.layout.item_card,
@@ -26,7 +25,7 @@ class CardListAdapter : IdentifiableListAdapter<CardListItem>(
 
         override fun bind(item: CardListItem) {
             with(item.card) {
-                imagePhoto.loadImage(holder.photoUrl, R.drawable.ic_holder_placeholder, CircleImageTransformation())
+                imagePhoto.showHolder(holder)
                 textDisplayName.text = holder.name
                 textCardNumber.text = securedNumber
                 textCardNumber.setCompoundDrawablesWithIntrinsicBounds(cardType.icon, 0, 0, 0)

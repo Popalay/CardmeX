@@ -8,6 +8,7 @@ import com.popalay.cardme.core.adapter.BindableViewHolder
 import com.popalay.cardme.core.adapter.IdentifiableListAdapter
 import com.popalay.cardme.core.extensions.bindView
 import com.popalay.cardme.core.extensions.loadImage
+import com.popalay.cardme.core.extensions.showUser
 import com.popalay.cardme.core.picasso.CircleImageTransformation
 import com.popalay.cardme.usercard.R
 import com.popalay.cardme.usercard.model.NotificationListItem
@@ -26,7 +27,7 @@ class NotificationListAdapter : IdentifiableListAdapter<NotificationListItem>(
 
         override fun bind(item: NotificationListItem) {
             with(item.notification) {
-                imagePhoto.loadImage(fromUser.photoUrl, R.drawable.ic_holder_placeholder, CircleImageTransformation())
+                imagePhoto.showUser(fromUser)
                 textDisplayName.text = fromUser.displayName.value
                 textMessage.text = title
                 textDate.text = DateUtils.getRelativeDateTimeString(

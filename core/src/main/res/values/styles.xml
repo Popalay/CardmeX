@@ -1,6 +1,8 @@
 <resources>
 
-    <style name="CardmeBase" parent="Theme.MaterialComponents.DayNight.NoActionBar" />
+    <style name="CardmeBase" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="android:windowLightStatusBar">true</item>
+    </style>
 
     <style name="Cardme" parent="CardmeBase">
         <item name="colorPrimary">@color/primary</item>
@@ -11,7 +13,6 @@
         <item name="android:colorBackground">@color/background</item>
         <item name="android:textColorPrimary">?colorOnBackground</item>
 
-        <item name="android:windowLightStatusBar">true</item>
         <item name="android:statusBarColor">@color/background</item>
         <item name="selectableItemBackground">@drawable/bg_ripple_rounded</item>
         <item name="android:selectableItemBackground">@drawable/bg_ripple_rounded</item>
@@ -66,7 +67,7 @@
 
     <style name="Cardme.BottomSheetDialogTheme" parent="Cardme.BaseBottomSheetDialog">
         <item name="android:windowIsFloating">false</item>
-        <item name="colorAccent">@color/secondary</item>
+        <item name="colorSecondary">@color/secondary</item>
         <item name="bottomSheetStyle">@style/Cardme.BottomSheet</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
     </style>

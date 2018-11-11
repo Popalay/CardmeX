@@ -11,6 +11,7 @@ import com.popalay.cardme.core.adapter.IdentifiableDiffCallback
 import com.popalay.cardme.core.adapter.IdentifiableListAdapter
 import com.popalay.cardme.core.extensions.bindView
 import com.popalay.cardme.core.extensions.loadImage
+import com.popalay.cardme.core.extensions.showUser
 import com.popalay.cardme.core.picasso.CircleImageTransformation
 import com.popalay.cardme.core.widget.ProgressImageView
 
@@ -33,7 +34,7 @@ class UserListAdapter : IdentifiableListAdapter<UserListItem>(
 
         override fun bind(item: UserListItem) {
             with(item.user) {
-                imagePhoto.loadImage(photoUrl, R.drawable.ic_holder_placeholder, CircleImageTransformation())
+                imagePhoto.showUser(this)
                 textDisplayName.text = displayName.value
             }
             buttonRequest.isProgress = item.isProgress

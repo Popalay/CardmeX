@@ -16,7 +16,6 @@ import androidx.core.widget.ContentLoadingProgressBar
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.card.MaterialCardView
 import com.jakewharton.rxbinding2.view.clicks
@@ -25,7 +24,6 @@ import com.popalay.cardme.api.core.model.CardType
 import com.popalay.cardme.api.ui.navigation.NavigatorHolder
 import com.popalay.cardme.core.adapter.SpacingItemDecoration
 import com.popalay.cardme.core.extensions.*
-import com.popalay.cardme.core.picasso.CircleImageTransformation
 import com.popalay.cardme.core.state.BindableMviView
 import com.popalay.cardme.core.widget.CharacterWrapTextView
 import com.popalay.cardme.usercard.adapter.NotificationListAdapter
@@ -100,7 +98,7 @@ internal class UserCardFragment : Fragment(), BindableMviView<UserCardViewState,
             imageCardType.setImageResource((card?.cardType ?: CardType.MASTER_CARD).icon)
 
             user?.run {
-                imageUserAvatar.loadImage(photoUrl, R.drawable.ic_holder_placeholder, CircleImageTransformation())
+                imageUserAvatar.showUser(this)
                 textDisplayName.text = displayName.value
             }
 
@@ -111,7 +109,7 @@ internal class UserCardFragment : Fragment(), BindableMviView<UserCardViewState,
                 findItem(R.id.action_add).isVisible = card == null
             }
             notificationsAdapter.submitList(notifications.map(::NotificationListItem))
-            buttonAdd.isVisibleForMotion(motionLayout, card == null)
+            buttonAdd.isVisibleForMotion(motionLayout, card == null && !progress)
             progressBar.isVisibleForMotion(motionLayout, progress)
             motionLayout.setTransition(
                 R.id.user_card_expanded,

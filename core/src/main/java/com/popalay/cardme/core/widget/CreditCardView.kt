@@ -13,8 +13,7 @@ import com.popalay.cardme.api.core.model.Card
 import com.popalay.cardme.core.extensions.bindView
 import com.popalay.cardme.core.extensions.formattedNumber
 import com.popalay.cardme.core.extensions.icon
-import com.popalay.cardme.core.extensions.loadImage
-import com.popalay.cardme.core.picasso.CircleImageTransformation
+import com.popalay.cardme.core.extensions.showHolder
 
 class CreditCardView(
     context: Context,
@@ -36,7 +35,7 @@ class CreditCardView(
                 textCardNumber.text = formattedNumber
                 imageCardType.setImageResource(cardType.icon)
                 textDisplayName.text = holder.name
-                imageUserAvatar.loadImage(holder.photoUrl, R.drawable.ic_holder_placeholder, CircleImageTransformation())
+                imageUserAvatar.showHolder(holder)
             }
             groupCardFields.isVisible = value != null
             textCardNotFound.isVisible = value == null
