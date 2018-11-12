@@ -21,7 +21,7 @@ internal class HandleAuthResultUseCase(
         authRepository.handleResult(authResultFactory.build(action.success, action.requestCode, action.data))
             .flatMapPublisher { user -> user.toNullable()?.let { userRepository.get(it.uuid) } ?: Flowable.just(user) }
             .flatMapCompletable { tokenRepository.syncToken() }
-            .toSingleDefault(AuthUseCase.Result.Success)
+            .toSingleDefault(HandleAuthResultUseCase.Result.Success)
             .cast(Result::class.java)
             .onErrorReturn(Result::Failure)
             .toObservable()
