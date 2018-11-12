@@ -2,10 +2,10 @@
 <resources>
     <color name="primary">#325868</color>
     <color name="primaryVariant">#325868</color>
-    <color name="secondary">#1CB489</color>
-    <color name="secondaryVariant">#A31CB489</color>
+    <color name="secondary">#49A280</color>
+    <color name="secondaryVariant">#A349A280</color>
     <color name="background">#1F2023</color>
-    <color name="onBackground">#FFF</color>
+    <color name="onBackground">#C7C7C7</color>
 
     <color name="rippleColor">#A86ED7</color>
 </resources>

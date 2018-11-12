@@ -1,8 +1,8 @@
 @file:Suppress("unused")
 
 object Versions {
-    const val versionName = "0.1.7"
-    val versionCode = (System.getenv("BITRISE_BUILD_NUMBER") ?: "43").toInt()
+    const val versionName = "0.1.8"
+    val versionCode = (System.getenv("BITRISE_BUILD_NUMBER") ?: "108").toInt()
 
     const val minSdkVersion = 24
     const val targetSdkVersion = 28

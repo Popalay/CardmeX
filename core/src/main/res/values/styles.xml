@@ -1,8 +1,6 @@
 <resources>
 
-    <style name="CardmeBase" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <item name="android:windowLightStatusBar">true</item>
-    </style>
+    <style name="CardmeBase" parent="Theme.MaterialComponents.DayNight.NoActionBar" />
 
     <style name="Cardme" parent="CardmeBase">
         <item name="colorPrimary">@color/primary</item>
@@ -10,6 +8,8 @@
         <item name="colorSecondary">@color/secondary</item>
         <item name="colorSecondaryVariant">@color/secondaryVariant</item>
         <item name="android:colorBackground">@color/background</item>
+        <item name="colorOnBackground">@color/onBackground</item>
+        <item name="android:textColorPrimary">?colorOnBackground</item>
 
         <item name="android:statusBarColor">@color/background</item>
         <item name="selectableItemBackground">@drawable/bg_ripple_rounded</item>
