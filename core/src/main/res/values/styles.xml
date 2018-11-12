@@ -1,6 +1,8 @@
 <resources>
 
-    <style name="CardmeBase" parent="Theme.MaterialComponents.DayNight.NoActionBar" />
+    <style name="CardmeBase" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="android:windowLightStatusBar">true</item>
+    </style>
 
     <style name="Cardme" parent="CardmeBase">
         <item name="colorPrimary">@color/primary</item>
