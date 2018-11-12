@@ -4,7 +4,7 @@
     <color name="primaryVariant">#3B5763</color>
     <color name="secondary">#1CB489</color>
     <color name="secondaryVariant">#A31CB489</color>
-    <color name="background">#FFF</color>
+    <color name="background">#FAFAFA</color>
     <color name="onBackground">#000</color>
 
     <color name="rippleColor">#A86ED7</color>

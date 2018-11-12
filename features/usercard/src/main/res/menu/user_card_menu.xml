@@ -6,18 +6,21 @@
         android:id="@+id/action_share"
         android:icon="@drawable/ic_share"
         android:title="Share card"
+        app:iconTint="?colorPrimary"
         app:showAsAction="ifRoom" />
 
     <item
         android:id="@+id/action_edit"
         android:icon="@drawable/ic_edit"
         android:title="Edit card"
+        app:iconTint="?colorPrimary"
         app:showAsAction="ifRoom" />
 
     <item
         android:id="@+id/action_add"
         android:icon="@drawable/ic_add"
         android:title="Add card"
+        app:iconTint="?colorPrimary"
         app:showAsAction="ifRoom" />
 
 </menu>

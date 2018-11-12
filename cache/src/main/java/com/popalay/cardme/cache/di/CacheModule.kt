@@ -15,6 +15,7 @@ object CacheModule {
         single {
             Room.databaseBuilder(get { it }, Database::class.java, "cardme-database")
                 .fallbackToDestructiveMigration()
+                .enableMultiInstanceInvalidation()
                 .build()
         }
         single { PreferenceManager.getDefaultSharedPreferences(get()) }

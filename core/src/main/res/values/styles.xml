@@ -9,9 +9,7 @@
         <item name="colorPrimaryVariant">@color/primaryVariant</item>
         <item name="colorSecondary">@color/secondary</item>
         <item name="colorSecondaryVariant">@color/secondaryVariant</item>
-        <item name="colorOnBackground">@color/onBackground</item>
         <item name="android:colorBackground">@color/background</item>
-        <item name="android:textColorPrimary">?colorOnBackground</item>
 
         <item name="android:statusBarColor">@color/background</item>
         <item name="selectableItemBackground">@drawable/bg_ripple_rounded</item>

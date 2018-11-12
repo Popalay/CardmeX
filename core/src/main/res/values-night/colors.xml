@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="primary">#3b5763</color>
-    <color name="primaryVariant">#3B5763</color>
+    <color name="primary">#325868</color>
+    <color name="primaryVariant">#325868</color>
     <color name="secondary">#1CB489</color>
     <color name="secondaryVariant">#A31CB489</color>
-    <color name="background">#181A24</color>
+    <color name="background">#1F2023</color>
     <color name="onBackground">#FFF</color>
 
     <color name="rippleColor">#A86ED7</color>
