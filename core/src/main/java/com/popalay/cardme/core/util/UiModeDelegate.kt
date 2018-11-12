@@ -3,7 +3,6 @@ package com.popalay.cardme.core.util
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.FragmentActivity
-import com.popalay.cardme.core.MainActivity
 
 
 class UiModeDelegate(
@@ -30,7 +29,7 @@ class UiModeDelegate(
             else AppCompatDelegate.MODE_NIGHT_YES
         }
         AppCompatDelegate.setDefaultNightMode(uiMode)
-        restartActivity(activity)
+        activity.recreate()
         persistUiMode(uiMode)
     }
 
@@ -39,8 +38,4 @@ class UiModeDelegate(
     }
 
     private fun getUiMode(): Int = sharedPreferences.getInt(KEY_UI_MODE, AppCompatDelegate.MODE_NIGHT_NO)
-
-    private fun restartActivity(activity: FragmentActivity) {
-        (activity as? MainActivity)?.restart()
-    }
 }
