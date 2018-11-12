@@ -30,6 +30,6 @@ internal class TokenRepository(
             firestore.collection("token").document(userId).set(firestoreToken)
                 .addOnSuccessListener { emitter.onComplete() }
                 .addOnFailureListener { emitter.tryOnError(it) }
-        }
+        } ?: emitter.onComplete()
     }.subscribeOn(Schedulers.io())
 }

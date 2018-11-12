@@ -15,19 +15,19 @@ import io.reactivex.schedulers.Schedulers
 import kotlin.reflect.KClass
 
 internal class AuthenticatorFacade(
-    private val authenticators: Map<KClass<out Authenticator>, Authenticator>,
+    private val authenticators: Lazy<Map<KClass<out Authenticator>, Authenticator>>,
     private val userMapper: FirebaseUserToUserMapper,
     private val firebaseAuth: FirebaseAuth
 ) : Authenticator {
 
     override fun auth(credentials: AuthCredentials): Single<Optional<User>> = when (credentials as CardmeAuthCredentials) {
-        is CardmeAuthCredentials.Phone -> requireNotNull(authenticators[FirebasePhoneAuthenticator::class]).auth(credentials)
-        CardmeAuthCredentials.Google -> requireNotNull(authenticators[GoogleAuthenticator::class]).auth(credentials)
+        is CardmeAuthCredentials.Phone -> requireNotNull(authenticators.value[FirebasePhoneAuthenticator::class]).auth(credentials)
+        CardmeAuthCredentials.Google -> requireNotNull(authenticators.value[GoogleAuthenticator::class]).auth(credentials)
     }
 
     override fun handleResult(result: AuthResult): Single<Optional<User>> = when (result as CardmeAuthResult) {
-        is CardmeAuthResult.Phone -> checkNotNull(authenticators[FirebasePhoneAuthenticator::class]).handleResult(result)
-        is CardmeAuthResult.Google -> requireNotNull(authenticators[GoogleAuthenticator::class]).handleResult(result)
+        is CardmeAuthResult.Phone -> checkNotNull(authenticators.value[FirebasePhoneAuthenticator::class]).handleResult(result)
+        is CardmeAuthResult.Google -> requireNotNull(authenticators.value[GoogleAuthenticator::class]).handleResult(result)
     }
 
     override fun authState(): Flowable<Optional<User>> = Flowable.create<Optional<User>>({ emitter ->

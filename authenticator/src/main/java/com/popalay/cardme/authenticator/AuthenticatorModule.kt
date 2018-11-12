@@ -17,9 +17,9 @@ object AuthenticatorModule {
         single { FirebaseAuth.getInstance() }
         single<AuthResultFactory> { GoogleAuthResultFactory() }
         single<AuthCredentialsFactory> { GoolgeAuthCredentialsFactory() }
-        factory<Authenticator> { AuthenticatorFacade(get { it }, get { it }, get { it }) }
+        factory<Authenticator> { AuthenticatorFacade(lazy { get<Map<KClass<out Authenticator>, Authenticator>> { it } }, get { it }, get { it }) }
         factory { parameters ->
-            mapOf<KClass<*>, Authenticator>(
+            mapOf(
                 GoogleAuthenticator::class to GoogleAuthenticator(
                     androidContext(),
                     parameters.values.firstOrNull { it is Fragment } as Fragment?,
