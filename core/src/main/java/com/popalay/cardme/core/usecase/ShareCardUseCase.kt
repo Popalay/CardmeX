@@ -17,19 +17,18 @@ class ShareCardUseCase(
     override fun apply(upstream: Observable<Action>): ObservableSource<Result> = upstream.switchMap { action ->
         cardRepository.get(action.cardId)
             .firstElement()
-            .map {
-                Uri.Builder()
+            .doOnSuccess {
+                val link = Uri.Builder()
                     .scheme("https")
                     .authority("mecard.page.link")
                     .appendPath("card")
                     .appendPath(it.toNullable()?.id)
                     .build()
-            }
-            .doOnSuccess {
+
                 val intent = ShareCompat.IntentBuilder.from(fragment.requireActivity())
                     .setChooserTitle("Share with..")
                     .setType("text/plain")
-                    .setText("Hey, check out a card: $it")
+                    .setText("Hey, check out ${it.toNullable()?.holder?.name}'s card: $link")
                     .createChooserIntent()
                 if (intent.resolveActivity(fragment.requireActivity().packageManager) != null) {
                     fragment.startActivity(intent)
