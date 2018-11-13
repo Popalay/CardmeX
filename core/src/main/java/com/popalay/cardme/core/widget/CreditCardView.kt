@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.constraintlayout.motion.widget.MotionLayout
 import androidx.constraintlayout.widget.Group
 import androidx.core.view.isVisible
+import com.google.android.material.card.MaterialCardView
 import com.popalay.cardme.R
 import com.popalay.cardme.api.core.model.Card
 import com.popalay.cardme.core.extensions.bindView
@@ -19,7 +20,7 @@ class CreditCardView(
     context: Context,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0
-) : MotionLayout(context, attrs, defStyleAttr) {
+) : MaterialCardView(context, attrs, defStyleAttr) {
 
     private val textCardNotFound: TextView by bindView(R.id.text_card_not_found)
     private val groupCardFields: Group by bindView(R.id.group_card_fields)
