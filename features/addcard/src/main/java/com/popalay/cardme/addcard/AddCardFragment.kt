@@ -14,6 +14,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI
 import androidx.recyclerview.widget.RecyclerView
+import androidx.transition.AutoTransition
 import androidx.transition.TransitionManager
 import com.google.android.material.appbar.AppBarLayout
 import com.jakewharton.rxbinding2.view.RxMenuItem
@@ -102,7 +103,10 @@ internal class AddCardFragment : Fragment(), BindableMviView<AddCardViewState, A
                 isEnabled = isPublicEditable
             }
             if (peopleProgress) progressBar.show() else progressBar.hide()
-            TransitionManager.beginDelayedTransition(view as ViewGroup)
+            TransitionManager.beginDelayedTransition(
+                view as ViewGroup,
+                AutoTransition().excludeChildren(listUsers, true)
+            )
             buttonCross.apply {
                 isVisible = showClearButton
             }
