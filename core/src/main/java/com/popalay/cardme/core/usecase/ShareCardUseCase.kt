@@ -29,7 +29,7 @@ class ShareCardUseCase(
                 val intent = ShareCompat.IntentBuilder.from(fragment.requireActivity())
                     .setChooserTitle("Share with..")
                     .setType("text/plain")
-                    .setText("Hey, check out my card: $it")
+                    .setText("Hey, check out a card: $it")
                     .createChooserIntent()
                 if (intent.resolveActivity(fragment.requireActivity().packageManager) != null) {
                     fragment.startActivity(intent)
