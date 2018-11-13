@@ -6,11 +6,7 @@
 
     <action
         android:id="@+id/action_to_user_card"
-        app:destination="@+id/feature_user_card"
-        app:enterAnim="@anim/enter_slide_in_left"
-        app:exitAnim="@anim/exit_slide_out_right"
-        app:popEnterAnim="@anim/pop_enter_slide_in_right"
-        app:popExitAnim="@anim/pop_exit_slide_out_left" />
+        app:destination="@+id/feature_user_card" />
 
     <action
         android:id="@+id/action_to_add_card"
