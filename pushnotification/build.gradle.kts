@@ -12,6 +12,7 @@ dependencies {
     implementation(Libs.kotlin)
     implementation(Libs.picasso)
     implementation(Libs.rxJava)
+    implementation(Libs.ktx)
 
     implementation(Libs.firebaseMessaging)
     implementation(Libs.firebaseFireStore)

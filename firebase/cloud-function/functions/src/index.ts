@@ -23,14 +23,11 @@ exports.sendPushWhenAddCardRequest = functions.firestore
         const payload = {
           data: {
             notificationId: notificationRef.id,
-            requestId: snap.id
-          },
-          notification: {
+            requestId: snap.id,
             title: title,
-            body: description,
+            description: description,
             icon: userFrom.photoURL,
-            sound: "default"
-          },
+          }
         };
 
         const options = {
