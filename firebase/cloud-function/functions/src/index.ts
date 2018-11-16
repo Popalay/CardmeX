@@ -60,7 +60,7 @@ exports.sendPushWhenAddCardRequest = functions.firestore
           })
           .catch(error => console.log('Send notification error: ', error))
       });
-  });
+  })
 
 exports.saveCardToUserWhenAgree = functions.firestore
   .document('requests/{requestId}')

@@ -149,6 +149,7 @@ internal class AddCardFragment : Fragment(), BindableMviView<AddCardViewState, A
 
     private val userClickedIntent
         get() = usersAdapter.itemClickObservable
+            .filter { !it.isProgress }
             .applyThrottling()
             .map { AddCardIntent.OnUserClicked(it.user) }
 

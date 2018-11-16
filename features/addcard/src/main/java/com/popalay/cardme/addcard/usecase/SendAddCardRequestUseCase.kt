@@ -24,7 +24,7 @@ internal class SendAddCardRequestUseCase(
             .map { it.component1() }
             .flatMapCompletable {
                 val requestId = UUID.randomUUID().toString()
-                val request = Request.AddCardRequest(requestId, it.uuid, action.user.uuid)
+                val request = Request.AddCardRequest(requestId, it.uuid, action.user.uuid, Date())
                 requestRepository.save(request)
                     .doOnComplete { if (action.closeOnSuccess) router.navigateUp() }
             }
