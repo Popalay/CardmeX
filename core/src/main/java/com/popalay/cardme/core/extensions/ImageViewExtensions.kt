@@ -1,5 +1,6 @@
 package com.popalay.cardme.core.extensions
 
+import android.content.Context
 import android.graphics.drawable.Drawable
 import android.widget.ImageView
 import androidx.annotation.DrawableRes
@@ -52,7 +53,7 @@ fun ImageView.loadImage(url: String?, placeHolder: Placeholder, vararg transform
 }
 
 fun ImageView.showMenuUser(value: User) {
-    val placeholder = TextDrawable(context, value.displayName.value[0].toString())
+    val placeholder = value.displayName.value.toTextDrawable(context)
     loadImage(
         value.photoUrl,
         Placeholder(placeholder),
@@ -61,7 +62,7 @@ fun ImageView.showMenuUser(value: User) {
 }
 
 fun ImageView.showUser(value: User) {
-    val placeholder = TextDrawable(context, value.displayName.value[0].toString())
+    val placeholder = value.displayName.value.toTextDrawable(context)
     loadImage(
         value.photoUrl,
         Placeholder(placeholder),
@@ -70,6 +71,8 @@ fun ImageView.showUser(value: User) {
 }
 
 fun ImageView.showHolder(value: Holder) {
-    val placeholder = TextDrawable(context, value.name.get(0).toString())
+    val placeholder = value.name.toTextDrawable(context)
     loadImage(value.photoUrl, Placeholder(placeholder), CircleImageTransformation())
 }
+
+private fun String.toTextDrawable(context: Context) = TextDrawable(context, getOrElse(0) { ' ' }.toString())

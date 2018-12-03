@@ -1,14 +1,14 @@
 @file:Suppress("unused")
 
 object Versions {
-    const val versionName = "0.2.1"
+    const val versionName = "0.2.2"
     val versionCode = (System.getenv("BITRISE_BUILD_NUMBER") ?: "109").toInt()
 
     const val minSdkVersion = 24
     const val targetSdkVersion = 28
     const val compileSdkVersion = 28
 
-    const val gradlePlugin = "3.3.0-beta04"
+    const val gradlePlugin = "3.3.0-rc01"
     const val kotlinLanguage = "1.3.10"
 
     const val constraintLayout = "2.0.0-alpha2"
